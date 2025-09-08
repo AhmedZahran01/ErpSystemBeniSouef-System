@@ -1,0 +1,42 @@
+[
+  { 
+    "Name": "القاهرة",
+    "StartNumbering": 1
+  },
+  { 
+    "Name": "الجيزة",
+    "StartNumbering": 100
+  },
+  { 
+    "Name": "الإسكندرية",
+    "StartNumbering": 200
+  },
+  { 
+    "Name": "المنصورة",
+    "StartNumbering": 300
+  },
+  { 
+    "Name": "طنطا",
+    "StartNumbering": 400
+  },
+  { 
+    "Name": "بني سويف",
+    "StartNumbering": 500
+  },
+  { 
+    "Name": "أسيوط",
+    "StartNumbering": 600
+  },
+  { 
+    "Name": "سوهاج",
+    "StartNumbering": 700
+  },
+  { 
+    "Name": "الأقصر",
+    "StartNumbering": 800
+  },
+  { 
+    "Name": "أسوان",
+    "StartNumbering": 900
+  }
+]

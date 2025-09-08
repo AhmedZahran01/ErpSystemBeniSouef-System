@@ -1,0 +1,114 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit">
+
+    <Style x:Key="LargeInputTextBox" TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+        <Setter Property="FontSize" Value="32"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style x:Key="TextArea" TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Width" Value="350"/>
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="AcceptsReturn" Value="True"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="5" />
+            </Style>
+        </Style.Resources>
+    </Style>
+
+    <Style x:Key="LargePasswordBox" TargetType="PasswordBox">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Padding" Value="8"/>
+        <Setter Property="BorderThickness" Value="0,0,2,2"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ButtonColor}"/>
+        <Setter Property="Background" Value="{DynamicResource InputColor}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextColor}"/>
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Border x:Name="border" CornerRadius="5" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                    <Condition Property="IsSelectionActive" Value="false"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+            </MultiTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Name="DatePickerInput" TargetType="DatePicker">
+        <Style.Resources>
+            <Style TargetType="DatePickerTextBox">
+                <Setter Property="Background" Value="{StaticResource InputColor}" />
+                <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+                <Setter Property="FontSize" Value="22" />
+            </Style>
+
+            <!-- Custom CalendarStyle -->
+            <Style TargetType="Calendar" BasedOn="{StaticResource {x:Type Calendar}}">
+                <Setter Property="DisplayMode" Value="Year" />
+                <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+                <Setter Property="Background" Value="{StaticResource InputColor}" />
+                <Setter Property="FontSize" Value="18" />
+                <!-- Additional customizations for the calendar -->
+            </Style>
+        </Style.Resources>
+
+        <Setter Property="Background" Value="{StaticResource InputColor}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+
+        <Style.Triggers>
+            <!-- your triggers here -->
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="DateTimePickerStyle" TargetType="{x:Type xctk:DateTimePicker}">
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="350" />
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}" />
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="CultureInfo" Value="sr-Latn-RS" />
+    </Style>
+
+</ResourceDictionary>

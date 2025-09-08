@@ -1,0 +1,116 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=netstandard">
+
+    <system:String x:Key="AdmissionsSidebar">القبول</system:String>
+    <system:String x:Key="AppointmentsSidebar">المواعيد</system:String>
+    <system:String x:Key="ChangePassword">تغيير كلمة المرور</system:String>
+    <system:String x:Key="DarkTheme">الوضع الداكن</system:String>
+    <system:String x:Key="Doctor">طبيب</system:String>
+    <system:String x:Key="ErrorEmptyFields">الحقول المطلوبة لا يمكن أن تكون فارغة!</system:String>
+    <system:String x:Key="ErrorUsernameAlreadyExists">اسم المستخدم موجود بالفعل! اختر اسمًا آخر.</system:String>
+    <system:String x:Key="ErrorUpdated">فشل في الحفظ!</system:String>
+    <system:String x:Key="ErrorWrongCredentials">بيانات الاعتماد غير صحيحة!</system:String>
+    <system:String x:Key="GreenTheme">الثيم الأخضر</system:String>
+    <system:String x:Key="BlueTheme">الثيم الأزرق</system:String>
+    <system:String x:Key="Hospital">مستشفى أم المصريين</system:String>
+    <system:String x:Key="Languages">اللغات</system:String>
+    <system:String x:Key="LightTheme">الوضع الفاتح</system:String>
+    <system:String x:Key="Schedule"> مواعيد </system:String>
+    <system:String x:Key="Login">تسجيل الدخول</system:String>
+    <system:String x:Key="LoginTitle">تسجيل الدخول</system:String>
+    <system:String x:Key="Manager">مدير</system:String>
+    <system:String x:Key="FirstName">الاسم الأول</system:String>
+    <system:String x:Key="Password">كلمة المرور</system:String>
+    <system:String x:Key="OldPassword">كلمة المرور القديمة</system:String>
+    <system:String x:Key="NewPassword">كلمة المرور الجديدة</system:String>
+    <system:String x:Key="PhoneNumber">رقم الهاتف</system:String>
+    <system:String x:Key="RecordsSidebar">السجلات</system:String>
+    <system:String x:Key="Register">تسجيل</system:String>
+    <system:String x:Key="RegisterTitle">التسجيل</system:String>
+    <system:String x:Key="Save">حفظ</system:String>
+    <system:String x:Key="SettingsSidebar">الإعدادات</system:String>
+    <system:String x:Key="SuccessNewRegistration">تم إنشاء المستخدم بنجاح!</system:String>
+    <system:String x:Key="SuccessUpdated">تم التحديث بنجاح!</system:String>
+    <system:String x:Key="SurgeriesSidebar">العمليات</system:String>
+    <system:String x:Key="Surname">اللقب</system:String>
+    <system:String x:Key="Themes">الثيمات</system:String>
+    <system:String x:Key="Username">اسم المستخدم</system:String>
+    <system:String x:Key="ItemsSidebar">المخزون</system:String>
+    <system:String x:Key="StaffSidebar">الطاقم</system:String>
+    <system:String x:Key="Nurse">مربية</system:String>
+    <system:String x:Key="PatientsSidebar">المرضى</system:String>
+    <system:String x:Key="Logout">تسجيل الخروج</system:String>
+    <system:String x:Key="Search">بحث</system:String>
+    <system:String x:Key="Admissions">القبول</system:String>
+    <system:String x:Key="AddNewAdmission">أضف قبولاً جديداً</system:String>
+    <system:String x:Key="NameAndSurname">الاسم الكامل</system:String>
+    <system:String x:Key="Type">النوع </system:String>
+    <system:String x:Key="AdmissionDate">تاريخ القبول</system:String>
+    <system:String x:Key="DischargeDate">تاريخ الخروج</system:String>
+    <system:String x:Key="Filter">تصفية</system:String>
+    <system:String x:Key="Patients">المرضى</system:String>
+    <system:String x:Key="AddNewPatient">أضف مريضاً جديداً</system:String>
+    <system:String x:Key="UpdatePatient">تحديث المريض</system:String>
+    <system:String x:Key="Address">العنوان</system:String>
+    <system:String x:Key="BirthDate">تاريخ الميلاد</system:String>
+    <system:String x:Key="Operations">العمليات</system:String>
+    <system:String x:Key="Create">إنشاء</system:String>
+    <system:String x:Key="Update">تحديث</system:String>
+    <system:String x:Key="AreYouSure">هل أنت متأكد أنك تريد تنفيذ هذا الإجراء؟</system:String>
+    <system:String x:Key="Yes">نعم</system:String>
+    <system:String x:Key="No">لا</system:String>
+    <system:String x:Key="SuccessCreated">تم الإنشاء بنجاح!</system:String>
+    <system:String x:Key="SuccessDeleted">تم الحذف بنجاح!</system:String>
+    <system:String x:Key="Patient">مريض</system:String>
+    <system:String x:Key="UpdateAdmission">تحديث القبول</system:String>
+    <system:String x:Key="UpdateAppointment">تحديث الموعد</system:String>
+    <system:String x:Key="Appointment">المواعيد</system:String>
+    <system:String x:Key="AddNewAppointment">أضف موعداً جديداً</system:String>
+    <system:String x:Key="AppointmentDate">تاريخ الموعد</system:String>
+    <system:String x:Key="Record">السجلات</system:String>
+    <system:String x:Key="AddNewRecord">أضف سجلاً جديداً</system:String>
+    <system:String x:Key="RecordDate">تاريخ السجل</system:String>
+    <system:String x:Key="Diagnosis">تشخيص</system:String>
+    <system:String x:Key="Prescription">وصفة طبية</system:String>
+    <system:String x:Key="Prescriptions">وصفات طبية</system:String>
+    <system:String x:Key="Surgeries">العمليات</system:String> 
+
+    <system:String x:Key="SurgerysDates">مواعيد العمليات الجراحية</system:String>
+    <system:String x:Key="AddnewSurgery">إضافة جراحة جديدة</system:String>
+    <system:String x:Key="AddnewRecord">إضافة سجل جديد</system:String>
+    <system:String x:Key="Recipe">وصفة</system:String>
+    <system:String x:Key="Are you sure">هل أنت متأكد أنك تريد تنفيذ هذا الإجراء؟</system:String>
+    <system:String x:Key="ok">حسنا</system:String>
+    <system:String x:Key="Inventory">قائمة الجرد</system:String> 
+    <system:String x:Key="Title">العنوان</system:String>
+    <system:String x:Key="WELCOME2">مرحبًا بك في لوحة تحكم المدير</system:String>
+    <system:String x:Key="Addanewitem">إضافة عنصر جديد</system:String>
+    <system:String x:Key="DatesDetails">السجلات</system:String>
+    <system:String x:Key="error">AA </system:String>
+    
+    <system:String x:Key="FRANCE">الفرنسية</system:String>
+    <system:String x:Key="English">الإنجليزية</system:String>
+    <system:String x:Key="Arabic">العربية</system:String>
+
+
+
+
+    <system:String x:Key="AddNewSurgery">أضف عملية جديدة</system:String>
+    <system:String x:Key="SurgeryDate">تاريخ العملية</system:String>
+    <system:String x:Key="Notes">ملاحظات</system:String>
+    <system:String x:Key="UpdateSurgery">تحديث العملية</system:String>
+    <system:String x:Key="UpdateRecord">تحديث السجل</system:String>
+    <system:String x:Key="Items">المخزون</system:String>
+    <system:String x:Key="AddNewItem">أضف عنصرًا جديدًا</system:String>
+    <system:String x:Key="ItemName">الاسم</system:String>
+    <system:String x:Key="Staff">الطاقم</system:String>
+    <system:String x:Key="UpdateStaff">تحديث الطاقم</system:String>
+    <system:String x:Key="Profession">المهنة</system:String>
+    <system:String x:Key="AddNewPerson">أضف موظفًا جديدًا</system:String>
+    <system:String x:Key="ErrorCantPerformThis">لا يمكن تنفيذ هذا الإجراء!</system:String>
+    <system:String x:Key="Managers">المديرون</system:String>
+    <system:String x:Key="Doctors">الأطباء</system:String>
+    <system:String x:Key="Nurses">الممرضات</system:String>
+
+</ResourceDictionary>

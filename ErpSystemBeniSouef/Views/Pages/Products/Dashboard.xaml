@@ -1,0 +1,109 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.Products.Dashboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.Products"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="800"
+      Background="{DynamicResource BackgroundColor}"
+             Title="AdminWindow" 
+        MinHeight="700" MinWidth="1000"   
+       FontFamily="Segoe UI">
+
+
+
+
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/ComboBoxStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/TableStyles.xaml"/> 
+                <ResourceDictionary Source="../../../Styles/BorderStyles.xaml"/>    
+                
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <BooleanToVisibilityConverter x:Key="StringIsNullOrEmptyToVisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+ 
+
+
+    <Grid  >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <userControls:TitleBar/>
+
+       
+        <!-- المحتوى الرئيسي -->
+        <Grid  Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+             <!-- التكويد -->
+            <StackPanel  Grid.Column="0" Grid.Row="1" Background="#1B7F" Margin="15"  >
+                <TextBlock Text="" Margin="0 30 0 0"  Style="{StaticResource HeaderTextBlock}"/>
+                <Button Content="المناطق"  Margin="0 30 0 0" Style="{StaticResource TestButtonStyle}" Click="Button_Click_1"/>
+                <Button Content="مناديب ومحصلين"  Margin="0 30 0 0" Style="{StaticResource TestButtonStyle}" Click="RepresentativeCollector_Click" />
+                <Button Content="السلع"  Margin="0 30 0 0" Style="{StaticResource TestButtonStyle}" Click="Products_Click_1"/>
+               
+            </StackPanel>
+
+            <!-- التسجيل -->
+            <StackPanel  Grid.Row="1" Grid.Column="1" Background="#1B7F" Margin="10"  >
+                <TextBlock Text=""   Style="{StaticResource HeaderTextBlock}"/>
+                <Button Content="العملاء"    Style="{StaticResource TestButtonStyle}"/>
+                <Button Content="الفواتير ونقدية الموردين"   Style="{StaticResource TestButtonStyle}" />
+                <Button Content="العهدة"    Style="{StaticResource TestButtonStyle}" Click="Button_Click"/>
+                <Button Content="التحصيل"   Style="{StaticResource TestButtonStyle}"/>
+                <Button Content="النثريات"  Style="{StaticResource TestButtonStyle}"/> 
+            </StackPanel>
+
+            <!-- التقارير -->
+            <StackPanel  Grid.Row="1"  Grid.Column="2" Background="#1B7F" Margin="0"  >
+                <TextBlock Text=""    Style="{StaticResource HeaderTextBlock}"/>
+                <Button Content="الإيصالات"          Style="{StaticResource TestButtonStyle}"   />
+                <Button Content="تقارير المناديب" Style="{StaticResource TestButtonStyle}"  />
+                <Button Content="التقارير"         Style="{StaticResource TestButtonStyle}"  />
+                <Button Content="تقرير الداخل والخارج" Style="{StaticResource TestButtonStyle}"/>
+                <Button Content="مسودة العملاء" Style="{StaticResource TestButtonStyle}"/>
+                <Button Content="شهرية" Style="{StaticResource TestButtonStyle}" />
+            </StackPanel>
+        </Grid>
+
+        <StackPanel  Grid.Row="2" Background="Black" Margin="10"  >
+
+
+
+            <Button Content="الاعدادات" 
+                     FontSize="28"
+ FontWeight="Bold"
+ HorizontalAlignment="Left"
+ Margin="10,0,0,0"
+ Foreground ="White"
+                    Background="#FF0E83B4"
+                    Style="{StaticResource TestButtonStyle}"/>
+
+        </StackPanel>
+
+
+    </Grid>
+
+    
+</Page>

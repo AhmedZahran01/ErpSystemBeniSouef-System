@@ -1,0 +1,84 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views"
+      mc:Ignorable="d" 
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="LoginPage"
+      
+      Background="{DynamicResource BackgroundColor}"
+Foreground="{DynamicResource TextColor}"
+FontFamily="{DynamicResource MainFont}"  >
+
+
+
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/TableStyles.xaml"/>
+                <ResourceDictionary Source="../Styles/BorderStyles.xaml"/> 
+                
+                <ResourceDictionary Source="../Language/Strings.en.xaml"/>
+                <ResourceDictionary Source="../Language/Strings.ar.xaml"/>
+
+
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="MainFont">pack://application:,,,/Assets/#Roboto</FontFamily>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <BooleanToVisibilityConverter x:Key="StringIsNullOrEmptyToVisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="42"/>
+            <RowDefinition Height="*"/> 
+        </Grid.RowDefinitions>
+        <userControls:TitleBar/>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+                        Margin="20">
+            <TextBlock Text="{DynamicResource LoginTitle}"  
+                           Style="{StaticResource HeaderTextBlock}"/>
+            <Grid VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{DynamicResource Username}"  
+                        Grid.Row="0"
+                        Style="{StaticResource LargeDefaultTextBlock}"/>
+                <TextBox  Grid.Column="1"
+                      Grid.Row="1"
+                      Name="UsernameText"
+                      Style="{StaticResource LargeInputTextBox}"/>
+                <TextBlock Text="{DynamicResource Password}"  
+                       Grid.Row="2"
+                       Style="{StaticResource LargeDefaultTextBlock}"/>
+                <PasswordBox Grid.Row="3"
+                          Name="PasswordText"
+                          Style="{StaticResource LargePasswordBox}"/>
+            </Grid>
+            <Button x:Name="LoginBtn"
+                        Content= "{DynamicResource Login}"  
+                        Click="OnLoginClick"
+                        ClickMode="Press"
+                        Style="{StaticResource LargeButtonStyle}"/>
+        </StackPanel>
+    </Grid>
+
+
+
+</Page>
