@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerStore.Core.DTOs.MainAreaDtos
+namespace ErpSystemBeniSouef.Core.DTOs.MainAreaDtos
 {
     public class SubAreaResponseDto
     {

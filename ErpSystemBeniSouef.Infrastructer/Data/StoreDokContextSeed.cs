@@ -1,7 +1,6 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Infrastructer.Data.Context;
-using PowerStore.Core.DTOs.MainAreaDtos;
+using ErpSystemBeniSouef.Infrastructer.Data.Context; 
 using System;
 using System.Collections.Generic;
 using System.IO;

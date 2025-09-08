@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PowerStore.Core
+namespace ErpSystemBeniSouef.Core
 {
     public abstract class MapperBase<TSource, TDestination>
     { 

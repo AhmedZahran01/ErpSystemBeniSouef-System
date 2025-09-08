@@ -11,8 +11,7 @@ namespace ErpSystemBeniSouef.Views
 
         public StartPageBeforeLogin()
         {
-            InitializeComponent();
-
+            InitializeComponent(); 
             dispatcherTimer.Interval = TimeSpan.FromSeconds(1); // فتح بعد 4 ثواني
             dispatcherTimer.Tick += MySplash;
             dispatcherTimer.Start();

@@ -27,19 +27,19 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
     {
         ObservableCollection<MainArea> observalMainRegions = new();
         List<MainArea> mainRegions = new List<MainArea>();
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public MainRegionPage(IUnitOfWork mainAreaRepo)
+        public MainRegionPage(IUnitOfWork unitOfWork)
         {
             InitializeComponent();
-            unitOfWork = mainAreaRepo;
+            _unitOfWork = unitOfWork;
             SeedDefaultRegions();
             dgMainRegions.ItemsSource = observalMainRegions;
         }
 
         private void SeedDefaultRegions()
         {
-            mainRegions = unitOfWork.Repository<MainArea>().GetAll();
+            mainRegions = _unitOfWork.Repository<MainArea>().GetAll();
             foreach (var item in mainRegions)
             {
                 observalMainRegions.Add(item);
@@ -59,8 +59,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 StartNumbering = startNumber
             };
             int addValue = 0;
-            unitOfWork.Repository<MainArea>().Add(newMainArea);
-            addValue = await unitOfWork.CompleteAsync();
+            _unitOfWork.Repository<MainArea>().Add(newMainArea);
+            addValue = await _unitOfWork.CompleteAsync();
 
             if (addValue == 1)
             {
@@ -68,7 +68,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 txtRegionName.Clear();
                 txtRegionStartNumber.Clear();
 
-                mainRegions = unitOfWork.Repository<MainArea>().GetAll();
+                mainRegions = _unitOfWork.Repository<MainArea>().GetAll();
                 foreach (var item in mainRegions)
                 {
                     observalMainRegions.Add(item);
@@ -94,11 +94,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             foreach (var item in selectedItems)
             {
                 item.IsDeleted = true;
-                unitOfWork.Repository<MainArea>().Update(item);
+                _unitOfWork.Repository<MainArea>().Update(item);
                 observalMainRegions.Remove(item);
             }
 
-            int deleteMainArea = unitOfWork.Complete();
+            int deleteMainArea = _unitOfWork.Complete();
             MessageBox.Show("تم حذف المنطقه الاساسية");
 
         }
