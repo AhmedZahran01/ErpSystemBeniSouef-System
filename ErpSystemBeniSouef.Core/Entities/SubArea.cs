@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,10 @@ namespace ErpSystemBeniSouef.Core.Entities
     { 
         public string Name { get; set; } = "";
 
+        [ForeignKey("MainArea")]
         public int MainAreaId { get; set; }
-        public MainArea? MainArea { get; set; }
+        public MainArea? mainRegions { get; set; }
+
+         
     }
 }

@@ -11,6 +11,10 @@ namespace ErpSystemBeniSouef.Core.Entities
         public required string Name { get; set; }
         public int StartNumbering { get; set; }
 
-        public virtual ICollection<SubArea>? SubAreas { get; set; }
+        public virtual ICollection<SubArea>? SubAreas { get; set; }  = new List<SubArea>();
+        public override string ToString()
+        {
+            return $"{Name}";
+        }
     }
 }

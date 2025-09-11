@@ -1,0 +1,127 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.Regions.SubRegionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.Products"
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="950" d:DesignWidth="1000"
+      Title="SubRegionPage">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/TableStyles.xaml"/>
+                <ResourceDictionary Source="../../../Styles/BorderStyles.xaml"/>
+
+                <ResourceDictionary Source="../../../Styles/ComboBoxStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="MainFont">pack://application:,,,/Assets/#Roboto</FontFamily>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <BooleanToVisibilityConverter x:Key="StringIsNullOrEmptyToVisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    
+    <Grid>
+        <Grid Background="{DynamicResource BackgroundColor}" Margin="0 0 0 0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height=".5*"/>
+                <RowDefinition Height="1.6*"/>
+                <!-- المدخلات -->
+                <RowDefinition Height="1.2*"/>
+                <!-- الأزرار -->
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="*"/>
+                <!-- الجدول -->
+            </Grid.RowDefinitions>
+            <userControls:TitleBar/>
+
+
+            <!-- قسم المدخلات -->
+            <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0 1 0 0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 10">
+                    <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
+                    <ComboBox x:Name="cb_MainRegionName" 
+                              Style="{StaticResource SmallerComboBox}"  
+                             />
+                    <TextBlock Text="  :  اسم المنطقة الأساسية" 
+         Foreground="White" FontSize="14" 
+         VerticalAlignment="Center" Margin="20 0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
+                    <TextBox x:Name="txtSbuRegionStartNumber" Style="{StaticResource textboxx}"    />
+                    <TextBlock Text=" :  اسم المنطقة الفرعيه   "  
+         Foreground="White" FontSize="14" 
+         VerticalAlignment="Center" Margin="5 0"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- الأزرار -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 0">
+                <Button Style="{StaticResource DeleteButtonn}"  Content="حذف"   Margin="10" Click="BtnDelete_Click"/>
+                <Button Style="{StaticResource AddButtonn}"   Content="إضافة"   Margin="20" Click="BtnAdd_Click"/>
+            </StackPanel>
+
+            <!-- الجدول -->
+            <DataGrid Grid.Row="3" SelectionChanged="dgSubRegions_SelectionChanged"
+x:Name="dgSubRegions"
+AutoGenerateColumns="False"
+CanUserAddRows="False"
+CanUserDeleteRows="False"
+IsReadOnly="False"
+HeadersVisibility="Column"
+FontSize="14"
+RowHeight="28"
+Background="White">
+               
+                <DataGrid.Columns>
+
+                    <!-- عمود الأزرار -->
+                    <DataGridTemplateColumn Header="العمليات" Width="2*" Visibility="Collapsed" 
+                         x:Name="btnsvisabiltiy">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Button Content="🗑 حذف" 
+                                         Style="{StaticResource GridDeleteButtonn}" 
+                                         Margin="15,0" Padding="10,2"
+                                         Click="BtnDelete_Click"/>
+
+                                    <Button Content="✏ تعديل" 
+                                        Style="{StaticResource GridAddButtonn}" 
+                                        Margin="15,0" Padding="0,2"
+                                        Click="BtnEdit_Click"/>
+
+                                
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTextColumn Binding="{Binding Name}" Header="المنطقة الفرعيه " Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding MainArea}" Header="المنطقة الأساسية" Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="الرقم المسلسل" Width="*"/>
+ 
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+            <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+                    Content="↩" FontSize="22" Style="{StaticResource triggerrr}"
+                    Margin="21,10,0,1"  
+                    Click="BackBtn_Click"/>
+
+        </Grid>
+
+    </Grid>
+    
+</Page>

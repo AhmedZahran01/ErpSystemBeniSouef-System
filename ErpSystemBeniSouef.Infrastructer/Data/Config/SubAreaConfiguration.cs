@@ -20,7 +20,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Config
                 .HasMaxLength(100); 
 
             // Configure relationship
-            builder.HasOne(sa => sa.MainArea)
+            builder.HasOne(sa => sa.mainRegions)
                 .WithMany(ma => ma.SubAreas)
                 .HasForeignKey(sa => sa.MainAreaId)
                 .OnDelete(DeleteBehavior.Restrict); // or Cascade based on your needs

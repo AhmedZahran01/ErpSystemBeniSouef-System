@@ -7,8 +7,7 @@ using ErpSystemBeniSouef.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using ErpSystemBeniSouef.Core.Contract.Responses;
+using System.Threading.Tasks; 
 
 namespace ErpSystemBeniSouef.Service.MainAreaServices
 {
@@ -29,21 +28,19 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
             var mainAreas =  _unitOfWork.Repository<MainArea>().GetAll();
 
             var mainAreasDto = mainAreas.Select(ma => _mapper.Map<MainAreaResponseDto>(ma)).ToList();
-            return mainAreasDto;
-
+            return mainAreasDto; 
         }
+         
+        //public async Task<ApiResponse<MainAreaResponseDto>> GetByIdAsync(int id)
+        //{ 
+        //    var mainArea = await _unitOfWork.Repository<MainArea>().GetByIdAsync(id);
 
+        //    if (mainArea == null)
+        //        return ApiResponse<MainAreaResponseDto>.ErrorResponse($"MainArea with Id {id} not found.");
 
-        public async Task<ApiResponse<MainAreaResponseDto>> GetByIdAsync(int id)
-        { 
-            var mainArea = await _unitOfWork.Repository<MainArea>().GetByIdAsync(id);
-
-            if (mainArea == null)
-                return ApiResponse<MainAreaResponseDto>.ErrorResponse($"MainArea with Id {id} not found.");
-
-            var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
-            return ApiResponse<MainAreaResponseDto>.SuccessResponse(mainAreaDto, "Main area retrieved successfully.");
-        }
+        //    var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
+        //    return ApiResponse<MainAreaResponseDto>.SuccessResponse(mainAreaDto, "Main area retrieved successfully.");
+        //}
 
         //public async Task<ApiResponse<MainAreaResponseDto>> CreateAsync(CreateMainAreaDto createDto)
         //{

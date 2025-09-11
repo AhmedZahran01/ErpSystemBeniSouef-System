@@ -43,7 +43,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         }
 
         private void BtnSubRegions_Click(object sender, RoutedEventArgs e)
-        { 
+        {
+            var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
+            var subRegionPage = new SubRegionPage(repo);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(subRegionPage);
+
         }
 
         private void LeftBtn_Click(object sender, RoutedEventArgs e)

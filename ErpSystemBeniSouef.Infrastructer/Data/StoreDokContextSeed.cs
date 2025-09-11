@@ -21,8 +21,15 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
 
             if (!dbcontext.mainAreas.Any()) // Check if the database is empty
             {
-                var mainRegionsData = File.ReadAllText
-                    ("C:\\Users\\Click\\Desktop\\الشريف سيستم\\Local Copy Of Project\\$ErpSystemBeniSouef\\ErpSystemBeniSouef.Infrastructer\\Data\\DataSeeding\\mainRegions.json");
+                //var mainRegionsData = File.ReadAllText
+                //    ("C:\\Users\\Click\\Desktop\\الشريف سيستم\\Local Copy Of Project\\$ErpSystemBeniSouef\\ErpSystemBeniSouef.Infrastructer\\Data\\DataSeeding\\mainRegions.json");
+
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "mainRegions.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف subRegion.json مش موجود في: {filePath}");
+
+                var mainRegionsData = File.ReadAllText(filePath);
 
                 var mainRegions = JsonSerializer.Deserialize<List<MainArea>>(mainRegionsData);
 
@@ -41,9 +48,13 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
             #region Sub Areas Region 
 
             if (!dbcontext.subAreas.Any()) // Check if the database is empty
-            {
-                var subRegionData = File.ReadAllText
-                    ("C:\\Users\\Click\\Desktop\\الشريف سيستم\\Local Copy Of Project\\$ErpSystemBeniSouef\\ErpSystemBeniSouef.Infrastructer\\Data\\DataSeeding\\subRegion.json");
+            { 
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "subRegion.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف subRegion.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
 
                 var subRegions = JsonSerializer.Deserialize<List<SubArea>>(subRegionData);
 

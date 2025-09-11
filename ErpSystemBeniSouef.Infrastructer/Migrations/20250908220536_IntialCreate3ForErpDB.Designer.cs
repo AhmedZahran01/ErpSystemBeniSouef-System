@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErpSystemBeniSouef.Infrastructer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250908220536_IntialCreate3ForErpDB")]
+    partial class IntialCreate3ForErpDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -393,13 +396,13 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.SubArea", b =>
                 {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.MainArea", "mainRegions")
+                    b.HasOne("ErpSystemBeniSouef.Core.Entities.MainArea", "MainArea")
                         .WithMany("SubAreas")
                         .HasForeignKey("MainAreaId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("mainRegions");
+                    b.Navigation("MainArea");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

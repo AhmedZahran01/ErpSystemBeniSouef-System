@@ -4,6 +4,8 @@ using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views;
+using ErpSystemBeniSouef.Views.Pages.Regions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -40,13 +42,10 @@ namespace ErpSystemBeniSouef
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(
             "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
-                 ) );
+                 ));
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
     })
     .Build();
-
-
-
 
             await AppHost.StartAsync();
 
@@ -54,11 +53,9 @@ namespace ErpSystemBeniSouef
             {
                 using var scope = AppHost.Services.CreateScope();
                 var services = scope.ServiceProvider;
-
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate(); // sync افضل هنا
                 await StoreDokContextSeed.SeedAsync(dbContext);
-
             }
             catch (Exception ex)
             {
@@ -71,20 +68,20 @@ namespace ErpSystemBeniSouef
                 var logger = loggerFactory.CreateLogger<App>();
                 logger.LogError(ex, "An error occurred during migration or seeding.");
             }
-
             // افتح الـ MainWindow
             var mainWindow = new Views.Windows.MainWindow();
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindow.DataContext = mainWindowViewModel;
             mainWindowViewModel.setContext(mainWindow);
-            var login = new Views.StartPageBeforeLogin();
+
+
+            var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
+            //var mainRegionPage = new MainRegionPage(repo);
+            //var login = new SubRegionPage(repo);
+            var login = new StartPageBeforeLogin();
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();
-
         }
-
-
-
         protected override async void OnExit(ExitEventArgs e)
         {
             if (AppHost != null)
