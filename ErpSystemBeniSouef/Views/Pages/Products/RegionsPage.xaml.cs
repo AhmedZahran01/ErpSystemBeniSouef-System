@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.Regions;
@@ -36,8 +37,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             //    var mainRegionPage = new Regions.MainRegionPage();
             //    MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(mainRegionPage);
 
+            var mainAreaServiceRepo = App.AppHost.Services.GetRequiredService<IMainAreaService>();
             var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
-            var mainRegionPage = new MainRegionPage(repo);
+            var mainRegionPage = new MainRegionPage(repo , mainAreaServiceRepo);
+            //var mainRegionPage = new MainRegionPage(repo, mainAreaServiceRepo);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(mainRegionPage);
 
         }

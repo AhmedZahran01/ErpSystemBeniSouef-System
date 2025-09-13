@@ -115,7 +115,24 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
                  Background="White" >
                
                 <DataGrid.Columns>
- 
+
+                    <DataGridTextColumn Binding="{Binding mainRegions.Name}" Header="المنطقة الأساسية لها" Width="2*">
+
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+
                     <DataGridTextColumn Binding="{Binding Name}" Header="المنطقة الفرعيه " Width="2*">
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -132,22 +149,7 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
                     
                     </DataGridTextColumn>
                     
-                    <DataGridTextColumn Binding="{Binding mainRegions.Name}" Header="المنطقة الأساسية" Width="2*">
-
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center"/>
-                                <Setter Property="TextAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-
-                        <DataGridTextColumn.HeaderStyle>
-                            <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            </Style>
-                        </DataGridTextColumn.HeaderStyle>
-                    </DataGridTextColumn>
-
+                  
                     <DataGridTextColumn Binding="{Binding Id}" Header="الرقم المسلسل" Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -163,6 +165,7 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
                         </DataGridTextColumn.HeaderStyle>
                     </DataGridTextColumn>
 
+                    
                 </DataGrid.Columns>
             </DataGrid>
 

@@ -23,14 +23,14 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
         }
 
 
-        public async Task<IReadOnlyList<MainAreaResponseDto>> GetAllAsync()
+        public  IReadOnlyList<MainAreaResponseDto> GetAll()
         {
             var mainAreas =  _unitOfWork.Repository<MainArea>().GetAll();
 
             var mainAreasDto = mainAreas.Select(ma => _mapper.Map<MainAreaResponseDto>(ma)).ToList();
             return mainAreasDto; 
         }
-         
+
         //public async Task<ApiResponse<MainAreaResponseDto>> GetByIdAsync(int id)
         //{ 
         //    var mainArea = await _unitOfWork.Repository<MainArea>().GetByIdAsync(id);

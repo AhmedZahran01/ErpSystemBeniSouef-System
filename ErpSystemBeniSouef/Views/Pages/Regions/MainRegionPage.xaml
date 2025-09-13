@@ -34,7 +34,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height=".7*"/>
-                <RowDefinition Height="1.6*"/>
+                <RowDefinition Height="2.6*"/>
                 <!-- المدخلات -->
                 <RowDefinition Height="1.4*"/>
                 <!-- الأزرار -->
@@ -45,9 +45,9 @@
             <userControls:TitleBar/>
 
             <!-- قسم المدخلات -->
-            <StackPanel   FlowDirection="RightToLeft" Grid.Row="1" Orientation="Horizontal" 
-                          Margin="0 10 0 10 ">
-                <StackPanel Orientation="Horizontal" Margin="5 5 10 5">
+            <StackPanel   FlowDirection="RightToLeft" Grid.Row="1" Orientation="Vertical" 
+                          Margin="20 10 0 10 ">
+                <StackPanel Orientation="Horizontal" Margin="5 5 0 5">
 
                     <TextBlock Text="اسم المنطقة الأساسية :   "  
                                Foreground="White" FontSize="24" 
@@ -72,10 +72,11 @@
                     
                 </StackPanel>
                 
-                <StackPanel Margin="0,0,0,0" Orientation="Horizontal" Grid.Column="1">
+                <StackPanel Margin="0,0,40,0" Orientation="Horizontal" 
+                            Grid.Column="1"  HorizontalAlignment="Right">
 
                     <Label Margin="0,0,0,0" Content=" بحث ب اسم المنطقة : " 
-                           VerticalAlignment="Center"
+                           VerticalAlignment="Center" Foreground="White"
                            FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
                     
                     <TextBox x:Name="SearchByItemTextBox"
@@ -182,7 +183,7 @@
             <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
                     Content="↩" FontSize="33" Style="{StaticResource triggerrr}"
                     Margin="71,0,0,1"  Height="55"
-                    Click="BackBtn_Click"/>
+                    Click="BackBtn_Click" />
 
         </Grid>
     </Grid>

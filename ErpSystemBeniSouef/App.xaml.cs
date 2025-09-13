@@ -1,8 +1,11 @@
-﻿using ErpSystemBeniSouef.Core;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
+using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
 using ErpSystemBeniSouef.Views.Pages.Regions;
@@ -44,6 +47,10 @@ namespace ErpSystemBeniSouef
             "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
                  ));
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
+        services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
+        //services.AddScoped(typeof(IMapper), typeof(Mapper));
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
     })
     .Build();
 
@@ -76,8 +83,11 @@ namespace ErpSystemBeniSouef
 
 
             var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
+            var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
             //var mainRegionPage = new MainRegionPage(repo);
-            var login = new SubRegionPage(repo);
+            var login = new MainRegionPage(repo , mainAreaService);
+            //var login = new MainRegionPage(repo , mainAreaService);
+            //var login = new SubRegionPage(repo);
             //var login = new StartPageBeforeLogin();
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();

@@ -1,5 +1,8 @@
 ﻿using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -25,14 +28,19 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
     /// </summary>
     public partial class MainRegionPage : Page
     {
-        ObservableCollection<MainArea> observalMainRegions = new();
+        ObservableCollection<MainAreaResponseDto> observalMainRegionsDto = new ObservableCollection<MainAreaResponseDto>();
+        ObservableCollection<MainArea> observalMainRegions = new ObservableCollection<MainArea>();
+        List<MainAreaResponseDto> mainRegionsDto = new List<MainAreaResponseDto>();
         List<MainArea> mainRegions = new List<MainArea>();
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMainAreaService _mainAreaService;
 
-        public MainRegionPage(IUnitOfWork unitOfWork)
+        public MainRegionPage(IUnitOfWork unitOfWork, IMainAreaService mainAreaService)
+        //public MainRegionPage(IUnitOfWork unitOfWork )
         {
             InitializeComponent();
             _unitOfWork = unitOfWork;
+            //_mainAreaService = mainAreaService;
             SeedDefaultRegions();
             dgMainRegions.ItemsSource = observalMainRegions;
         }
@@ -40,8 +48,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         private void SeedDefaultRegions()
         {
             mainRegions = _unitOfWork.Repository<MainArea>().GetAll();
+            //mainRegionsDto = _mainAreaService.GetAll().ToList();
+            //foreach (var item in mainRegionsDto)
             foreach (var item in mainRegions)
             {
+                //observalMainRegionsDto.Add(item);
                 observalMainRegions.Add(item);
             }
         }
@@ -102,6 +113,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             MessageBox.Show("تم حذف المنطقه الاساسية");
 
         }
+      
         //private void BtnDelete_Click(object sender, RoutedEventArgs e)
         //{
         //    var selectedItems = dgMainRegions.SelectedItems.Cast<MainArea>().ToList();

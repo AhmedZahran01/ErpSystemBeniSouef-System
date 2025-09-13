@@ -9,7 +9,7 @@ namespace ErpSystemBeniSouef.Core.Contract
 {
     public interface IMainAreaService
     { 
-        Task<IReadOnlyList<MainAreaResponseDto>> GetAllAsync();
+        IReadOnlyList<MainAreaResponseDto> GetAll();
 
         // Task<MainAreaResponseDto> GetByIdAsync(int id);
 
