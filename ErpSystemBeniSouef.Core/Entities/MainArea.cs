@@ -10,7 +10,8 @@ namespace ErpSystemBeniSouef.Core.Entities
     { 
         public required string Name { get; set; }
         public int StartNumbering { get; set; }
-
+        public int CompanyId { get; set; }
+        public Company Company { get; set; }
         public virtual ICollection<SubArea>? SubAreas { get; set; }  = new List<SubArea>();
         public override string ToString()
         {
