@@ -119,16 +119,16 @@
  
             <!-- الجدول -->
             <DataGrid Grid.Row="3"
-           x:Name="dgMainRegions" 
-           AutoGenerateColumns="False"
-           CanUserAddRows="False" VerticalAlignment="Center"
-                       
-           IsReadOnly="False"
-           HeadersVisibility="Column"
-           FontSize="14"
-           FlowDirection="RightToLeft"
-           RowHeight="25"
-           Background="White">
+                x:Name="dgMainRegions" 
+                AutoGenerateColumns="False"
+                CanUserAddRows="False" VerticalAlignment="Center"
+                            
+                IsReadOnly="False"
+                HeadersVisibility="Column"
+                FontSize="14"
+                FlowDirection="RightToLeft"
+                RowHeight="25"
+                Background="White">
 
                 <DataGrid.Columns>
                     <!-- الرقم المسلسل -->

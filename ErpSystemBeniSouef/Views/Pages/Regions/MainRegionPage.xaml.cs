@@ -69,10 +69,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 txtRegionStartNumber.Clear();
 
                 mainRegions = _unitOfWork.Repository<MainArea>().GetAll();
-                foreach (var item in mainRegions)
-                {
-                    observalMainRegions.Add(item);
-                }
+
+                //observalMainRegions.Add(item);
+                observalMainRegions.Add(newMainArea);
+
             }
             else
             {

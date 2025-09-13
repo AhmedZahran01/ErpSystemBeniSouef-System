@@ -33,9 +33,9 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height=".5*"/>
-                <RowDefinition Height="1.6*"/>
+                <RowDefinition Height="2*"/>
                 <!-- المدخلات -->
-                <RowDefinition Height="1.2*"/>
+                <RowDefinition Height="1.5*"/>
                 <!-- الأزرار -->
                 <RowDefinition Height="7*"/>
                 <RowDefinition Height="*"/>
@@ -52,16 +52,48 @@
                               Style="{StaticResource SmallerComboBox}"  
                              />
                     <TextBlock Text="  :  اسم المنطقة الأساسية" 
-         Foreground="White" FontSize="14" 
+         Foreground="White" FontSize="24" 
          VerticalAlignment="Center" Margin="20 0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
                     <TextBox x:Name="txtSbuRegionStartNumber" Style="{StaticResource textboxx}"    />
                     <TextBlock Text=" :  اسم المنطقة الفرعيه   "  
-         Foreground="White" FontSize="14" 
+         Foreground="White" FontSize="24" 
          VerticalAlignment="Center" Margin="5 0"/>
                 </StackPanel>
+
+                <StackPanel Margin="20,0,0,0" Orientation="Horizontal" Grid.Column="1">
+                    
+                    <TextBox x:Name="SearchByItemTextBox"
+  Width="200"
+  Height="25" Margin="0 0 0 0"
+  Style="{StaticResource textboxx}"                    
+  VerticalAlignment="Center"
+  HorizontalAlignment="Center"
+  TextChanged="SearchByItemFullNameBox_TextChanged"
+  />
+                  
+                    <Popup x:Name="SuggestionsPopup"
+Placement="Bottom"
+PlacementTarget="{Binding ElementName = SearchByItemTextBox}"
+StaysOpen="False"
+Width="250"
+Height="auto">
+                        <ListBox x:Name="SuggestionsItemsListBox" 
+      SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
+      Background="White"
+      SelectionMode="Multiple"
+      />
+                    </Popup>
+
+                    <Label Margin="0,0,0,0" Content="  : بحث ب اسم المنطقة  " 
+VerticalAlignment="Center" Foreground="White"
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+
+                    
+                </StackPanel>
+
             </StackPanel>
 
             <!-- الأزرار -->
@@ -71,46 +103,66 @@
             </StackPanel>
 
             <!-- الجدول -->
-            <DataGrid Grid.Row="3" SelectionChanged="dgSubRegions_SelectionChanged"
-x:Name="dgSubRegions"
-AutoGenerateColumns="False"
-CanUserAddRows="False"
-CanUserDeleteRows="False"
-IsReadOnly="False"
-HeadersVisibility="Column"
-FontSize="14"
-RowHeight="28"
-Background="White">
+            <DataGrid Grid.Row="3"  
+                 x:Name="dgSubRegions"
+                 AutoGenerateColumns="False"
+                 CanUserAddRows="False"
+                 CanUserDeleteRows="False"
+                 IsReadOnly="False"
+                 HeadersVisibility="Column"
+                 FontSize="14"
+                 RowHeight="28"
+                 Background="White" >
                
                 <DataGrid.Columns>
-
-                    <!-- عمود الأزرار -->
-                    <DataGridTemplateColumn Header="العمليات" Width="2*" Visibility="Collapsed" 
-                         x:Name="btnsvisabiltiy">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Button Content="🗑 حذف" 
-                                         Style="{StaticResource GridDeleteButtonn}" 
-                                         Margin="15,0" Padding="10,2"
-                                         Click="BtnDelete_Click"/>
-
-                                    <Button Content="✏ تعديل" 
-                                        Style="{StaticResource GridAddButtonn}" 
-                                        Margin="15,0" Padding="0,2"
-                                        Click="BtnEdit_Click"/>
-
-                                
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-
-                    <DataGridTextColumn Binding="{Binding Name}" Header="المنطقة الفرعيه " Width="2*"/>
-                    <DataGridTextColumn Binding="{Binding MainArea}" Header="المنطقة الأساسية" Width="2*"/>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="الرقم المسلسل" Width="*"/>
  
+                    <DataGridTextColumn Binding="{Binding Name}" Header="المنطقة الفرعيه " Width="2*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle> 
+                    
+                    </DataGridTextColumn>
+                    
+                    <DataGridTextColumn Binding="{Binding mainRegions.Name}" Header="المنطقة الأساسية" Width="2*">
+
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Id}" Header="الرقم المسلسل" Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+                    </DataGridTextColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
 

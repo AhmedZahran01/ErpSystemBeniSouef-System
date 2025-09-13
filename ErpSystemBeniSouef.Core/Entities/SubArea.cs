@@ -11,7 +11,7 @@ namespace ErpSystemBeniSouef.Core.Entities
     { 
         public string Name { get; set; } = "";
 
-        [ForeignKey("MainArea")]
+        [ForeignKey("mainRegions")]
         public int MainAreaId { get; set; }
         public MainArea? mainRegions { get; set; }
 

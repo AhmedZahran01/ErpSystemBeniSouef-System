@@ -34,7 +34,7 @@ namespace ErpSystemBeniSouef.Views
             {
                 var dashboard = new Views.Pages.Products.Dashboard();
                 MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
-
+                
             }
         }
     }

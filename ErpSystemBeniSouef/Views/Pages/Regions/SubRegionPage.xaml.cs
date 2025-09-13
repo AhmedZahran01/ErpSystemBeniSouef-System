@@ -42,10 +42,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             dgSubRegions.ItemsSource = observalSubRegion;
         }
 
-        private void SeedSubRegionsAndMainAreas()
+        private async Task SeedSubRegionsAndMainAreas()
         {
             mainAreas = _unitOfWork.Repository<MainArea>().GetAll();
-            subAreas = _unitOfWork.Repository<SubArea>().GetAll();
+            //SubArea d = await _unitOfWork.Repository<SubArea>().GetByIdAsync(2);
+            subAreas = _unitOfWork.Repository<SubArea>().GetAll( s => s.mainRegions);
             foreach (var subArea in subAreas)
             {
                 observalSubRegion.Add(subArea);
@@ -80,68 +81,115 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            //if (dgSubRegions.SelectedItem is SubRegion SubRegion)
-            //{
-            //    observalSubRegion.Remove(SubRegion);
-            //    MessageBox.Show("تم الحذف");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("من فضلك اختر صف قبل الحذف");
-            //}
+        {  
+            if (dgSubRegions.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("من فضلك اختر صف قبل الحذف");
+                return;
+            }
+
+            var selectedItems = dgSubRegions.SelectedItems.Cast<SubArea>().ToList();
+
+            foreach (var item in selectedItems)
+            {
+                item.IsDeleted = true;
+                 _unitOfWork.Repository<SubArea>().Update(item);
+                observalSubRegion.Remove(item);
+            }
+
+            int deleteMainArea = _unitOfWork.Complete();
+            MessageBox.Show("تم حذف المنطقه الاساسية");
+
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            //string regionName = cb_MainRegionName.Text;
-            //string subRegionName = txtSbuRegionStartNumber.Text;
-            //int lastId = dbContext.MainRegions.OrderBy(i => i.Id).LastOrDefault()?.Id ?? 0;
-            //int mainId = dbContext.MainRegions.Where(p => p.MainRegionName == regionName)
-            //                        .Select(i => i.Id).FirstOrDefault();
-            //if (!string.IsNullOrEmpty(regionName) && !string.IsNullOrEmpty(subRegionName))
-            //{
-            //    SubRegion InputMainRegions = new SubRegion()
-            //    {
-            //        Id = lastId + 1,
-            //        MainRegionName = regionName,
-            //        subRegionName = subRegionName,
-            //        mainRegionsId = mainId
-            //    };
+            string mainRegionName = cb_MainRegionName.Text;
+            string subRegionName = txtSbuRegionStartNumber.Text;
 
-            //    observalSubRegion.Add(InputMainRegions);
-            //    dbContext.SubRegions.Add(InputMainRegions);
-            //    dbContext.SaveChanges();
-            //    MessageBox.Show("تم الإضافة");
-            //}
-            //else
-            //{
-            //    MessageBox.Show("من فضلك ادخل بيانات صحيحة");
-            //}
+            int idOfSelectedMainArea = _unitOfWork.Repository<MainArea>().GetBy(n => n.Name == mainRegionName).Select(m => m.Id).FirstOrDefault();
+            if (string.IsNullOrEmpty(mainRegionName) ||
+                 string.IsNullOrEmpty(subRegionName)) 
+            {
+                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
+                return;
+            }
+            SubArea newsubArea = new SubArea()
+            {
+                Name = txtSbuRegionStartNumber.Text.Trim(),
+                MainAreaId = idOfSelectedMainArea
+            };
+            int addValue = 0;
+            _unitOfWork.Repository<SubArea>().Add(newsubArea);
+            addValue =  _unitOfWork.Complete();
+
+            if (addValue == 1)
+            {
+                MessageBox.Show("  تم اضافه المنطقه الاساسية ");
+                txtSbuRegionStartNumber.Clear(); 
+
+                subAreas = _unitOfWork.Repository<SubArea>().GetAll(m => m.mainRegions);
+                observalSubRegion.Add(newsubArea);
+
+            }
+            else
+            {
+                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
+            } 
         }
 
-        private void dgSubRegions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (dgSubRegions.SelectedItem is SubRegion SubRegion)
-            //{
+            var query = SearchByItemTextBox.Text.ToLower();
 
-            //    btnsvisabiltiy.Visibility = Visibility.Visible;
-            //    //btnDelete.Visibility = Visibility.Visible;
+            // فلترة النتائج
+            var filtered = subAreas
+                .Where(i => i.Name != null && i.Name.ToLower().Contains(query))
+                .ToList();
 
-            //    ////dbContext.SubRegions.Remove(SubRegion);
-            //    //dbContext.SaveChanges();
-            //    //MessageBox.Show("تم الحذف");
-            //    //observalSubRegion.Remove(SubRegion);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("من فضلك اختر صف قبل الحذف");
-            //}
+
+            // تحديث الـ DataGrid
+            observalSubRegion.Clear();
+            foreach (var item in filtered)
+            {
+                observalSubRegion.Add(item);
+            }
+
+            // تحديث الاقتراحات
+            var suggestions = filtered.Select(i => i.Name).Distinct();
+            if (suggestions.Any())
+            {
+                SuggestionsItemsListBox.ItemsSource = suggestions;
+                SuggestionsPopup.IsOpen = true;
+            }
+            else
+            {
+                SuggestionsPopup.IsOpen = false;
+            } 
         }
 
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        private void SuggestionsItemsListBoxForText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (SuggestionsItemsListBox.SelectedItem != null)
+            {
+                string fullname = (string)SuggestionsItemsListBox.SelectedItem;
+                SearchByItemTextBox.Text = fullname;
+                SuggestionsPopup.IsOpen = false;
 
+                // فلترة DataGrid بالاختيار
+                var filtered = subAreas
+                    .Where(i => i.Name == fullname)
+                    .ToList();
+
+                observalSubRegion.Clear();
+                foreach (var item in filtered)
+                {
+                    observalSubRegion.Add(item);
+                }
+            }
         }
+
+
+
     }
 }
