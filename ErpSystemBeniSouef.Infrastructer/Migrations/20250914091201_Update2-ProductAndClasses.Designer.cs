@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErpSystemBeniSouef.Infrastructer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250914091201_Update2-ProductAndClasses")]
+    partial class Update2ProductAndClasses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,27 +145,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.ToTable("categories");
                 });
 
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("company");
-                });
-
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>
                 {
                     b.Property<int>("Id")
@@ -171,7 +153,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CompanyId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -198,6 +180,27 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("mainAreas");
+                });
+
+            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.OurCompany", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OurCompany");
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Product", b =>
@@ -413,7 +416,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Category", b =>
                 {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Company", "Company")
+                    b.HasOne("ErpSystemBeniSouef.Core.Entities.OurCompany", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -424,9 +427,11 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>
                 {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Company", "Company")
+                    b.HasOne("ErpSystemBeniSouef.Core.Entities.OurCompany", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Company");
                 });

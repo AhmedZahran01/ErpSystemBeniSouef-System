@@ -1,0 +1,186 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+using ErpSystemBeniSouef.Core.Entities;
+
+namespace ErpSystemBeniSouef.Service.ProductService
+{
+    public class ProductService : IProductService
+    {
+        #region Constractor Region
+
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public ProductService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+        #endregion
+
+        #region Get By Id  Region
+
+        public async Task<ProductDto> GetById(int id)
+        {
+            var product = _unitOfWork.Repository<Product>().GetByIdAsync(id);
+
+            if (product == null)
+                return null;
+
+            var response = _mapper.Map<ProductDto>(product);
+            response.ProfitMargin = await CalculateProfitMarginAsync(id);
+            return response;
+
+        }
+
+        #endregion
+
+        #region Get All Region
+
+        public async Task<IReadOnlyList<ProductDto>> GetAll()
+        {
+            var products = _unitOfWork.Repository<Product>().GetAll();
+
+            var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
+
+            foreach (var productDto in response)
+            {
+                productDto.ProfitMargin = await CalculateProfitMarginAsync(productDto.Id);
+            }
+
+            return response;
+        }
+
+        #endregion
+
+        #region GetByCategoryIdAsync Region
+
+        public async Task<IReadOnlyList<ProductDto>> GetByCategoryId(int categoryId)
+        {
+            var category = await _unitOfWork.Repository<Category>().GetByIdAsync(categoryId);
+            if (category == null)
+                return null;
+            ;
+            var products = _unitOfWork.Repository<Product>().GetAll();
+
+            var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
+            return response;
+
+        }
+
+        #endregion
+
+        #region Create Region
+
+        public async Task<ProductDto> Create(CreateProductDto createDto)
+        {
+            var category = await _unitOfWork.Repository<Category>().GetByIdAsync(createDto.CategoryId);
+            if (category == null)
+                return null;
+
+            if (createDto.SalePrice <= createDto.PurchasePrice)
+                return null;
+
+            var product = _mapper.Map<Product>(createDto);
+            _unitOfWork.Repository<Product>().Add(product);
+            await _unitOfWork.CompleteAsync();
+
+            var response = _mapper.Map<ProductDto>(product);
+            response.CategoryName = category.Name;
+            response.ProfitMargin = await CalculateProfitMarginAsync(product.Id);
+
+            return response;
+        }
+
+        #endregion
+
+        #region Update Region
+
+        public async Task<ProductDto> Update(UpdateProductDto updateDto)
+        {
+            var product = await _unitOfWork.Repository<Product>().GetByIdAsync(updateDto.Id);
+            if (product == null)
+                return null;
+
+            if (product.CategoryId != updateDto.CategoryId)
+            {
+                var category = await _unitOfWork.Repository<Category>().GetByIdAsync(updateDto.CategoryId);
+                if (category == null)
+                    return null;
+            }
+
+            if (updateDto.SalePrice <= updateDto.PurchasePrice)
+                return null;
+
+            _mapper.Map(updateDto, product);
+            product.UpdatedDate = DateTime.UtcNow;
+
+            _unitOfWork.Repository<Product>().Update(product);
+            await _unitOfWork.CompleteAsync();
+
+            var updatedProduct = await _unitOfWork.Repository<Product>().GetByIdAsync(product.Id);
+            var response = _mapper.Map<ProductDto>(updatedProduct);
+            response.ProfitMargin = await CalculateProfitMarginAsync(product.Id);
+
+            return response;
+        }
+
+        #endregion
+
+        #region Soft Delete Region
+
+        public async Task<bool> SoftDelete(int id)
+        {
+            var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
+            if (product == null)
+                return false;
+
+            _unitOfWork.Repository<Product>().Delete(product);
+            await _unitOfWork.CompleteAsync();
+
+            return true;
+        }
+
+        #endregion
+
+        #region CalculateProfitMarginAsync Region
+
+        public async Task<decimal> CalculateProfitMarginAsync(int id)
+        {
+            var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
+            if (product == null)
+                return 0;
+
+            var profit = product.SalePrice - product.PurchasePrice;
+            var profitMargin = (profit / product.SalePrice) * 100;
+            return Math.Round(profitMargin, 2);
+        }
+
+        #endregion
+
+        #region MyRegion
+
+        //public ProductDto GetByIdWithDetailsAsync(int id)
+        //{
+        //    var spec = new ProductSpecs(id);
+        //    var product = await _unitOfWork.Repository<Product>().GetByIdWithSpecAsync(spec);
+
+        //    if (product == null)
+        //        return ApiResponse<ProductDetailDto>.ErrorResponse($"Product with Id {id} not found.");
+
+        //    var response = _mapper.Map<ProductDetailDto>(product);
+        //    response.ProfitMargin = await CalculateProfitMarginAsync(id);
+        //    return ApiResponse<ProductDetailDto>.SuccessResponse(response, "Product with details retrieved successfully.");
+        //}
+
+        #endregion
+
+    }
+}

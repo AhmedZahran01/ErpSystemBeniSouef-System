@@ -13,3 +13,4 @@ namespace ErpSystemBeniSouef.Core.Entities
         public string Password { get; set; }
     }
 }
+

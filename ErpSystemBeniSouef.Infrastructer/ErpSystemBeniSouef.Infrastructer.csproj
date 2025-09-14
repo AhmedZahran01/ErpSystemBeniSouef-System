@@ -7,12 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Data\DataSeeding\mainRegions.json" />
     <None Remove="Data\DataSeeding\subRegion.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Data\DataSeeding\Category.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\DataSeeding\mainRegions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\DataSeeding\CompanyData.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\DataSeeding\subRegion.json">
@@ -28,6 +33,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ErpSystemBeniSouef.Core\ErpSystemBeniSouef.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\DataSeeding\Products.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -1,52 +1,52 @@
 [
-  { 
+  {
     "Name": "مدينة نصر",
     "MainRegionName": "القاهرة",
-    "MainAreaId": 1
+    "MainAreaId": 1 
   },
-  { 
+  {
     "Name": "المعادي",
     "MainRegionName": "القاهرة",
-    "MainAreaId": 1
+    "MainAreaId": 1 
   },
-  { 
+  {
     "Name": "الدقي",
     "MainRegionName": "الجيزة",
-    "MainAreaId": 2
+    "MainAreaId": 2 
   },
-  { 
+  {
     "Name": "الهرم",
     "MainRegionName": "الجيزة",
-    "MainAreaId": 2
+    "MainAreaId": 2 
   },
-  { 
+  {
     "Name": "محرم بك",
     "MainRegionName": "الإسكندرية",
-    "MainAreaId": 3
+    "MainAreaId": 3 
   },
-  { 
+  {
     "Name": "العجمي",
     "MainRegionName": "الإسكندرية",
-    "MainAreaId": 3
+    "MainAreaId": 3 
   },
-  { 
+  {
     "Name": "طلخا",
     "MainRegionName": "المنصورة",
-    "MainAreaId": 4
+    "MainAreaId": 4 
   },
-  { 
+  {
     "Name": "شبرا بابل",
     "MainRegionName": "طنطا",
-    "MainAreaId": 5
+    "MainAreaId": 5 
   },
-  { 
+  {
     "Name": "الفشن",
     "MainRegionName": "بني سويف",
     "MainAreaId": 6
   },
-  { 
+  {
     "Name": "ديروط",
     "MainRegionName": "أسيوط",
-    "MainAreaId": 7
+    "MainAreaId": 7 
   }
 ]

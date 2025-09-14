@@ -1,42 +1,51 @@
 [
-  { 
+  {
     "Name": "القاهرة",
-    "StartNumbering": 1
+    "StartNumbering": 1,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "الجيزة",
-    "StartNumbering": 100
+    "StartNumbering": 100,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "الإسكندرية",
-    "StartNumbering": 200
+    "StartNumbering": 200,
+    "CompanyId": 1
   },
   { 
     "Name": "المنصورة",
     "StartNumbering": 300
   },
-  { 
+  {
     "Name": "طنطا",
-    "StartNumbering": 400
+    "StartNumbering": 400,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "بني سويف",
-    "StartNumbering": 500
+    "StartNumbering": 500,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "أسيوط",
-    "StartNumbering": 600
+    "StartNumbering": 600,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "سوهاج",
-    "StartNumbering": 700
+    "StartNumbering": 700,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "الأقصر",
-    "StartNumbering": 800
+    "StartNumbering": 800,
+    "CompanyId": 1
   },
-  { 
+  {
     "Name": "أسوان",
-    "StartNumbering": 900
+    "StartNumbering": 900,
+    "CompanyId": 1
   }
 ]

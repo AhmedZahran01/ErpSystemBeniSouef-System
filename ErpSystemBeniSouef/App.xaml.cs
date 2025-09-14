@@ -85,10 +85,10 @@ namespace ErpSystemBeniSouef
             var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
             var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
             //var mainRegionPage = new MainRegionPage(repo);
-            var login = new MainRegionPage(repo , mainAreaService);
+            //var login = new MainRegionPage(repo , mainAreaService);
             //var login = new MainRegionPage(repo , mainAreaService);
             //var login = new SubRegionPage(repo);
-            //var login = new StartPageBeforeLogin();
+            var login = new StartPageBeforeLogin();
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();
         }
