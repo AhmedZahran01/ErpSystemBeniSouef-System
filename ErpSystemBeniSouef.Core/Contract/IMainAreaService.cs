@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
+using ErpSystemBeniSouef.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,15 @@ namespace ErpSystemBeniSouef.Core.Contract
 {
     public interface IMainAreaService
     { 
-        IReadOnlyList<MainAreaResponseDto> GetAll();
+        IReadOnlyList<MainArea> GetAll();
+
+        int Create(CreateMainAreaDto createDto);
+
+        bool SoftDelete(int id);
 
         // Task<MainAreaResponseDto> GetByIdAsync(int id);
 
-        //Task<ApiResponse<MainAreaResponseDto>> CreateAsync(CreateMainAreaDto createDto);
+        //int Update(MainArea updateDto);
 
-        //Task<MainAreaResponseDto> UpdateAsync(UpdateMainAreaDto updateDto);
-
-        //Task<bool> SoftDeleteAsync(int id);
     }
 }

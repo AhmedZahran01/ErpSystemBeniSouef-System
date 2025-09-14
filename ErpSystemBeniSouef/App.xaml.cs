@@ -81,11 +81,11 @@ namespace ErpSystemBeniSouef
             mainWindow.DataContext = mainWindowViewModel;
             mainWindowViewModel.setContext(mainWindow);
 
-
-            var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
+             
             var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
+            var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
             //var mainRegionPage = new MainRegionPage(repo);
-            var login = new MainRegionPage(repo , mainAreaService);
+            var login = new MainRegionPage(mainAreaService , mapper);
             //var login = new MainRegionPage(repo , mainAreaService);
             //var login = new SubRegionPage(repo);
             //var login = new StartPageBeforeLogin();

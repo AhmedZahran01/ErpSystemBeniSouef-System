@@ -53,8 +53,8 @@ namespace ErpSystemBeniSouef.Infrastructer
             return dbQuery.Where(query).ToList();
         } 
 
-        public async Task<T> GetByIdAsync(int id)
-           => await _context.Set<T>().FindAsync(id);
+        public T GetById(int id)
+           =>  _context.Set<T>().Find(id);
            //=> await _context.Set<T>().Where(m => m.IsDeleted==false).FindAsync(id);
 
 

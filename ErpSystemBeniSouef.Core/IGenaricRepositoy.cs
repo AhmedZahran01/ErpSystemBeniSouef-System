@@ -19,7 +19,7 @@ namespace ErpSystemBeniSouef.Core
         Expression<Func<T, bool>> query,
         params Expression<Func<T, object>>[] includes);
         List<T> GetAll(params Expression<Func<T, object>>[] includes);
-        Task<T?> GetByIdAsync(int id);
+        T? GetById(int id);
         Task<T?> Find(Expression<Func<T, bool>> predicate);
         Task<T?> GetDriverOrPassengerByIdAsync(string Id);
     }
