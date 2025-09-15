@@ -2,30 +2,16 @@
 #region Using Region
 
 using AutoMapper;
-using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.Infrastructer;
-using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 #endregion
 
 namespace ErpSystemBeniSouef.Views.Pages.Regions
@@ -37,7 +23,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         private readonly IMainAreaService _mainAreaService;
         private readonly IMapper _mapper;
         ObservableCollection<MainAreaDto> observalMainRegionsDto = new ObservableCollection<MainAreaDto>();
-        List<MainArea> mainRegions = new List<MainArea>();
+        ObservableCollection<MainAreaDto> observalMainRegionsDtoforFilter = new ObservableCollection<MainAreaDto>();
+        IReadOnlyList<MainAreaDto> mainRegionsDto = new List<MainAreaDto>();
 
         #endregion
 
@@ -48,76 +35,31 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             InitializeComponent();
             _mainAreaService = mainAreaService;
             _mapper = mapper;
-            SeedDefaultRegions();
+            LoadMainRegions();
             dgMainRegions.ItemsSource = observalMainRegionsDto;
         }
-
         #endregion
 
         #region Retrieve Default Regions to Grid Region
 
-        private void SeedDefaultRegions()
+        private async Task LoadMainRegions()
         {
             try
             {
-                mainRegions = _mainAreaService.GetAll().ToList();
+                mainRegionsDto = await _mainAreaService.GetAllAsync();
             }
             catch
-            { 
+            {
+                MessageBox.Show("  برجاء المحاوله في وقت لاحق ");
             }
-            // AutoMapper يحولهم لـ DTOs
-            var mapped = _mapper.Map<List<MainAreaDto>>(mainRegions);
-
             // امسح القديم واضيف الجديد بدون إنشاء Object جديد
             observalMainRegionsDto.Clear();
-            foreach (var item in mapped)
+            foreach (var item in mainRegionsDto)
             {
                 observalMainRegionsDto.Add(item);
             }
-              
 
         }
-
-
-        #region Comment SeedDefaultRegions Region
-
-        //private void SeedDefaultRegions()
-        //{ 
-        //    mainRegions = _mainAreaService.GetAll().ToList();
-        //    foreach (var item in mainRegions) 
-        //    {
-        //        MainAreaDto addToObservablCollection = new MainAreaDto()
-        //        {
-        //            Id = item.Id,
-        //            Name = item.Name,
-        //            StartNumbering = item.StartNumbering,
-        //            IsDeleted = item.IsDeleted,
-
-        //        };
-        //        observalMainRegionsDto.Add(addToObservablCollection);
-        //    }
-        //}
-
-        //private void SeedDefaultRegions()
-        //{
-        //    // استرجع الـ MainAreas من السيرفس
-        //    var mainRegions = _mainAreaService.GetAll();
-
-        //    // اعمل Map للـ ObservableCollection مباشرة
-        //    observalMainRegionsDto = new ObservableCollection<MainAreaDto>(
-        //        mainRegions.Select(item => new MainAreaDto
-        //        {
-        //            Id = item.Id,
-        //            Name = item.Name,
-        //            StartNumbering = item.StartNumbering,
-        //            IsDeleted = item.IsDeleted
-        //        })
-        //    );
-
-        //    // اربط الـ DataGrid بالـ ObservableCollection
-        //    dgMainRegions.ItemsSource = observalMainRegionsDto;
-        //} 
-        #endregion
 
         #endregion
 
@@ -125,13 +67,35 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtRegionName.Text) ||
-               !int.TryParse(txtRegionStartNumber.Text, out int startNumber))
+            string inputRegionName = txtRegionName.Text;
+            string inputStartNumber = txtRegionStartNumber.Text;
+            int inputStartNumberI = 0;
+            if (int.TryParse(txtRegionStartNumber.Text, out int inputStartNumberI2 ) )
             {
-                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
+                inputStartNumberI = inputStartNumberI2;
+            }
+            else
+            {
+                MessageBox.Show("من فضلك أدخل رقم صحيح");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(inputRegionName) ||
+               !int.TryParse(inputStartNumber, out int startNumber))
+            {
+                MessageBox.Show("من فضلك ادخل بيانات صحيحة في كل الحقول");
                 return;
             }
 
+            MainAreaDto CheckMainAreaNameFounded = observalMainRegionsDto.Where(n => n.Name == inputRegionName ).FirstOrDefault();
+            MainAreaDto CheckMainAreaStartNoFounded = observalMainRegionsDto.Where(n=>n.StartNumbering == inputStartNumberI).FirstOrDefault();
+            if (CheckMainAreaNameFounded is not null || CheckMainAreaStartNoFounded is not null)
+            {
+                if(CheckMainAreaNameFounded is not null)
+                MessageBox.Show(" الاسم مستخدم من قيل "); 
+                if(CheckMainAreaStartNoFounded is not null)
+                MessageBox.Show(" الرقم مستخدم من قيل ");
+                return;
+            }
             CreateMainAreaDto newMainArea = new CreateMainAreaDto()
             {
                 Name = txtRegionName.Text.Trim(),
@@ -146,17 +110,16 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 txtRegionName.Clear();
                 txtRegionStartNumber.Clear();
 
-                MainArea lastMainArea = _mainAreaService.GetAll().LastOrDefault();
+                MainAreaDto lastMainArea = observalMainRegionsDto.Last();
+                //MainArea lastMainArea = _mainAreaService.GetAll().LastOrDefault();
 
                 MainAreaDto newMainAreaForObserv = new MainAreaDto()
                 {
-                    Id = lastMainArea.Id,
-                    Name = lastMainArea.Name,
-                    StartNumbering = lastMainArea.StartNumbering,
-                    IsDeleted = lastMainArea.IsDeleted,
-
+                    Id = lastMainArea.Id + 1,
+                    Name = newMainArea.Name,
+                    StartNumbering = newMainArea.StartNumbering,  
                 };
-                observalMainRegionsDto.Add(newMainAreaForObserv); 
+                observalMainRegionsDto.Add(newMainAreaForObserv);
             }
             else
             {
@@ -227,10 +190,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 .Where(i => i.Name != null && i.Name.ToLower().Contains(query))
                 .ToList();
             // تحديث الـ DataGrid
-            observalMainRegionsDto.Clear();
-            foreach (var item in filtered)
+            observalMainRegionsDtoforFilter.Clear();
+            foreach (var item in observalMainRegionsDtoforFilter)
             {
-                observalMainRegionsDto.Add(item);
+                observalMainRegionsDtoforFilter.Add(item);
             }
 
             // تحديث الاقتراحات
@@ -238,13 +201,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             if (suggestions.Any())
             {
                 SuggestionsItemsListBox.ItemsSource = suggestions;
+                dgMainRegions.ItemsSource = filtered;
                 SuggestionsPopup.IsOpen = true;
             }
             else
             {
                 SuggestionsPopup.IsOpen = false;
             }
-
         }
 
         #endregion
@@ -264,10 +227,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                     .Where(i => i.Name == fullname)
                     .ToList();
 
-                observalMainRegionsDto.Clear();
+                observalMainRegionsDtoforFilter.Clear();
                 foreach (var item in filtered)
                 {
-                    observalMainRegionsDto.Add(item);
+                    observalMainRegionsDtoforFilter.Add(item);
                 }
             }
         }
@@ -285,7 +248,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
             // رجّع كل البيانات للـ DataGrid
             observalMainRegionsDto.Clear();
-            foreach (var item in mainRegions)
+            LoadMainRegions();
+            foreach (var item in mainRegionsDto)
             {
                 var mapped = _mapper.Map<MainAreaDto>(item);
                 observalMainRegionsDto.Add(mapped);

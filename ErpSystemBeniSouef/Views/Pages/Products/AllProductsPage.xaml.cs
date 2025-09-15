@@ -1,4 +1,5 @@
-﻿using ErpSystemBeniSouef.Core.Contract;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.ViewModel;
@@ -19,19 +20,22 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ErpSystemBeniSouef.Views.Pages.Products
-{
-    /// <summary>
-    /// Interaction logic for AllProductsPage.xaml
-    /// </summary>
+{ 
     public partial class AllProductsPage : Page
     {
-
+        #region Global Properties Region
+        
         ObservableCollection<ProductDto> observProductsList = new ObservableCollection<ProductDto>();
-        List<ProductDto> products = new List<ProductDto>();
+        List<ProductDto> productsDto = new List<ProductDto>();
+        List<Product> products = new List<Product>();
         List<Category> categories = new List<Category>();
         private readonly IProductService _productService;
+        private readonly IMapper _mapper;
+        #endregion
 
-        public AllProductsPage(IProductService productService)
+        #region Constractor Region
+
+        public AllProductsPage(IProductService productService , IMapper mapper)
         {
             InitializeComponent();
             Seedproducts();
@@ -39,7 +43,9 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             cb_type.SelectedIndex = 0; // اختيار أول عنصر
             DataGrid.ItemsSource = observProductsList;
             _productService = productService;
-        }
+            _mapper = mapper;
+        } 
+        #endregion
 
         private async Task Seedproducts()
         { 

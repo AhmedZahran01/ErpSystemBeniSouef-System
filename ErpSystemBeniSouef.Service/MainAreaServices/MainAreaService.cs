@@ -2,7 +2,8 @@
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
-using ErpSystemBeniSouef.Core.Entities; 
+using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,19 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
         #endregion
 
         #region  Get All Region
-        public IReadOnlyList<MainArea> GetAll()
+        public IReadOnlyList<MainAreaDto> GetAll()
         {
             var mainAreas = _unitOfWork.Repository<MainArea>().GetAll();
+            IReadOnlyList<MainAreaDto> mainAreaDto = _mapper.Map<IReadOnlyList<MainAreaDto>>(mainAreas);
 
-            return mainAreas;
+            return mainAreaDto;
+        }
+        public async Task<IReadOnlyList<MainAreaDto>> GetAllAsync()
+        {
+            var mainAreas = await _unitOfWork.Repository<MainArea>().GetAllAsync();
+            IReadOnlyList<MainAreaDto> mainAreaDto = _mapper.Map<IReadOnlyList<MainAreaDto>>(mainAreas);
+
+            return mainAreaDto;
         }
 
         #endregion
@@ -58,7 +67,7 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
             MainArea mainArea =  _unitOfWork.Repository<MainArea>().GetById(id);
             if (mainArea == null)
                 return false;
-            try  { mainArea.IsDeleted = true;   _unitOfWork.CompleteAsync(); return true;    }
+            try  { mainArea.IsDeleted = true;   _unitOfWork.Complete(); return true;    }
             catch { return false; }
 
         }

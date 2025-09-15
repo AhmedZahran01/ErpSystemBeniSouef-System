@@ -1,4 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Windows;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Windows;
 
 namespace ErpSystemBeniSouef.Views.Pages.Products
 {
@@ -34,7 +37,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         }
           
         private void Products_Click_1(object sender, RoutedEventArgs e)
-        { 
+        {
+            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+            var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+
+            var productsPage = new Views.Pages.Products.AllProductsPage(productService, mapper);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(productsPage);
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

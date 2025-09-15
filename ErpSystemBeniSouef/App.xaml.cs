@@ -77,6 +77,15 @@ namespace ErpSystemBeniSouef
             }
             // افتح الـ MainWindow
             var mainWindow = new Views.Windows.MainWindow();
+
+            //using (var context = new ApplicationDbContext())
+            //{ 
+            //    bool count = context.mainAreas.Any();
+            //    if (!context.mainAreas.Any()) // Check if the database is empty
+            //                                    //لو شغال SQL Server
+            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('mainAreas', RESEED, 0);");
+            //}
+
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindow.DataContext = mainWindowViewModel;
             mainWindowViewModel.setContext(mainWindow);
