@@ -10,17 +10,40 @@ namespace ErpSystemBeniSouef.Core
 {
     public interface IGenaricRepositoy<T> where T : BaseEntity
     {
+        #region Get All Region 
+
+        List<T> GetAll(params Expression<Func<T, object>>[] includes);
+        Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);
+
+        #endregion
+
+        #region Get By Condion And Inclide Region
+
+        List<T> GetByCondionAndInclide(       Expression<Func<T, bool>> query,
+                params Expression<Func<T, object>>[] includes);
+        #endregion
+
+        #region Get By Id Region
+
+        Task<T?> GetByIdAsync(int id);
+        T? GetById(int id);
+
+        #endregion
+
+        #region Add , Update , Delete Region
+
         void Add(T model);
 
         void Update(T model);
+
         void Delete(T model);
 
-        List<T> GetBy(
-        Expression<Func<T, bool>> query,
-        params Expression<Func<T, object>>[] includes);
-        List<T> GetAll(params Expression<Func<T, object>>[] includes);
-        T? GetById(int id);
+        #endregion
+
+        #region Find In Specific Condition Region
+        
         Task<T?> Find(Expression<Func<T, bool>> predicate);
-        Task<T?> GetDriverOrPassengerByIdAsync(string Id);
+
+        #endregion
     }
 }

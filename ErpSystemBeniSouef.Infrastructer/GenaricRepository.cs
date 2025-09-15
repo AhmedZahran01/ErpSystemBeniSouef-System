@@ -21,8 +21,7 @@ namespace ErpSystemBeniSouef.Infrastructer
             _context = context;
         }
         #endregion
-
-
+         
         #region Get All Region
        
         public List<T> GetAll(params Expression<Func<T, object>>[] includes)
@@ -36,20 +35,26 @@ namespace ErpSystemBeniSouef.Infrastructer
 
             return query.ToList();
         }
+         
+        public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
 
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.ToList();
+        }
 
         #endregion
-        public void Add(T model)
-            => _context.Set<T>().Add(model);
 
-        public void Delete(T model)
-            => _context.Set<T>().Remove(model);
+        #region Get By Condion And Inclide Region
 
-
-       
-        public List<T> GetBy(
-    Expression<Func<T, bool>> query,
-    params Expression<Func<T, object>>[] includes)
+        public List<T> GetByCondionAndInclide(
+         Expression<Func<T, bool>> query,
+         params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> dbQuery = _context.Set<T>();
 
@@ -60,26 +65,42 @@ namespace ErpSystemBeniSouef.Infrastructer
             }
 
             return dbQuery.Where(query).ToList();
-        } 
-
-        public T GetById(int id)
-           =>  _context.Set<T>().Find(id);
-           //=> await _context.Set<T>().Where(m => m.IsDeleted==false).FindAsync(id);
-
-
-        public async Task<T> Find(Expression<Func<T, bool>> predicate)
-        {
-            return await _context.Set<T>().Where(predicate).FirstOrDefaultAsync();
         }
 
-        public async Task<T> GetDriverOrPassengerByIdAsync(string Id)
-            => await _context.Set<T>().FindAsync(Id);
+        #endregion
 
+        #region Get By Id Region
+
+        public T? GetById(int id)
+           => _context.Set<T>().Find(id); 
+
+        public async Task<T?> GetByIdAsync(int id)
+         => await _context.Set<T>().FindAsync(id);
+
+        #endregion
+
+        #region Add , Update , Delete Region
+
+        public void Add(T model)
+            => _context.Set<T>().Add(model);
+
+        public void Delete(T model)
+            => _context.Set<T>().Remove(model);
 
         public void Update(T model)
             => _context.Set<T>().Update(model);
 
-         
+        #endregion
+
+        #region Find In Specific Condition Region
+       
+        public async Task<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return await _context.Set<T>().Where(predicate).FirstOrDefaultAsync();
+        } 
+        #endregion
+
+
 
     }
 }
