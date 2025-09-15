@@ -30,6 +30,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<Product> products { get; set; }
         public DbSet<MainArea> mainAreas { get; set; }
         public DbSet<SubArea> subAreas { get; set; }
+        public DbSet<Company> company { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

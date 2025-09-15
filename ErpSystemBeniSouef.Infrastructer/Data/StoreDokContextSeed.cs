@@ -1,6 +1,6 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Infrastructer.Data.Context; 
+using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +17,55 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
 
         public async static Task SeedAsync(ApplicationDbContext dbcontext)
         {
+            #region Company Region 
+
+            if (!dbcontext.company.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "CompanyData.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف CompanyData.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var subRegions = JsonSerializer.Deserialize<List<Company>>(subRegionData);
+
+                if (subRegions?.Count() > 0)
+                {
+                    foreach (var subRegion in subRegions)
+                    {
+                        dbcontext.Set<Company>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+
+            #region category Region 
+
+            if (!dbcontext.categories.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Category.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف CompanyData.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var subRegions = JsonSerializer.Deserialize<List<Category>>(subRegionData);
+
+                if (subRegions?.Count() > 0)
+                {
+                    foreach (var subRegion in subRegions)
+                    {
+                        dbcontext.Set<Category>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+
+
             #region Main Areas Region
 
             if (!dbcontext.mainAreas.Any()) // Check if the database is empty
@@ -47,8 +96,9 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
 
             #region Sub Areas Region 
 
-            if (!dbcontext.subAreas.Any()) // Check if the database is empty
-            { 
+            if (dbcontext.subAreas.Any()) // Check if the database is empty
+            //if (!dbcontext.subAreas.Any()) // Check if the database is empty
+            {
                 var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "subRegion.json");
 
                 if (!File.Exists(filePath))
@@ -68,6 +118,31 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
                 }
             }
             #endregion
+
+            #region Products Region 
+
+            if (!dbcontext.products.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Products.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var subRegions = JsonSerializer.Deserialize<List<Product>>(subRegionData);
+
+                if (subRegions?.Count() > 0)
+                {
+                    foreach (var subRegion in subRegions)
+                    {
+                        dbcontext.Set<Product>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+
 
         }
         #endregion

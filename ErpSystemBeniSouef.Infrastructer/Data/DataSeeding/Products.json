@@ -1,0 +1,112 @@
+[
+  {
+    "ProductName": "Product 1",
+    "CommissionRate": 0.19,
+    "PurchasePrice": 491,
+    "SalePrice": 3434,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992918",
+    "UpdatedDate": "2025-09-14T07:20:29.992922",
+    "DeletionDate": "2025-09-14T07:20:29.992923",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 2",
+    "CommissionRate": 0.13,
+    "PurchasePrice": 177,
+    "SalePrice": 3863,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992929",
+    "UpdatedDate": "2025-09-14T07:20:29.992930",
+    "DeletionDate": "2025-09-14T07:20:29.992931",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 3",
+    "CommissionRate": 0.06,
+    "PurchasePrice": 1003,
+    "SalePrice": 2588,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992939",
+    "UpdatedDate": "2025-09-14T07:20:29.992940",
+    "DeletionDate": "2025-09-14T07:20:29.992941",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 4",
+    "CommissionRate": 0.12,
+    "PurchasePrice": 1058,
+    "SalePrice": 2133,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992945",
+    "UpdatedDate": "2025-09-14T07:20:29.992946",
+    "DeletionDate": "2025-09-14T07:20:29.992947",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 5",
+    "CommissionRate": 0.18,
+    "PurchasePrice": 1346,
+    "SalePrice": 3276,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992950",
+    "UpdatedDate": "2025-09-14T07:20:29.992951",
+    "DeletionDate": "2025-09-14T07:20:29.992952",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 6",
+    "CommissionRate": 0.16,
+    "PurchasePrice": 1204,
+    "SalePrice": 2165,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992956",
+    "UpdatedDate": "2025-09-14T07:20:29.992957",
+    "DeletionDate": "2025-09-14T07:20:29.992958",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 7",
+    "CommissionRate": 0.23,
+    "PurchasePrice": 246,
+    "SalePrice": 2376,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992961",
+    "UpdatedDate": "2025-09-14T07:20:29.992962",
+    "DeletionDate": "2025-09-14T07:20:29.992963",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 8",
+    "CommissionRate": 0.19,
+    "PurchasePrice": 661,
+    "SalePrice": 2873,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992969",
+    "UpdatedDate": "2025-09-14T07:20:29.992970",
+    "DeletionDate": "2025-09-14T07:20:29.992972",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 9",
+    "CommissionRate": 0.1,
+    "PurchasePrice": 505,
+    "SalePrice": 3761,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992975",
+    "UpdatedDate": "2025-09-14T07:20:29.992976",
+    "DeletionDate": "2025-09-14T07:20:29.992977",
+    "IsDeleted": false
+  },
+  {
+    "ProductName": "Product 10",
+    "CommissionRate": 0.21,
+    "PurchasePrice": 131,
+    "SalePrice": 3966,
+    "CategoryId": 1,
+    "CreatedDate": "2025-09-14T07:20:29.992981",
+    "UpdatedDate": "2025-09-14T07:20:29.992982",
+    "DeletionDate": "2025-09-14T07:20:29.992983",
+    "IsDeleted": false
+  }
+]
