@@ -27,17 +27,15 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         
         ObservableCollection<ProductDto> observProductsList = new ObservableCollection<ProductDto>();  
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
-        private readonly IProductService _productService;
-        private readonly IMapper _mapper;
+        private readonly IProductService _productService; 
         #endregion
 
         #region Constractor Region
 
-        public AllProductsPage(IProductService productService ,IMapper mapper)
+        public AllProductsPage(IProductService productService)
         {
             InitializeComponent();
-            _productService = productService;
-            _mapper = mapper;
+            _productService = productService; 
             Loaded += async (s, e) => await Loadproducts();
             DataGrid.ItemsSource = observProductsList;
             cb_type.ItemsSource = _productService.GetAllCategories();

@@ -122,7 +122,7 @@ namespace ErpSystemBeniSouef
 
             //var login = new MainRegionPage(repo , mainAreaService);
 
-            var login = new AllProductsPage(productService, mapper);
+            var login = new AllProductsPage(productService);
 
             //var login = new MainRegionPage(repo , mainAreaService);
             //var login = new SubRegionPage(repo);
