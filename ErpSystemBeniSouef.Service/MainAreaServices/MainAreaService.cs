@@ -2,17 +2,17 @@
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.Entities; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Service.MainAreaServices
 {
     public class MainAreaService : IMainAreaService
     {
+        #region Constrctor and properties Region
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
@@ -21,15 +21,67 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+        #endregion
 
-
-        public  IReadOnlyList<MainAreaResponseDto> GetAll()
+        #region  Get All Region
+        public IReadOnlyList<MainArea> GetAll()
         {
-            var mainAreas =  _unitOfWork.Repository<MainArea>().GetAll();
+            var mainAreas = _unitOfWork.Repository<MainArea>().GetAll();
 
-            var mainAreasDto = mainAreas.Select(ma => _mapper.Map<MainAreaResponseDto>(ma)).ToList();
-            return mainAreasDto; 
+            return mainAreas;
         }
+
+        #endregion
+
+        #region  Create Region
+        public int Create(CreateMainAreaDto createDto)
+        {
+            try
+            {
+                var mainArea = _mapper.Map<MainArea>(createDto);
+                _unitOfWork.Repository<MainArea>().Add(mainArea);
+                _unitOfWork.CompleteAsync();
+                return 1; 
+            }
+            catch
+            {
+                return 0;
+            }
+
+        }
+        #endregion
+
+        #region Soft Delete Region Region
+
+        public bool SoftDelete(int id)
+        {
+            MainArea mainArea =  _unitOfWork.Repository<MainArea>().GetById(id);
+            if (mainArea == null)
+                return false;
+            try  { mainArea.IsDeleted = true;   _unitOfWork.CompleteAsync(); return true;    }
+            catch { return false; }
+
+        }
+
+        #endregion
+
+        //public int Update(MainArea updateDto)
+        //{
+        //    var mainArea = _unitOfWork.Repository<MainArea>().Update(updateDto);
+        //    if (mainArea == null)
+        //        return 0;
+
+        //    _mapper.Map(updateDto, mainArea);
+        //    mainArea.UpdatedDate = DateTime.UtcNow;
+
+        //    _unitOfWork.Repository<MainArea>().Update(mainArea);
+        //    await _unitOfWork.CompleteAsync();
+
+        //    var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
+        //    return 1;
+        //}
+
+
 
         //public async Task<ApiResponse<MainAreaResponseDto>> GetByIdAsync(int id)
         //{ 
@@ -42,43 +94,8 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
         //    return ApiResponse<MainAreaResponseDto>.SuccessResponse(mainAreaDto, "Main area retrieved successfully.");
         //}
 
-        //public async Task<ApiResponse<MainAreaResponseDto>> CreateAsync(CreateMainAreaDto createDto)
-        //{
-        //    var mainArea = _mapper.Map<MainArea>(createDto);
-        //    _unitOfWork.Repository<MainArea>().Add(mainArea);
-        //    await _unitOfWork.CompleteAsync();
 
-        //    var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
-        //    return ApiResponse<MainAreaResponseDto>.SuccessResponse(mainAreaDto, "Main area created successfully.");
-        //}
 
-        //public async Task<ApiResponse<MainAreaResponseDto>> UpdateAsync(UpdateMainAreaDto updateDto)
-        //{
-        //    var mainArea = await _unitOfWork.Repository<MainArea>().GetByIdAsync(updateDto.Id);
-        //    if (mainArea == null)
-        //        return ApiResponse<MainAreaResponseDto>.ErrorResponse($"MainArea with Id {updateDto.Id} not found.");
-
-        //    _mapper.Map(updateDto, mainArea);
-        //    mainArea.UpdatedDate = DateTime.UtcNow;
-
-        //    _unitOfWork.Repository<MainArea>().Update(mainArea);
-        //    await _unitOfWork.CompleteAsync();
-
-        //    var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
-        //    return ApiResponse<MainAreaResponseDto>.SuccessResponse(mainAreaDto, "Main area updated successfully.");
-        //}
-
-        //public async Task<ApiResponse<bool>> SoftDeleteAsync(int id)
-        //{
-        //    var mainArea = await _unitOfWork.Repository<MainArea>().GetByIdAsync(id);
-        //    if (mainArea == null)
-        //        return ApiResponse<bool>.ErrorResponse($"MainArea with Id {id} not found.");
-
-        //    _unitOfWork.Repository<MainArea>().Delete(mainArea); // Soft delete
-        //    await _unitOfWork.CompleteAsync();
-
-        //    return ApiResponse<bool>.SuccessResponse(true, "Main area deleted successfully.");
-        //}
 
     }
 }
