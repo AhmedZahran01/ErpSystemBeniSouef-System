@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="ErpSystemBeniSouef.Views.Pages.SupplierMainPage.Supplier_Controls.SupplierInvoice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280"
+              FlowDirection="LeftToRight">
+    <Grid Background="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+        <Grid.ColumnDefinitions>
+           
+            <ColumnDefinition Width="*"/>
+            <!-- main area -->
+        </Grid.ColumnDefinitions>
+
+       
+
+        <!-- Main content area -->
+        <Grid Grid.Column="1" Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <!-- center data grid area -->
+                <ColumnDefinition Width="320"/>
+                <!-- right control panel -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Center area: dialog-like panel -->
+            <Border Grid.Column="0" CornerRadius="2" Background="White" BorderBrush="#BDBDBD" BorderThickness="1" Padding="12" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- title -->
+                    <TextBlock Text="قائمة الفواتير" FontSize="16" FontWeight="Bold" Margin="4" />
+
+                    <!-- DataGrid -->
+                    <DataGrid Grid.Row="1"
+                              Name="InvoicesDataGrid"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding Invoices}"
+                              CanUserAddRows="False"
+                              IsReadOnly="False"
+                              Margin="0,8,0,0"
+                              RowHeight="30"
+                              HeadersVisibility="Column"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="رقم الفاتورة" Binding="{Binding InvoiceNumber}" Width="110"/>
+                            <DataGridTextColumn Header="تاريخ الفاتورة" Binding="{Binding InvoiceDate, StringFormat=d}" Width="120"/>
+                            <DataGridTextColumn Header="المبلغ الإجمالي" Binding="{Binding TotalAmount, StringFormat=N2}" Width="120"/>
+                            <DataGridTextColumn Header="نسبة التقسيط" Binding="{Binding InstallmentPercent}" Width="100"/>
+                            <DataGridTextColumn Header="اسم المورد" Binding="{Binding SupplierName}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+
+            <!-- Right control panel -->
+            <Border Grid.Column="1" Margin="12,0,0,0" Background="#F5F5F5" CornerRadius="2" Padding="12" BorderBrush="#E0E0E0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="تفاصيل الفاتورة" FontSize="14" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <StackPanel Orientation="Vertical" Margin="0,6">
+                        <TextBlock Text="تاريخ الفاتورة" />
+                        <DatePicker Name="InvoiceDatePicker" SelectedDate="{Binding SelectedDate}" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,6">
+                        <TextBlock Text="اسم المورد" />
+                        <ComboBox Name="SupplierComboBox" SelectedIndex="0" Height="26">
+                            <ComboBoxItem Content="الحاج / أحمد المحله"/>
+                            <ComboBoxItem Content="مصطفى جمعه"/>
+                            <ComboBoxItem Content="شركه تجريبيه"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Margin="0,6">
+                        <TextBlock Text="نسبة التقسيط (%)" />
+                        <TextBox Name="InstallmentTextBox" Height="26" Text="0"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,12" >
+                        <Button Name="AddButton" Content="إضافة" Width="110" Height="34" Click="AddButton_Click"/>
+                        <Button Name="DeleteButton" Content="حذف" Width="110" Height="34" Click="DeleteButton_Click"/>
+                    </StackPanel>
+
+                    <Separator Margin="0,12"/>
+
+                    <TextBlock Text="بحث سريع" FontWeight="SemiBold" Margin="0,6"/>
+                    <TextBox Name="SearchTextBox" Height="28" Text="ابحث برقم الفاتورة أو المورد" TextChanged="SearchTextBox_TextChanged"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -31,4 +31,8 @@
     <Resource Include="Assets\Login.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Controls\" />
+  </ItemGroup>
+
 </Project>
