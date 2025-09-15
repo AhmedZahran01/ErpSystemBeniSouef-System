@@ -7,10 +7,12 @@ namespace ErpSystemBeniSouef.Core.Contract
 {
     public interface IProductService
     {
-        Task<ProductDto> GetById(int id);
+        Task<ProductDto> GetByIdAsync(int id);
+        ProductDto GetById(int id);
 
 
-        Task<IReadOnlyList<ProductDto>> GetAll();
+        Task<IReadOnlyList<ProductDto>> GetAllAsync();
+        IReadOnlyList<ProductDto> GetAll();
 
         Task<IReadOnlyList<ProductDto>> GetByCategoryId(int categoryId);
 
@@ -20,6 +22,7 @@ namespace ErpSystemBeniSouef.Core.Contract
       
         Task<bool> SoftDelete(int id);
 
+        decimal CalculateProfitMargin(int id);
         Task<decimal> CalculateProfitMarginAsync(int id);
 
 
