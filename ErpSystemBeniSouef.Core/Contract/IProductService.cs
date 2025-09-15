@@ -7,25 +7,50 @@ namespace ErpSystemBeniSouef.Core.Contract
 {
     public interface IProductService
     {
-        Task<ProductDto> GetByIdAsync(int id);
-        ProductDto GetById(int id);
+        #region Get All Region
 
+        IReadOnlyList<ProductDto> GetAll(); 
 
         Task<IReadOnlyList<ProductDto>> GetAllAsync();
-        IReadOnlyList<ProductDto> GetAll();
 
-        Task<IReadOnlyList<ProductDto>> GetByCategoryId(int categoryId);
+        #endregion
 
-        Task<ProductDto> Create(CreateProductDto createDto);
+        #region Get By Id Region
+
+        Task<ProductDto> GetByIdAsync(int id);
+
+        ProductDto GetById(int id);
+        #endregion
+
+        #region Get Products By Ctegory Id Region
          
-        Task<ProductDto> Update(UpdateProductDto updateDto);
-      
-        Task<bool> SoftDelete(int id);
+        IReadOnlyList<ProductDto> GetProductsByCategoryId(int categoryId);
+        Task<IReadOnlyList<ProductDto>> GetProductsByCategoryIdAsync(int categoryId);
+        #endregion
 
+        #region Create Product Region
+        ProductDto Create(CreateProductDto createDto); 
+        Task<ProductDto> CreateAsync(CreateProductDto createDto);
+
+        #endregion
+
+        #region Update Region
+        ProductDto Update(UpdateProductDto updateDto);
+        Task<ProductDto> UpdateAsync(UpdateProductDto updateDto);
+
+        #endregion
+
+        #region Soft Delete Region
+
+        bool SoftDelete(int id);
+        Task<bool> SoftDeleteAsync(int id);
+        #endregion
+
+        #region Calculate Profit Margin Region
         decimal CalculateProfitMargin(int id);
         Task<decimal> CalculateProfitMarginAsync(int id);
 
-
-        //Task<ApiResponse<ProductDetailDto>> GetByIdWithDetailsAsync(int id);
+        #endregion
+         
     }
 }

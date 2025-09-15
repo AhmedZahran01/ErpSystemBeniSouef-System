@@ -43,7 +43,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private async Task Seedproducts()
         { 
-            IReadOnlyList<ProductDto> products =await _productService.GetAll();
+            IReadOnlyList<ProductDto> products =await _productService.GetAllAsync();
             foreach (var product in products)
             {
                 observProductsList.Add(product);

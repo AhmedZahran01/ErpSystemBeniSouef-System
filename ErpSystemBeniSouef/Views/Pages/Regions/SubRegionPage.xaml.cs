@@ -107,7 +107,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             string mainRegionName = cb_MainRegionName.Text;
             string subRegionName = txtSbuRegionStartNumber.Text;
 
-            int idOfSelectedMainArea = _unitOfWork.Repository<MainArea>().GetBy(n => n.Name == mainRegionName).Select(m => m.Id).FirstOrDefault();
+            int idOfSelectedMainArea = _unitOfWork.Repository<MainArea>().GetByCondionAndInclide(n => n.Name == mainRegionName).Select(m => m.Id).FirstOrDefault();
             if (string.IsNullOrEmpty(mainRegionName) ||
                  string.IsNullOrEmpty(subRegionName)) 
             {

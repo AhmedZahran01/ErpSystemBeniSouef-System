@@ -88,7 +88,7 @@ namespace ErpSystemBeniSouef
 
             //var login = new MainRegionPage(repo , mainAreaService);
 
-            var login = new MainRegionPage(mainAreaService , mapper);
+            //var login = new MainRegionPage(mainAreaService , mapper);
 
             //var login = new MainRegionPage(repo , mainAreaService);
             //var login = new SubRegionPage(repo);
