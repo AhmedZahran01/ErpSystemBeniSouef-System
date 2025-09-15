@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErpSystemBeniSouef.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,12 @@ namespace ErpSystemBeniSouef.Core.DTOs.ProductsDto
         public decimal PurchasePrice { get; set; }
         public decimal SalePrice { get; set; }
         public decimal ProfitMargin { get; set; }
-        public int CategoryId { get; set; }
         public string CategoryName { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        
+        public int CategoryId { get; set; }
+        public virtual Category Category { get; set; }
 
     }
 }

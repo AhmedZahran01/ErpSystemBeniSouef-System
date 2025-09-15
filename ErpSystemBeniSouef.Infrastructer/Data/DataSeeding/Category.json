@@ -1,6 +1,20 @@
 [
   {
-    "Name": "category Number 1",
+    "Name": "  اجهزة كهربائية",
+    "CompanyId": 1
+  },
+  {
+    "Name": " المفروشات ",
+    "CompanyId": 1
+  },
+
+  {
+    "Name": " اداوات منزلية ",
+    "CompanyId": 1
+  },
+
+  {
+    "Name": " مراتب ",
     "CompanyId": 1
   }
 ]

@@ -25,36 +25,39 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     {
         #region Global Properties Region
         
-        ObservableCollection<ProductDto> observProductsList = new ObservableCollection<ProductDto>();
-        List<ProductDto> productsDto = new List<ProductDto>();
-        List<Product> products = new List<Product>();
-        List<Category> categories = new List<Category>();
+        ObservableCollection<ProductDto> observProductsList = new ObservableCollection<ProductDto>();  
+        IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constractor Region
 
-        public AllProductsPage(IProductService productService , IMapper mapper)
+        public AllProductsPage(IProductService productService ,IMapper mapper)
         {
             InitializeComponent();
-            Seedproducts();
-            cb_type.ItemsSource = categories;
-            cb_type.SelectedIndex = 0; // اختيار أول عنصر
-            DataGrid.ItemsSource = observProductsList;
             _productService = productService;
             _mapper = mapper;
-        } 
+            Loaded += async (s, e) => await Loadproducts();
+            DataGrid.ItemsSource = observProductsList;
+            cb_type.ItemsSource = _productService.GetAllCategories();
+            cb_type.SelectedIndex = 0; // اختيار أول عنصر
+        }
         #endregion
 
-        private async Task Seedproducts()
-        { 
-            IReadOnlyList<ProductDto> products =await _productService.GetAllAsync();
+        #region Retrieve products to Grid Region
+
+        private async Task Loadproducts()
+        {
+            IReadOnlyList<ProductDto> products = await _productService.GetAllAsync();
             foreach (var product in products)
             {
                 observProductsList.Add(product);
-            } 
+            }
+            categories = await _productService.GetAllCategoriesAsync();
         }
+
+        #endregion
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -102,6 +105,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         {
             var Dashboard = new Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+
+        }
+
+        private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
 
         }
     }

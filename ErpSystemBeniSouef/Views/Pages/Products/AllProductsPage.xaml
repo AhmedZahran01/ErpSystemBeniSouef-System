@@ -7,6 +7,7 @@
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="950" d:DesignWidth="1000"
+      
       Title="AllProductsPage">
 
     <Page.Resources>
@@ -47,10 +48,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- العمود الأيمن -->
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
                     <TextBox x:Name="ProductName" Style="{StaticResource textboxx}" />
                     <TextBlock Text="  : اسم المنتج" Foreground="White" FontSize="16" Width="120"/>
@@ -68,7 +70,7 @@
             </StackPanel>
 
             <!-- العمود الأيسر -->
-            <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
                     <TextBox x:Name="mainPrice" Style="{StaticResource textboxx}" />
                     <TextBlock Text=" : سعر الشراء الأساسي" Foreground="White" FontSize="16" Width="150"/>
@@ -77,6 +79,25 @@
                     <TextBox x:Name="subValuePrice" Style="{StaticResource textboxx}" />
                     <TextBlock Text=" : سعر البيع الأساسي" Foreground="White" FontSize="16" Width="150"/>
                 </StackPanel>
+                
+                
+            </StackPanel>
+            <!-- العمود الأيسر -->
+            <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
+                
+                <TextBox x:Name="SearchByItemTextBox"
+Width="150"
+Height="25" Margin="0 0 0 0"
+Style="{StaticResource textboxx}"                    
+VerticalAlignment="Center"
+HorizontalAlignment="Center"
+TextChanged="SearchByItemFullNameBox_TextChanged"
+/>
+
+                <Label Margin="0,0,0,0" Content="  : بحث ب اسم المنتج  " 
+VerticalAlignment="Center" Foreground="White"
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+
             </StackPanel>
 
         </Grid>
@@ -105,13 +126,13 @@
          Background="White"
          HeadersVisibility="Column">
 
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Sub_purchase_price}" Header="سعر الشراء الفرعي" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Main_purchase_price}" Header="سعر الشراء الأساسي" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Percentage_Representative}" Header="نسبة المندوب" Width="*"/>
-                <DataGridTextColumn Binding="{Binding Type}" Header="نوع المنتج" Width="1.5*"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header="اسم المنتج" Width="2*"/>
-                <DataGridTextColumn Binding="{Binding Id}" Header="رقم المسلسل" Width="1*"/>
+            <DataGrid.Columns> 
+                <DataGridTextColumn Binding="{Binding SalePrice}" Header="سعر البيع الأساسي " Width="*"/>
+                <DataGridTextColumn Binding="{Binding PurchasePrice}" Header="سعر الشراء الأساسي" Width="*"/>
+                <DataGridTextColumn Binding="{Binding CommissionRate}" Header="النسبة " Width="*"/>
+                <DataGridTextColumn Binding="{Binding ProductName}" Header="اسم المنتج" Width="1.3*"/>
+                <DataGridTextColumn Binding="{Binding Category}" Header="نوع المنتج" Width="1.0*"/>
+                <DataGridTextColumn Binding="{Binding Id}" Header="رقم المسلسل" Width=".5*"/>
             </DataGrid.Columns>
 
         </DataGrid>

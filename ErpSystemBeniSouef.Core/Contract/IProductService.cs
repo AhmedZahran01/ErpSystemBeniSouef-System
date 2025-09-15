@@ -20,6 +20,7 @@ namespace ErpSystemBeniSouef.Core.Contract
         Task<ProductDto> GetByIdAsync(int id);
 
         ProductDto GetById(int id);
+       
         #endregion
 
         #region Get Products By Ctegory Id Region
@@ -39,9 +40,8 @@ namespace ErpSystemBeniSouef.Core.Contract
         Task<ProductDto> UpdateAsync(UpdateProductDto updateDto);
 
         #endregion
-
+         
         #region Soft Delete Region
-
         bool SoftDelete(int id);
         Task<bool> SoftDeleteAsync(int id);
         #endregion
@@ -52,5 +52,13 @@ namespace ErpSystemBeniSouef.Core.Contract
 
         #endregion
          
+        #region Get All Categories Region
+
+        IReadOnlyList<CategoryDto> GetAllCategories();
+
+        Task<IReadOnlyList<CategoryDto>> GetAllCategoriesAsync();
+
+        #endregion
+
     }
 }

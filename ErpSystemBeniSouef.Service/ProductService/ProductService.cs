@@ -25,7 +25,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
         }
         #endregion
 
-        #region Get All Region
+        #region Get All Region 
 
         public IReadOnlyList<ProductDto> GetAll()
         {
@@ -43,7 +43,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         public async Task<IReadOnlyList<ProductDto>> GetAllAsync()
         {
-            var products = await _unitOfWork.Repository<Product>().GetAllAsync();
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync(m=>m.Category);
 
             var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
 
@@ -106,7 +106,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
             if (category == null)
                 return null;
 
-            var products = await _unitOfWork.Repository<Product>().GetByIdAsync(categoryId);
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync(p =>p.CategoryId ==categoryId);
 
             var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
             return response;
@@ -259,7 +259,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
             var profitMargin = (profit / product.SalePrice) * 100;
             return Math.Round(profitMargin, 2);
         }
-         
+
         public async Task<decimal> CalculateProfitMarginAsync(int id)
         {
             var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
@@ -270,7 +270,30 @@ namespace ErpSystemBeniSouef.Service.ProductService
             var profitMargin = (profit / product.SalePrice) * 100;
             return Math.Round(profitMargin, 2);
         }
-       
+
+        #endregion
+
+
+        #region Get All Region 
+
+        public IReadOnlyList<CategoryDto> GetAllCategories()
+        {
+            var categories = _unitOfWork.Repository<Category>().GetAll();
+
+            var response = _mapper.Map<IReadOnlyList<CategoryDto>>(categories);
+             
+            return response;
+        }
+
+        public async Task<IReadOnlyList<CategoryDto>> GetAllCategoriesAsync()
+        {
+            var categories = await _unitOfWork.Repository<Category>().GetAllAsync();
+
+            var response = _mapper.Map<IReadOnlyList<CategoryDto>>(categories);
+  
+            return response;
+        }
+
         #endregion
 
 
