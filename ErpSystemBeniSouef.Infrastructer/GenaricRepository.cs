@@ -13,19 +13,18 @@ namespace ErpSystemBeniSouef.Infrastructer
 {
     public class GenaricRepository<T> : IGenaricRepositoy<T> where T : BaseEntity
     {
+        #region Constractor Region
         private protected readonly ApplicationDbContext _context;
 
         public GenaricRepository(ApplicationDbContext context)
         {
             _context = context;
         }
-        public void Add(T model)
-            => _context.Set<T>().Add(model);
-
-        public void Delete(T model)
-            => _context.Set<T>().Remove(model);
+        #endregion
 
 
+        #region Get All Region
+       
         public List<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
@@ -35,9 +34,19 @@ namespace ErpSystemBeniSouef.Infrastructer
                 query = query.Include(include);
             }
 
-            return  query.ToList();
+            return query.ToList();
         }
 
+
+        #endregion
+        public void Add(T model)
+            => _context.Set<T>().Add(model);
+
+        public void Delete(T model)
+            => _context.Set<T>().Remove(model);
+
+
+       
         public List<T> GetBy(
     Expression<Func<T, bool>> query,
     params Expression<Func<T, object>>[] includes)
