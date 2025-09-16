@@ -16,6 +16,8 @@ namespace ErpSystemBeniSouef.Core.DTOs.MainAreaDtos
         [Required]
         [Range(1, int.MaxValue)]
         public int StartNumbering { get; set; }
+        public int CategoryId { get; set; }
+
         public bool IsDeleted { get; set; } = false;
 
     }

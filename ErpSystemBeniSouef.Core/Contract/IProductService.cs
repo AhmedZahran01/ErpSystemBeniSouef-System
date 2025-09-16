@@ -36,7 +36,7 @@ namespace ErpSystemBeniSouef.Core.Contract
         #endregion
 
         #region Update Region
-        ProductDto Update(UpdateProductDto updateDto);
+        bool Update(UpdateProductDto updateDto);
         Task<ProductDto> UpdateAsync(UpdateProductDto updateDto);
 
         #endregion

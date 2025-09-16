@@ -50,7 +50,7 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
                 var mainArea = _mapper.Map<MainArea>(createDto);
                 _unitOfWork.Repository<MainArea>().Add(mainArea);
                 _unitOfWork.CompleteAsync();
-                return 1; 
+                return 1;
             }
             catch
             {
@@ -64,15 +64,35 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
 
         public bool SoftDelete(int id)
         {
-            MainArea mainArea =  _unitOfWork.Repository<MainArea>().GetById(id);
+            MainArea mainArea = _unitOfWork.Repository<MainArea>().GetById(id);
             if (mainArea == null)
                 return false;
-            try  { mainArea.IsDeleted = true;   _unitOfWork.Complete(); return true;    }
+            try { mainArea.IsDeleted = true; _unitOfWork.Complete(); return true; }
             catch { return false; }
 
         }
 
         #endregion
+
+        #region Update Region Region
+
+        public bool Update(UpdateMainAreaDto updateMainAreaDto)
+        {
+            MainArea mainArea = _unitOfWork.Repository<MainArea>().GetById(updateMainAreaDto.Id);
+            if (mainArea == null)
+                return false;
+            try
+            {
+                mainArea.StartNumbering = updateMainAreaDto.StartNumbering;
+                mainArea.Name = updateMainAreaDto.Name;
+                _unitOfWork.Complete(); return true;
+            }
+            catch { return false; }
+
+        }
+
+        #endregion
+
 
         //public int Update(MainArea updateDto)
         //{

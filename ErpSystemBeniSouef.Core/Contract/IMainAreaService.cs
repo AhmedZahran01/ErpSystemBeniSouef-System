@@ -17,6 +17,7 @@ namespace ErpSystemBeniSouef.Core.Contract
         int Create(CreateMainAreaDto createDto);
 
         bool SoftDelete(int id);
+        bool Update(UpdateMainAreaDto updateMainAreaDto);
 
         // Task<MainAreaResponseDto> GetByIdAsync(int id);
 

@@ -191,6 +191,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 .ToList();
             // تحديث الـ DataGrid
             observalMainRegionsDtoforFilter.Clear();
+            //foreach (var item in filtered)
             foreach (var item in observalMainRegionsDtoforFilter)
             {
                 observalMainRegionsDtoforFilter.Add(item);
@@ -236,28 +237,96 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Btn Reset Region
+        #region dgMainRegions_SelectionChanged Region
 
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
+        private void dgMainRegions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // فضي التكست بوكس
-            SearchByItemTextBox.Clear();
-
-            // اقفل الـ Popup بتاع الاقتراحات
-            SuggestionsPopup.IsOpen = false;
-
-            // رجّع كل البيانات للـ DataGrid
-            observalMainRegionsDto.Clear();
-            LoadMainRegions();
-            foreach (var item in mainRegionsDto)
+            if (dgMainRegions.SelectedItem is MainAreaDto selected)
             {
-                var mapped = _mapper.Map<MainAreaDto>(item);
-                observalMainRegionsDto.Add(mapped);
+                txtRegionName.Text = selected.Name; 
+                txtRegionStartNumber.Text = selected.StartNumbering.ToString();
+                editBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+
+        #endregion
+         
+        #region MyRegion
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgMainRegions.SelectedItem is not MainAreaDto selected)
+            {
+                MessageBox.Show("من فضلك اختر منطقة للتعديل");
+                return;
+            }
+
+            string newName = txtRegionName.Text.Trim();
+            if (!int.TryParse(txtRegionStartNumber.Text, out int newStartNumber))
+            {
+                MessageBox.Show("من فضلك أدخل رقم صحيح");
+                return;
+            }
+
+            // تحقق من التكرار
+            if (observalMainRegionsDto.Any(m => m.Name == newName && m.Id != selected.Id))
+            {
+                MessageBox.Show("الاسم مستخدم بالفعل");
+                return;
+            }
+
+            // DTO للتحديث
+            var updateDto = new UpdateMainAreaDto
+            {
+                Id = selected.Id,
+                Name = newName,
+                StartNumbering = newStartNumber
+            };
+
+            bool success = _mainAreaService.Update(updateDto);
+
+            if (success)
+            {
+                // عدل العنصر في ObservableCollection
+                selected.Name = newName;
+                selected.StartNumbering = newStartNumber;
+
+                dgMainRegions.Items.Refresh(); // لتحديث الجدول
+                MessageBox.Show("تم تعديل المنطقة بنجاح");
+            }
+            else
+            {
+                MessageBox.Show("حدث خطأ أثناء التعديل");
             }
         }
 
         #endregion
 
+        #region comment  MyRegion
 
+        //#region Btn Reset Region
+
+        //private void BtnReset_Click(object sender, RoutedEventArgs e)
+        //{
+        //    // فضي التكست بوكس
+        //    SearchByItemTextBox.Clear();
+
+        //    // اقفل الـ Popup بتاع الاقتراحات
+        //    SuggestionsPopup.IsOpen = false;
+
+        //    // رجّع كل البيانات للـ DataGrid
+        //    observalMainRegionsDto.Clear();
+        //    LoadMainRegions();
+        //    foreach (var item in mainRegionsDto)
+        //    {
+        //        var mapped = _mapper.Map<MainAreaDto>(item);
+        //        observalMainRegionsDto.Add(mapped);
+        //    }
+        //}
+
+        //#endregion
+
+        #endregion
     }
 }

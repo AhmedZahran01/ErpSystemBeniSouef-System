@@ -46,25 +46,26 @@
         <!-- قسم المدخلات -->
         <Grid Grid.Row="1" Margin="10,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition Width="1.4*"/>
             </Grid.ColumnDefinitions>
 
             <!-- العمود الأيمن -->
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                    <TextBox x:Name="ProductName" Style="{StaticResource textboxx}" />
-                    <TextBlock Text="  : اسم الصنف" Foreground="White" FontSize="21" Width="140"/>
+                    <TextBox x:Name="ProductName" FlowDirection="RightToLeft" Style="{StaticResource textboxx}"
+                               Width="290"/>
+                    <TextBlock Text="  : اسم الصنف"  Foreground="White" FontSize="21" Width="140"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 5 0 10">
-                    <ComboBox x:Name="cb_type"    Style="{StaticResource SmallerComboBox}"  
-                              />
-                    <TextBlock Text="  : نوع المنتج " Foreground="White" FontSize="21" Width="130"/>
+                    <ComboBox x:Name="cb_type"   DisplayMemberPath="Name"   SelectedValuePath="Id"
+                              Style="{StaticResource SmallerComboBox}"  />
+                    <TextBlock Text="  : نوع المنتج "  Foreground="White" FontSize="21" Width="130"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="RepresentivePercentage" Style="{StaticResource textboxx}" />
+                    <TextBox x:Name="RepresentivePercentage" FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
                     <TextBlock  Text=" : نسبة المندوب" Foreground="White" FontSize="21" Width="150"/>
                 </StackPanel>
             </StackPanel>
@@ -72,31 +73,43 @@
             <!-- العمود الأيسر -->
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <TextBox x:Name="mainPrice" Style="{StaticResource textboxx}" />
-                    <TextBlock Text=" : سعر الشراء الأساسي" Foreground="White" FontSize="21" Width="200"/>
+                    <TextBox x:Name="mainPrice" FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
+                    <TextBlock  FlowDirection="RightToLeft"  Text="  سعر الشراء الأساسي :" Foreground="White" FontSize="21" Width="210"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="SalePrice" Style="{StaticResource textboxx}" />
-                    <TextBlock Text=" : سعر البيع الأساسي" Foreground="White" FontSize="21" Width="200"/>
+                    <TextBox x:Name="SalePrice" FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
+                    <TextBlock FlowDirection="RightToLeft" Text="  سعر البيع الأساسي :" Foreground="White" FontSize="21" Width="210"/>
                 </StackPanel>
                 
                 
             </StackPanel>
             <!-- العمود الأيسر -->
-            <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5">
-                
-                <TextBox x:Name="SearchByItemTextBox"
-Width="150"
+            <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Orientation="Vertical" Margin="5">
+
+                <Label Margin="0,0,0,0" Content="  : بحث ب اسم المنتج  " 
+                        HorizontalAlignment="Right" Foreground="White"
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+
+                <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
+Width="210"
 Height="25" Margin="0 0 0 0"
 Style="{StaticResource textboxx}"                    
 VerticalAlignment="Center"
 HorizontalAlignment="Center"
 TextChanged="SearchByItemFullNameBox_TextChanged"
 />
-
-                <Label Margin="0,0,0,0" Content="  : بحث ب اسم المنتج  " 
-VerticalAlignment="Center" Foreground="White"
-FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+                <Popup x:Name="SuggestionsPopup"
+Placement="Bottom"
+PlacementTarget="{Binding ElementName = SearchByItemTextBox}"
+StaysOpen="False"
+Width="250"
+Height="auto">
+                    <ListBox x:Name="SuggestionsItemsListBox" 
+      SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
+      Background="White"
+      SelectionMode="Multiple"
+      />
+                </Popup>
 
             </StackPanel>
 
@@ -104,6 +117,10 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
         <!-- الأزرار -->
         <StackPanel  Grid.Row="2" Background="#1B7F" Margin="40 0 0 0" Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <Button x:Name="editBtn" Visibility="Hidden" Style="{StaticResource UpdateBtn}"
+Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
+            
             <Button Content="حذف" Width="140"  Style="{DynamicResource DeleteButtonn}" Margin="10" Click="DeleteButton_Click_1" />
             <Button Content="إضافة" Width="140"   Style="{DynamicResource AddButtonn}" Margin="15,10" Click="AddButton_Click" />
 
@@ -118,11 +135,11 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
          IsReadOnly="False" 
          ScrollViewer.VerticalScrollBarVisibility="Auto"
          ScrollViewer.HorizontalScrollBarVisibility="Auto"
-         FontSize="19"
+         FontSize="20"
          RowHeight="30"
          Background="#1B7F"
          HeadersVisibility="Column"
-            > 
+          SelectionChanged="dgAllProducts_SelectionChanged"  > 
             <DataGrid.Columns>
                   <DataGridTextColumn Binding="{Binding SalePrice}" Header=" جملة " Width="0.7*">
 
@@ -172,7 +189,7 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Category}" Header=" النوع (م.رئيسية) ء." Width="1.0*" >
+                <DataGridTextColumn Binding="{Binding Category.Name}" Header=" النوع (م.رئيسية) ء." Width="1.0*" >
 
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">

@@ -43,7 +43,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         public async Task<IReadOnlyList<ProductDto>> GetAllAsync()
         {
-            var products = await _unitOfWork.Repository<Product>().GetAllAsync(m=>m.Category);
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync(m => m.Category);
 
             var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
 
@@ -106,7 +106,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
             if (category == null)
                 return null;
 
-            var products = await _unitOfWork.Repository<Product>().GetAllAsync(p =>p.CategoryId ==categoryId);
+            var products = await _unitOfWork.Repository<Product>().GetAllAsync(p => p.CategoryId == categoryId);
 
             var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
             return response;
@@ -122,14 +122,12 @@ namespace ErpSystemBeniSouef.Service.ProductService
             if (category == null)
                 return false;
 
-            if (createDto.SalePrice <= createDto.PurchasePrice)
-                return false;
 
             var product = _mapper.Map<Product>(createDto);
             var productD = _mapper.Map<ProductDto>(createDto);
             _unitOfWork.Repository<Product>().Add(product);
             _unitOfWork.CompleteAsync();
-              
+
 
             return true;
         }
@@ -157,33 +155,25 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         #region Update Region
 
-        public ProductDto Update(UpdateProductDto updateDto)
+        public bool Update(UpdateProductDto updateDto)
         {
             var product = _unitOfWork.Repository<Product>().GetById(updateDto.Id);
             if (product == null)
-                return null;
+                return false;
 
             if (product.CategoryId != updateDto.CategoryId)
             {
                 var category = _unitOfWork.Repository<Category>().GetById(updateDto.CategoryId);
                 if (category == null)
-                    return null;
+                    return false;
             }
-
-            if (updateDto.SalePrice <= updateDto.PurchasePrice)
-                return null;
 
             _mapper.Map(updateDto, product);
             product.UpdatedDate = DateTime.UtcNow;
 
             _unitOfWork.Repository<Product>().Update(product);
             _unitOfWork.CompleteAsync();
-
-            var updatedProduct = _unitOfWork.Repository<Product>().GetById(product.Id);
-            var response = _mapper.Map<ProductDto>(updatedProduct);
-            response.ProfitMargin = CalculateProfitMargin(product.Id);
-
-            return response;
+            return true;
         }
 
         public async Task<ProductDto> UpdateAsync(UpdateProductDto updateDto)
@@ -237,7 +227,8 @@ namespace ErpSystemBeniSouef.Service.ProductService
             if (product == null)
                 return false;
 
-            _unitOfWork.Repository<Product>().Delete(product);
+            product.IsDeleted = true;
+            _unitOfWork.Repository<Product>().Update(product);
             await _unitOfWork.CompleteAsync();
 
             return true;
@@ -279,7 +270,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
             var categories = _unitOfWork.Repository<Category>().GetAll();
 
             var response = _mapper.Map<IReadOnlyList<CategoryDto>>(categories);
-             
+
             return response;
         }
 
@@ -288,7 +279,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
             var categories = await _unitOfWork.Repository<Category>().GetAllAsync();
 
             var response = _mapper.Map<IReadOnlyList<CategoryDto>>(categories);
-  
+
             return response;
         }
 

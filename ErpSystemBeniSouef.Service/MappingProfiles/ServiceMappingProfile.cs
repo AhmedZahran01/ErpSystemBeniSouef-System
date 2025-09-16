@@ -37,6 +37,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<Product, ProductDto>().ReverseMap();
             CreateMap<CreateProductDto, ProductDto>().ReverseMap();
             CreateMap<CreateProductDto, Product>().ReverseMap();
+            CreateMap<UpdateProductDto, Product>().ReverseMap();
                 
 
             //Category Mapp

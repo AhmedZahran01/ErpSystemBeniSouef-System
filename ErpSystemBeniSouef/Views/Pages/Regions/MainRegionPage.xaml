@@ -108,20 +108,21 @@
             <!-- الأزرار -->
             <StackPanel Grid.Row="2" Orientation="Horizontal" 
                         HorizontalAlignment="Center" Margin="10">
-                <Button Style="{StaticResource AddButtonn}"
-          Content="إعادة تعيين"  Margin="10" Click="BtnReset_Click"/>
-
+                <Button x:Name="editBtn" Visibility="Hidden" Style="{StaticResource UpdateBtn}"
+Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
+  
                 <Button Style="{StaticResource DeleteButtonn}"
                         Content="حذف"   Margin="10" Click="BtnDelete_Click"/>
                
                 <Button Style="{StaticResource AddButtonn}"
-                          Content="إضافة"  Margin="10" Click="BtnAdd_Click"/>
+                          Content="إضافة" FontSize="20"  Margin="10" Click="BtnAdd_Click"/>
            
             </StackPanel>
  
             <!-- الجدول -->
             <DataGrid Grid.Row="3"
-                x:Name="dgMainRegions" 
+                x:Name="dgMainRegions"
+                      SelectionChanged="dgMainRegions_SelectionChanged"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False" 
                 VerticalAlignment="Center" 

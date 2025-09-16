@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
@@ -9,6 +10,7 @@ using ErpSystemBeniSouef.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         #region Global Properties Region
 
         ObservableCollection<ProductDto> observProductsList = new ObservableCollection<ProductDto>();
+        ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
@@ -41,10 +44,17 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             InitializeComponent();
             _productService = productService;
             _mapper = mapper;
-            Loaded += async (s, e) => await Loadproducts();
-            AllProductsDataGrid.ItemsSource = observProductsList;
-            cb_type.ItemsSource = _productService.GetAllCategories();
-            cb_type.SelectedIndex = 0;
+            //Loaded += async (s, e) => await Loadproducts();
+            //cb_type.ItemsSource = _productService.GetAllCategories();
+            //cb_type.SelectedIndex = 0;
+            Loaded += async (s, e) =>
+            {
+                await Loadproducts();
+                cb_type.ItemsSource = await _productService.GetAllCategoriesAsync();
+                cb_type.SelectedIndex = 0;
+            };
+
+            AllProductsDataGrid.ItemsSource = observProductsListFiltered;
         }
         #endregion
 
@@ -56,6 +66,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             foreach (var product in products)
             {
                 observProductsList.Add(product);
+                observProductsListFiltered.Add(product);
             }
             categories = await _productService.GetAllCategoriesAsync();
         }
@@ -75,8 +86,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
                 return;
             }
-            CategoryDto SelectedCategory = (CategoryDto)cb_type.SelectedValue;
-            if (SelectedCategory == null)
+            //CategoryDto selectedCategory = (CategoryDto)cb_type.SelectedValue;
+            CategoryDto selectedCategory = (CategoryDto)cb_type.SelectedItem;
+
+            //int selectedCategoryId = (int)cb_type.SelectedValue;
+            //CategoryDto selectedCategory = categories.FirstOrDefault(c => c.Id == selectedCategoryId);
+
+            if (selectedCategory == null)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
                 return;
@@ -90,7 +106,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 PurchasePrice = decimal.TryParse(mainPri, out decimal mainP) ? mainP : 0,
                 CommissionRate = decimal.TryParse(percent, out decimal p) ? p : 0,
                 SalePrice = decimal.TryParse(salesPri, out decimal subp) ? subp : 0,
-                CategoryId = SelectedCategory.Id,
+                CategoryId = selectedCategory.Id,
             };
 
             bool productDtoRespons = _productService.Create(InputProduct);
@@ -100,7 +116,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 return;
             }
 
-            MessageBox.Show("  تم اضافه المنطقه الاساسية ");
+            MessageBox.Show("تم إضافة المنتج بنجاح");
 
             SalePrice.Clear();
             mainPrice.Clear();
@@ -113,7 +129,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             CategoryDto categoryDto = categories.
                    Where(i => i.Id == InputProduct.CategoryId).FirstOrDefault();
             productD.Category = categoryDto;
-            observProductsList.Add(productD);
+            observProductsListFiltered.Add(productD);
 
         }
 
@@ -121,7 +137,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         #region Delete Button Region
 
-        private void DeleteButton_Click_1(object sender, RoutedEventArgs e)
+        private async void DeleteButton_Click_1(object sender, RoutedEventArgs e)
         {
             bool checkSoftDelete = false;
             if (AllProductsDataGrid.SelectedItems.Count == 0)
@@ -133,7 +149,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             int deletedCount = 0;
             foreach (var item in selectedItemsDto)
             {
-                bool success = _productService.SoftDelete(item.Id);
+                bool success = await _productService.SoftDeleteAsync(item.Id);
                 if (success)
                 {
                     observProductsList.Remove(item);
@@ -165,15 +181,54 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var filtered = observProductsList
                 .Where(i => i.ProductName != null && i.ProductName.ToLower().Contains(query))
                 .ToList();
-            //// تحديث الـ DataGrid
-            //observalMainRegionsDtoforFilter.Clear();
-            //foreach (var item in observalMainRegionsDtoforFilter)
-            //{
-            //    observalMainRegionsDtoforFilter.Add(item);
-            //}
+            // تحديث الـ DataGrid
+            observProductsListFiltered.Clear();
+            foreach (var item in filtered)
+            {
+                observProductsListFiltered.Add(item);
+            }
+
+            // تحديث الاقتراحات
+            var suggestions = filtered.Select(i => i.ProductName);
+            if (suggestions.Any())
+            {
+                SuggestionsItemsListBox.ItemsSource = suggestions;
+                AllProductsDataGrid.ItemsSource = filtered;
+                SuggestionsPopup.IsOpen = true;
+            }
+            else
+            {
+                SuggestionsPopup.IsOpen = false;
+            }
+
         }
 
         #endregion
+
+        #region Suggestions Items List Box Region
+
+        private void SuggestionsItemsListBoxForText_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SuggestionsItemsListBox.SelectedItem != null)
+            {
+                string fullname = (string)SuggestionsItemsListBox.SelectedItem;
+                SearchByItemTextBox.Text = fullname;
+                SuggestionsPopup.IsOpen = false;
+
+                // فلترة DataGrid بالاختيار
+                var filtered = observProductsList
+                    .Where(i => i.ProductName == fullname)
+                    .ToList();
+
+                observProductsListFiltered.Clear();
+                foreach (var item in filtered)
+                {
+                    observProductsListFiltered.Add(item);
+                }
+            }
+        }
+        #endregion
+
 
         #region Back Btn Region
 
@@ -182,6 +237,114 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var Dashboard = new Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
+        }
+
+        #endregion
+
+
+
+        #region dgMainRegions_SelectionChanged Region
+
+        private void dgAllProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (AllProductsDataGrid.SelectedItem is ProductDto selected)
+            {
+                ProductName.Text = selected.ProductName;
+                RepresentivePercentage.Text = selected.CommissionRate.ToString();
+                mainPrice.Text = selected.PurchasePrice.ToString();
+                SalePrice.Text = selected.SalePrice.ToString();
+                cb_type.SelectedValue = selected.CategoryId;
+                //cb_type.SelectedValue = selected.Category;
+
+                editBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+
+        #endregion
+
+        #region Btn Edit Click  Region
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (AllProductsDataGrid.SelectedItem is not ProductDto selected)
+            {
+                MessageBox.Show("من فضلك اختر منطقة للتعديل");
+                return;
+            }
+
+            string newName = ProductName.Text.Trim();
+
+            if (!decimal.TryParse(RepresentivePercentage.Text, out decimal NewRepresentivePercentageValue))
+            {
+                MessageBox.Show("من فضلك أدخل رقم صحيح");
+                return;
+            }
+
+            if (!decimal.TryParse(mainPrice.Text, out decimal newmainPriceValue))
+            {
+                MessageBox.Show("من فضلك أدخل رقم صحيح");
+                return;
+            }
+
+            if (!decimal.TryParse(SalePrice.Text, out decimal newSalePriceValue))
+            {
+                MessageBox.Show("من فضلك أدخل رقم صحيح");
+                return;
+            }
+
+
+            // DTO للتحديث
+            //var updateDto = new UpdateProductDto()
+            //{
+            //    Id = selected.Id,
+            //    ProductName = newName,
+            //    CategoryId = selected.CategoryId,
+            //    CommissionRate = selected.CommissionRate,
+            //    SalePrice = selected.SalePrice,
+            //    PurchasePrice = selected.PurchasePrice
+
+            //};
+
+            var updateDto = new UpdateProductDto()
+            {
+                Id = selected.Id,
+                ProductName = newName,
+                CategoryId = ((CategoryDto)cb_type.SelectedItem).Id,
+                CommissionRate = NewRepresentivePercentageValue,
+                SalePrice = newSalePriceValue,
+                PurchasePrice = newmainPriceValue
+            };
+
+            bool success = _productService.Update(updateDto);
+
+            if (success)
+            {
+                CategoryDto categoryDto = categories.FirstOrDefault(i => i.Id == selected.CategoryId );
+
+
+                // عدل العنصر في ObservableCollection
+                //selected.ProductName = newName;
+                //selected.CommissionRate = selected.CommissionRate;
+                //selected.SalePrice = selected.SalePrice;
+                //selected.PurchasePrice = selected.PurchasePrice;
+                //selected.CategoryId = selected.CategoryId;
+                //selected.Category = categoryDto;
+
+                selected.ProductName = newName; 
+                selected.SalePrice = selected.SalePrice;
+                selected.CommissionRate = NewRepresentivePercentageValue;
+                selected.PurchasePrice = newmainPriceValue;
+                selected.CategoryId = ((CategoryDto)cb_type.SelectedItem).Id;
+
+
+                AllProductsDataGrid.Items.Refresh(); // لتحديث الجدول
+                MessageBox.Show("تم تعديل المنطقة بنجاح");
+            }
+            else
+            {
+                MessageBox.Show("حدث خطأ أثناء التعديل");
+            }
         }
 
         #endregion
