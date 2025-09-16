@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
+using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
@@ -34,6 +35,8 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
 
             //Product Mapp
             CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<CreateProductDto, ProductDto>().ReverseMap();
+            CreateMap<CreateProductDto, Product>().ReverseMap();
                 
 
             //Category Mapp

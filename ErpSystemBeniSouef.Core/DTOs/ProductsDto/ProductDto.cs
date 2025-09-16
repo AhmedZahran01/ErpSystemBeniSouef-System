@@ -11,16 +11,14 @@ namespace ErpSystemBeniSouef.Core.DTOs.ProductsDto
     {
         public int Id { get; set; }
         public string ProductName { get; set; } = string.Empty;
-        public decimal CommissionRate { get; set; }
-        public decimal PurchasePrice { get; set; }
-        public decimal SalePrice { get; set; }
-        public decimal ProfitMargin { get; set; }
-        public string CategoryName { get; set; } = string.Empty;
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public decimal CommissionRate { get; set; }//معدل العمولة
+        public decimal PurchasePrice { get; set; }//سعر الشراء
+        public decimal SalePrice { get; set; }//سعر البيع
+        public decimal ProfitMargin { get; set; }//هامش الربح
+        public string CategoryName { get; set; } = string.Empty; 
         
         public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public virtual CategoryDto? Category { get; set; } = new CategoryDto();
 
     }
 }

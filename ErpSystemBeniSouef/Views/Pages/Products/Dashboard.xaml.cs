@@ -41,7 +41,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
-            var productsPage = new Views.Pages.Products.AllProductsPage(productService);
+            var productsPage = new Views.Pages.Products.AllProductsPage(productService, mapper);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(productsPage);
 
         }

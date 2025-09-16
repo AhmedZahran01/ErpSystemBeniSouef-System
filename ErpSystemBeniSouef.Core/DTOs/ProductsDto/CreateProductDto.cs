@@ -9,6 +9,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.ProductDtos
 {
     public class CreateProductDto
     {
+        public int Id { get; set; } = 0;
         [Required]
         [StringLength(100)]
         public string ProductName { get; set; } = string.Empty;

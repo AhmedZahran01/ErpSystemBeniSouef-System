@@ -47,7 +47,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button" >
-                    <Border Background="{TemplateBinding Background }"  CornerRadius="15" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5">
+                    <Border Background="#702720"  CornerRadius="15" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
                     </Border>
                 </ControlTemplate>
@@ -114,9 +114,7 @@
         </Setter>
         
     </Style>
-
-
-
+ 
     <Style x:Key="triggerrr" TargetType="Button" BasedOn="{StaticResource DeleteButtonn}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -195,47 +193,19 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <Style x:Key="textbox" TargetType="TextBlock">
         <Setter Property="Panel.ZIndex" Value="-1" />
         <Setter Value="#f2eceb" Property="Background" />
 
     </Style>
- 
-
-    <!--
-    
-    <Style x:Key="textbox1" TargetType="TextBox">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="TextBox">
-                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="1" Background="Transparent">
-                        <ScrollViewer x:Name="PART_ContentHost"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style x:Key="pass" TargetType="PasswordBox">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="PasswordBox">
-                    <Border CornerRadius="9" BorderBrush="Black" BorderThickness="1" Background="Transparent">
-                        <ScrollViewer x:Name="PART_ContentHost"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
--->
-    
+  
     <DataTemplate x:Key="BorderedTextBlock">
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="9" Background="#f2eceb" Padding="5">
             <TextBlock Text="{Binding}" Foreground="Black"/>
         </Border>
     </DataTemplate>
-
-
+ 
     <Style x:Key="StudentDataTEXT_BLOCK" TargetType="TextBlock">
 
         <Setter Property="Width" Value="90"/>

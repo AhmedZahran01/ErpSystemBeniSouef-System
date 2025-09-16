@@ -116,24 +116,22 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         #region Create Region
 
-        public ProductDto Create(CreateProductDto createDto)
+        public bool Create(CreateProductDto createDto)
         {
             var category = _unitOfWork.Repository<Category>().GetById(createDto.CategoryId);
             if (category == null)
-                return null;
+                return false;
 
             if (createDto.SalePrice <= createDto.PurchasePrice)
-                return null;
+                return false;
 
             var product = _mapper.Map<Product>(createDto);
+            var productD = _mapper.Map<ProductDto>(createDto);
             _unitOfWork.Repository<Product>().Add(product);
             _unitOfWork.CompleteAsync();
+              
 
-            var response = _mapper.Map<ProductDto>(product);
-            response.CategoryName = category.Name;
-            response.ProfitMargin = CalculateProfitMargin(product.Id);
-
-            return response;
+            return true;
         }
         public async Task<ProductDto> CreateAsync(CreateProductDto createDto)
         {
@@ -226,8 +224,8 @@ namespace ErpSystemBeniSouef.Service.ProductService
             var product = _unitOfWork.Repository<Product>().GetById(id);
             if (product == null)
                 return false;
-
-            _unitOfWork.Repository<Product>().Delete(product);
+            product.IsDeleted = true;
+            _unitOfWork.Repository<Product>().Update(product);
             _unitOfWork.CompleteAsync();
 
             return true;

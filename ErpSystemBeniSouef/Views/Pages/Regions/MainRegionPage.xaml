@@ -123,8 +123,8 @@
             <DataGrid Grid.Row="3"
                 x:Name="dgMainRegions" 
                 AutoGenerateColumns="False"
-                CanUserAddRows="False" VerticalAlignment="Center"
-                            
+                CanUserAddRows="False" 
+                VerticalAlignment="Center" 
                 IsReadOnly="False"
                 HeadersVisibility="Column"
                 FontSize="14"
