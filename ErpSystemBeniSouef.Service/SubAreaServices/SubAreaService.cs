@@ -161,11 +161,11 @@ namespace ErpSystemBeniSouef.Service.SubAreaServices
 
         #region  Create Region
 
-        public bool Create(CreateSubAreaDto createDto)
+        public SubAreaDto Create(CreateSubAreaDto createDto)
         {
             var mainArea = _unitOfWork.Repository<MainArea>().GetById(createDto.MainAreaId);
             if (mainArea == null)
-                return false;
+                return null;
 
             var subArea = _mapper.Map<SubArea>(createDto);
             _unitOfWork.Repository<SubArea>().Add(subArea);
@@ -174,7 +174,7 @@ namespace ErpSystemBeniSouef.Service.SubAreaServices
             var subAreaDto = _mapper.Map<SubAreaDto>(subArea);
             subAreaDto.MainAreaName = mainArea.Name;
 
-            return true;
+            return subAreaDto;
         }
 
         #endregion

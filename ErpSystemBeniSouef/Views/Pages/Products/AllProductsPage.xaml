@@ -37,7 +37,7 @@
             <RowDefinition Height="1.1*"/>
             <!-- الأزرار -->
             <RowDefinition Height="5.5*"/>
-            <RowDefinition Height=".7*"/>
+            <RowDefinition Height=".9*"/>
             <!-- الجدول -->
         </Grid.RowDefinitions>
         <userControls:TitleBar/>

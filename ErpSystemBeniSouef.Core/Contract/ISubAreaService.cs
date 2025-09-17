@@ -15,7 +15,7 @@ namespace ErpSystemBeniSouef.Core.Contract
 
         IReadOnlyList<SubAreaDto> GetSubAreaDtoByMainAreaId(int mainAreaId);
 
-        bool Create(CreateSubAreaDto createDto);
+        SubAreaDto Create(CreateSubAreaDto createDto);
 
         SubAreaDto Update(UpdateSubAreaDto updateDto);
 

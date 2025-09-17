@@ -116,30 +116,27 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         #region Create Region
 
-        public bool Create(CreateProductDto createDto)
+        public ProductDto Create(CreateProductDto createDto)
         {
             var category = _unitOfWork.Repository<Category>().GetById(createDto.CategoryId);
             if (category == null)
-                return false;
+                return null;
 
 
             var product = _mapper.Map<Product>(createDto);
-            var productD = _mapper.Map<ProductDto>(createDto);
+            var productDo = _mapper.Map<ProductDto>(createDto);
             _unitOfWork.Repository<Product>().Add(product);
             _unitOfWork.CompleteAsync();
 
 
-            return true;
+            return productDo;
         }
         public async Task<ProductDto> CreateAsync(CreateProductDto createDto)
         {
             var category = await _unitOfWork.Repository<Category>().GetByIdAsync(createDto.CategoryId);
             if (category == null)
                 return null;
-
-            if (createDto.SalePrice <= createDto.PurchasePrice)
-                return null;
-
+             
             var product = _mapper.Map<Product>(createDto);
             _unitOfWork.Repository<Product>().Add(product);
             await _unitOfWork.CompleteAsync();

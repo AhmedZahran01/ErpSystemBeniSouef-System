@@ -30,7 +30,7 @@ namespace ErpSystemBeniSouef.Core.Contract
         #endregion
 
         #region Create Product Region
-        bool Create(CreateProductDto createDto); 
+        ProductDto Create(CreateProductDto createDto); 
         Task<ProductDto> CreateAsync(CreateProductDto createDto);
 
         #endregion

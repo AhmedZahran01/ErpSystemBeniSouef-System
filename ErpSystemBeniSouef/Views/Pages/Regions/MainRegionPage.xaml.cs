@@ -181,7 +181,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var query = SearchByItemTextBox.Text.ToLower();
+            var query = SearchByItemTextBox.Text?.ToLower() ?? "";
 
             // فلترة النتائج
             var filtered = observalMainRegionsDto

@@ -13,7 +13,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     {
         #region Global Properties Region
 
-        ObservableCollection<ProductDto> observProductsList = new ObservableCollection<ProductDto>();
+        ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
         private readonly IProductService _productService;
@@ -48,7 +48,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             IReadOnlyList<ProductDto> products = await _productService.GetAllAsync();
             foreach (var product in products)
             {
-                observProductsList.Add(product);
+                observProductsLisLim.Add(product);
                 observProductsListFiltered.Add(product);
             }
             categories = await _productService.GetAllCategoriesAsync();
@@ -92,8 +92,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 CategoryId = selectedCategory.Id,
             };
 
-            bool productDtoRespons = _productService.Create(InputProduct);
-            if (!productDtoRespons)
+            ProductDto CreateproductDtoRespons = _productService.Create(InputProduct);
+            if (CreateproductDtoRespons is null)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
                 return;
@@ -106,13 +106,14 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             RepresentivePercentage.Clear();
             ProductName.Clear();
 
-            int lastId = observProductsList.LastOrDefault()?.Id ?? 0;
-            InputProduct.Id = lastId + 1;
-            var productD = _mapper.Map<ProductDto>(InputProduct);
-            CategoryDto categoryDto = categories.
-                   Where(i => i.Id == InputProduct.CategoryId).FirstOrDefault();
-            productD.Category = categoryDto;
-            observProductsListFiltered.Add(productD);
+            //int lastId = observProductsLisLim.LastOrDefault()?.Id ?? 0;
+            //InputProduct.Id = lastId + 1;
+            //var productD = _mapper.Map<ProductDto>(InputProduct);
+            //CategoryDto categoryDto = categories.
+            //       Where(i => i.Id == InputProduct.CategoryId).FirstOrDefault();
+            //productD.Category = categoryDto;
+
+            observProductsListFiltered.Add(CreateproductDtoRespons);
 
         }
 
@@ -135,7 +136,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 bool success = await _productService.SoftDeleteAsync(item.Id);
                 if (success)
                 {
-                    observProductsList.Remove(item);
+                    observProductsLisLim.Remove(item);
                     deletedCount++;
                 }
             }
@@ -158,10 +159,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var query = SearchByItemTextBox.Text.ToLower();
+            var query = SearchByItemTextBox.Text?.ToLower() ?? "";
 
             // فلترة النتائج
-            var filtered = observProductsList
+            var filtered = observProductsLisLim
                 .Where(i => i.ProductName != null && i.ProductName.ToLower().Contains(query))
                 .ToList();
             // تحديث الـ DataGrid
@@ -199,7 +200,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 SuggestionsPopup.IsOpen = false;
 
                 // فلترة DataGrid بالاختيار
-                var filtered = observProductsList
+                var filtered = observProductsLisLim
                     .Where(i => i.ProductName == fullname)
                     .ToList();
 
