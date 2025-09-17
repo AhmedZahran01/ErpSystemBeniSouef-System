@@ -7,6 +7,7 @@ using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
 using ErpSystemBeniSouef.Views.Pages.Products;
@@ -50,6 +51,7 @@ namespace ErpSystemBeniSouef
                  ));
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
         services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
+        services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
         services.AddScoped(typeof(IProductService), typeof(ProductService));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -99,6 +101,7 @@ namespace ErpSystemBeniSouef
             //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('categories', RESEED, 0);");
             //}
 
+
             //========================================
 
             //using (var context = new ApplicationDbContext())
@@ -110,22 +113,35 @@ namespace ErpSystemBeniSouef
             //}
 
 
+
+            //========================================
+
+            //using (var context = new ApplicationDbContext())
+            //{
+            //    bool count = context.subAreas.Any();
+            //    if (!context.subAreas.Any()) // Check if the database is empty
+            //                                 //لو شغال SQL Server
+            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('subAreas', RESEED, 0);");
+            //}
+
+
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindow.DataContext = mainWindowViewModel;
             mainWindowViewModel.setContext(mainWindow);
 
 
+            //var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
-            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+            var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
             //var mainRegionPage = new MainRegionPage(repo);
 
             //var login = new MainRegionPage(repo , mainAreaService);
 
-            var login = new AllProductsPage(productService, mapper);
+            //var login = new AllProductsPage(productService, mapper);
 
             //var login = new MainRegionPage(mainAreaService, mapper);
-            //var login = new SubRegionPage(repo);
+            var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
             //var login = new StartPageBeforeLogin();
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();

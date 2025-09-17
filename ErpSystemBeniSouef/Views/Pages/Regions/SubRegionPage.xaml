@@ -32,13 +32,13 @@
         <Grid Background="{DynamicResource BackgroundColor}" Margin="0 0 0 0">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height=".5*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2.8*"/>
                 <!-- المدخلات -->
                 <RowDefinition Height="1.5*"/>
                 <!-- الأزرار -->
-                <RowDefinition Height="7*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1.4*"/>
                 <!-- الجدول -->
             </Grid.RowDefinitions>
             <userControls:TitleBar/>
@@ -48,8 +48,8 @@
             <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0 1 0 0">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 10">
                     <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
-                    <ComboBox x:Name="cb_MainRegionName" 
-                              Style="{StaticResource SmallerComboBox}"  
+                    <ComboBox x:Name="cb_MainRegionName"  DisplayMemberPath="Name" 
+                              SelectedValuePath="Id" Style="{StaticResource SmallerComboBox}"  
                              />
                     <TextBlock Text="  :  اسم المنطقة الأساسية" 
          Foreground="White" FontSize="24" 
@@ -57,7 +57,8 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,0">
-                    <TextBox x:Name="txtSbuRegionStartNumber" Style="{StaticResource textboxx}"    />
+                    <TextBox x:Name="txtSbuRegionStartNumber" FlowDirection="RightToLeft"
+                             Width="200" Style="{StaticResource textboxx}"    />
                     <TextBlock Text=" :  اسم المنطقة الفرعيه   "  
          Foreground="White" FontSize="24" 
          VerticalAlignment="Center" Margin="5 0"/>
@@ -66,13 +67,13 @@
                 <StackPanel Margin="20,0,0,0" Orientation="Horizontal" Grid.Column="1">
                     
                     <TextBox x:Name="SearchByItemTextBox"
-  Width="200"
-  Height="25" Margin="0 0 0 0"
-  Style="{StaticResource textboxx}"                    
-  VerticalAlignment="Center"
-  HorizontalAlignment="Center"
-  TextChanged="SearchByItemFullNameBox_TextChanged"
-  />
+                        Width="170" FlowDirection="RightToLeft"
+                        Height="25" Margin="0 0 0 0"
+                        Style="{StaticResource textboxx}"                    
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        TextChanged="SearchByItemFullNameBox_TextChanged"
+                        />
                   
                     <Popup x:Name="SuggestionsPopup"
 Placement="Bottom"
@@ -88,8 +89,10 @@ Height="auto">
                     </Popup>
 
                     <Label Margin="0,0,0,0" Content="  : بحث ب اسم المنطقة  " 
-VerticalAlignment="Center" Foreground="White"
-FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+                      VerticalAlignment="Center" Foreground="White"
+                      FontSize="24"  Style="{StaticResource LabelStyle}">
+                        
+                    </Label>
 
                     
                 </StackPanel>

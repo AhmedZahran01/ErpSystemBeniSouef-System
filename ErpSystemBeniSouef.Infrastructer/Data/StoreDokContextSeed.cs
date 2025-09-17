@@ -96,8 +96,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
 
             #region Sub Areas Region 
 
-            if (dbcontext.subAreas.Any()) // Check if the database is empty
-            //if (!dbcontext.subAreas.Any()) // Check if the database is empty
+            if (!dbcontext.subAreas.Any()) // Check if the database is empty
             {
                 var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "subRegion.json");
 

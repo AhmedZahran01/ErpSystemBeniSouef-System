@@ -34,7 +34,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height=".7*"/>
-                <RowDefinition Height="2.6*"/>
+                <RowDefinition Height="3*"/>
                 <!-- المدخلات -->
                 <RowDefinition Height="1.4*"/>
                 <!-- الأزرار -->
@@ -53,7 +53,7 @@
                                Foreground="White" FontSize="24" 
                                VerticalAlignment="Center"  Margin="5 0"/>
 
-                    <TextBox x:Name="txtRegionName" Width="150" Height="25"  Style="{StaticResource textboxx}"  
+                    <TextBox x:Name="txtRegionName" Width="200" Height="45"  Style="{StaticResource textboxx}"  
                              ToolTip="ادخل اسم المنطقه  "      />
 
 
@@ -66,7 +66,7 @@
                                Foreground="White" FontSize="24" 
                                VerticalAlignment="Center" Margin="5 0"/>
 
-                    <TextBox x:Name="txtRegionStartNumber" Width="100" Height="25"  
+                    <TextBox x:Name="txtRegionStartNumber" Width="200" Height="45"  
                              ToolTip="ادخل بداية الترقيم"
                              Style="{StaticResource textboxx}"  
                              /> 
@@ -82,7 +82,7 @@
                     
                     <TextBox x:Name="SearchByItemTextBox"
              Width="200"
-             Height="25" Margin="0 0 0 0"
+             Height="45" Margin="0 0 0 0"
              Style="{StaticResource textboxx}"                    
              VerticalAlignment="Center"
              HorizontalAlignment="Center"
@@ -92,8 +92,7 @@
            Placement="Bottom"
            PlacementTarget="{Binding ElementName = SearchByItemTextBox}"
            StaysOpen="False"
-           Width="250"
-           Height="auto">
+           Width="250" >
                         <ListBox x:Name="SuggestionsItemsListBox" 
                  SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
                  Background="White"

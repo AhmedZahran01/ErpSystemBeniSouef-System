@@ -6,9 +6,11 @@ using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
+using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.ViewModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,10 +34,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
         public MainRegionPage(IMainAreaService mainAreaService, IMapper mapper)
         {
-            InitializeComponent();
-            _mainAreaService = mainAreaService;
-            _mapper = mapper;
-            LoadMainRegions();
+            InitializeComponent();  _mainAreaService = mainAreaService; _mapper = mapper;
+
+            Loaded += async (s, e) =>
+            { await LoadMainRegions(); };
             dgMainRegions.ItemsSource = observalMainRegionsDto;
         }
         #endregion
@@ -44,21 +46,14 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
         private async Task LoadMainRegions()
         {
-            try
-            {
-                mainRegionsDto = await _mainAreaService.GetAllAsync();
-            }
-            catch
-            {
-                MessageBox.Show("  برجاء المحاوله في وقت لاحق ");
-            }
+            try { mainRegionsDto = await _mainAreaService.GetAllAsync(); }
+            catch { MessageBox.Show("  برجاء المحاوله في وقت لاحق "); }
             // امسح القديم واضيف الجديد بدون إنشاء Object جديد
             observalMainRegionsDto.Clear();
             foreach (var item in mainRegionsDto)
             {
                 observalMainRegionsDto.Add(item);
             }
-
         }
 
         #endregion
@@ -70,7 +65,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             string inputRegionName = txtRegionName.Text;
             string inputStartNumber = txtRegionStartNumber.Text;
             int inputStartNumberI = 0;
-            if (int.TryParse(txtRegionStartNumber.Text, out int inputStartNumberI2 ) )
+            if (int.TryParse(txtRegionStartNumber.Text, out int inputStartNumberI2))
             {
                 inputStartNumberI = inputStartNumberI2;
             }
@@ -86,14 +81,14 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 return;
             }
 
-            MainAreaDto CheckMainAreaNameFounded = observalMainRegionsDto.Where(n => n.Name == inputRegionName ).FirstOrDefault();
-            MainAreaDto CheckMainAreaStartNoFounded = observalMainRegionsDto.Where(n=>n.StartNumbering == inputStartNumberI).FirstOrDefault();
+            MainAreaDto CheckMainAreaNameFounded = observalMainRegionsDto.Where(n => n.Name == inputRegionName).FirstOrDefault();
+            MainAreaDto CheckMainAreaStartNoFounded = observalMainRegionsDto.Where(n => n.StartNumbering == inputStartNumberI).FirstOrDefault();
             if (CheckMainAreaNameFounded is not null || CheckMainAreaStartNoFounded is not null)
             {
-                if(CheckMainAreaNameFounded is not null)
-                MessageBox.Show(" الاسم مستخدم من قيل "); 
-                if(CheckMainAreaStartNoFounded is not null)
-                MessageBox.Show(" الرقم مستخدم من قيل ");
+                if (CheckMainAreaNameFounded is not null)
+                    MessageBox.Show(" الاسم مستخدم من قيل ");
+                if (CheckMainAreaStartNoFounded is not null)
+                    MessageBox.Show(" الرقم مستخدم من قيل ");
                 return;
             }
             CreateMainAreaDto newMainArea = new CreateMainAreaDto()
@@ -112,12 +107,15 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
                 MainAreaDto lastMainArea = observalMainRegionsDto.Last();
                 //MainArea lastMainArea = _mainAreaService.GetAll().LastOrDefault();
-
+                if(lastMainArea is null)
+                {
+                    lastMainArea = new MainAreaDto() {Id= 0};
+                }
                 MainAreaDto newMainAreaForObserv = new MainAreaDto()
                 {
                     Id = lastMainArea.Id + 1,
                     Name = newMainArea.Name,
-                    StartNumbering = newMainArea.StartNumbering,  
+                    StartNumbering = newMainArea.StartNumbering,
                 };
                 observalMainRegionsDto.Add(newMainAreaForObserv);
             }
@@ -191,8 +189,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
                 .ToList();
             // تحديث الـ DataGrid
             observalMainRegionsDtoforFilter.Clear();
-            //foreach (var item in filtered)
-            foreach (var item in observalMainRegionsDtoforFilter)
+            foreach (var item in filtered)
+            //foreach (var item in observalMainRegionsDtoforFilter)
             {
                 observalMainRegionsDtoforFilter.Add(item);
             }
@@ -243,7 +241,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         {
             if (dgMainRegions.SelectedItem is MainAreaDto selected)
             {
-                txtRegionName.Text = selected.Name; 
+                txtRegionName.Text = selected.Name;
                 txtRegionStartNumber.Text = selected.StartNumbering.ToString();
                 editBtn.Visibility = Visibility.Visible;
             }
@@ -251,7 +249,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
 
         #endregion
-         
+
         #region MyRegion
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -294,6 +292,28 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
                 dgMainRegions.Items.Refresh(); // لتحديث الجدول
                 MessageBox.Show("تم تعديل المنطقة بنجاح");
+
+                var index = observalMainRegionsDto
+               .Select((item, i) => new { item, i })
+               .FirstOrDefault(x => x.item.Id == updateDto.Id)?.i;
+
+                if (index != null)
+                {
+                    observalMainRegionsDto[index.Value] = new MainAreaDto
+                    {
+                        Id = updateDto.Id,
+                        Name = updateDto.Name,
+                        StartNumbering = updateDto.StartNumbering
+                    };
+                }
+                //MainAreaDto newUpdateMainAreaForObserv = new MainAreaDto()
+                //{
+                //    Id = updateDto.Id ,
+                //    Name = updateDto.Name,
+                //    StartNumbering = updateDto.StartNumbering,
+                //};
+                //observalMainRegionsDto.Remove(newUpdateMainAreaForObserv);
+
             }
             else
             {

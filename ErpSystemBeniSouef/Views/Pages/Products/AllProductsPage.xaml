@@ -59,7 +59,7 @@
                     <TextBlock Text="  : اسم الصنف"  Foreground="White" FontSize="21" Width="140"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 5 0 10">
-                    <ComboBox x:Name="cb_type"   DisplayMemberPath="Name"   SelectedValuePath="Id"
+                    <ComboBox x:Name="cb_type"   DisplayMemberPath="Name" SelectedValuePath="Id"
                               Style="{StaticResource SmallerComboBox}"  />
                     <TextBlock Text="  : نوع المنتج "  Foreground="White" FontSize="21" Width="130"/>
                 </StackPanel>

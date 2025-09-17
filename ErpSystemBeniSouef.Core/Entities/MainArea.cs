@@ -9,7 +9,7 @@ namespace ErpSystemBeniSouef.Core.Entities
 {
     public class MainArea : BaseEntity
     { 
-        public required string Name { get; set; }
+        public string Name { get; set; }
         public int StartNumbering { get; set; }
         [ForeignKey(nameof(Company))]
         public int? CompanyId { get; set; }

@@ -19,9 +19,11 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
         {     
             // SubArea
             CreateMap<CreateSubAreaDto, SubArea>().ReverseMap();
+            CreateMap<SubAreaDto, SubArea>().ReverseMap();
             CreateMap<UpdateSubAreaDto, SubArea>()
                 .ForAllMembers(opts =>
                     opts.Condition((src, dest, srcMember) => srcMember != null));
+            CreateMap<CreateSubAreaDto, SubAreaDto>().ReverseMap();
 
 
 

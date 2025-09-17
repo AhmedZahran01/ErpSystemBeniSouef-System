@@ -48,8 +48,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void BtnSubRegions_Click(object sender, RoutedEventArgs e)
         {
-            var repo = App.AppHost.Services.GetRequiredService<IUnitOfWork>();
-            var subRegionPage = new SubRegionPage(repo);
+            var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
+            var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
+            var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+            var subRegionPage = new SubRegionPage(subAreaService,mapper,mainAreaService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(subRegionPage);
 
         }
