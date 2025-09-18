@@ -16,15 +16,17 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
+        private readonly int _comanyNo;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constractor Region
 
-        public AllProductsPage(IProductService productService, IMapper mapper)
+        public AllProductsPage(int comanyNo, IProductService productService, IMapper mapper)
         {
             InitializeComponent();
+            _comanyNo = comanyNo;
             _productService = productService;
             _mapper = mapper;
             //Loaded += async (s, e) => await Loadproducts();
@@ -45,7 +47,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private async Task Loadproducts()
         {
-            IReadOnlyList<ProductDto> products = await _productService.GetAllAsync();
+            IReadOnlyList<ProductDto> products = await _productService.GetAllProductsAsync(_comanyNo);
             foreach (var product in products)
             {
                 observProductsLisLim.Add(product);
@@ -218,7 +220,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            var Dashboard = new Dashboard();
+            var Dashboard = new Dashboard(_comanyNo);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }

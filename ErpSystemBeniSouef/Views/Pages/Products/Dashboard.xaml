@@ -87,19 +87,19 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel  Grid.Row="2" Background="Black" Margin="10"  >
+        <StackPanel  Grid.Row="2" Background="#1B7F" Margin="10"  >
 
 
 
-            <Button Content="الاعدادات" 
-                     FontSize="28"
- FontWeight="Bold"
+            <Button Content="خروج" 
+                     FontSize="40" 
+                    FontWeight="Heavy"
  HorizontalAlignment="Left"
- Margin="10,0,0,0"
- Foreground ="White"
-                    Background="#FF0E83B4"
-                    Style="{StaticResource TestButtonStyle}"/>
-
+ Margin="20,10,0,10"
+ Foreground ="Black"
+                    Background="Red" 
+                    Style="{StaticResource TestButtonStyle}" Click="SignOutButton_Click_2"/>
+            <!--Background="#FF0E83B4"-->
         </StackPanel>
 
 

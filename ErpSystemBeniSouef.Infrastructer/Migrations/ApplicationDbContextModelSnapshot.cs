@@ -116,9 +116,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -136,8 +133,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("categories");
                 });
@@ -214,6 +209,9 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.Property<decimal>("CommissionRate")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
@@ -239,6 +237,8 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("products");
                 });
@@ -411,17 +411,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Category", b =>
-                {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>
                 {
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Company", "Company")
@@ -439,7 +428,15 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Company", "Company")
+                        .WithMany("Products")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.SubArea", b =>
@@ -505,6 +502,11 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Company", b =>
                 {
                     b.Navigation("Products");
                 });

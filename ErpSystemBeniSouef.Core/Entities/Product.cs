@@ -16,6 +16,11 @@ namespace ErpSystemBeniSouef.Core.Entities
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+       
+        
+        [ForeignKey("Company")]
+        public int CompanyId { get; set; }
+        public virtual Company Company { get; set; }
          
     }
 }

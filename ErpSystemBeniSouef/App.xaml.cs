@@ -130,19 +130,21 @@ namespace ErpSystemBeniSouef
             mainWindowViewModel.setContext(mainWindow);
 
 
-            //var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
             var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
             //var mainRegionPage = new MainRegionPage(repo);
+
 
             //var login = new MainRegionPage(repo , mainAreaService);
 
             //var login = new AllProductsPage(productService, mapper);
 
             //var login = new MainRegionPage(mainAreaService, mapper);
-            var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
-            //var login = new StartPageBeforeLogin();
+
+            //var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
+            var login = new StartPageBeforeLogin();
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();
         }

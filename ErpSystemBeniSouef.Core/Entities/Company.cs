@@ -11,6 +11,11 @@ namespace ErpSystemBeniSouef.Core.Entities
         public int Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+
+
+        // Navigation property for Items
+        public virtual ICollection<Product>? Products { get; set; }
+
     }
 }
 

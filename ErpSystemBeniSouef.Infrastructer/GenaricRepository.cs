@@ -24,7 +24,7 @@ namespace ErpSystemBeniSouef.Infrastructer
          
         #region Get All Region
        
-        public List<T> GetAll(params Expression<Func<T, object>>[] includes)
+        public List<T> GetAll( params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
 
@@ -36,7 +36,19 @@ namespace ErpSystemBeniSouef.Infrastructer
             return query.ToList();
         }
          
-        public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+        public async Task<List<T>> GetAllProductsAsync(int comanyNo, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query.ToList();
+        }
+         
+        public async Task<List<T>> GetAllAsync( params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
 

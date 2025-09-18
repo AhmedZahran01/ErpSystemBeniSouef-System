@@ -15,7 +15,7 @@ namespace ErpSystemBeniSouef.ViewModel.Commands
             {
                 case "DashBoardProducts":
                 //case "DashBoardManager":
-                    var dashBoardManagerPage = new ErpSystemBeniSouef.Views.Pages.Products.Dashboard();
+                    var dashBoardManagerPage = new ErpSystemBeniSouef.Views.Pages.Products.Dashboard(0);
                     MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashBoardManagerPage);
                     break; 
 

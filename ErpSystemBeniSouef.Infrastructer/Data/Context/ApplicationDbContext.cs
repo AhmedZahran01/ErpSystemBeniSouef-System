@@ -43,6 +43,25 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             base.OnModelCreating(builder);
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
+            #region Edit Data Region
+
+       //     builder.Entity<Product>()
+       //     .HasOne(p => p.Company)
+       //     .WithMany(c => c.Products)
+       //     .HasForeignKey(p => p.CompanyId)
+       //     .OnDelete(DeleteBehavior.SetNull); // 👈 بدل Cascade
+
+
+       //     builder.Entity<Category>()
+       //.HasOne(c => c.Company)
+       //.WithMany()
+       //.HasForeignKey(c => c.CompanyId)
+       //.OnDelete(DeleteBehavior.Cascade); // تسيبها زي ما هي
+
+            #endregion
+
         }
 
 

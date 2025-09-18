@@ -55,6 +55,20 @@ namespace ErpSystemBeniSouef.Service.ProductService
             return response;
         }
 
+        public async Task<IReadOnlyList<ProductDto>> GetAllProductsAsync(int comanyNo)
+        {
+            var products = await _unitOfWork.Repository<Product>().GetAllProductsAsync(comanyNo, m => m.Category);
+            products = products.Where(m=>m.CompanyId == comanyNo).ToList();
+            var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
+
+            foreach (var productDto in response)
+            {
+                productDto.ProfitMargin = await CalculateProfitMarginAsync(productDto.Id);
+            }
+
+            return response;
+        }
+
         #endregion
 
         #region Get By Id  Region

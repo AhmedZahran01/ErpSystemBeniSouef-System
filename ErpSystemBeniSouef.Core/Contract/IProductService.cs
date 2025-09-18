@@ -13,6 +13,8 @@ namespace ErpSystemBeniSouef.Core.Contract
 
         Task<IReadOnlyList<ProductDto>> GetAllAsync();
 
+        Task<IReadOnlyList<ProductDto>> GetAllProductsAsync(int comanyNo);
+
         #endregion
 
         #region Get By Id Region

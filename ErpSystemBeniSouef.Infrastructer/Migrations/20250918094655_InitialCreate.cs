@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ErpSystemBeniSouef.Infrastructer.Migrations
 {
     /// <inheritdoc />
-    public partial class IntialCreateForErpDB : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,21 +61,17 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "mainAreas",
+                name: "company",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartNumbering = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_mainAreas", x => x.Id);
+                    table.PrimaryKey("PK_company", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +150,30 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "mainAreas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartNumbering = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_mainAreas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_mainAreas_company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "company",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "products",
                 columns: table => new
                 {
@@ -164,6 +184,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     PurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -178,30 +199,12 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         principalTable: "categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "subAreas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MainAreaId = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_subAreas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_subAreas_mainAreas_MainAreaId",
-                        column: x => x.MainAreaId,
-                        principalTable: "mainAreas",
+                        name: "FK_products_company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "company",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -249,6 +252,30 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "subAreas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    MainAreaId = table.Column<int>(type: "int", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_subAreas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_subAreas_mainAreas_MainAreaId",
+                        column: x => x.MainAreaId,
+                        principalTable: "mainAreas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -282,9 +309,19 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_mainAreas_CompanyId",
+                table: "mainAreas",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_products_CategoryId",
                 table: "products",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_products_CompanyId",
+                table: "products",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
@@ -334,6 +371,9 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
             migrationBuilder.DropTable(
                 name: "mainAreas");
+
+            migrationBuilder.DropTable(
+                name: "company");
         }
     }
 }

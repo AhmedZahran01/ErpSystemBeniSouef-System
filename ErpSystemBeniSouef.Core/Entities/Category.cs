@@ -9,8 +9,9 @@ namespace ErpSystemBeniSouef.Core.Entities
     public class Category : BaseEntity
     {
         public required string Name { get; set; }
-        public int CompanyId { get; set; }
-        public Company Company { get; set; }
+        
+        //public int CompanyId { get; set; }
+        //public Company Company { get; set; }
 
         public override string ToString()
         {

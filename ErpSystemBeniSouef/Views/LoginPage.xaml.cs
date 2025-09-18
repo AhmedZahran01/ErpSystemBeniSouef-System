@@ -29,13 +29,30 @@ namespace ErpSystemBeniSouef.Views
 
         private void OnLoginClick(object sender, RoutedEventArgs e)
         {
-            //if (UsernameText.Text == "1" && PasswordText.Password == "1")
-            if ( true)
+            if (UsernameText.Text == "1" && PasswordText.Password == "1") 
             {
-                var dashboard = new Views.Pages.Products.Dashboard();
+                var dashboard = new Views.Pages.Products.Dashboard(1);
                 MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
-                
             }
+             
+            if (UsernameText.Text == "2" && PasswordText.Password == "2") 
+            {
+                var dashboard = new Views.Pages.Products.Dashboard(2);
+                MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
+            }
+ 
+            if (UsernameText.Text == "3" && PasswordText.Password == "3") 
+            {
+                var dashboard = new Views.Pages.Products.Dashboard(3);
+                MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
+            }
+                 
+            if (UsernameText.Text == "4" && PasswordText.Password == "4") 
+            {
+                var dashboard = new Views.Pages.Products.Dashboard(4);
+                MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
+            }
+ 
         }
     }
 }

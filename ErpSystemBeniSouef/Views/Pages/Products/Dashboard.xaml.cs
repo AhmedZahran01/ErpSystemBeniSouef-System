@@ -25,9 +25,12 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     /// </summary>
     public partial class Dashboard : Page
     {
-        public Dashboard()
+        private readonly int _comanyNo;
+
+        public Dashboard(int ComanyNo)
         {
             InitializeComponent();
+            _comanyNo = ComanyNo;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -41,7 +44,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
-            var productsPage = new Views.Pages.Products.AllProductsPage(productService, mapper);
+            var productsPage = new Views.Pages.Products.AllProductsPage(_comanyNo, productService, mapper);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(productsPage);
 
         }
@@ -53,6 +56,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void RepresentativeCollector_Click(object sender, RoutedEventArgs e)
         { 
+        }
+
+        private void SignOutButton_Click_2(object sender, RoutedEventArgs e)
+        {
+            var Dashboard = new LoginPage();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+
         }
     }
 }
