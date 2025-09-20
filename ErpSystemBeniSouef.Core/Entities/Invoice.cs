@@ -12,7 +12,6 @@ namespace ErpSystemBeniSouef.Core.Entities
     public DateTime InvoiceDate { get; set; }
     public decimal? TotalAmount { get; set; }
     public decimal? DueAmount { get; set; }
-    public string? Notes { get; set; }
     public InvoiceType invoiceType { get; set; }
     public int? SupplierId { get; set; }
     public virtual Supplier? Supplier { get; set; }

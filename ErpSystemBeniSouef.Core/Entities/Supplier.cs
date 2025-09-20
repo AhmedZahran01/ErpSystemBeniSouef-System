@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.Entities
 {
-    public class Supplier
+    public class Supplier: BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
