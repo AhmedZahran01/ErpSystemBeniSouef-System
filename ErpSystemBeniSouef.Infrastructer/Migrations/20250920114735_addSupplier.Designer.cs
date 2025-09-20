@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErpSystemBeniSouef.Infrastructer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250920114735_addSupplier")]
+    partial class addSupplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,100 +159,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("company");
-                });
-
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Invoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal?>("DueAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("InvoiceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("invoiceType")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("invoices");
-                });
-
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.InvoiceItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("invoiceItems");
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>
@@ -534,34 +443,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Invoice", b =>
-                {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId");
-
-                    b.Navigation("Supplier");
-                });
-
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.InvoiceItem", b =>
-                {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Invoice", "Invoice")
-                        .WithMany("Items")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Invoice");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>
                 {
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Company", "Company")
@@ -660,11 +541,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Company", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Invoice", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>

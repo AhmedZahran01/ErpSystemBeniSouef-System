@@ -31,6 +31,9 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<MainArea> mainAreas { get; set; }
         public DbSet<SubArea> subAreas { get; set; }
         public DbSet<Company> company { get; set; }
+        public DbSet<Supplier> suppliers { get; set; }
+        public DbSet<Invoice> invoices { get; set; }
+        public DbSet<InvoiceItem> invoiceItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

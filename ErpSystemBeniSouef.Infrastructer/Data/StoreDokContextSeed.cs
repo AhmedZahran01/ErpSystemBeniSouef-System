@@ -63,8 +63,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
                     await dbcontext.SaveChangesAsync();
                 }
             }
-            #endregion
-
+            #endregion 
 
             #region Main Areas Region
 
@@ -136,6 +135,79 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
                     foreach (var subRegion in subRegions)
                     {
                         dbcontext.Set<Product>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+              
+            #region Supplier Region 
+
+            if (!dbcontext.suppliers.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Suppliers.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var subRegions = JsonSerializer.Deserialize<List<Supplier>>(subRegionData);
+
+                if (subRegions?.Count() > 0)
+                {
+                    foreach (var subRegion in subRegions)
+                    {
+                        dbcontext.Set<Supplier>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+             
+         
+            #region invoice Region 
+
+            if (!dbcontext.invoices.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Invoice.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var invoices = JsonSerializer.Deserialize<List<Invoice>>(subRegionData);
+
+                if (invoices?.Count() > 0)
+                {
+                    foreach (var subRegion in invoices)
+                    {
+                        dbcontext.Set<Invoice>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+
+            #region invoices Region 
+
+            if (!dbcontext.invoiceItems.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "InvoiceItems.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var invoiceItems = JsonSerializer.Deserialize<List<InvoiceItem>>(subRegionData);
+
+                if (invoiceItems?.Count() > 0)
+                {
+                    foreach (var invoiceItem in invoiceItems)
+                    {
+                        dbcontext.Set<InvoiceItem>().Add(invoiceItem);
                     }
                     await dbcontext.SaveChangesAsync();
                 }
