@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Controls\" />
+    <Folder Include="Views\Pages\InvoiceAndsupplierRegion\" />
   </ItemGroup>
 
 </Project>
