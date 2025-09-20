@@ -1,0 +1,129 @@
+﻿[
+   
+  { 
+    "InvoiceId": 1,
+    "ProductId": 1,
+    "ProductType": "Electronics",
+    "ProductName": "Mouse",
+    "Quantity": 3,
+    "UnitPrice": 200,
+    "Notes": "Wireless"
+  },
+  { 
+    "InvoiceId": 2,
+    "ProductId": 2,
+    "ProductType": "Furniture",
+    "ProductName": "Office Chair",
+    "Quantity": 4,
+    "UnitPrice": 800,
+    "Notes": "Ergonomic"
+  },
+  { 
+    "InvoiceId": 2,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Notebook",
+    "Quantity": 10,
+    "UnitPrice": 40,
+    "Notes": "A4 Size"
+  },
+  { 
+    "InvoiceId": 3,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Pen",
+    "Quantity": 50,
+    "UnitPrice": 5,
+    "Notes": "Blue Ink"
+  },
+  { 
+    "InvoiceId": 3,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Stapler",
+    "Quantity": 2,
+    "UnitPrice": 60,
+    "Notes": "Heavy Duty"
+  },
+  { 
+    "InvoiceId": 4,
+    "ProductId": 1,
+    "ProductType": "Electronics",
+    "ProductName": "Printer",
+    "Quantity": 1,
+    "UnitPrice": 3000,
+    "Notes": "LaserJet"
+  },
+  { 
+    "InvoiceId": 4,
+    "ProductId": 1,
+    "ProductType": "Furniture",
+    "ProductName": "Desk",
+    "Quantity": 2,
+    "UnitPrice": 1200,
+    "Notes": "Wooden"
+  },
+  { 
+    "InvoiceId": 3,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Marker",
+    "Quantity": 12,
+    "UnitPrice": 10,
+    "Notes": "Black"
+  },
+  { 
+    "InvoiceId": 3,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Highlighter",
+    "Quantity": 8,
+    "UnitPrice": 15,
+    "Notes": "Yellow"
+  },
+  { 
+    "InvoiceId": 2,
+    "ProductId": 1,
+    "ProductType": "Electronics",
+    "ProductName": "Keyboard",
+    "Quantity": 3,
+    "UnitPrice": 350,
+    "Notes": "Mechanical"
+  },
+  { 
+    "InvoiceId": 2,
+    "ProductId": 1,
+    "ProductType": "Furniture",
+    "ProductName": "Cabinet",
+    "Quantity": 1,
+    "UnitPrice": 2500,
+    "Notes": "4 Drawers"
+  },
+  { 
+    "InvoiceId": 1,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Paper Pack",
+    "Quantity": 20,
+    "UnitPrice": 40,
+    "Notes": "A3 Size"
+  },
+  { 
+    "InvoiceId": 1,
+    "ProductId": 1,
+    "ProductType": "Electronics",
+    "ProductName": "Projector",
+    "Quantity": 1,
+    "UnitPrice": 5000,
+    "Notes": "HD"
+  },
+  { 
+    "InvoiceId": 1,
+    "ProductId": 1,
+    "ProductType": "Stationery",
+    "ProductName": "Scissors",
+    "Quantity": 5,
+    "UnitPrice": 25,
+    "Notes": "Medium Size"
+  }
+]

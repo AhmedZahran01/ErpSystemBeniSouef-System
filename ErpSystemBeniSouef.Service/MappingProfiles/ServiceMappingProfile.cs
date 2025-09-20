@@ -3,6 +3,7 @@ using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
+using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using System;
@@ -44,6 +45,10 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
 
             //Category Mapp
             CreateMap<Category, CategoryDto>().ReverseMap();
+
+
+            //Suppliers Mapp
+            CreateMap<Supplier, SupplierDto>().ReverseMap();
                 
 
         }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,10 +28,10 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     {
         private readonly int _comanyNo;
 
-        public Dashboard(int ComanyNo)
+        public Dashboard(int CompanyNo)
         {
             InitializeComponent();
-            _comanyNo = ComanyNo;
+            _comanyNo = CompanyNo;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -62,6 +63,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         {
             var Dashboard = new LoginPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+
+        } 
+
+        private void InvoiceMainPage_Click_2(object sender, RoutedEventArgs e)
+        {
+            var invoicePage = new InvoiceAndsupplierRegion.InvoiceAndsupplierRegion(_comanyNo);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(invoicePage);
 
         }
     }

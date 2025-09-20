@@ -8,6 +8,7 @@ using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
+using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
 using ErpSystemBeniSouef.Views.Pages.Products;
@@ -53,6 +54,7 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
         services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
         services.AddScoped(typeof(IProductService), typeof(ProductService));
+        services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     })
@@ -108,7 +110,7 @@ namespace ErpSystemBeniSouef
             //{
             //    bool count = context.products.Any();
             //    if (!context.products.Any()) // Check if the database is empty
-            //                                   //لو شغال SQL Server
+            //                                 //لو شغال SQL Server
             //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('products', RESEED, 0);");
             //}
 
@@ -134,6 +136,7 @@ namespace ErpSystemBeniSouef
             var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
             var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -144,7 +147,9 @@ namespace ErpSystemBeniSouef
             //var login = new MainRegionPage(mainAreaService, mapper);
 
             //var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
-            var login = new StartPageBeforeLogin();
+
+            //var login = new StartPageBeforeLogin();
+            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();
         }
