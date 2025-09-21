@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.RepresentativeAndCollector;
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -26,12 +28,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     /// </summary>
     public partial class Dashboard : Page
     {
-        private readonly int _comanyNo;
+        private readonly int _comanyNo = AppGlobalCompanyId.CompanyId;
 
-        public Dashboard(int CompanyNo)
+        public Dashboard( )
         {
-            InitializeComponent();
-            _comanyNo = CompanyNo;
+            InitializeComponent(); 
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -45,7 +46,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
-            var productsPage = new Views.Pages.Products.AllProductsPage(_comanyNo, productService, mapper);
+            var productsPage = new Views.Pages.Products.AllProductsPage( productService, mapper);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(productsPage);
 
         }
@@ -56,15 +57,20 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         }
 
         private void RepresentativeCollector_Click(object sender, RoutedEventArgs e)
-        { 
+        {
+            var representativeCollectorPage = new MainRepresentativeAndCollectorPage();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativeCollectorPage);
+
         }
 
         private void SignOutButton_Click_2(object sender, RoutedEventArgs e)
         {
             var Dashboard = new LoginPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+            App.Current.Properties["CompanyId"] = 0;
 
-        } 
+
+        }
 
         private void InvoiceMainPage_Click_2(object sender, RoutedEventArgs e)
         {

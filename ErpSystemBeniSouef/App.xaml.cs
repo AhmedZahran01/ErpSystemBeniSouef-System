@@ -148,8 +148,9 @@ namespace ErpSystemBeniSouef
 
             //var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
 
-            //var login = new StartPageBeforeLogin();
-            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
+            var login = new StartPageBeforeLogin();
+            //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
+
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();
         }

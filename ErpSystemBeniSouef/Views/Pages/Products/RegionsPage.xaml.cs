@@ -64,7 +64,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            var Dashboard = new ErpSystemBeniSouef.Views.Pages.Products.Dashboard(0);
+            var Dashboard = new ErpSystemBeniSouef.Views.Pages.Products.Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }

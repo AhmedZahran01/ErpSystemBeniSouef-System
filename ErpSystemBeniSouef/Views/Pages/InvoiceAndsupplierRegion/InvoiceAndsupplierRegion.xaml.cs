@@ -59,8 +59,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            int Cpmpno = 1;
-            var Dashboard = new  Pages.Products.Dashboard(Cpmpno);
+            //int Cpmpno = 1;
+            var Dashboard = new  Pages.Products.Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
 

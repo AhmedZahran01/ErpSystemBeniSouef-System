@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract; 
 using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
-using ErpSystemBeniSouef.Core.DTOs.ProductsDto; 
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.ViewModel;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Data;
+using System.Windows;
 using System.Windows.Controls; 
 namespace ErpSystemBeniSouef.Views.Pages.Products
 {
@@ -13,20 +14,21 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     {
         #region Global Properties Region
 
+        //private readonly int _comanyNo = AppGlobalCompanyId.CompanyId;
+        private readonly int _comanyNo = (int)App.Current.Properties["CompanyId"];
+
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
-        private readonly int _comanyNo;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
         #endregion
 
         #region Constractor Region
 
-        public AllProductsPage(int comanyNo, IProductService productService, IMapper mapper)
+        public AllProductsPage( IProductService productService, IMapper mapper)
         {
-            InitializeComponent();
-            _comanyNo = comanyNo;
+            InitializeComponent(); 
             _productService = productService;
             _mapper = mapper;
             //Loaded += async (s, e) => await Loadproducts();
@@ -220,7 +222,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            var Dashboard = new Dashboard(_comanyNo);
+            var Dashboard = new Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }
