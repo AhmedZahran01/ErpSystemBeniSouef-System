@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.RepresentativeDto;
+using ErpSystemBeniSouef.Core.DTOs.StorekeeperResponseDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.Core.Entities;
@@ -65,6 +66,12 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<Representative, RepresentativeDto>().ReverseMap();
             CreateMap<Representative, CreateRepresentativeDto>().ReverseMap();
             CreateMap<Representative, UpdateRepresentativeDto>().ReverseMap();
+                
+
+            //Representative Mapp
+            CreateMap<Storekeeper, StorekeeperResponseDto>().ReverseMap();
+            CreateMap<Storekeeper, CreateStorekeeperDto>().ReverseMap();
+            CreateMap<Storekeeper, UpdateStorekeeperDto>().ReverseMap();
                 
 
         }

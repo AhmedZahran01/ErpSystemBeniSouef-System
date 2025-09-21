@@ -34,6 +34,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<Representative> representatives { get; set; }
         public DbSet<Collector> collectors { get; set; }
         public DbSet<Supplier> suppliers { get; set; }
+        public DbSet<Storekeeper> storekeepers { get; set; }
         public DbSet<Invoice> invoices { get; set; }
         public DbSet<InvoiceItem> invoiceItems { get; set; }
 

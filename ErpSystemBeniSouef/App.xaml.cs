@@ -9,6 +9,7 @@ using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
+using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
@@ -61,6 +62,9 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
         services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
         services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
+        services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
+
+
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     })
@@ -145,6 +149,7 @@ namespace ErpSystemBeniSouef
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
             var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -160,7 +165,9 @@ namespace ErpSystemBeniSouef
 
             //var login = new CollectorPage(collectorService);
 
-            var login = new RepresentativePage(representativeService,mapper);
+            //var login = new RepresentativePage(representativeService,mapper);
+
+            var login = new StorekeepersPage(storeKeeperService,mapper);
 
 
             //var login = new StartPageBeforeLogin();

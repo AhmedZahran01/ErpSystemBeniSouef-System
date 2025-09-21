@@ -13,7 +13,7 @@
         <!-- Title Bar -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <!-- Minimize Button -->
-            <Button x:Name="btnMinimize" Margin="0 0 20 0" Content="_" Style="{DynamicResource TitleBarButton}" Click="BtnMinimize_Click"/>
+            <Button x:Name="btnMinimize" Margin="0 0 30 0" Content="_" Style="{DynamicResource TitleBarButton}" Click="BtnMinimize_Click"/>
 
             <!-- Close Button -->
             <Button x:Name="btnClose" Content="X" Style="{DynamicResource CloseButton}" Click="BtnClose_Click"/>

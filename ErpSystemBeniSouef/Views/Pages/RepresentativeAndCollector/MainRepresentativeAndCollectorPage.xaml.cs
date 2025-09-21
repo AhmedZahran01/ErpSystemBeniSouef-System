@@ -52,8 +52,11 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector
 
         private void BtnStorekeepers_Click(object sender, RoutedEventArgs e)
         {
-            //var storekeepersPage = new StorekeepersPage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(storekeepersPage);
+            var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
+            var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+
+            var storekeepersPage = new UsersPaes.StorekeepersPage(storeKeeperService , mapper);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(storekeepersPage);
         }
 
         private void BtnSuppliers_Click(object sender, RoutedEventArgs e)
