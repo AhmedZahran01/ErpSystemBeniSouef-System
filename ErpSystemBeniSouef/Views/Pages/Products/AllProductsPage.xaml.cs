@@ -15,7 +15,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         #region Global Properties Region
 
         //private readonly int _comanyNo = AppGlobalCompanyId.CompanyId;
-        private readonly int _comanyNo = (int)App.Current.Properties["CompanyId"];
+        private readonly int _comanyNo = (int?)App.Current.Properties["CompanyId"]??1;
 
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();

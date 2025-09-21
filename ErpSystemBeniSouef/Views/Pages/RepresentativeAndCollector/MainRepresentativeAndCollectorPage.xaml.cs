@@ -1,6 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.ReAndCoPages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,13 +16,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ErpSystemBeniSouef.Views.RepresentativeAndCollector
+namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector
 {
     /// <summary>
     /// Interaction logic for MainRepresentativeAndCollectorPage.xaml
     /// </summary>
     public partial class MainRepresentativeAndCollectorPage : Page
     {
+
         public MainRepresentativeAndCollectorPage()
         {
             InitializeComponent();
@@ -32,36 +32,36 @@ namespace ErpSystemBeniSouef.Views.RepresentativeAndCollector
 
         private void BtnCollector_Click(object sender, RoutedEventArgs e)
         {
-            var collectorPage = new CollectorPage();
-            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(collectorPage);
+            //var collectorPage = new CollectorPage();
+            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(collectorPage);
 
         }
 
         private void BtnRepresentative_Click(object sender, RoutedEventArgs e)
         {
-            var representativePage = new RepresentativePage();
-            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativePage);
+            //var representativePage = new RepresentativePage();
+            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativePage);
 
         }
 
         private void BtnStorekeepers_Click(object sender, RoutedEventArgs e)
         {
-            var storekeepersPage = new StorekeepersPage();
-            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(storekeepersPage);
+            //var storekeepersPage = new StorekeepersPage();
+            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(storekeepersPage);
         }
 
         private void BtnSuppliers_Click(object sender, RoutedEventArgs e)
         {
 
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
-            var suppliersPage = new ReAndCoPages.SuppliersPage(supplierService);
+            var suppliersPage = new Views.Pages.RepresentativeAndCollector.UsersPaes.SuppliersPage(supplierService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(suppliersPage);
 
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            var Dashboard = new  Pages.Products.Dashboard();
+            var Dashboard = new Pages.Products.Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }

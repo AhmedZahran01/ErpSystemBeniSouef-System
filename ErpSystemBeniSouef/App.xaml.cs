@@ -13,6 +13,7 @@ using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
 using ErpSystemBeniSouef.Views.Pages.Products;
 using ErpSystemBeniSouef.Views.Pages.Regions;
+using ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -147,8 +148,9 @@ namespace ErpSystemBeniSouef
             //var login = new MainRegionPage(mainAreaService, mapper);
 
             //var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
+            var login = new SuppliersPage(supplierService);
+            //var login = new StartPageBeforeLogin();
 
-            var login = new StartPageBeforeLogin();
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
 
             mainWindow.Frame.NavigationService.Navigate(login);

@@ -35,25 +35,7 @@ namespace ErpSystemBeniSouef.Service.SupplierService
 
             return supplierDto;
         }
-        #endregion
-
-        public bool Update(UpdateSupplierDto updateDto)
-        {
-            Supplier supplier = _unitOfWork.Repository<Supplier>().GetById(updateDto.Id);
-            if (supplier == null)
-                return false;
-            try
-            {
-
-                supplier.Name = updateDto.Name;
-                _unitOfWork.Complete(); return true;
-            }
-            catch { return false; }
-        }
-
-
-
-        #region My Supplier Seeding
+        
         public async Task<IReadOnlyList<SupplierDto>> GetAllAsync()
         {
             var supplier = await _unitOfWork.Repository<Supplier>().GetAllAsync();
@@ -62,24 +44,9 @@ namespace ErpSystemBeniSouef.Service.SupplierService
             return supplierDto;
         }
 
-        //public bool Update(UpdateSupplierDto updateDto)
-        //{
-        //    Supplier supplier = _unitOfWork.Repository<Supplier>().GetById(updateDto.Id);
-        //    if (supplier == null)
-        //        return false;
-        //    try
-        //    {
-
-        //        supplier.Name = updateDto.Name;
-        //        _unitOfWork.Complete(); return true;
-        //    }
-        //    catch { return false; }
-        //}
-
         #endregion
 
-
-        #region My Supplier Create
+        #region  Create Region
 
         public SupplierDto Create(CreateSupplierDto createDto)
         {
@@ -87,19 +54,18 @@ namespace ErpSystemBeniSouef.Service.SupplierService
             {
                 var supplier = _mapper.Map<Supplier>(createDto);
                 _unitOfWork.Repository<Supplier>().Add(supplier);
-                _unitOfWork.Complete(); 
+                _unitOfWork.Complete();
 
-        
+
                 return _mapper.Map<SupplierDto>(supplier);
             }
             catch
             {
-                return null; 
+                return null;
             }
         }
 
         #endregion
-
 
         #region My  softDeleted
         public bool SoftDelete(int id)
@@ -109,9 +75,42 @@ namespace ErpSystemBeniSouef.Service.SupplierService
                 return false;
             try { supplier.IsDeleted = true; _unitOfWork.Complete(); return true; }
             catch { return false; }
-        } 
+        }
         #endregion
 
+
+
+
+
+
+
+        #region Update Region
+
+        public Supplier Update(int updateSupplierId , string newName)
+        {
+            Supplier supplier = _unitOfWork.Repository<Supplier>().GetById(updateSupplierId);
+            if (supplier == null)
+                return null;
+            try
+            { 
+                supplier.Name = newName;
+                _unitOfWork.Complete(); return supplier;
+            }
+            catch { return null; }
+        }
+
+        #endregion
+
+
+
+
+
+
+      
+
+
+
+         
 
         /*
          public  IReadOnlyList<SupplierDto> GetAll()

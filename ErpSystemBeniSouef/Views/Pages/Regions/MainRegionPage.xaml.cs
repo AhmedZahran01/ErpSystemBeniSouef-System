@@ -250,7 +250,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 
         #endregion
 
-        #region MyRegion
+        #region BtnEdit_Click Region
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {

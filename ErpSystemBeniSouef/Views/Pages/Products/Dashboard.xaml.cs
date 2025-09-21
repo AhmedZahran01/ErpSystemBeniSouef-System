@@ -2,8 +2,7 @@
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.HelperFunctions;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.RepresentativeAndCollector;
+using ErpSystemBeniSouef.ViewModel; 
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -58,7 +57,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void RepresentativeCollector_Click(object sender, RoutedEventArgs e)
         {
-            var representativeCollectorPage = new MainRepresentativeAndCollectorPage();
+            var representativeCollectorPage = new RepresentativeAndCollector.MainRepresentativeAndCollectorPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativeCollectorPage);
 
         }
