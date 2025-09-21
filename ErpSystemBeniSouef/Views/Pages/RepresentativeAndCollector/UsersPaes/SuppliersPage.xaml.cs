@@ -208,9 +208,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
         }
 
         #endregion
-
-
-
+         
 
         #region Search By Item Name Region
 
@@ -268,14 +266,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
             }
         }
         #endregion
-
-
-
-
-
-
-
-
+         
         #region  Back Btn Click Region
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {

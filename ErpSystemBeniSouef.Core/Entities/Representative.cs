@@ -9,7 +9,7 @@ namespace ErpSystemBeniSouef.Core.Entities
     public class Representative : BaseEntity
     {
         public string Name { get; set; }              
-        public string Username { get; set; }          
+        public int UserNumber { get; set; }          
         public string Password { get; set; }
     }
 }

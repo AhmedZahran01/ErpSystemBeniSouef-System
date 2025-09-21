@@ -1,4 +1,5 @@
-﻿using ErpSystemBeniSouef.Core.Contract;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -31,16 +32,21 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector
 
 
         private void BtnCollector_Click(object sender, RoutedEventArgs e)
-        {
-            //var collectorPage = new CollectorPage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(collectorPage);
+        { 
+            var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>(); 
+
+            var collectorPage = new UsersPaes.CollectorPage(collectorService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(collectorPage);
 
         }
 
         private void BtnRepresentative_Click(object sender, RoutedEventArgs e)
         {
-            //var representativePage = new RepresentativePage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativePage);
+            var representativeService = App.AppHost.Services.GetRequiredService< IRepresentativeService >();
+            var mapper = App.AppHost.Services.GetRequiredService< IMapper >();
+
+            var representativePage = new UsersPaes.RepresentativePage(representativeService , mapper);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativePage);
 
         }
 

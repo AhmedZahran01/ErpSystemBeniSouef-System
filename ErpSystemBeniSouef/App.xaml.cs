@@ -5,8 +5,10 @@ using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
+using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
@@ -20,6 +22,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Configuration;
 using System.Data;
+using System.Reflection.PortableExecutable;
 using System.Windows;
 
 namespace ErpSystemBeniSouef
@@ -56,6 +59,8 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
         services.AddScoped(typeof(IProductService), typeof(ProductService));
         services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
+        services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
+        services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     })
@@ -138,6 +143,8 @@ namespace ErpSystemBeniSouef
             var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -148,7 +155,14 @@ namespace ErpSystemBeniSouef
             //var login = new MainRegionPage(mainAreaService, mapper);
 
             //var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
-            var login = new SuppliersPage(supplierService);
+            
+            //var login = new SuppliersPage(supplierService);
+
+            //var login = new CollectorPage(collectorService);
+
+            var login = new RepresentativePage(representativeService,mapper);
+
+
             //var login = new StartPageBeforeLogin();
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
