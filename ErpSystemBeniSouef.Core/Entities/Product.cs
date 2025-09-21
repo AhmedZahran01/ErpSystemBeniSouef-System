@@ -10,9 +10,9 @@ namespace ErpSystemBeniSouef.Core.Entities
     public class Product : BaseEntity
     {
         public string ProductName { get; set; }
-        public decimal CommissionRate { get; set; }// نسبه التقسيط 
-        public decimal PurchasePrice { get; set; }// سعر الشراء الاساسي  
-        public decimal SalePrice { get; set; }// سعر  البيع الاساسي  
+        public decimal CommissionRate { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public decimal SalePrice { get; set; }  
         [ForeignKey("Category")]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
