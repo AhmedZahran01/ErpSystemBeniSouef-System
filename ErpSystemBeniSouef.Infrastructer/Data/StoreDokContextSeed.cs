@@ -164,8 +164,79 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
                 }
             }
             #endregion
+
+            #region Collectors Region 
+
+            if (!dbcontext.collectors.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Collectors.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var collectorsData = File.ReadAllText(filePath);
+
+                var collectorsD = JsonSerializer.Deserialize<List<Collector>>(collectorsData);
+
+                if (collectorsD?.Count() > 0)
+                {
+                    foreach (var subRegion in collectorsD)
+                    {
+                        dbcontext.Set<Collector>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
              
-         
+            #region Representatives Region 
+
+            if (!dbcontext.representatives.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Representative.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var collectorsData = File.ReadAllText(filePath);
+
+                var collectorsD = JsonSerializer.Deserialize<List<Representative>>(collectorsData);
+
+                if (collectorsD?.Count() > 0)
+                {
+                    foreach (var subRegion in collectorsD)
+                    {
+                        dbcontext.Set<Representative>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+             
+            #region Storekeeper Region 
+
+            if (!dbcontext.storekeepers.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Storekeeper.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var collectorsData = File.ReadAllText(filePath);
+
+                var collectorsD = JsonSerializer.Deserialize<List<Storekeeper>>(collectorsData);
+
+                if (collectorsD?.Count() > 0)
+                {
+                    foreach (var subRegion in collectorsD)
+                    {
+                        dbcontext.Set<Storekeeper>().Add(subRegion);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+            #endregion
+              
             #region invoice Region 
 
             if (!dbcontext.invoices.Any()) // Check if the database is empty

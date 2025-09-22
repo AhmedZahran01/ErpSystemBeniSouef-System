@@ -12,7 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ErpSystemBeniSouef.ViewModel; 
+using ErpSystemBeniSouef.HelperFunctions;
+using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Windows;
 
 namespace ErpSystemBeniSouef.Views
@@ -29,30 +30,36 @@ namespace ErpSystemBeniSouef.Views
 
         private void OnLoginClick(object sender, RoutedEventArgs e)
         {
-            if (UsernameText.Text == "1" && PasswordText.Password == "1") 
+            if (UsernameText.Text == "1" && PasswordText.Password == "1")
             {
-                var dashboard = new Views.Pages.Products.Dashboard(1);
+                //AppGlobalCompanyId.CompanyId = 1;
+                App.Current.Properties["CompanyId"] = 1;
+
+                var dashboard = new Views.Pages.Products.Dashboard();
                 MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
             }
-             
-            if (UsernameText.Text == "2" && PasswordText.Password == "2") 
+
+            if (UsernameText.Text == "2" && PasswordText.Password == "2")
             {
-                var dashboard = new Views.Pages.Products.Dashboard(2);
+                App.Current.Properties["CompanyId"] = 2;
+                var dashboard = new Views.Pages.Products.Dashboard();
                 MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
             }
- 
-            if (UsernameText.Text == "3" && PasswordText.Password == "3") 
+
+            if (UsernameText.Text == "3" && PasswordText.Password == "3")
             {
-                var dashboard = new Views.Pages.Products.Dashboard(3);
+                App.Current.Properties["CompanyId"] = 3;
+                var dashboard = new Views.Pages.Products.Dashboard();
                 MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
             }
-                 
-            if (UsernameText.Text == "4" && PasswordText.Password == "4") 
+
+            if (UsernameText.Text == "4" && PasswordText.Password == "4")
             {
-                var dashboard = new Views.Pages.Products.Dashboard(4);
+                App.Current.Properties["CompanyId"] = 4;
+                var dashboard = new Views.Pages.Products.Dashboard();
                 MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(dashboard);
             }
- 
+
         }
     }
 }

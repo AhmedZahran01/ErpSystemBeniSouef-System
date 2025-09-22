@@ -54,62 +54,72 @@
             <!-- العمود الأيمن -->
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
-                    <TextBox x:Name="ProductName" FlowDirection="RightToLeft" Style="{StaticResource textboxx}"
-                               Width="290"/>
+                    <TextBox x:Name="ProductName" FlowDirection="RightToLeft"
+                             Style="{StaticResource textboxx}"
+                               Width="180" Height="32"/>
                     <TextBlock Text="  : اسم الصنف"  Foreground="White" FontSize="21" Width="140"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 5 0 10">
-                    <ComboBox x:Name="cb_type"   DisplayMemberPath="Name" SelectedValuePath="Id"
+                    <ComboBox x:Name="cb_type"   DisplayMemberPath="Name"
+                              SelectedValuePath="Id" Width="170"
                               Style="{StaticResource SmallerComboBox}"  />
                     <TextBlock Text="  : نوع المنتج "  Foreground="White" FontSize="21" Width="130"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="RepresentivePercentage" FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
-                    <TextBlock  Text=" : نسبة المندوب" Foreground="White" FontSize="21" Width="150"/>
+                    <TextBox x:Name="RepresentivePercentage"
+                             FlowDirection="RightToLeft" Height="28"
+                             Style="{StaticResource textboxx}" Width="140" />
+                    <TextBlock  Text=" : نسبة المندوب" Foreground="White" FontSize="20" Width="150"/>
                 </StackPanel>
             </StackPanel>
 
             <!-- العمود الأيسر -->
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Margin="5">
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-                    <TextBox x:Name="mainPrice" FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
-                    <TextBlock  FlowDirection="RightToLeft"  Text="  سعر الشراء الأساسي :" Foreground="White" FontSize="21" Width="210"/>
+                    <TextBox x:Name="mainPrice" FontSize="23" Height="28" Width="180"
+                             FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
+                    <TextBlock  FlowDirection="RightToLeft"  Text="  سعر الشراء الأساسي :"
+                                Foreground="White" FontSize="21" Width="210"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox x:Name="SalePrice" FlowDirection="RightToLeft" Style="{StaticResource textboxx}" />
-                    <TextBlock FlowDirection="RightToLeft" Text="  سعر البيع الأساسي :" Foreground="White" FontSize="21" Width="210"/>
+                    <TextBox x:Name="SalePrice" FlowDirection="RightToLeft" 
+                             FontSize="23" Height="28"  Width="180"
+                             Style="{StaticResource textboxx}" />
+                    <TextBlock FlowDirection="RightToLeft" 
+                               Text="  سعر البيع الأساسي :" 
+                               Foreground="White" FontSize="21" Width="210"/>
                 </StackPanel>
                 
                 
             </StackPanel>
             <!-- العمود الأيسر -->
-            <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Orientation="Vertical" Margin="5">
-
-                <Label Margin="0,0,0,0" Content="  : بحث ب اسم المنتج  " 
-                        HorizontalAlignment="Right" Foreground="White"
-FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
-
+            <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="5">
+ 
                 <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
-Width="210"
-Height="25" Margin="0 0 0 0"
+Width="180"
+Height="28" Margin="0 0 0 0"  ToolTip="ادخل اسم المنتج  " 
 Style="{StaticResource textboxx}"                    
 VerticalAlignment="Center"
 HorizontalAlignment="Center"
 TextChanged="SearchByItemFullNameBox_TextChanged"
 />
+              
                 <Popup x:Name="SuggestionsPopup"
 Placement="Bottom"
 PlacementTarget="{Binding ElementName = SearchByItemTextBox}"
 StaysOpen="False"
-Width="250"
+Width="100"
 Height="auto">
                     <ListBox x:Name="SuggestionsItemsListBox" 
       SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
-      Background="White"
+        Background="#012E29" Foreground="White"
       SelectionMode="Multiple"
       />
                 </Popup>
+                <Label Margin="0,10,10,10" Content="  : بحث  " 
+                 HorizontalAlignment="Right" Foreground="White" Height="35"
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
             </StackPanel>
 
@@ -209,7 +219,7 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
 
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
-                            <Setter Property="TextAlignment" Value="Right"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                     <DataGridTextColumn.HeaderStyle>
@@ -241,9 +251,14 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
 
         </DataGrid>
 
-        <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+        <!--<Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
          Content="↩" FontSize="22" Style="{StaticResource triggerrr}"
          Margin="21,10,0,1"  
+         Click="BackBtn_Click"/>-->
+
+        <Button Grid.Row="4" HorizontalAlignment="Left"  Content="↩" FontSize="35" 
+         Width="150" Height="55" Foreground="White"
+         Style="{StaticResource triggerrr}" Margin="31,0,0,1"  
          Click="BackBtn_Click"/>
 
     </Grid>

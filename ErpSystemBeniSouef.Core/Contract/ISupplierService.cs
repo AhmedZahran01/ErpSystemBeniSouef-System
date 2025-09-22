@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
+using ErpSystemBeniSouef.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace ErpSystemBeniSouef.Core.Contract
         */
         SupplierDto Create(CreateSupplierDto createDto);
 
-        bool Update(UpdateSupplierDto updateDto);
+        Supplier Update(int updateSupplierId , string newName);
 
         bool SoftDelete(int id);
         #endregion

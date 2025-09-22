@@ -92,39 +92,6 @@ namespace ErpSystemBeniSouef.Service.MainAreaServices
         }
 
         #endregion
-
-
-        //public int Update(MainArea updateDto)
-        //{
-        //    var mainArea = _unitOfWork.Repository<MainArea>().Update(updateDto);
-        //    if (mainArea == null)
-        //        return 0;
-
-        //    _mapper.Map(updateDto, mainArea);
-        //    mainArea.UpdatedDate = DateTime.UtcNow;
-
-        //    _unitOfWork.Repository<MainArea>().Update(mainArea);
-        //    await _unitOfWork.CompleteAsync();
-
-        //    var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
-        //    return 1;
-        //}
-
-
-
-        //public async Task<ApiResponse<MainAreaResponseDto>> GetByIdAsync(int id)
-        //{ 
-        //    var mainArea = await _unitOfWork.Repository<MainArea>().GetByIdAsync(id);
-
-        //    if (mainArea == null)
-        //        return ApiResponse<MainAreaResponseDto>.ErrorResponse($"MainArea with Id {id} not found.");
-
-        //    var mainAreaDto = _mapper.Map<MainAreaResponseDto>(mainArea);
-        //    return ApiResponse<MainAreaResponseDto>.SuccessResponse(mainAreaDto, "Main area retrieved successfully.");
-        //}
-
-
-
-
+          
     }
 }

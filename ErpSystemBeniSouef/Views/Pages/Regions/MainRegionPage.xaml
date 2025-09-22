@@ -36,7 +36,7 @@
                 <RowDefinition Height=".7*"/>
                 <RowDefinition Height="3*"/>
                 <!-- المدخلات -->
-                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="1.5*"/>
                 <!-- الأزرار -->
                 <RowDefinition Height="6*"/>
                 <RowDefinition Height="*"/>
@@ -53,7 +53,7 @@
                                Foreground="White" FontSize="24" 
                                VerticalAlignment="Center"  Margin="5 0"/>
 
-                    <TextBox x:Name="txtRegionName" Width="200" Height="45"  Style="{StaticResource textboxx}"  
+                    <TextBox x:Name="txtRegionName" Width="180" Height="30"  Style="{StaticResource textboxx}"  
                              ToolTip="ادخل اسم المنطقه  "      />
 
 
@@ -62,11 +62,11 @@
 
                 <StackPanel Orientation="Horizontal" Margin=" 5 5 0 10">
 
-                    <TextBlock Text="  بداية الترقيم للمنطقة :"  
+                    <TextBlock Text="  بداية الترقيم للمنطقة :  "  
                                Foreground="White" FontSize="24" 
                                VerticalAlignment="Center" Margin="5 0"/>
 
-                    <TextBox x:Name="txtRegionStartNumber" Width="200" Height="45"  
+                    <TextBox x:Name="txtRegionStartNumber" Width="180" Height="30"  
                              ToolTip="ادخل بداية الترقيم"
                              Style="{StaticResource textboxx}"  
                              /> 
@@ -76,15 +76,15 @@
                 <StackPanel Margin="0,0,40,0" Orientation="Horizontal" 
                             Grid.Column="1"  HorizontalAlignment="Right">
 
-                    <Label Margin="0,0,0,0" Content=" بحث ب اسم المنطقة : " 
+                    <Label Margin="0,0,0,0" Content=" بحث  : " 
                            VerticalAlignment="Center" Foreground="White"
                            FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
                     
                     <TextBox x:Name="SearchByItemTextBox"
              Width="200"
-             Height="45" Margin="0 0 0 0"
+             Height="30" Margin="0 0 0 0" 
              Style="{StaticResource textboxx}"                    
-             VerticalAlignment="Center"
+             VerticalAlignment="Center" ToolTip="ادخل اسم المنطقه  " 
              HorizontalAlignment="Center"
              TextChanged="SearchByItemFullNameBox_TextChanged"
              />
@@ -92,12 +92,12 @@
            Placement="Bottom"
            PlacementTarget="{Binding ElementName = SearchByItemTextBox}"
            StaysOpen="False"
-           Width="250" >
+           Width="100" >
                         <ListBox x:Name="SuggestionsItemsListBox" 
                  SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
-                 Background="White"
-                 SelectionMode="Multiple"
+                 Background="#52504F" Foreground="White"
                  />
+                 <!--SelectionMode="Multiple"-->
                     </Popup>
                     
                 </StackPanel>
@@ -121,16 +121,16 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
             <!-- الجدول -->
             <DataGrid Grid.Row="3"
                 x:Name="dgMainRegions"
-                      SelectionChanged="dgMainRegions_SelectionChanged"
+                SelectionChanged="dgMainRegions_SelectionChanged"
                 AutoGenerateColumns="False"
                 CanUserAddRows="False" 
                 VerticalAlignment="Center" 
                 IsReadOnly="False"
                 HeadersVisibility="Column"
-                FontSize="14"
+                FontSize="20"
                 FlowDirection="RightToLeft"
-                RowHeight="25"
-                Background="White">
+                RowHeight="30"
+                Background="#1B7F">
 
                 <DataGrid.Columns>
                     <!-- الرقم المسلسل -->
@@ -181,10 +181,17 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
                 
             </DataGrid>
   
-            <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+            <!--<Button Grid.Row="4" HorizontalAlignment="Left" 
                     Content="↩" FontSize="33" Style="{StaticResource triggerrr}"
                     Margin="71,0,0,1"  Height="55"
-                    Click="BackBtn_Click" />
+                    Click="BackBtn_Click" />-->
+
+            <Button Grid.Row="4" HorizontalAlignment="Left"  Content="↩" FontSize="35" 
+         Width="150" Height="55" Foreground="White"
+         Style="{StaticResource triggerrr}" Margin="31,0,0,1"  
+         Click="BackBtn_Click"/>
+            <!--CommandParameter="DashBoardDoctor"-->
+
 
         </Grid>
     </Grid>

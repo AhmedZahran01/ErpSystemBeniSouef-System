@@ -28,6 +28,8 @@ namespace ErpSystemBeniSouef.Core.DTOs.ProductDtos
 
         [Required]
         public int CategoryId { get; set; }
+
+        public int CompanyId { get; set; }
     }
   
 }

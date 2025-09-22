@@ -1,0 +1,27 @@
+﻿[
+  {
+    "Name": "أحمد عبد الرحمن",
+    "Username": "ahmed.abdelrahman",
+    "Password": "123456" 
+  },
+  {
+    "Name": "محمود السيد",
+    "Username": "mahmoud.elsayed",
+    "Password": "123456" 
+  },
+  {
+    "Name": "محمد حسن",
+    "Username": "mohamed.hassan",
+    "Password": "123456" 
+  },
+  {
+    "Name": "خالد إبراهيم",
+    "Username": "khaled.ibrahim",
+    "Password": "123456" 
+  },
+  {
+    "Name": "طارق علي",
+    "Username": "tarek.ali",
+    "Password": "123456" 
+  }
+]
