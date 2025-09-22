@@ -2,6 +2,7 @@
 using ErpSystemBeniSouef.Core.Contract; 
 using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.ViewModel;
 using System.Collections.ObjectModel;
@@ -72,13 +73,9 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
                 return;
-            }
-            //CategoryDto selectedCategory = (CategoryDto)cb_type.SelectedValue;
+            } 
             CategoryDto selectedCategory = (CategoryDto)cb_type.SelectedItem;
-
-            //int selectedCategoryId = (int)cb_type.SelectedValue;
-            //CategoryDto selectedCategory = categories.FirstOrDefault(c => c.Id == selectedCategoryId);
-
+             
             if (selectedCategory == null)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
@@ -87,6 +84,16 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             string percent = RepresentivePercentage.Text;
             string salesPri = SalePrice.Text;
             string mainPri = mainPrice.Text;
+            string Product_Name = ProductName.Text;
+
+            ProductDto CheckProductNameFounded = observProductsLisLim.Where(n => n.ProductName == Product_Name).FirstOrDefault();
+            if (CheckProductNameFounded is not null )
+            {
+                MessageBox.Show(" الاسم مستخدم من قيل ");
+                return;
+            }
+            //return;
+
             CreateProductDto InputProduct = new CreateProductDto()
             {
                 ProductName = ProductName.Text,
@@ -94,6 +101,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 CommissionRate = decimal.TryParse(percent, out decimal p) ? p : 0,
                 SalePrice = decimal.TryParse(salesPri, out decimal subp) ? subp : 0,
                 CategoryId = selectedCategory.Id,
+                CompanyId = _comanyNo
             };
 
             ProductDto CreateproductDtoRespons = _productService.Create(InputProduct);
@@ -118,6 +126,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             //productD.Category = categoryDto;
 
             observProductsListFiltered.Add(CreateproductDtoRespons);
+            observProductsLisLim.Add(CreateproductDtoRespons);
 
         }
 
@@ -141,6 +150,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 if (success)
                 {
                     observProductsLisLim.Remove(item);
+                    observProductsListFiltered.Remove(item);
                     deletedCount++;
                 }
             }
@@ -148,12 +158,12 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             {
                 string ValueOfString = "منتج ";
                 if (deletedCount > 1)
-                    ValueOfString = "منتجات ";
+                    ValueOfString = "من المنتجات ";
                 MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} ");
             }
             else
             {
-                MessageBox.Show("لم يتم حذف أي منطقة أساسية بسبب خطأ ما");
+                MessageBox.Show("لم يتم حذف أي منتج بسبب خطأ ما");
             }
 
         }
@@ -216,8 +226,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             }
         }
         #endregion
-
-
+         
         #region Back Btn Region
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -228,9 +237,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         }
 
         #endregion
-
-
-
+         
         #region dgMainRegions_SelectionChanged Region
 
         private void dgAllProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -324,10 +331,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
                 selected.CommissionRate = NewRepresentivePercentageValue;
                 selected.PurchasePrice = newmainPriceValue;
                 selected.CategoryId = ((CategoryDto)cb_type.SelectedItem).Id;
+                selected.Category = ((CategoryDto)cb_type.SelectedItem);
 
 
-                AllProductsDataGrid.Items.Refresh(); // لتحديث الجدول
                 MessageBox.Show("تم تعديل المنطقة بنجاح");
+                AllProductsDataGrid.Items.Refresh(); // لتحديث الجدول
             }
             else
             {

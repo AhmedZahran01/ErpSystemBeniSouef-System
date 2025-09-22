@@ -15,15 +15,21 @@ namespace ErpSystemBeniSouef.Service.RepresentativeService
 {
     public class RepresentativeService : IRepresentativeService
     {
-
+        #region Constractor Region
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+
         public RepresentativeService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        #endregion
+
+        #region Create Region
+
         public RepresentativeDto Create(CreateRepresentativeDto createDto)
         {
             try
@@ -40,6 +46,9 @@ namespace ErpSystemBeniSouef.Service.RepresentativeService
                 return null;
             }
         }
+        #endregion
+
+        #region Get All Async  Region
 
         public async Task<IReadOnlyList<RepresentativeDto>> GetAllAsync()
         {
@@ -49,6 +58,10 @@ namespace ErpSystemBeniSouef.Service.RepresentativeService
             return representativeDto;
         }
 
+        #endregion
+
+        #region  Soft Delete Region
+
         public bool SoftDelete(int id)
         {
             Representative representative = _unitOfWork.Repository<Representative>().GetById(id);
@@ -57,6 +70,10 @@ namespace ErpSystemBeniSouef.Service.RepresentativeService
             try { representative.IsDeleted = true; _unitOfWork.Complete(); return true; }
             catch { return false; }
         }
+
+        #endregion
+
+        #region Update Region
 
         public bool Update(UpdateRepresentativeDto updateDto)
         {
@@ -74,18 +91,7 @@ namespace ErpSystemBeniSouef.Service.RepresentativeService
             catch { return false; }
         }
 
+        #endregion
 
-        /*
-        public RepresentativeDto GetById(int id)
-        {
-        throw new NotImplementedException();
-        }
-        */
-        /*
-        public IReadOnlyList<RepresentativeDto> GetSubAreaDtoByMainAreaId(int RepresentativeId)
-        {
-            throw new NotImplementedException();
-        }
-        */
     }
 }

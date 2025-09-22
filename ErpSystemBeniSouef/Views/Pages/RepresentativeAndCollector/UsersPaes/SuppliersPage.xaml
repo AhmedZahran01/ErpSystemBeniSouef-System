@@ -33,7 +33,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.2*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1.5*"/>
                 <!-- المدخلات -->
                 <RowDefinition Height="1.2*"/>
                 <!-- الأزرار -->
@@ -51,17 +51,17 @@
  
                     <TextBox x:Name="SearchByItemTextBox"
   Width="200" FlowDirection="RightToLeft"
-  Height="35" Margin="0 0 0 0"
+  Height="35" Margin="0 0 0 0" ToolTip=" بحث ب اسم المورد "
   Style="{StaticResource textboxx}"                    
   VerticalAlignment="Center"
   HorizontalAlignment="Center"
   TextChanged="SearchByItemFullNameBox_TextChanged"
   />
                     <Popup x:Name="SuggestionsPopup"
-Placement="Bottom"
+Placement="Bottom" 
 PlacementTarget="{Binding ElementName = SearchByItemTextBox}"
 StaysOpen="False"
-Width="250" >
+Width="150" >
                         <ListBox x:Name="SuggestionsItemsListBox" 
       SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
       Background="White"
@@ -69,14 +69,14 @@ Width="250" >
       />
                     </Popup>
 
-                    <Label Margin="0,0,0,0" Content=" : بحث ب اسم المورد  " 
+                    <Label Margin="0,0,0,0" Content=" : بحث  " 
 VerticalAlignment="Center" Foreground="White"
 FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
                 </StackPanel>
 
 
-                <StackPanel Orientation="Horizontal" Margin="0 30 10 5">
+                <StackPanel Orientation="Horizontal" Margin="0 10 10 5">
                     <TextBox x:Name="txtSupplierName" FlowDirection="RightToLeft" Width="200" Height="35" 
                              Style="{StaticResource textboxx}"  FontSize="18"  />
 

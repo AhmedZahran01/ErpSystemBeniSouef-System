@@ -160,17 +160,17 @@ namespace ErpSystemBeniSouef
             //var login = new MainRegionPage(mainAreaService, mapper);
 
             //var login = new SubRegionPage(subAreaService , mapper,mainAreaService);
-            
+
             //var login = new SuppliersPage(supplierService);
 
             //var login = new CollectorPage(collectorService);
 
             //var login = new RepresentativePage(representativeService,mapper);
 
-            var login = new StorekeepersPage(storeKeeperService,mapper);
+            //var login = new StorekeepersPage(storeKeeperService,mapper);
 
 
-            //var login = new StartPageBeforeLogin();
+            var login = new StartPageBeforeLogin();
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
 

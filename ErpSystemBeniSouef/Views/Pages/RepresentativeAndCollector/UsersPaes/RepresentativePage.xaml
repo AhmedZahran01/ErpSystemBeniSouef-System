@@ -77,7 +77,7 @@
                 <!-- بحث المورد -->
                 <StackPanel Orientation="Horizontal" Margin="-900,-50,0,0" VerticalAlignment="Center">
                     <TextBox x:Name="SearchByItemTextBox"
-                   Width="150" Height="33"
+                   Width="150" Height="33" ToolTip=" بحث ب اسم المندوب"
                    FlowDirection="RightToLeft"
                    Style="{StaticResource textboxx}"
                    TextChanged="SearchByItemTextBox_TextChanged"/>
@@ -86,13 +86,13 @@
                  Placement="Bottom"
                  PlacementTarget="{Binding ElementName=SearchByItemTextBox}"
                  StaysOpen="False"
-                 Width="250"
+                 Width="100"
                  Height="Auto">
                         <ListBox x:Name="SuggestionsItemsListBox"
                        SelectionChanged="SuggestionsItemsListBoxForText_SelectionChanged"
                        Background="White"/>
                     </Popup>
-                    <Label Content=" : بحث ب اسم المندوب"
+                    <Label Content=" : بحث "
                  VerticalAlignment="Center"
                  Foreground="White"
                  FontSize="22"
@@ -200,10 +200,18 @@
 
 
 
-            <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+            <!--<Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
                Content="↩" FontSize="22" Style="{StaticResource triggerrr}"
                Margin="21,30,0,1"  
-               Click="BackBtn_Click"/>
+               Click="BackBtn_Click"/>-->
+
+
+            <Button Grid.Row="4" HorizontalAlignment="Left"  Content="↩" FontSize="35" 
+         Width="150" Height="55" Foreground="White"
+         Style="{StaticResource triggerrr}" Margin="31,0,0,1"  
+         Click="BackBtn_Click"/>
+
+            
 
         </Grid>
     </Grid>

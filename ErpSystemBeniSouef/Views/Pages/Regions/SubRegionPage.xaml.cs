@@ -19,7 +19,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
 {
     public partial class SubRegionPage : Page
     {
-        #region Global Variables
+        #region Global Variables Region 
+        
         private readonly ISubAreaService _subAreaService;
         private readonly IMapper _mapper;
         private readonly IMainAreaService _mainAreaService;
@@ -33,7 +34,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         private IReadOnlyList<MainAreaDto> mainAreaDtos = new List<MainAreaDto>();
         #endregion
 
-        #region Constructor
+        #region Constructor Region
+
         public SubRegionPage(ISubAreaService subAreaService, IMapper mapper, IMainAreaService mainAreaService)
         {
             InitializeComponent();
@@ -53,7 +55,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Load SubAreas
+        #region Load SubAreas Region
         private async Task LoadSubAreas()
         {
             mainAreaDtos = await _mainAreaService.GetAllAsync();
@@ -68,7 +70,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Add
+        #region Add Region
+
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
             string mainRegionName = cb_MainRegionName.Text;
@@ -114,7 +117,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Delete
+        #region Delete Region
+
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if (dgSubRegions.SelectedItems.Count == 0)
@@ -148,7 +152,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Search
+        #region Search Region
+
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string query = SearchByItemTextBox.Text?.ToLower() ?? "";
@@ -169,7 +174,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Suggestions
+        #region Suggestions Region
+
         private void SuggestionsItemsListBoxForText_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SuggestionsItemsListBox.SelectedItem is string fullname)
@@ -190,7 +196,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
-        #region Back
+        #region Back Region 
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var regionsPage = new Products.RegionsPage();
@@ -198,18 +205,24 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
         }
         #endregion
 
+        #region Selection Changed Region
+
         private void dgSubAreas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             if (dgSubRegions.SelectedItem is SubAreaDto selected)
             {
                 txtSbuRegionName.Text = selected.Name;
-                cb_MainRegionName.SelectedValue = selected.mainRegions.Id; 
+                cb_MainRegionName.SelectedValue = selected.mainRegions.Id;
 
                 editBtn.Visibility = Visibility.Visible;
             }
 
         }
+
+        #endregion
+
+        #region Btn Edit Region
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -240,7 +253,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             {
                 Id = selected.Id,
                 Name = newSubAreaName,
-                MainAreaId = ((MainAreaDto)cb_MainRegionName.SelectedItem).Id, 
+                MainAreaId = ((MainAreaDto)cb_MainRegionName.SelectedItem).Id,
             };
 
             SubAreaDto subAreaDto = _subAreaService.Update(updateDto);
@@ -249,7 +262,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             {
                 selected.Name = newSubAreaName;
                 selected.mainRegions = mainAreaDtod;
-                
+
                 dgSubRegions.Items.Refresh(); // لتحديث الجدول
                 MessageBox.Show("تم تعديل المنطقة بنجاح");
             }
@@ -259,6 +272,9 @@ namespace ErpSystemBeniSouef.Views.Pages.Regions
             }
 
         }
+
+        #endregion
+
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
@@ -82,11 +83,19 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة ");
                 return;
             }
+            string supplierInputName = txtSupplierName.Text.Trim();
             CreateSupplierDto newSupplirArea = new CreateSupplierDto()
             {
-                Name = txtSupplierName.Text.Trim(),
+                Name = supplierInputName,
 
             };
+
+            SupplierDto CheckSupplierNameFounded = observalsuppliers.Where(n => n.Name == supplierInputName).FirstOrDefault();
+            if (CheckSupplierNameFounded is not null)
+            {
+                MessageBox.Show(" الاسم مستخدم من قيل ");
+                return;
+            }
             SupplierDto createdSupplier = _supplierService.Create(newSupplirArea);
 
             if (createdSupplier != null)
@@ -164,7 +173,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
         {
             if (dgsuppliers.SelectedItem is not SupplierDto selected)
             {
-                MessageBox.Show("من فضلك اختر مورد للتعديل");
+                MessageBox.Show("من فضلك ادخل اسم مورد صحيح غير موجود ");
                 return;
             } 
             string newName = txtSupplierName.Text.Trim();
@@ -208,8 +217,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
         }
 
         #endregion
-         
-
+          
         #region Search By Item Name Region
 
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)

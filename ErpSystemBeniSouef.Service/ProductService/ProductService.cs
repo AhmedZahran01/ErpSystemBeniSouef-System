@@ -138,9 +138,9 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
 
             var product = _mapper.Map<Product>(createDto);
-            var productDo = _mapper.Map<ProductDto>(createDto);
             _unitOfWork.Repository<Product>().Add(product);
-            _unitOfWork.CompleteAsync();
+            _unitOfWork.Complete();
+            var productDo = _mapper.Map<ProductDto>(product);
 
 
             return productDo;
@@ -272,8 +272,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
         }
 
         #endregion
-
-
+         
         #region Get All Region 
 
         public IReadOnlyList<CategoryDto> GetAllCategories()
@@ -296,9 +295,8 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         #endregion
 
-
-
-        //=================== Comment ASYNC METHIDS=========================
+         
+        //=================== Comment ASYNC METHIDS  =========================
 
         #region Comment Async Region
 
@@ -445,6 +443,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
         //}
 
         #endregion
+
 
     }
 }

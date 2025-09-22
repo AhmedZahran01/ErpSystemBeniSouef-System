@@ -15,8 +15,7 @@ using System.Threading.Tasks;
 namespace ErpSystemBeniSouef.Service.SupplierService
 {
     public class SupplierService : ISupplierService
-    {
-
+    { 
         #region Constractor Region
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -77,13 +76,7 @@ namespace ErpSystemBeniSouef.Service.SupplierService
             catch { return false; }
         }
         #endregion
-
-
-
-
-
-
-
+         
         #region Update Region
 
         public Supplier Update(int updateSupplierId , string newName)
@@ -100,39 +93,6 @@ namespace ErpSystemBeniSouef.Service.SupplierService
         }
 
         #endregion
-
-
-
-
-
-
-      
-
-
-
-         
-
-        /*
-         public  IReadOnlyList<SupplierDto> GetAll()
-         {
-             var supplier = _unitOfWork.Repository<Supplier>().GetAll();
-             IReadOnlyList<SupplierDto> mainAreaDto = _mapper.Map<IReadOnlyList<SupplierDto>>(supplier);
-
-             return mainAreaDto;
-         }
-         */
-
-        /*
-        public SupplierDto GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-        */
-        /*
-        public IReadOnlyList<SupplierDto> GetSubAreaDtoByMainAreaId(int SupplierId)
-        {
-            throw new NotImplementedException();
-        }
-        */
+          
     }
 }

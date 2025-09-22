@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.Collector;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -82,12 +83,19 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة في الحقل");
                 return;
             }
-
+            string collectorName = txtCollectorName.Text.Trim();
             CreateCollectorDto newCollector = new CreateCollectorDto()
             {
-                Name = txtCollectorName.Text.Trim(),
+                Name = collectorName,
 
             };
+            CollectorDto CheckCollectorNameFounded = observalCollectorDto.Where(n => n.Name == collectorName).FirstOrDefault();
+            if (CheckCollectorNameFounded is not null)
+            {
+                MessageBox.Show(" الاسم مستخدم من قيل ");
+                return;
+            }
+
             CollectorDto createdCollector = _collector.Create(newCollector);
 
             if (createdCollector != null)
@@ -110,9 +118,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
         #region  Delete Btn Region
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
-        {
-
-
+        { 
             if (dgCollectors.SelectedItems.Count == 0)
             {
                 MessageBox.Show("من فضلك اختر علي الاقل صف قبل الحذف");
@@ -138,11 +144,11 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
                 string ValueOfString = "محصل";
                 if (deletedCount > 1)
                     ValueOfString = "المحصلين";
-                MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} أساسية");
+                MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} ");
             }
             else
             {
-                MessageBox.Show("لم يتم حذف أي محصل أساسية بسبب خطأ ما");
+                MessageBox.Show("لم يتم حذف أي محصل  بسبب خطأ ما");
             }
         }
 

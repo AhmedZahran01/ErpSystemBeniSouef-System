@@ -116,6 +116,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
                 MessageBox.Show(" تم إضافة المورد بنجاح");
 
                 observalstoreKeeperDto.Add(createdStorekeeper);
+                observalstoreKeeperforFilter.Add(createdStorekeeper);
             }
             else
             {
@@ -153,14 +154,14 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
             if (deletedCount > 0)
             {
-                string ValueOfString = "المدير";
+                string ValueOfString = " مدير";
                 if (deletedCount > 1)
-                    ValueOfString = "المديرين";
-                MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} أساسية");
+                    ValueOfString = " من المديرين";
+                MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} ");
             }
             else
             {
-                MessageBox.Show("لم يتم حذف أي المدير أساسية بسبب خطأ ما");
+                MessageBox.Show("لم يتم حذف أي مدير بسبب خطأ ما");
             }
         }
 
@@ -223,8 +224,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
             }
         }
         #endregion
-
-
+         
         #region dgMainRegions_SelectionChanged Region
 
         private void dgCollectors_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -305,6 +305,8 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
         }
 
         #endregion
+         
+        #region Back Btn Region
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var Dashboard = new MainRepresentativeAndCollectorPage();
@@ -313,6 +315,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
         }
 
 
+        #endregion
 
     }
 }

@@ -21,10 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
-{
-    /// <summary>
-    /// Interaction logic for RepresentativePage.xaml
-    /// </summary>
+{ 
     public partial class RepresentativePage : Page
     {
 
@@ -54,8 +51,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
             };
         }
         #endregion
-
-
+         
         #region Retrieve Default Regions to Grid Region
 
         private async Task LoadRepresentative()
@@ -312,10 +308,16 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
         #endregion
 
+        #region Back Btn Region
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var Dashboard = new Views.Pages.RepresentativeAndCollector.MainRepresentativeAndCollectorPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
+
+        #endregion
+
+
     }
 }
