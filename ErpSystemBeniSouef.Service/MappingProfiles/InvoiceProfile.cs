@@ -17,7 +17,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<AddInvoiceDto, Invoice>()
                 .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SupplierId));
 
-            CreateMap<Invoice, ReturnInvoiceDto>()
+            CreateMap<Invoice, ReturnCashInvoiceDto>()
                 .ForMember(dest => dest.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name));
         }
     }

@@ -13,49 +13,52 @@ using ErpSystemBeniSouef.Core.Enum;
 
 namespace ErpSystemBeniSouef.Service.InvoiceServices
 {
-    public class CashInvoiceService:ICashInvoiceService
+    public class DueInvoiceService:IDueInvoiceService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-        public CashInvoiceService(IUnitOfWork unitOfWork, IMapper mapper)
+
+        public DueInvoiceService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<ReturnCashInvoiceDto> AddInvoice(AddCashInvoiceDto dto)
+
+        public async Task<ReturnDueInvoiceDto> AddInvoice(AddDueInvoiceDto dto)
         {
             var invoice = _mapper.Map<Invoice>(dto);
 
-            // Make sure supplier exists
             var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(dto.SupplierId);
             if (supplier == null)
                 throw new Exception($"Supplier with Id {dto.SupplierId} not found.");
 
             invoice.SupplierId = dto.SupplierId;
             invoice.Supplier = supplier;
-            invoice.invoiceType = InvoiceType.cash;
-            invoice.TotalAmount = 0; 
+            invoice.invoiceType = InvoiceType.Due;
+            invoice.TotalAmount = 0;
+            invoice.DueAmount = dto.DueAmount;
             invoice.CreatedDate = DateTime.UtcNow;
 
             _unitOfWork.Repository<Invoice>().Add(invoice);
             await _unitOfWork.CompleteAsync();
 
-            // Map Entity → Return DTO
-            var returnDto = new ReturnCashInvoiceDto
+            return new ReturnDueInvoiceDto
             {
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
-                TotalAmount = (decimal)invoice.TotalAmount,
-                SupplierName = supplier.Name
+                TotalAmount = invoice.TotalAmount ?? 0,
+                SupplierName = supplier.Name,
+                DueAmount = invoice.DueAmount
             };
-
-            return returnDto;
         }
-       public async  Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
+
+        public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
-                .FindWithIncludesAsync(i => i.Id == dto.Id&&i.invoiceType==InvoiceType.cash, i => i.Supplier);
-               
+                .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.Due,
+                i => i.Supplier);
+                
+            
             if (invoice == null)
                 throw new Exception($"Invoice with Id {dto.Id} not found.");
 
@@ -72,13 +75,15 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                     InvoiceId = invoice.Id,
                     ProductId = product.Id,
                     ProductName = product.ProductName,
-                    ProductType = product.Category?.Name ?? "N/A",  
+                    ProductType = product.Category?.Name ?? "N/A",
                     Quantity = itemDto.Quantity,
-                    UnitPrice = itemDto.UnitPrice
+                    UnitPrice = itemDto.UnitPrice,
+                    Notes = itemDto.Note
                 };
 
                 if (invoice.Items == null)
                     invoice.Items = new List<InvoiceItem>();
+
                 invoice.Items.Add(invoiceItem);
 
                 totalAmount += (itemDto.Quantity * itemDto.UnitPrice);
@@ -90,33 +95,34 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             await _unitOfWork.CompleteAsync();
 
             return true;
-
         }
-        public async Task<InvoiceDetailsDto> GetInvoiceById(int id)
+
+        public async Task<DueInvoiceDetailsDto> GetInvoiceById(int id)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
-               .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.cash,
-               i => i.Supplier,id=>id.Items);
+                .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.Due && !i.IsDeleted,
+               i=>i.Supplier);
 
             if (invoice == null)
                 throw new Exception($"Invoice with Id {id} not found.");
 
-            return new InvoiceDetailsDto
+            return new DueInvoiceDetailsDto
             {
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
                 TotalAmount = invoice.TotalAmount ?? 0,
                 SupplierName = invoice.Supplier?.Name ?? "N/A",
+                DueAmount = invoice.DueAmount,
                 Notes = invoice.Notes
             };
         }
 
-        public async Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
+        public async Task<List<DueInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
         {
             var items = await _unitOfWork.Repository<InvoiceItem>()
-                .GetAllAsync(i => i.InvoiceId == invoiceId);
+              .GetAllAsync(i => i.InvoiceId == invoiceId);
 
-            return items.Select(i => new InvoiceItemDetailsDto
+            return items.Select(i => new DueInvoiceItemDetailsDto
             {
                 Id = i.Id,
                 InvoiceId = i.InvoiceId,
@@ -128,7 +134,5 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             }).ToList();
         }
     }
-
 }
 
-       

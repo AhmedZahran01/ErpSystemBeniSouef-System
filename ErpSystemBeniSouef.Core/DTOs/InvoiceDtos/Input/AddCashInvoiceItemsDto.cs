@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input
 {
-    public class AddInvoiceItemsDto
+    public class AddCashInvoiceItemsDto
     {
         public int Id { get; set; }
-        public List<InvoiceItemDto> invoiceItemDtos { get; set; }
+        public List<CashInvoiceItemDto> invoiceItemDtos { get; set; }
     }
-    public class InvoiceItemDto
+    public class CashInvoiceItemDto
     {
-        public int Product { get; set; }
+        public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public int TotalAmount { get; set; }

@@ -8,12 +8,11 @@ using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 
 namespace ErpSystemBeniSouef.Core.Contract.Invoice
 {
-    public interface ICashInvoiceService
+    public interface IDamageInvoiceService
     {
-        Task<ReturnCashInvoiceDto> AddInvoice(AddCashInvoiceDto dto);
+        Task<ReturnDamageInvoiceDto> AddInvoice(AddDamageInvoiceDto dto);
         Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto);
-        Task<InvoiceDetailsDto> GetInvoiceById(int id);
-        Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
-
+        Task<DamageInvoiceDetailsDto> GetInvoiceById(int id);
+        Task<List<DamageInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
     }
 }

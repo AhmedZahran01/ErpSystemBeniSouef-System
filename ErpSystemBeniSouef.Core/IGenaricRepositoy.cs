@@ -18,11 +18,15 @@ namespace ErpSystemBeniSouef.Core
 
         #endregion
 
-        #region Get By Condion And Inclide Region
+        #region Get By Condition And Include Region
 
         List<T> GetByCondionAndInclide(       Expression<Func<T, bool>> query,
                 params Expression<Func<T, object>>[] includes);
-        #endregion
+
+      Task<T?> FindWithIncludesAsync(
+   Expression<Func<T, bool>> predicate,
+   params Expression<Func<T, object>>[] includes);
+            #endregion
 
         #region Get By Id Region
 
@@ -44,7 +48,7 @@ namespace ErpSystemBeniSouef.Core
         #region Find In Specific Condition Region
         
         Task<T?> Find(Expression<Func<T, bool>> predicate);
-
+        Task<T?> GetByIdWithIncludesAsync(int id, params Expression<Func<T, object>>[] includes);
         #endregion
     }
 }
