@@ -43,8 +43,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         private readonly IMapper _mapper; 
  
         IReadOnlyList<SupplierDto> SuppliersDto = new List<SupplierDto>();
-        ObservableCollection<ReturnInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnInvoiceDto>();
-        ObservableCollection<ReturnInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnInvoiceDto>();
+        ObservableCollection<ReturnCashInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnCashInvoiceDto>();
+        ObservableCollection<ReturnCashInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnCashInvoiceDto>();
 
         #endregion
 
@@ -59,8 +59,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             _cashInvoiceService = cashInvoiceService;
             Loaded += async (s, e) =>
             {
-                cb_SuppliersName.ItemsSource = await _supplierService.GetAllAsync(); ;
-                //cb_type.ItemsSource = await _productService.GetAllCategoriesAsync();
+                cb_SuppliersName.ItemsSource = await _supplierService.GetAllAsync(); ; 
                 cb_SuppliersName.SelectedIndex = 0;
                 await LoadInvoices();
                 dgCashInvoice.ItemsSource = observProductsLisLim;
@@ -75,7 +74,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
          
         private async Task LoadInvoices()
         {
-            IReadOnlyList<ReturnInvoiceDto> products = await _cashInvoiceService.GetAllAsync();
+            IReadOnlyList<ReturnCashInvoiceDto> products = await _cashInvoiceService.GetAllAsync();
             foreach (var product in products)
             {
                 observProductsLisLim.Add(product);
@@ -85,6 +84,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
 
         #endregion
+
+
+
 
 
 
