@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input
 {
-    public class AddInvoiceDto
+    public class AddDamageInvoiceDto
     {
         public DateTime InvoiceDate { get; set; }
         public int SupplierId { get; set; }
-
     }
 }

@@ -11,9 +11,10 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice
 {
     public interface ICashInvoiceService
     {
-        Task<ReturnInvoiceDto> AddInvoice(AddInvoiceDto dto);
-        Task<bool> AddInvoiceItems(AddInvoiceItemsDto dto);
-        Task<IReadOnlyList<ReturnInvoiceDto>> GetAllAsync();
+        Task<ReturnCashInvoiceDto> AddInvoice(AddCashInvoiceDto dto);
+        Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto);
+        Task<InvoiceDetailsDto> GetInvoiceById(int id);
+        Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
 
     }
 }

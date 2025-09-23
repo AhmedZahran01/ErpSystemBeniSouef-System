@@ -9,6 +9,8 @@ namespace ErpSystemBeniSouef.Core.Enum
     public enum InvoiceType
     {
       cash=1,
-      Due=2
+      Due=2,
+     SupplierReturn=3,
+      Damage=4
     }
 }
