@@ -13,10 +13,11 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input
     }
     public class CashInvoiceItemDto
     {
+        public int Id { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public int TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
         public string Note { get; set; }
 
     }

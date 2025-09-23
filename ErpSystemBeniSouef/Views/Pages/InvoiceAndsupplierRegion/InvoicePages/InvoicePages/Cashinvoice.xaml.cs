@@ -173,8 +173,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         {
             if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selectedInvoice)
             {
+                var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+                var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+
                 // افتح صفحة التفاصيل
-                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice);
+                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice , productService , cashInvoiceService);
                 NavigationService?.Navigate(detailsPage);
             }
         }

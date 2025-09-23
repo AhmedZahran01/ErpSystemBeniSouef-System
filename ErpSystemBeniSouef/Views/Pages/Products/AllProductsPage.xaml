@@ -131,8 +131,8 @@ FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
             <Button x:Name="editBtn" Visibility="Hidden" Style="{StaticResource UpdateBtn}"
 Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
             
-            <Button Content="حذف" Width="140"  Style="{DynamicResource DeleteButtonn}" Margin="10" Click="DeleteButton_Click_1" />
-            <Button Content="إضافة" Width="140"   Style="{DynamicResource AddButtonn}" Margin="15,10" Click="AddButton_Click" />
+            <Button Content="حذف" Width="140"     Style="{DynamicResource DeleteButtonn}" Margin="10"     Click="DeleteButton_Click_1" />
+            <Button Content="إضافة" Width="140"   Style="{DynamicResource AddButtonn}"     Margin="15,10" Click="AddButton_Click" />
 
         </StackPanel>
 
