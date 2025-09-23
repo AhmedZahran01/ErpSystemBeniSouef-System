@@ -11,10 +11,20 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice
 {
     public interface ICashInvoiceService
     {
-        Task<ReturnCashInvoiceDto> AddInvoice(AddCashInvoiceDto dto);
+        Task<IReadOnlyList<ReturnCashInvoiceDto>> GetAllAsync();
+        ReturnCashInvoiceDto AddInvoice(AddCashInvoiceDto dto);
         Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto);
         Task<InvoiceDetailsDto> GetInvoiceById(int id);
         Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
+
+
+        #region Soft Delete Region
+        bool SoftDelete(int id);
+        Task<bool> SoftDeleteAsync(int id);
+        #endregion
+
+
+
 
     }
 }

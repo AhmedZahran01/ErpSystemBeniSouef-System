@@ -11,8 +11,8 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 {
     public class CashInvoiceService : ICashInvoiceService
     {
-        #region Constractor Region
 
+        #region Constractor Region
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public CashInvoiceService(IUnitOfWork unitOfWork, IMapper mapper)
@@ -20,23 +20,27 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<ReturnCashInvoiceDto> AddInvoice(AddCashInvoiceDto dto)
+        #endregion
+
+        #region  Add Invoice Region
+
+        public ReturnCashInvoiceDto AddInvoice(AddCashInvoiceDto dto)
         {
             var invoice = _mapper.Map<Invoice>(dto);
 
             // Make sure supplier exists
-            var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(dto.SupplierId);
+            var supplier = _unitOfWork.Repository<Supplier>().GetById(dto.SupplierId);
             if (supplier == null)
-                throw new Exception($"Supplier with Id {dto.SupplierId} not found.");
+                return null;
 
             invoice.SupplierId = dto.SupplierId;
             invoice.Supplier = supplier;
             invoice.invoiceType = InvoiceType.cash;
-            invoice.TotalAmount = 0; 
+            invoice.TotalAmount = 0;
             invoice.CreatedDate = DateTime.UtcNow;
 
             _unitOfWork.Repository<Invoice>().Add(invoice);
-            await _unitOfWork.CompleteAsync();
+            _unitOfWork.Complete();
 
             // Map Entity → Return DTO
             var returnDto = new ReturnCashInvoiceDto
@@ -49,11 +53,16 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
             return returnDto;
         }
-       public async  Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
+
+        #endregion
+
+        #region Add Invoice Items Region
+
+        public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
-                .FindWithIncludesAsync(i => i.Id == dto.Id&&i.invoiceType==InvoiceType.cash, i => i.Supplier);
-               
+                .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.cash, i => i.Supplier);
+
             if (invoice == null)
                 throw new Exception($"Invoice with Id {dto.Id} not found.");
 
@@ -70,7 +79,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                     InvoiceId = invoice.Id,
                     ProductId = product.Id,
                     ProductName = product.ProductName,
-                    ProductType = product.Category?.Name ?? "N/A",  
+                    ProductType = product.Category?.Name ?? "N/A",
                     Quantity = itemDto.Quantity,
                     UnitPrice = itemDto.UnitPrice
                 };
@@ -90,16 +99,28 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             return true;
 
         }
+
+        #endregion
+
+        #region Get Invoice By Id Region
+
         public async Task<InvoiceDetailsDto> GetInvoiceById(int id)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
                .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.cash,
-               i => i.Supplier,id=>id.Items);
+               i => i.Supplier, id => id.Items);
 
             if (invoice == null)
-                throw new Exception($"Invoice with Id {id} not found.");
+                return null;
 
-    }
+            var response = _mapper.Map<InvoiceDetailsDto>(invoice);
+
+            return response;
+
+        }
+        #endregion
+
+        #region  Get Invoice Items By Invoice Id Region
 
         public async Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
         {
@@ -117,8 +138,60 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Notes = i.Notes
             }).ToList();
         }
-    }
 
+        #endregion
+
+        #region Get All Async Region
+        public async Task<IReadOnlyList<ReturnCashInvoiceDto>> GetAllAsync()
+        {
+            var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync(i => i.Supplier);
+            var CahInvoice = invoices.Where(I => I.DueAmount == null).ToList();
+
+            var response = _mapper.Map<IReadOnlyList<ReturnCashInvoiceDto>>(CahInvoice);
+
+            return response;
+        }
+
+        #endregion
+
+
+        #region Soft Delete Region
+
+        public bool SoftDelete(int id)
+        {
+            var product = _unitOfWork.Repository<Invoice>().GetById(id);
+            if (product == null)
+                return false;
+            product.IsDeleted = true;
+            _unitOfWork.Repository<Invoice>().Update(product);
+            _unitOfWork.CompleteAsync();
+
+            return true;
+        }
+
+        public async Task<bool> SoftDeleteAsync(int id)
+        {
+            var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);
+            if (invoice == null)
+                return false;
+            try
+            {
+                invoice.IsDeleted = true;
+                _unitOfWork.Repository<Invoice>().Update(invoice);
+                await _unitOfWork.CompleteAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
+
+
+    }
 }
 
-       
+

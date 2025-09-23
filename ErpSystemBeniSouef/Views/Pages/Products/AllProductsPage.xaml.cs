@@ -46,7 +46,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         }
         #endregion
 
-        #region Retrieve products to Grid Region
+        #region load products to Grid Region
 
         private async Task Loadproducts()
         {

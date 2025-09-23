@@ -10,7 +10,7 @@ namespace ErpSystemBeniSouef.Core.Enum
     {
       cash=1,
       Due=2,
-     SupplierReturn=3,
+      SupplierReturn=3,
       Damage=4
     }
 }

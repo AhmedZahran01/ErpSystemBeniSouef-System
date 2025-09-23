@@ -8,7 +8,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input
 {
     public class AddCashInvoiceDto
     {
-        public DateTime InvoiceDate { get; set; }
+        public DateTime? InvoiceDate { get; set; }
         public int SupplierId { get; set; }
 
     }

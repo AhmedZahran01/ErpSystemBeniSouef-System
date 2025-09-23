@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.Core.Entities;
@@ -40,8 +42,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         private readonly int _companyNo = 1;
         private readonly ISupplierService _supplierService;
         private readonly ICashInvoiceService _cashInvoiceService;
-        private readonly IMapper _mapper; 
- 
+        private readonly IMapper _mapper;
+
         IReadOnlyList<SupplierDto> SuppliersDto = new List<SupplierDto>();
         ObservableCollection<ReturnCashInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnCashInvoiceDto>();
         ObservableCollection<ReturnCashInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnCashInvoiceDto>();
@@ -50,8 +52,6 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         #region Constractor Region
 
-        //List<Suppliers> SupplierNames = new List<Suppliers>();
-        //List<CashInvoice> CashInvoiceData = new List<CashInvoice>();
         public Cashinvoice(ISupplierService supplierService, ICashInvoiceService cashInvoiceService)
         {
             InitializeComponent();
@@ -59,10 +59,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             _cashInvoiceService = cashInvoiceService;
             Loaded += async (s, e) =>
             {
-                cb_SuppliersName.ItemsSource = await _supplierService.GetAllAsync(); ; 
+                cb_SuppliersName.ItemsSource = await _supplierService.GetAllAsync(); ;
                 cb_SuppliersName.SelectedIndex = 0;
                 await LoadInvoices();
-                dgCashInvoice.ItemsSource = observProductsLisLim;
+                dgCashInvoice.ItemsSource =  observProductsLisLim;
 
             };
 
@@ -71,23 +71,116 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         #endregion
 
         #region LoadInvoices Dta Region
-         
+
         private async Task LoadInvoices()
         {
-            IReadOnlyList<ReturnCashInvoiceDto> products = await _cashInvoiceService.GetAllAsync();
-            foreach (var product in products)
+            IReadOnlyList<ReturnCashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
+            foreach (var product in invoiceDtos)
             {
                 observProductsLisLim.Add(product);
                 observProductsListFiltered.Add(product);
-            } 
+            }
+
         }
 
 
         #endregion
+         
+        #region Add Button Region
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime? invoiceDate = txtInvoiceDate.SelectedDate;
+            if (invoiceDate == null)
+            {
+                MessageBox.Show("من فضلك اختر تاريخ صحيح");
+                return;
+            } 
+
+            SupplierDto selectedSupplier = (SupplierDto)cb_SuppliersName.SelectedItem;
+
+            if (selectedSupplier == null)
+            {
+                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
+                return;
+            }
+
+            AddCashInvoiceDto InputProduct = new AddCashInvoiceDto()
+            {
+                InvoiceDate = invoiceDate,
+                SupplierId = selectedSupplier.Id
+                
+            };
+             
+            ReturnCashInvoiceDto CreateInvoiceDtoRespons = _cashInvoiceService.AddInvoice(InputProduct);
+            if (CreateInvoiceDtoRespons is null)
+            {
+                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
+                return;
+            }
+
+            MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
+
+            cb_SuppliersName.SelectedIndex = 0;
+            txtInvoiceDate.SelectedDate = null; 
+            observProductsLisLim.Add(CreateInvoiceDtoRespons);
+            observProductsListFiltered.Add(CreateInvoiceDtoRespons);
+
+        }
+
+        #endregion
+
+        #region Delete Button Region
+
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool checkSoftDelete = false;
+            if (dgCashInvoice.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("من فضلك اختر علي الاقل صف قبل الحذف");
+                return;
+            }
+            List<ReturnCashInvoiceDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<ReturnCashInvoiceDto>().ToList();
+            int deletedCount = 0;
+            foreach (var item in selectedItemsDto)
+            {
+                bool success = await _cashInvoiceService.SoftDeleteAsync(item.Id);
+                if (success)
+                {
+                    observProductsLisLim.Remove(item);
+                    observProductsListFiltered.Remove(item);
+                    deletedCount++;
+                }
+            }
+            if (deletedCount > 0)
+            {
+                string ValueOfString = "فاتوره كاش  ";
+                if (deletedCount > 1)
+                    ValueOfString = "من الفواتير الكاش  ";
+                MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} ");
+            }
+            else
+            {
+                MessageBox.Show("لم يتم حذف أي فاتوره بسبب خطأ ما");
+            }
+
+        }
+        #endregion
+
+        #region CashcInvoice Mouse Double Region
+
+        private void dgCashInvoice_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selectedInvoice)
+            {
+                // افتح صفحة التفاصيل
+                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice);
+                NavigationService?.Navigate(detailsPage);
+            }
+        }
 
 
-
-
+        #endregion
 
 
 
@@ -101,10 +194,6 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         }
 
         #endregion
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+         
     }
 }
