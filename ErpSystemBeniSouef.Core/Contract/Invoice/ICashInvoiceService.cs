@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 
 namespace ErpSystemBeniSouef.Core.Contract.Invoice
 {
@@ -12,5 +13,7 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice
     {
         Task<ReturnInvoiceDto> AddInvoice(AddInvoiceDto dto);
         Task<bool> AddInvoiceItems(AddInvoiceItemsDto dto);
+        Task<IReadOnlyList<ReturnInvoiceDto>> GetAllAsync();
+
     }
 }

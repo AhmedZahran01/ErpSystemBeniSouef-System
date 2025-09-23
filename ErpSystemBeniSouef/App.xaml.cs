@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.CollectorServices;
+using ErpSystemBeniSouef.Service.InvoiceServices;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
@@ -13,17 +14,11 @@ using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views;
-using ErpSystemBeniSouef.Views.Pages.Products;
-using ErpSystemBeniSouef.Views.Pages.Regions;
-using ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes;
+using ErpSystemBeniSouef.Views; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Configuration;
-using System.Data;
-using System.Reflection.PortableExecutable;
+using Microsoft.Extensions.Logging; 
 using System.Windows;
 
 namespace ErpSystemBeniSouef
@@ -63,6 +58,7 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
         services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
         services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
+        services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
 
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -150,6 +146,7 @@ namespace ErpSystemBeniSouef
             var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
+            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -169,8 +166,10 @@ namespace ErpSystemBeniSouef
 
             //var login = new StorekeepersPage(storeKeeperService,mapper);
 
+            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+                               InvoicePages.Cashinvoice(supplierService , cashInvoiceService);
 
-            var login = new StartPageBeforeLogin();
+            //var login = new StartPageBeforeLogin();
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
 

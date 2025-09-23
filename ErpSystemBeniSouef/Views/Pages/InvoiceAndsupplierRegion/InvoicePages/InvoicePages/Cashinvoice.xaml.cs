@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
@@ -34,37 +37,70 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
     {
 
         #region Global Variables  Region
-        private readonly int _companyNo;
+        private readonly int _companyNo = 1;
         private readonly ISupplierService _supplierService;
+        private readonly ICashInvoiceService _cashInvoiceService;
         private readonly IMapper _mapper; 
  
         IReadOnlyList<SupplierDto> SuppliersDto = new List<SupplierDto>();
+        ObservableCollection<ReturnInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnInvoiceDto>();
+        ObservableCollection<ReturnInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnInvoiceDto>();
 
         #endregion
+
+        #region Constractor Region
+
         //List<Suppliers> SupplierNames = new List<Suppliers>();
         //List<CashInvoice> CashInvoiceData = new List<CashInvoice>();
-        public Cashinvoice(int companyNo , ISupplierService supplierService)
+        public Cashinvoice(ISupplierService supplierService, ICashInvoiceService cashInvoiceService)
         {
             InitializeComponent();
-            _companyNo = companyNo;
             _supplierService = supplierService;
-
+            _cashInvoiceService = cashInvoiceService;
             Loaded += async (s, e) =>
-            { 
+            {
                 cb_SuppliersName.ItemsSource = await _supplierService.GetAllAsync(); ;
                 //cb_type.ItemsSource = await _productService.GetAllCategoriesAsync();
                 cb_SuppliersName.SelectedIndex = 0;
+                await LoadInvoices();
+                dgCashInvoice.ItemsSource = observProductsLisLim;
+
             };
- 
+
         }
-          
+
+        #endregion
+
+        #region LoadInvoices Dta Region
+         
+        private async Task LoadInvoices()
+        {
+            IReadOnlyList<ReturnInvoiceDto> products = await _cashInvoiceService.GetAllAsync();
+            foreach (var product in products)
+            {
+                observProductsLisLim.Add(product);
+                observProductsListFiltered.Add(product);
+            } 
+        }
+
+
+        #endregion
+
+
+
+
+
+        #region Back btn Region
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             var invoicesRegion = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicesRegion(_companyNo);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(invoicesRegion);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
 
         }

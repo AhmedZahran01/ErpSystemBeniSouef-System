@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Service.InvoiceServices
 {
-    public class CashInvoiceService:ICashInvoiceService
+    public class CashInvoiceService : ICashInvoiceService
     {
+        #region Constractor Region
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         public CashInvoiceService(IUnitOfWork unitOfWork, IMapper mapper)
@@ -21,6 +24,11 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        #endregion
+
+        #region Add Invoice Region
+
         public async Task<ReturnInvoiceDto> AddInvoice(AddInvoiceDto dto)
         {
             var invoice = _mapper.Map<Invoice>(dto);
@@ -52,7 +60,12 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
             return returnDto;
         }
-       public async  Task<bool> AddInvoiceItems(AddInvoiceItemsDto dto)
+
+        #endregion
+
+        #region Add Invoice Items Region
+
+        public async Task<bool> AddInvoiceItems(AddInvoiceItemsDto dto)
         {
             // 1. Get the invoice
             var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(dto.Id);
@@ -98,7 +111,17 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
         }
 
-    }
+        public async Task<IReadOnlyList<ReturnInvoiceDto>> GetAllAsync()
+        {
+            var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync();
 
-       
+            var response = _mapper.Map<IReadOnlyList<ReturnInvoiceDto>>(invoices);
+             
+            return response;
+
+        }
+
+        #endregion
+
     }
+}

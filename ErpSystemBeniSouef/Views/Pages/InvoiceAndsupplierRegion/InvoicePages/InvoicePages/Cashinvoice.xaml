@@ -70,7 +70,7 @@
             <StackPanel Grid.Row="2" Orientation="Horizontal" 
                         HorizontalAlignment="Center" Margin="0" >
                 <Button Style="{StaticResource DeleteButtonn}"
-                   Content="حذف"   Margin="10" Click="Button_Click" />
+                   Content="حذف"   Margin="10" Click="DeleteButton_Click" />
                 <Button Style="{StaticResource AddButtonn}"
                      Content="إضافة"  Margin="10"/>
             </StackPanel>
@@ -88,9 +88,9 @@
       Background="White" 
                    FlowDirection="RightToLeft">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding CashInvoiceId}" Header="الرقم الفاتوره" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding CashInvoiceId}" Header="رقم الفاتوره" Width="*"/>
                     <DataGridTextColumn Binding="{Binding InvoiceDate}" Header=" تاريخ الفاتوره " Width="2*"/>
-                    <DataGridTextColumn Binding="{Binding Total_price}" Header=" المبلغ الاجمالى  " Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding Total_price}" Header=" المبلغ الاجمالى  " Width="*"/>
                     <DataGridTextColumn Binding="{Binding SuppliersName}" Header=" اسم المستورد" Width="2*"/>
                 </DataGrid.Columns>
             </DataGrid>

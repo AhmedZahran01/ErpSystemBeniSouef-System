@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -35,8 +36,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages
         private void Cashinvoice_Click(object sender, RoutedEventArgs e)
         {
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
 
-            var Dashboard = new InvoicePages.Cashinvoice(_companyNo, supplierService);
+            var Dashboard = new InvoicePages.Cashinvoice( supplierService , cashInvoiceService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }
