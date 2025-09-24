@@ -10,6 +10,7 @@ using ErpSystemBeniSouef.Core.Enum;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 
 namespace ErpSystemBeniSouef.Service.InvoiceServices
 {

@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using System;

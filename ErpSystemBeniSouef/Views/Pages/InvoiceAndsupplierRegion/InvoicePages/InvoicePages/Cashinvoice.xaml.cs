@@ -2,6 +2,7 @@
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.ProductDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
@@ -75,8 +76,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         private async Task LoadInvoices()
         {
             IReadOnlyList<ReturnCashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
+            observProductsLisLim.Clear();
+            observProductsListFiltered.Clear();
             foreach (var product in invoiceDtos)
-            {
+            { 
                 observProductsLisLim.Add(product);
                 observProductsListFiltered.Add(product);
             }
@@ -184,9 +187,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
 
         #endregion
-
-
-
+         
 
         #region Back btn Region
 

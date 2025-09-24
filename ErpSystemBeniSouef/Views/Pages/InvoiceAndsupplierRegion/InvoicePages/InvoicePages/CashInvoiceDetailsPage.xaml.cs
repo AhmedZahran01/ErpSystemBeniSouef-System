@@ -1,6 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
@@ -39,11 +40,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         ObservableCollection<InvoiceItemDetailsDto> observCashInvoiceItemDtosListFiltered = new ObservableCollection<InvoiceItemDetailsDto>();
         int invoiceIDFromPage;
+        int counId = 0;
+
         #endregion
 
         #region Constractor  Region
 
-        public CashInvoiceDetailsPage(ReturnCashInvoiceDto invoice, IProductService productService , ICashInvoiceService cashInvoiceService)
+        public CashInvoiceDetailsPage(ReturnCashInvoiceDto invoice, IProductService productService , 
+                  ICashInvoiceService cashInvoiceService)
         {
             InitializeComponent();
             _invoice = invoice;
@@ -149,6 +153,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 Quantity = Quant,
                 Notes = Notes ,
                 UnitPrice = PriceUnit ,
+                Id = counId+1
             };
             AddCashInvoiceItemsDto d = new AddCashInvoiceItemsDto();
             CashInvoiceItemDto cashInvoiceItemDto = new CashInvoiceItemDto()
@@ -158,11 +163,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 UnitPrice = PriceUnit,
                 ProductId = p.Id,
                 Quantity = Quant ,
-                
+                Id = counId
             };
             d.invoiceItemDtos = new List<CashInvoiceItemDto>();
              d.invoiceItemDtos.Add(cashInvoiceItemDto);
-             _cashInvoiceService.AddInvoiceItems( d);
+             //_cashInvoiceService.AddInvoiceItems( d);
 
             observCashInvoiceItemDtosListFiltered.Add(invoiceItemDetails);
             dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosListFiltered;
@@ -175,5 +180,29 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         }
 
+        private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateTotal();
+        }
+
+        private void txtPrice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateTotal();
+        }
+
+
+        private void UpdateTotal()
+        {
+            int quantity = int.TryParse(txtQuantity.Text, out int q) ? q : 0;
+            decimal price = decimal.TryParse(txtPrice.Text, out decimal p) ? p : 0;
+            decimal total = quantity * price;
+
+            txtTotal.Text = total.ToString("0.00"); // بصيغة رقمية
+        }
+
+        private void AddFinalInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+          var x =  observCashInvoiceItemDtosListFiltered;
+        }
     }
 }

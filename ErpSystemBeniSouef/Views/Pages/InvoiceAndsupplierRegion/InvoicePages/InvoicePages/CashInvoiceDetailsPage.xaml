@@ -101,33 +101,39 @@
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                 <TextBlock Text="         الكمية          :  " FontSize="25" Foreground="White"
                            VerticalAlignment="Center" Margin="10 0"/>
-                <TextBox x:Name="txtQuantity" Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
+                <TextBox x:Name="txtQuantity"
+                                  TextChanged="txtQuantity_TextChanged"
+                         Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- سعر المنتج -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                 <TextBlock Text="  سعر المنتج         :   " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
-                <TextBox x:Name="txtPrice" Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
+                <TextBox x:Name="txtPrice"
+                                  TextChanged="txtPrice_TextChanged"
+                           Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- السعر الإجمالي -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                 <TextBlock Text=" السعر الإجمالي    :  " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
-                <TextBox x:Name="txtTotal" IsEnabled="False" Width="120" FontSize="18" IsReadOnly="True" Style="{StaticResource textboxx}"/>
+                <TextBox x:Name="txtTotal"  IsEnabled="False" Width="120" FontSize="18"   />
             </StackPanel>
 
             <!-- ملاحظات -->
             <StackPanel Margin="0 0 0 10">
-                <TextBlock Text="  ملاحظات  " Foreground="White" FontSize="25" Margin="0 0 0 20"/>
+                <TextBlock Text="  ملاحظات  " Foreground="White" FontSize="25" Margin="0 0 0 0"/>
                 <TextBox x:Name="txtNotes" FontSize="22" Height="80" TextWrapping="Wrap" 
                          AcceptsReturn="True"  />
             </StackPanel>
 
             <!-- الأزرار -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
-                <Button Content="إضافة" Width="120" Height="40" FontSize="18" Margin="10 0"  Style="{DynamicResource AddButtonn}" Click="AddButton_Click"/>
-                <Button Content="حذف" Width="120" Height="40" FontSize="18" Margin="10 0"    Style="{DynamicResource DeleteButtonn }"  Click="DeleteButton_Click_1"   />
+                <Button Content="  إضافة عنصر للفاتوره" Width="190" Height="40" FontSize="18" Margin="10 0"  Style="{DynamicResource AddButtonn}" Click="AddButton_Click"/>
+                <Button Content="حذف" Width="150" Height="40" FontSize="18" Margin="10 10"    Style="{DynamicResource DeleteButtonn }"  Click="DeleteButton_Click_1"   />
             </StackPanel>
+             <Button Content=" اضافه الفاتوره " Width="140" Height="40" FontSize="18" Margin="214 0 0 40" 
+                     Style="{DynamicResource DeleteButtonn }" Background="Green" Click="AddFinalInvoiceButton_Click"   />
         </StackPanel>
 
         <Button Grid.Row="4" HorizontalAlignment="Left" Content="↩" FontSize="22" 

@@ -2,6 +2,7 @@
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
@@ -154,7 +155,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         public async Task<IReadOnlyList<ReturnCashInvoiceDto>> GetAllAsync()
         {
             var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync(i => i.Supplier);
-            var CahInvoice = invoices.Where(I => I.DueAmount == null).ToList();
+            var CahInvoice = invoices.Where(I => I.invoiceType == InvoiceType.cash).ToList();
 
             var response = _mapper.Map<IReadOnlyList<ReturnCashInvoiceDto>>(CahInvoice);
 
