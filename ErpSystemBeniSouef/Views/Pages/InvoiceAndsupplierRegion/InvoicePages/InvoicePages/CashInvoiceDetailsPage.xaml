@@ -65,7 +65,7 @@
                     <DataGridTextColumn Header="اسم السلعة" Binding="{Binding ProductName}" Width="*"/>
                     <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
                     <DataGridTextColumn Header="السعر" Binding="{Binding UnitPrice}" Width="*"/>
-                    <DataGridTextColumn Header="الإجمالي" Binding="{Binding Total}" Width="*"/>
+                    <DataGridTextColumn Header="الإجمالي" Binding="{Binding LineTotal}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -113,7 +113,7 @@
             <!-- السعر الإجمالي -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
                 <TextBlock Text=" السعر الإجمالي    :  " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
-                <TextBox x:Name="txtTotal" Width="120" FontSize="18" IsReadOnly="True" Style="{StaticResource textboxx}"/>
+                <TextBox x:Name="txtTotal" IsEnabled="False" Width="120" FontSize="18" IsReadOnly="True" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- ملاحظات -->
@@ -125,8 +125,8 @@
 
             <!-- الأزرار -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
-                <Button Content="إضافة" Width="120" Height="40" FontSize="18" Margin="10 0"  Style="{DynamicResource AddButtonn}" Click="DeleteButton_Click_1"/>
-                <Button Content="حذف" Width="120" Height="40" FontSize="18" Margin="10 0"    Style="{DynamicResource DeleteButtonn }"  Click="AddButton_Click"   />
+                <Button Content="إضافة" Width="120" Height="40" FontSize="18" Margin="10 0"  Style="{DynamicResource AddButtonn}" Click="AddButton_Click"/>
+                <Button Content="حذف" Width="120" Height="40" FontSize="18" Margin="10 0"    Style="{DynamicResource DeleteButtonn }"  Click="DeleteButton_Click_1"   />
             </StackPanel>
         </StackPanel>
 

@@ -21,10 +21,10 @@ namespace ErpSystemBeniSouef.Infrastructer
             _context = context;
         }
         #endregion
-         
+
         #region Get All Region
-       
-        public List<T> GetAll( params Expression<Func<T, object>>[] includes)
+
+        public List<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
 
@@ -35,7 +35,7 @@ namespace ErpSystemBeniSouef.Infrastructer
 
             return query.ToList();
         }
-         
+
         public async Task<List<T>> GetAllProductsAsync(int comanyNo, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
@@ -47,8 +47,8 @@ namespace ErpSystemBeniSouef.Infrastructer
 
             return query.ToList();
         }
-         
-        public async Task<List<T>> GetAllAsync( params Expression<Func<T, object>>[] includes)
+
+        public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
 
@@ -84,7 +84,7 @@ namespace ErpSystemBeniSouef.Infrastructer
         #region Get By Id Region
 
         public T? GetById(int id)
-           => _context.Set<T>().Find(id); 
+           => _context.Set<T>().Find(id);
 
         public async Task<T?> GetByIdAsync(int id)
          => await _context.Set<T>().FindAsync(id);
@@ -105,7 +105,7 @@ namespace ErpSystemBeniSouef.Infrastructer
         #endregion
 
         #region Find In Specific Condition Region
-       
+
         public async Task<T> Find(Expression<Func<T, bool>> predicate)
         {
             return await _context.Set<T>().Where(predicate).FirstOrDefaultAsync();
@@ -115,14 +115,21 @@ namespace ErpSystemBeniSouef.Infrastructer
     Expression<Func<T, bool>> predicate,
     params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>();
 
-            foreach (var include in includes)
+            try
             {
-                query = query.Include(include);
-            }
+                IQueryable<T> query = _context.Set<T>();
 
-            return await query.FirstOrDefaultAsync(predicate);
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+                return await query.FirstOrDefaultAsync(predicate);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task<T?> GetByIdWithIncludesAsync(

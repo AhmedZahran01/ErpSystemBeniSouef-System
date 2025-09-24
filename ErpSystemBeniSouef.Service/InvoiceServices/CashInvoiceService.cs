@@ -60,11 +60,20 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
         public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
         {
-            var invoice = await _unitOfWork.Repository<Invoice>()
+            Invoice invoice = new Invoice();
+            try
+            {
+                  invoice = await _unitOfWork.Repository<Invoice>()
                 .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.cash, i => i.Supplier);
 
+            }
+            catch (Exception ex) 
+            {
+            
+            }
+            
             if (invoice == null)
-                throw new Exception($"Invoice with Id {dto.Id} not found.");
+                return false;
 
             decimal totalAmount = invoice.TotalAmount ?? 0;
 

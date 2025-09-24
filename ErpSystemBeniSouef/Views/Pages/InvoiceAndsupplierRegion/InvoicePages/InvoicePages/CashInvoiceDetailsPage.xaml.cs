@@ -78,13 +78,13 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             }
             categories = await _productService.GetAllCategoriesAsync();
 
-            var observCashInvoiceItemDtosListFilteredList =  await _cashInvoiceService.GetInvoiceItemsByInvoiceId(invoiceIDFromPage);
-            foreach (var product in observCashInvoiceItemDtosListFilteredList)
-            {
-                observCashInvoiceItemDtosListFiltered.Add(product); 
-            }
+            //var observCashInvoiceItemDtosListFilteredList =  await _cashInvoiceService.GetInvoiceItemsByInvoiceId(invoiceIDFromPage);
+            //foreach (var product in observCashInvoiceItemDtosListFilteredList)
+            //{
+            //    observCashInvoiceItemDtosListFiltered.Add(product); 
+            //}
 
-            dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosListFiltered;
+            //dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosListFiltered;
         }
 
         #endregion
@@ -131,7 +131,43 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
          
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            CategoryDto pT = (CategoryDto) cbProductType.SelectedItem;
+            ProductDto p =(ProductDto) cbProduct.SelectedItem;
+            string txtQuant = txtQuantity.Text;
+            string Notes = txtNotes.Text;
+            string Price = txtPrice.Text;
+            int Quant = int.TryParse(txtQuant, out int pa) ? pa : 0;
+            int PriceUnit = int.TryParse(Price, out int pr) ? pr : 0;
 
+            string textPrice = txtPrice.Text;
+
+            InvoiceItemDetailsDto invoiceItemDetails = new InvoiceItemDetailsDto()
+            {
+                InvoiceId = invoiceIDFromPage,
+                ProductName = p.ProductName,
+                ProductType = pT.Name,
+                Quantity = Quant,
+                Notes = Notes ,
+                UnitPrice = PriceUnit ,
+            };
+            AddCashInvoiceItemsDto d = new AddCashInvoiceItemsDto();
+            CashInvoiceItemDto cashInvoiceItemDto = new CashInvoiceItemDto()
+            {
+                TotalAmount = invoiceItemDetails.LineTotal,
+                Note = Notes,
+                UnitPrice = PriceUnit,
+                ProductId = p.Id,
+                Quantity = Quant ,
+                
+            };
+            d.invoiceItemDtos = new List<CashInvoiceItemDto>();
+             d.invoiceItemDtos.Add(cashInvoiceItemDto);
+             _cashInvoiceService.AddInvoiceItems( d);
+
+            observCashInvoiceItemDtosListFiltered.Add(invoiceItemDetails);
+            dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosListFiltered;
+
+            return;
         }
 
         private void DeleteButton_Click_1(object sender, RoutedEventArgs e)
