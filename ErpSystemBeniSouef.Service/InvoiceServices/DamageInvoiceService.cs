@@ -29,12 +29,12 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         {
             var invoice = _mapper.Map<Invoice>(dto);
 
-            var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(dto.SupplierId);
-            if (supplier == null)
-                throw new Exception($"Supplier with Id {dto.SupplierId} not found.");
+            //var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(dto.SupplierId);
+            //if (supplier == null)
+            //    throw new Exception($"Supplier with Id {dto.SupplierId} not found.");
 
-            invoice.SupplierId = dto.SupplierId;
-            invoice.Supplier = supplier;
+            //invoice.SupplierId = dto.SupplierId;
+           // invoice.Supplier = supplier;
             invoice.invoiceType = InvoiceType.Damage;
             invoice.TotalAmount = 0;
             invoice.CreatedDate = DateTime.UtcNow;
@@ -47,7 +47,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
                 TotalAmount = invoice.TotalAmount ?? 0,
-                SupplierName = supplier.Name
+                SupplierName ="" //supplier.Name
             };
         }
 
