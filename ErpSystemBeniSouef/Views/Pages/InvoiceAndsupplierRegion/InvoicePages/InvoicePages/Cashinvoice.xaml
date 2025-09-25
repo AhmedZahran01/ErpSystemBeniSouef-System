@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages"
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="850" d:DesignWidth="1200"
+      d:DesignHeight="950" d:DesignWidth="1200"
       Title="Cashinvoice">
 
 
@@ -164,10 +164,16 @@
 
 
 
-            <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+            <!--<Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
                Content="↩" FontSize="22" Style="{StaticResource triggerrr}"
                Margin="21,30,0,1"  
-               Click="BackBtn_Click"/>
+               Click="BackBtn_Click"/>-->
+
+            <Button Grid.Row="4" HorizontalAlignment="Left"  
+Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
+              Style="{StaticResource triggerrr}"
+Margin="21,0,30,1"  
+Click="BackBtn_Click"/>
 
         </Grid>
     </Grid>
