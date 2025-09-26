@@ -51,7 +51,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
 
 
             //Suppliers Mapp
-            CreateMap<Supplier, SupplierDto>().ReverseMap();
+            CreateMap<Supplier, SupplierRDto>().ReverseMap();
             CreateMap<Supplier, CreateSupplierDto>().ReverseMap();
             CreateMap<Supplier, UpdateSupplierDto>().ReverseMap();
 

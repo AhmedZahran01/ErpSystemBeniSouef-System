@@ -13,13 +13,13 @@ namespace ErpSystemBeniSouef.Core.Contract
         #region sync Region
        // IReadOnlyList<SupplierDto> GetAll();
 
-        IReadOnlyList<SupplierDto> GetAll();
+        IReadOnlyList<SupplierRDto> GetAll();
 
         //  SupplierDto GetById(int id);
         /*
         IReadOnlyList<SupplierDto> GetSubAreaDtoByMainAreaId(int SupplierId);
         */
-        SupplierDto Create(CreateSupplierDto createDto);
+        SupplierRDto Create(CreateSupplierDto createDto);
 
         Supplier Update(int updateSupplierId , string newName);
 
@@ -30,7 +30,7 @@ namespace ErpSystemBeniSouef.Core.Contract
         #region Async Region
         //   Task<SupplierDto> GetByIdAsync(int id);
 
-        Task<IReadOnlyList<SupplierDto>> GetAllAsync();
+        Task<IReadOnlyList<SupplierRDto>> GetAllAsync();
 
         // Task<IReadOnlyList<SupplierDto>> GetSubAreaDtoByMainAreaIdAsync(int StorekeeperId);
 

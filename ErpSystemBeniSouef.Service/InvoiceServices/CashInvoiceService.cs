@@ -49,7 +49,8 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
                 TotalAmount = (decimal)invoice.TotalAmount,
-                SupplierName = supplier.Name
+                SupplierName = supplier.Name,
+                 SupplierId = supplier.Id
             };
 
             return returnDto;
@@ -162,6 +163,32 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             return response;
         }
 
+        #endregion
+
+
+        #region Update Region
+
+        public bool Update(UpdateInvoiceDto updateDto)
+        {
+            var invoice = _unitOfWork.Repository<Invoice>().GetById(updateDto.Id);
+            if (invoice == null)
+                return false;
+
+            if (invoice.SupplierId != updateDto.SupplierId)
+            {
+                var supplier = _unitOfWork.Repository<Supplier>().GetById(updateDto.SupplierId);
+                if (supplier == null)
+                    return false;
+            }
+
+            _mapper.Map(updateDto, invoice);
+            invoice.UpdatedDate = DateTime.UtcNow;
+
+            _unitOfWork.Repository<Invoice>().Update(invoice);
+            _unitOfWork.CompleteAsync();
+            return true;
+        }
+         
         #endregion
 
 

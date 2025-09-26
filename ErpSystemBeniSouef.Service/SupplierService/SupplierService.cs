@@ -27,18 +27,18 @@ namespace ErpSystemBeniSouef.Service.SupplierService
         #endregion
 
         #region  GetAll Supplier  
-        public IReadOnlyList<SupplierDto> GetAll()
+        public IReadOnlyList<SupplierRDto> GetAll()
         {
             var supplier =  _unitOfWork.Repository<Supplier>().GetAll();
-            var supplierDto = supplier.Select(sa => _mapper.Map<SupplierDto>(sa)).ToList();
+            var supplierDto = supplier.Select(sa => _mapper.Map<SupplierRDto>(sa)).ToList();
 
             return supplierDto;
         }
         
-        public async Task<IReadOnlyList<SupplierDto>> GetAllAsync()
+        public async Task<IReadOnlyList<SupplierRDto>> GetAllAsync()
         {
             var supplier = await _unitOfWork.Repository<Supplier>().GetAllAsync();
-            var supplierDto = supplier.Select(sa => _mapper.Map<SupplierDto>(sa)).ToList();
+            var supplierDto = supplier.Select(sa => _mapper.Map<SupplierRDto>(sa)).ToList();
 
             return supplierDto;
         }
@@ -47,7 +47,7 @@ namespace ErpSystemBeniSouef.Service.SupplierService
 
         #region  Create Region
 
-        public SupplierDto Create(CreateSupplierDto createDto)
+        public SupplierRDto Create(CreateSupplierDto createDto)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace ErpSystemBeniSouef.Service.SupplierService
                 _unitOfWork.Complete();
 
 
-                return _mapper.Map<SupplierDto>(supplier);
+                return _mapper.Map<SupplierRDto>(supplier);
             }
             catch
             {

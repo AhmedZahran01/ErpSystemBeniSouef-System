@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.DTOs.SupplierDto
 {
-    public class SupplierDto
+    public class SupplierRDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

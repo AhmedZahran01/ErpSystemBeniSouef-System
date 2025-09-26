@@ -34,9 +34,9 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
         int compId = (int?)App.Current.Properties["CompanyId"]?? 0;
 
-        ObservableCollection<SupplierDto> observalsuppliers = new();
-        ObservableCollection<SupplierDto> observalsuppliersFilter = new();
-        IReadOnlyList<SupplierDto> supplierDtos = new List<SupplierDto>();
+        ObservableCollection<SupplierRDto> observalsuppliers = new();
+        ObservableCollection<SupplierRDto> observalsuppliersFilter = new();
+        IReadOnlyList<SupplierRDto> supplierDtos = new List<SupplierRDto>();
         private readonly ISupplierService _supplierService;
         private readonly IMapper _mapper;
 
@@ -90,13 +90,13 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
             };
 
-            SupplierDto CheckSupplierNameFounded = observalsuppliers.Where(n => n.Name == supplierInputName).FirstOrDefault();
+            SupplierRDto CheckSupplierNameFounded = observalsuppliers.Where(n => n.Name == supplierInputName).FirstOrDefault();
             if (CheckSupplierNameFounded is not null)
             {
                 MessageBox.Show(" الاسم مستخدم من قيل ");
                 return;
             }
-            SupplierDto createdSupplier = _supplierService.Create(newSupplirArea);
+            SupplierRDto createdSupplier = _supplierService.Create(newSupplirArea);
 
             if (createdSupplier != null)
             {
@@ -125,7 +125,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
                 return;
             }
 
-            List<SupplierDto> selectedItemsDto = dgsuppliers.SelectedItems.Cast<SupplierDto>().ToList();
+            List<SupplierRDto> selectedItemsDto = dgsuppliers.SelectedItems.Cast<SupplierRDto>().ToList();
             int deletedCount = 0;
             foreach (var item in selectedItemsDto)
             {
@@ -157,7 +157,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
         private void dgSuppliers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgsuppliers.SelectedItem is SupplierDto selected)
+            if (dgsuppliers.SelectedItem is SupplierRDto selected)
             {
                 txtSupplierName.Text = selected.Name; 
                 editBtn.Visibility = Visibility.Visible;
@@ -171,7 +171,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (dgsuppliers.SelectedItem is not SupplierDto selected)
+            if (dgsuppliers.SelectedItem is not SupplierRDto selected)
             {
                 MessageBox.Show("من فضلك ادخل اسم مورد صحيح غير موجود ");
                 return;
@@ -202,7 +202,7 @@ namespace ErpSystemBeniSouef.Views.Pages.RepresentativeAndCollector.UsersPaes
 
                 if (index != null)
                 {
-                    observalsuppliers[index.Value] = new SupplierDto
+                    observalsuppliers[index.Value] = new SupplierRDto
                     {
                         Id = updateDto.Id,
                         Name = updateDto.Name, 

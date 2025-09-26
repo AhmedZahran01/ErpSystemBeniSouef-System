@@ -19,7 +19,8 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
                 .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.SupplierId));
 
             CreateMap<Invoice, ReturnCashInvoiceDto>()
-                .ForMember(dest => dest.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name));
+                .ForMember(dest => dest.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name))
+                .ForMember(dest => dest.SupplierId, opt => opt.MapFrom(src => src.Supplier.Id));
             
             CreateMap<InvoiceDetailsDto, Invoice>().ReverseMap();
             CreateMap<ReturnCashInvoiceDto, Invoice>().ReverseMap()
@@ -38,6 +39,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<ReturnSupplierInvoiceDetailsDto, Invoice>().ReverseMap();
             CreateMap<DtoForReturnSupplierInvoice, Invoice>().ReverseMap()
                  .ForMember(d => d.SupplierName, o => o.MapFrom(m => m.Supplier.Name));
+            CreateMap<UpdateInvoiceDto, Invoice>().ReverseMap();
 
 
         }
