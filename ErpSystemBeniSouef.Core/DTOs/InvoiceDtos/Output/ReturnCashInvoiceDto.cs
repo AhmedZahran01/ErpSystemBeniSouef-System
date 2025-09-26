@@ -31,6 +31,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output
     public class InvoiceItemDetailsDto
     {
         public int Id { get; set; }
+        public int DisplayId { get; set; } = 0;
         public int InvoiceId { get; set; }
         public string ProductName { get; set; }
         public string ProductType { get; set; }

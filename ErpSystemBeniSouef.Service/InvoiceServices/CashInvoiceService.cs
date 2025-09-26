@@ -136,8 +136,8 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         public async Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
         {
             var items = await _unitOfWork.Repository<InvoiceItem>()
-                .GetAllAsync(i => i.InvoiceId == invoiceId);
-
+                .GetAllAsync();
+            items = items.Where(i => i.InvoiceId == invoiceId).ToList();
             return items.Select(i => new InvoiceItemDetailsDto
             {
                 Id = i.Id,

@@ -61,6 +61,7 @@
                       Height="400" FlowDirection="RightToLeft">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding Id}" Width="*"/>
+                    <DataGridTextColumn Header="الرقم  " Binding="{Binding DisplayId}" Width="*"/>
                     <DataGridTextColumn Header="نوع السلعة" Binding="{Binding ProductType}" Width="*"/>
                     <DataGridTextColumn Header="اسم السلعة" Binding="{Binding ProductName}" Width="*"/>
                     <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
