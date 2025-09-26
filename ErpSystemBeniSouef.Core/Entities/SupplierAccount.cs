@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.Entities
 {
-    public class SupplierAccount
+    public class SupplierAccount:BaseEntity
     {
-        public int Id { get; set; }
+       // public int Id { get; set; }
         public DateTime TransactionDate { get; set; }
         public decimal Amount { get; set; }
         public string Description { get; set; }
