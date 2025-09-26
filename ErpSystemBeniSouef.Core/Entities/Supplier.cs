@@ -10,5 +10,7 @@ namespace ErpSystemBeniSouef.Core.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ICollection<Invoice> Invoices { get; set; }
+        public ICollection<SupplierAccount> supplierAccounts { get; set; }
     }
 }
