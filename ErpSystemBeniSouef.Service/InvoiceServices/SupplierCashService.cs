@@ -50,6 +50,21 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 PaymentDate = entity.TransactionDate
             };
         }
+        public async Task<List<ReturnSupplierCashDto>> GetAllSupplierAccounts()
+        {
+            var accounts = await _unitOfWork.Repository<SupplierAccount>()
+                .GetAllAsync(a => a.Supplier); 
+
+            return accounts.Select(a => new ReturnSupplierCashDto
+            {
+                Id = a.Id,
+                SupplierName = a.Supplier?.Name ?? "N/A",
+                Amount = a.Amount,
+                Notes = a.Description,
+                PaymentDate = a.TransactionDate
+            }).ToList();
+        }
+
         public async Task<SupplierAccountReportDto> GetSupplierAccount(int supplierId, DateTime? startDate, DateTime? endDate)
         {
             var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(supplierId);
