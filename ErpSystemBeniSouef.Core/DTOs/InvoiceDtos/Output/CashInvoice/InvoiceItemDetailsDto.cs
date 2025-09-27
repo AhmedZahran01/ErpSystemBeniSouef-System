@@ -1,5 +1,11 @@
-﻿using System;
+﻿using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.SupplierDto; 
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,3 +27,4 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice
         public string? Notes { get; set; }
     }
 }
+
