@@ -114,8 +114,7 @@ namespace ErpSystemBeniSouef.Infrastructer
         public async Task<T?> FindWithIncludesAsync(
     Expression<Func<T, bool>> predicate,
     params Expression<Func<T, object>>[] includes)
-        {
-
+        { 
             try
             {
                 IQueryable<T> query = _context.Set<T>();
@@ -124,7 +123,7 @@ namespace ErpSystemBeniSouef.Infrastructer
                 {
                     query = query.Include(include);
                 }
-                return await query.FirstOrDefaultAsync(predicate);
+                return  query.FirstOrDefault(predicate);
             }
             catch (Exception ex)
             {

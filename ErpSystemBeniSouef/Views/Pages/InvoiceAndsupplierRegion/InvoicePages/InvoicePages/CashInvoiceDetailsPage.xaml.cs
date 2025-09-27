@@ -1,7 +1,9 @@
-﻿using ErpSystemBeniSouef.Core.Contract;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +25,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         int count = 0;
         private readonly IProductService _productService;
         private readonly ICashInvoiceService _cashInvoiceService;
+        private readonly IMapper _mapper;
         private readonly int _comanyNo = (int?)App.Current.Properties["CompanyId"] ?? 1;
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
@@ -36,11 +39,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         #region Constractor  Region
 
         public CashInvoiceDetailsPage(ReturnCashInvoiceDto invoice, IProductService productService,
-                               ICashInvoiceService cashInvoiceService)
+                               ICashInvoiceService cashInvoiceService, IMapper mapper)
         {
             InitializeComponent();
             _invoice = invoice; DataContext = _invoice; _productService = productService;
             _cashInvoiceService = cashInvoiceService;
+            _mapper = mapper;
             invoiceIDFromInvoicePage = invoice.Id; InvoiceIdTxt.Text = invoiceIDFromInvoicePage.ToString();
 
             Loaded += async (s, e) =>
@@ -121,7 +125,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if ( 
+            if (
               !decimal.TryParse(txtQuantity.Text, out decimal CommissionRate) ||
               !decimal.TryParse(txtPrice.Text, out decimal mainPrice2) ||
               !decimal.TryParse(InvoiceIdTxt.Text, out decimal SalePrice2))
@@ -163,14 +167,15 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 ProductType = pT.Name,
                 Quantity = Quant,
                 Notes = Notes,
-                UnitPrice = PriceUnit, 
-                DisplayId = counId 
+                UnitPrice = PriceUnit,
+                DisplayId = counId,
+                ProductId = p.Id
             };
             counId++;
             AddCashInvoiceItemsDto d = new AddCashInvoiceItemsDto();
             CashInvoiceItemDto cashInvoiceItemDto = new CashInvoiceItemDto()
             {
-                TotalAmount = invoiceItemDetails.LineTotal,
+                LineTotal = invoiceItemDetails.LineTotal,
                 Note = Notes,
                 UnitPrice = PriceUnit,
                 ProductId = p.Id,
@@ -233,12 +238,22 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void AddFinalInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            var NewAddedItems = observCashInvoiceItemDtosFiltered.Where(i => i .Id == 0);
-            foreach (var NewAddedItem in NewAddedItems)
-            {
+            var NewAddedItems = observCashInvoiceItemDtosFiltered.Where(i => i.Id == 0).ToList();
+            AddCashInvoiceItemsDto addCashInvoiceItemsDto = new AddCashInvoiceItemsDto();
+            addCashInvoiceItemsDto.Id = invoiceIDFromInvoicePage;
+            addCashInvoiceItemsDto.invoiceItemDtos = new List<CashInvoiceItemDto>();
+             
+                foreach (var NewAddedItem in NewAddedItems)
+                {
+                    CashInvoiceItemDto cashInvoiceItemsDto = _mapper.Map<CashInvoiceItemDto>(NewAddedItem);
 
-            }
+                    addCashInvoiceItemsDto.invoiceItemDtos.Add(cashInvoiceItemsDto);
 
+                    var res = _cashInvoiceService.AddInvoiceItems(addCashInvoiceItemsDto);
+
+
+                }
+ 
         }
 
         #endregion

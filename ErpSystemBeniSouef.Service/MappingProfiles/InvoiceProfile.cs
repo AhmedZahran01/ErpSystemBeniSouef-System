@@ -7,6 +7,7 @@ using AutoMapper;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.Entities;
 
 namespace ErpSystemBeniSouef.Service.MappingProfiles
@@ -40,6 +41,15 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<DtoForReturnSupplierInvoice, Invoice>().ReverseMap()
                  .ForMember(d => d.SupplierName, o => o.MapFrom(m => m.Supplier.Name));
             CreateMap<UpdateInvoiceDto, Invoice>().ReverseMap();
+
+            //supplier return mapping
+            CreateMap<AddCashInvoiceItemsDto, InvoiceItemDetailsDto>();
+
+
+            //supplier return mapping
+            CreateMap<CashInvoiceItemDto, InvoiceItemDetailsDto>().ReverseMap();
+
+
 
 
         }

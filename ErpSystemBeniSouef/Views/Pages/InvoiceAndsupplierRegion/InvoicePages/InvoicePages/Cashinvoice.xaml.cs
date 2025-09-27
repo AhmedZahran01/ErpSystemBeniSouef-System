@@ -3,7 +3,8 @@ using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output; 
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto; 
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection; 
@@ -160,9 +161,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             {
                 var productService = App.AppHost.Services.GetRequiredService<IProductService>();
                 var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+                var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
                 // افتح صفحة التفاصيل
-                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice , productService , cashInvoiceService);
+                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice , productService , cashInvoiceService , mapper);
                 NavigationService?.Navigate(detailsPage);
             }
         }

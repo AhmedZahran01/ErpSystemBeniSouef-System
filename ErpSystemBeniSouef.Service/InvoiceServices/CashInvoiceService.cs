@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Enum;
@@ -62,18 +63,9 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
         public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
         {
-            Invoice invoice = new Invoice();
-            try
-            {
-                  invoice = await _unitOfWork.Repository<Invoice>()
+            Invoice invoice = await _unitOfWork.Repository<Invoice>()
                 .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.cash, i => i.Supplier);
-
-            }
-            catch (Exception ex) 
-            {
-            
-            }
-            
+ 
             if (invoice == null)
                 return false;
 
@@ -81,9 +73,9 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
             foreach (var itemDto in dto.invoiceItemDtos)
             {
-                var product = await _unitOfWork.Repository<Product>().GetByIdAsync(itemDto.ProductId);
+                var product =  _unitOfWork.Repository<Product>().GetById(itemDto.ProductId);
                 if (product == null)
-                    throw new Exception($"Product with Id {itemDto.ProductId} not found.");
+                    return false;
 
                 var invoiceItem = new InvoiceItem
                 {
@@ -143,6 +135,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Id = i.Id,
                 InvoiceId = i.InvoiceId,
                 ProductName = i.ProductName,
+                ProductId = i.Id,
                 ProductType = i.ProductType,
                 Quantity = i.Quantity,
                 UnitPrice = i.UnitPrice,
