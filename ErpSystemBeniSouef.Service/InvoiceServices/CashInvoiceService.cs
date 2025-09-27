@@ -84,7 +84,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                     ProductName = product.ProductName,
                     ProductType = product.Category?.Name ?? "N/A",
                     Quantity = itemDto.Quantity,
-                    UnitPrice = itemDto.UnitPrice
+                    UnitPrice = itemDto.UnitPrice,
                 };
 
                 if (invoice.Items == null)
@@ -157,8 +157,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         }
 
         #endregion
-
-
+         
         #region Update Region
 
         public bool Update(UpdateInvoiceDto updateDto)
@@ -183,8 +182,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         }
          
         #endregion
-
-
+         
         #region Soft Delete Region
 
         public bool SoftDelete(int id)

@@ -58,8 +58,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             };
         }
         #endregion
-
-
+          
         #region load products to Grid Region
 
         private async Task Loadproducts()
@@ -87,12 +86,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         }
 
         #endregion
-
-
-
-
-
-
+         
         #region BackBtn_Click Region
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -165,11 +159,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 InvoiceId = invoiceIDFromInvoicePage,
                 ProductName = p.ProductName,
                 ProductType = pT.Name,
+                ProductTypeId = pT.Id,
                 Quantity = Quant,
                 Notes = Notes,
                 UnitPrice = PriceUnit,
                 DisplayId = counId,
-                ProductId = p.Id
+                ProductId = p.Id,
             };
             counId++;
             AddCashInvoiceItemsDto d = new AddCashInvoiceItemsDto();
@@ -179,6 +174,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 Note = Notes,
                 UnitPrice = PriceUnit,
                 ProductId = p.Id,
+                ProductTypeId = pT.Id,
                 Quantity = Quant,
                 Id = counId
             };
@@ -242,21 +238,36 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             AddCashInvoiceItemsDto addCashInvoiceItemsDto = new AddCashInvoiceItemsDto();
             addCashInvoiceItemsDto.Id = invoiceIDFromInvoicePage;
             addCashInvoiceItemsDto.invoiceItemDtos = new List<CashInvoiceItemDto>();
-             
-                foreach (var NewAddedItem in NewAddedItems)
-                {
-                    CashInvoiceItemDto cashInvoiceItemsDto = _mapper.Map<CashInvoiceItemDto>(NewAddedItem);
 
-                    addCashInvoiceItemsDto.invoiceItemDtos.Add(cashInvoiceItemsDto);
+            foreach (var NewAddedItem in NewAddedItems)
+            {
+                CashInvoiceItemDto cashInvoiceItemsDto = _mapper.Map<CashInvoiceItemDto>(NewAddedItem);
 
-                    var res = _cashInvoiceService.AddInvoiceItems(addCashInvoiceItemsDto);
+                addCashInvoiceItemsDto.invoiceItemDtos.Add(cashInvoiceItemsDto);
+
+                var res = _cashInvoiceService.AddInvoiceItems(addCashInvoiceItemsDto);
 
 
-                }
- 
+            }
+
         }
 
         #endregion
+         
+        #region cb Product Selection Changed Region
+
+        private void cbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProductDto selectedProduct = (ProductDto)cbProduct.SelectedItem;
+            if (selectedProduct is not null)
+            {
+                txtPrice.Text = selectedProduct.PurchasePrice.ToString() ?? "";
+
+            }
+        }
+
+        #endregion
+
 
     }
 }
