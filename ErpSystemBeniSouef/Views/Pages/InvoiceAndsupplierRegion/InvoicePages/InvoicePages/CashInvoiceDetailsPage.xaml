@@ -28,11 +28,17 @@
         </ResourceDictionary>
     </Page.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition Height="54"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <userControls:TitleBar/>
 
-    <Grid   Margin="10">
+        <Grid Grid.Row="1"  Margin="10">
         <Grid.RowDefinitions>
  
-            <RowDefinition Height="33"/>
+            <RowDefinition Height="3"/>
             <RowDefinition />
             <RowDefinition Height="96"/>
             
@@ -40,7 +46,7 @@
         
         <Grid.ColumnDefinitions >
             <!-- العمود الأيسر للجدول -->
-            <ColumnDefinition Width="3.6*" />
+            <ColumnDefinition Width="4.1*" />
             <!-- العمود الأيمن للفورم -->
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
@@ -48,13 +54,30 @@
 
         <!-- ====================== العمود الأيسر: جدول الفاتورة ====================== -->
         <StackPanel Grid.Column="0" Grid.Row="1">
+            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                
             <Button Content="🖨 طباعة الفاتورة"
                     HorizontalAlignment="Center"
                     FontSize="22" FontWeight="Bold"
-                    Margin="0 0 0 10"
+                    Margin="110 10 0 10"
                     Width="250" Height="45"/>
 
-            <DataGrid x:Name="dgInvoiceItems"
+                <Label Margin="230,10,10,10" Content="   بحث : " 
+                 HorizontalAlignment="Right" Foreground="White" Height="35"
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+
+                <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
+Width="180"
+Height="28" Margin="0 0 0 0"  ToolTip="ادخل اسم المنتج    " 
+Style="{StaticResource textboxx}"                    
+VerticalAlignment="Center"
+HorizontalAlignment="Center"
+TextChanged="SearchByItemFullNameBox_TextChanged"
+/>
+
+            </StackPanel>
+
+            <DataGrid x:Name="dgInvoiceItems" Margin="20 0 0 0"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       CanUserDeleteRows="False"   IsReadOnly="True"
                       FontSize="18"  RowHeight="30"  HeadersVisibility="Column"
@@ -148,4 +171,6 @@ Margin="21,0,0,1"
 Click="BackBtn_Click"/>
 
     </Grid>
+    </Grid>
+
 </Page>

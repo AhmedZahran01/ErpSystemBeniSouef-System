@@ -40,6 +40,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
                 InvoiceId = i.InvoiceId,
                 ProductName = i.ProductName,
                 ProductId = i.Id,
+                ProductType = i.ProductType,
                 ProductTypeName = i.ProductType,
                 Quantity = i.Quantity,
                 UnitPrice = i.UnitPrice,
@@ -59,7 +60,9 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
             if (invoice == null)
                 return false;
 
-            decimal totalAmount = dto.InvoiceTotalPrice;
+            //decimal totalAmount = dto.InvoiceTotalPrice;
+            decimal totalAmount = invoice.TotalAmount ?? 0;
+            totalAmount += dto.InvoiceTotalPrice;
 
             foreach (var itemDto in dto.invoiceItemDtos)
             {
@@ -80,7 +83,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
                 if (invoice.Items == null)
                     invoice.Items = new List<InvoiceItem>();
                 invoice.Items.Add(invoiceItem);
-                 
+
             }
 
             invoice.TotalAmount = totalAmount;
@@ -93,8 +96,51 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
         }
 
         #endregion
-         
-         
+
+
+        #region Soft Delete Invoice Region
+
+        public bool SoftDelete(int id, decimal _totalLine, int _invoiceId)
+        {
+            var invoice = _unitOfWork.Repository<Invoice>().GetById(_invoiceId);
+            if (invoice == null)
+                return false;
+            invoice.TotalAmount -= _totalLine;
+            _unitOfWork.Repository<Invoice>().Update(invoice);
+
+
+            var invoiceItem = _unitOfWork.Repository<InvoiceItem>().GetById(id);
+            if (invoiceItem == null)
+                return false;
+
+            invoiceItem.IsDeleted = true;
+            _unitOfWork.Repository<InvoiceItem>().Update(invoiceItem);
+
+            _unitOfWork.CompleteAsync();
+
+            return true;
+        }
+
+        public async Task<bool> SoftDeleteAsync(int id)
+        {
+            var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);
+            if (invoice == null)
+                return false;
+            try
+            {
+                invoice.IsDeleted = true;
+                _unitOfWork.Repository<Invoice>().Update(invoice);
+                await _unitOfWork.CompleteAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
 
 
     }

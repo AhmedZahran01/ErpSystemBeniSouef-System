@@ -23,6 +23,13 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice
 
         #endregion
          
+        #region Soft Delete Region
+
+        bool SoftDelete(int id, decimal totalLine, int invoiceId);
+
+        Task<bool> SoftDeleteAsync(int id );
+
+        #endregion
 
 
     }

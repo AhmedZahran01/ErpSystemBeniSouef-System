@@ -7,6 +7,7 @@ using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.ViewModel;
@@ -15,6 +16,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics.Metrics;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -30,13 +32,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         private readonly CashInvoiceDto _invoice;
         int countDisplayNo = 0;
         private readonly IProductService _productService;
-        private readonly ICashInvoiceItemsService _cashInvoiceService;
+        private readonly ICashInvoiceItemsService _cashInvoiceItemsService;
         private readonly IMapper _mapper;
         private readonly int _comanyNo = (int?)App.Current.Properties["CompanyId"] ?? 1;
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         ObservableCollection<InvoiceItemDetailsDto> observCashInvoiceItemDtosFiltered = new ObservableCollection<InvoiceItemDetailsDto>();
+        ObservableCollection<InvoiceItemDetailsDto> observCashInvoiceItemDtosList = new ObservableCollection<InvoiceItemDetailsDto>();
         int invoiceIDFromInvoicePage;
         int counId = 0;
 
@@ -49,7 +52,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         {
             InitializeComponent();
             _invoice = invoice; DataContext = _invoice; _productService = productService;
-            _cashInvoiceService = cashInvoiceService;
+            _cashInvoiceItemsService = cashInvoiceService;
             _mapper = mapper;
             invoiceIDFromInvoicePage = invoice.Id; InvoiceIdTxt.Text = invoiceIDFromInvoicePage.ToString();
 
@@ -78,11 +81,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
             categories = await _productService.GetAllCategoriesAsync();
 
-            var observCashInvoiceItemDtos = await _cashInvoiceService.GetInvoiceItemsByInvoiceId(invoiceIDFromInvoicePage);
+            var observCashInvoiceItemDtos = await _cashInvoiceItemsService.GetInvoiceItemsByInvoiceId(invoiceIDFromInvoicePage);
             foreach (var product in observCashInvoiceItemDtos)
             {
                 product.DisplayId = countDisplayNo + 1;
                 observCashInvoiceItemDtosFiltered.Add(product);
+                observCashInvoiceItemDtosList.Add(product);
                 countDisplayNo++;
 
             }
@@ -169,6 +173,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             {
                 InvoiceId = invoiceIDFromInvoicePage,
                 ProductName = p.ProductName,
+                ProductType = pT.Name,
                 ProductTypeName = pT.Name,
                 ProductTypeId = pT.Id,
                 Quantity = Quant,
@@ -194,8 +199,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             //_cashInvoiceService.AddInvoiceItems( d);
 
             observCashInvoiceItemDtosFiltered.Add(invoiceItemDetails);
+            observCashInvoiceItemDtosList.Add(invoiceItemDetails);
             dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosFiltered;
 
+            MessageBox.Show("تم اضافه عنصر للفاتوره الكاش بنجاح");
             return;
         }
 
@@ -205,11 +212,48 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void DeleteButton_Click_1(object sender, RoutedEventArgs e)
         {
+            if (dgInvoiceItems.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("من فضلك اختر عنصر محدد للحذف");
+                return;
+            }
+            List<InvoiceItemDetailsDto> selectedInvoiceItemList = dgInvoiceItems.SelectedItems.Cast<InvoiceItemDetailsDto>().ToList();
 
+            int deletedCount = 0;
+            foreach (var selectedInvoiceItem in selectedInvoiceItemList)
+            {
+                if (selectedInvoiceItem.Id != 0)
+                {
+                    bool res = _cashInvoiceItemsService.SoftDelete(selectedInvoiceItem.Id, selectedInvoiceItem.LineTotal, invoiceIDFromInvoicePage);
+                    if (!res)
+                    {
+                        MessageBox.Show("حدث خطأ أثناء التعديل");
+                        return;
+                    }
+                    else
+                    {
+                        observCashInvoiceItemDtosFiltered.Remove(selectedInvoiceItem);
+                        counId--;
+                    }
+                }
+                else
+                {
+                    observCashInvoiceItemDtosFiltered.Remove(selectedInvoiceItem);
+                    counId--;
+
+                }
+                deletedCount++;
+            }
+            if (deletedCount == 0)
+            {
+                MessageBox.Show($"  لم يتم حذف اي عنصر  ");
+
+            }
+            MessageBox.Show($"  تم حذف  {deletedCount} عنصر   ");
         }
-
+         
         #endregion
-
+         
         #region Quantity Text Changed Region
 
         private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
@@ -243,7 +287,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         #region Add Final Invoice Button Region
 
-        private void AddFinalInvoiceButton_Click(object sender, RoutedEventArgs e)
+        private async void AddFinalInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             var NewAddedItems = observCashInvoiceItemDtosFiltered.Where(i => i.Id == 0).ToList();
             AddCashInvoiceItemsDto addCashInvoiceItemsDto = new AddCashInvoiceItemsDto();
@@ -256,11 +300,16 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
                 InvoiceTotalPrice += NewAddedItem.LineTotal;
                 CategoryDto category = categories.Where(i => i.Id == NewAddedItem.ProductTypeId).FirstOrDefault();
-                
+
                 addCashInvoiceItemsDto.invoiceItemDtos.Add(cashInvoiceItemsDto);
             }
             addCashInvoiceItemsDto.InvoiceTotalPrice = InvoiceTotalPrice;
-            var res = _cashInvoiceService.AddInvoiceItems(addCashInvoiceItemsDto);
+            bool res = await _cashInvoiceItemsService.AddInvoiceItems(addCashInvoiceItemsDto);
+            if (res)
+            {
+                MessageBox.Show("تم تعديل الفاتوره الكاش بنجاح");
+                return;
+            }
 
         }
 
@@ -278,8 +327,42 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             }
         }
 
+
         #endregion
 
+        #region Search By Item FullName  Region
+
+        private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var query = SearchByItemTextBox.Text?.ToLower() ?? "";
+
+            // فلترة النتائج
+            var filtered = observCashInvoiceItemDtosList
+                .Where(i => i.ProductName != null && i.ProductName.ToLower().Contains(query))
+                .ToList();
+            // تحديث الـ DataGrid
+            observCashInvoiceItemDtosFiltered.Clear();
+            foreach (var item in filtered)
+            {
+                observCashInvoiceItemDtosFiltered.Add(item);
+            }
+
+            // تحديث الاقتراحات
+            var suggestions = filtered.Select(i => i.ProductName);
+            if (suggestions.Any())
+            {
+                dgInvoiceItems.ItemsSource = filtered;
+                //SuggestionsItemsListBox.ItemsSource = suggestions;
+                //SuggestionsPopup.IsOpen = true;
+            }
+            else
+            {
+                //SuggestionsPopup.IsOpen = false;
+            }
+
+        }
+
+        #endregion
 
     }
 }
