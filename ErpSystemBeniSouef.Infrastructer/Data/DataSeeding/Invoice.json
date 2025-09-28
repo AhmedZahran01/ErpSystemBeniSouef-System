@@ -1,7 +1,7 @@
 ﻿[
   {
     "InvoiceDate": "2025-09-03T00:00:00",
-    "TotalAmount": 1500,
+    "TotalAmount": 0,
     "invoiceType": 1,
     "DueAmount": null,
     "SupplierId": 1
@@ -9,7 +9,7 @@
   },
   {
     "InvoiceDate": "2025-09-03T00:00:00",
-    "TotalAmount": 1500,
+    "TotalAmount": 0,
     "invoiceType": 1,
     "DueAmount": null,
     "SupplierId": 1
@@ -17,28 +17,28 @@
 
   {
     "InvoiceDate": "2025-09-06T00:00:00",
-    "TotalAmount": 800,
+    "TotalAmount": 0,
     "invoiceType": 2,
     "DueAmount": 500,
     "SupplierId": 2
   },
   {
     "InvoiceDate": "2025-09-08T00:00:00",
-    "TotalAmount": 250,
+    "TotalAmount": 0,
     "invoiceType": 1,
     "DueAmount": null,
     "SupplierId": 3
   },
   {
     "InvoiceDate": "2025-09-10T00:00:00",
-    "TotalAmount": 3000,
+    "TotalAmount": 0,
     "invoiceType": 2,
     "DueAmount": 2000,
     "SupplierId": 4
   },
   {
     "InvoiceDate": "2025-09-13T00:00:00",
-    "TotalAmount": 600,
+    "TotalAmount": 0,
     "invoiceType": 1,
     "DueAmount": null,
     "SupplierId": 5

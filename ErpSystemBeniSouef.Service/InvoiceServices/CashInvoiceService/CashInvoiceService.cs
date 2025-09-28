@@ -1,15 +1,19 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
-using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Enum;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ErpSystemBeniSouef.Service.InvoiceServices
+namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
 {
     public class CashInvoiceService : ICashInvoiceService
     {
@@ -24,9 +28,22 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         }
         #endregion
 
-        #region  Add Invoice Region
+        #region Get All Async Cash Invoice Dto Region
+        public async Task<IReadOnlyList<CashInvoiceDto>> GetAllAsync()
+        {
+            var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync(i => i.Supplier);
+            var CahInvoice = invoices.Where(I => I.invoiceType == InvoiceType.cash).ToList();
 
-        public ReturnCashInvoiceDto AddInvoice(AddCashInvoiceDto dto)
+            var response = _mapper.Map<IReadOnlyList<CashInvoiceDto>>(CahInvoice);
+
+            return response;
+        }
+
+        #endregion
+
+        #region  Add Cash Invoice Dto Region
+
+        public CashInvoiceDto AddInvoice(AddCashInvoiceDto dto)
         {
             var invoice = _mapper.Map<Invoice>(dto);
 
@@ -45,13 +62,13 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _unitOfWork.Complete();
 
             // Map Entity → Return DTO
-            var returnDto = new ReturnCashInvoiceDto
+            var returnDto = new CashInvoiceDto
             {
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
                 TotalAmount = (decimal)invoice.TotalAmount,
                 SupplierName = supplier.Name,
-                 SupplierId = supplier.Id
+                SupplierId = supplier.Id
             };
 
             return returnDto;
@@ -59,53 +76,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
         #endregion
 
-        #region Add Invoice Items Region
-
-        public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
-        {
-            Invoice invoice = await _unitOfWork.Repository<Invoice>()
-                .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.cash, i => i.Supplier);
- 
-            if (invoice == null)
-                return false;
-
-            decimal totalAmount = invoice.TotalAmount ?? 0;
-
-            foreach (var itemDto in dto.invoiceItemDtos)
-            {
-                var product =  _unitOfWork.Repository<Product>().GetById(itemDto.ProductId);
-                if (product == null)
-                    return false;
-
-                var invoiceItem = new InvoiceItem
-                {
-                    InvoiceId = invoice.Id,
-                    ProductId = product.Id,
-                    ProductName = product.ProductName,
-                    ProductType = product.Category?.Name ?? "N/A",
-                    Quantity = itemDto.Quantity,
-                    UnitPrice = itemDto.UnitPrice,
-                };
-
-                if (invoice.Items == null)
-                    invoice.Items = new List<InvoiceItem>();
-                invoice.Items.Add(invoiceItem);
-
-                totalAmount += (itemDto.Quantity * itemDto.UnitPrice);
-            }
-
-            invoice.TotalAmount = totalAmount;
-
-            _unitOfWork.Repository<Invoice>().Update(invoice);
-            await _unitOfWork.CompleteAsync();
-
-            return true;
-
-        }
-
-        #endregion
-
-        #region Get Invoice By Id Region
+        #region Get Invoice Details Dto By Id Region
 
         public async Task<InvoiceDetailsDto> GetInvoiceById(int id)
         {
@@ -123,42 +94,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         }
         #endregion
 
-        #region  Get Invoice Items By Invoice Id Region
-
-        public async Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
-        {
-            var items = await _unitOfWork.Repository<InvoiceItem>()
-                .GetAllAsync();
-            items = items.Where(i => i.InvoiceId == invoiceId).ToList();
-            return items.Select(i => new InvoiceItemDetailsDto
-            {
-                Id = i.Id,
-                InvoiceId = i.InvoiceId,
-                ProductName = i.ProductName,
-                ProductId = i.Id,
-                ProductType = i.ProductType,
-                Quantity = i.Quantity,
-                UnitPrice = i.UnitPrice,
-                Notes = i.Notes
-            }).ToList();
-        }
-
-        #endregion
-
-        #region Get All Async Region
-        public async Task<IReadOnlyList<ReturnCashInvoiceDto>> GetAllAsync()
-        {
-            var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync(i => i.Supplier);
-            var CahInvoice = invoices.Where(I => I.invoiceType == InvoiceType.cash).ToList();
-
-            var response = _mapper.Map<IReadOnlyList<ReturnCashInvoiceDto>>(CahInvoice);
-
-            return response;
-        }
-
-        #endregion
-         
-        #region Update Region
+        #region Update Invoice Dto Region
 
         public bool Update(UpdateInvoiceDto updateDto)
         {
@@ -180,10 +116,10 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _unitOfWork.CompleteAsync();
             return true;
         }
-         
+
         #endregion
-         
-        #region Soft Delete Region
+
+        #region Soft Delete Invoice Region
 
         public bool SoftDelete(int id)
         {
@@ -217,9 +153,6 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
         }
 
         #endregion
-
-
+         
     }
 }
-
-

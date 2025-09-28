@@ -2,11 +2,13 @@
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.InvoiceServices;
+using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
@@ -59,6 +61,7 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
         services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
         services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
+        services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
 
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -89,49 +92,18 @@ namespace ErpSystemBeniSouef
             }
             // افتح الـ MainWindow
             var mainWindow = new Views.Windows.MainWindow();
-
-            //using (var context = new ApplicationDbContext())
-            //{ 
-            //    bool count = context.mainAreas.Any();
-            //    if (!context.mainAreas.Any()) // Check if the database is empty
-            //                                    //لو شغال SQL Server
-            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('mainAreas', RESEED, 0);");
-            //}
-
-
+             
             //========================================
 
             //using (var context = new ApplicationDbContext())
             //{
-            //    bool count = context.categories.Any();
-            //    if (!context.categories.Any()) // Check if the database is empty
-            //                                  //لو شغال SQL Server
-            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('categories', RESEED, 0);");
+            //    bool count = context.invoiceItems.Any();
+            //    if (!context.invoiceItems.Any()) // Check if the database is empty
+            //                                   //لو شغال SQL Server
+            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('invoiceItems', RESEED, 0);");
             //}
-
 
             //========================================
-
-            //using (var context = new ApplicationDbContext())
-            //{
-            //    bool count = context.products.Any();
-            //    if (!context.products.Any()) // Check if the database is empty
-            //                                 //لو شغال SQL Server
-            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('products', RESEED, 0);");
-            //}
-
-
-
-            //========================================
-
-            //using (var context = new ApplicationDbContext())
-            //{
-            //    bool count = context.subAreas.Any();
-            //    if (!context.subAreas.Any()) // Check if the database is empty
-            //                                 //لو شغال SQL Server
-            //        context.Database.ExecuteSqlRaw("DBCC CHECKIDENT ('subAreas', RESEED, 0);");
-            //}
-
 
             var mainWindowViewModel = new MainWindowViewModel();
             mainWindow.DataContext = mainWindowViewModel;

@@ -1,10 +1,16 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
+using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -21,10 +27,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
     {
         #region  Properties Region
 
-        private readonly ReturnCashInvoiceDto _invoice;
-        int count = 0;
+        private readonly CashInvoiceDto _invoice;
+        int countDisplayNo = 0;
         private readonly IProductService _productService;
-        private readonly ICashInvoiceService _cashInvoiceService;
+        private readonly ICashInvoiceItemsService _cashInvoiceService;
         private readonly IMapper _mapper;
         private readonly int _comanyNo = (int?)App.Current.Properties["CompanyId"] ?? 1;
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
@@ -38,8 +44,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         #region Constractor  Region
 
-        public CashInvoiceDetailsPage(ReturnCashInvoiceDto invoice, IProductService productService,
-                               ICashInvoiceService cashInvoiceService, IMapper mapper)
+        public CashInvoiceDetailsPage(CashInvoiceDto invoice, IProductService productService,
+                               ICashInvoiceItemsService cashInvoiceService, IMapper mapper)
         {
             InitializeComponent();
             _invoice = invoice; DataContext = _invoice; _productService = productService;
@@ -58,7 +64,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             };
         }
         #endregion
-          
+
         #region load products to Grid Region
 
         private async Task Loadproducts()
@@ -75,9 +81,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             var observCashInvoiceItemDtos = await _cashInvoiceService.GetInvoiceItemsByInvoiceId(invoiceIDFromInvoicePage);
             foreach (var product in observCashInvoiceItemDtos)
             {
-                product.DisplayId = count + 1;
+                product.DisplayId = countDisplayNo + 1;
                 observCashInvoiceItemDtosFiltered.Add(product);
-                count++;
+                countDisplayNo++;
 
             }
             counId = observCashInvoiceItemDtosFiltered.Count() + 1;
@@ -86,12 +92,17 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         }
 
         #endregion
-         
+
         #region BackBtn_Click Region
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService?.GoBack();
+            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+
+            var Dashboard = new Cashinvoice(supplierService, cashInvoiceService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
+
         #endregion
 
         #region cb Product Type Selection Changed Region
@@ -150,7 +161,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             string Notes = txtNotes.Text;
             string Price = txtPrice.Text;
             int Quant = int.TryParse(txtQuant, out int pa) ? pa : 0;
-            int PriceUnit = int.TryParse(Price, out int pr) ? pr : 0;
+            decimal PriceUnit = decimal.TryParse(Price, out decimal pr) ? pr : 0;
 
             string textPrice = txtPrice.Text;
 
@@ -158,7 +169,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             {
                 InvoiceId = invoiceIDFromInvoicePage,
                 ProductName = p.ProductName,
-                ProductType = pT.Name,
+                ProductTypeName = pT.Name,
                 ProductTypeId = pT.Id,
                 Quantity = Quant,
                 Notes = Notes,
@@ -174,7 +185,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 Note = Notes,
                 UnitPrice = PriceUnit,
                 ProductId = p.Id,
-                ProductTypeId = pT.Id,
+                ProductTypeName = pT.Name,
                 Quantity = Quant,
                 Id = counId
             };
@@ -238,22 +249,23 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             AddCashInvoiceItemsDto addCashInvoiceItemsDto = new AddCashInvoiceItemsDto();
             addCashInvoiceItemsDto.Id = invoiceIDFromInvoicePage;
             addCashInvoiceItemsDto.invoiceItemDtos = new List<CashInvoiceItemDto>();
-
+            decimal InvoiceTotalPrice = 0;
             foreach (var NewAddedItem in NewAddedItems)
             {
                 CashInvoiceItemDto cashInvoiceItemsDto = _mapper.Map<CashInvoiceItemDto>(NewAddedItem);
 
+                InvoiceTotalPrice += NewAddedItem.LineTotal;
+                CategoryDto category = categories.Where(i => i.Id == NewAddedItem.ProductTypeId).FirstOrDefault();
+                
                 addCashInvoiceItemsDto.invoiceItemDtos.Add(cashInvoiceItemsDto);
-
-                var res = _cashInvoiceService.AddInvoiceItems(addCashInvoiceItemsDto);
-
-
             }
+            addCashInvoiceItemsDto.InvoiceTotalPrice = InvoiceTotalPrice;
+            var res = _cashInvoiceService.AddInvoiceItems(addCashInvoiceItemsDto);
 
         }
 
         #endregion
-         
+
         #region cb Product Selection Changed Region
 
         private void cbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -140,7 +140,24 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
             MouseDoubleClick="dgCashInvoice_MouseDoubleClick">
                
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="رقم الفاتوره" Width="*" >
+
+                    <DataGridTextColumn Binding="{Binding DisplayId}" Header="رقم الفاتوره للمستخدم " Width="1.5*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id From DB " Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment" Value="Center"/>

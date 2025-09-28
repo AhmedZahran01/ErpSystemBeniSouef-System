@@ -10,7 +10,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public int ProductTypeId { get; set; }
+        public string ProductTypeName { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal LineTotal { get; set; }

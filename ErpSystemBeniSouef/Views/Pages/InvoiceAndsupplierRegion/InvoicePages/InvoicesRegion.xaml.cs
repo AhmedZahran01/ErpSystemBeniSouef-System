@@ -1,5 +1,6 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;

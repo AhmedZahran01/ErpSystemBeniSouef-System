@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
@@ -23,13 +24,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
     { 
         #region Global Variables  Region
         private readonly int _companyNo = 1;
+        int countDisplayNo = 0;
         private readonly ISupplierService _supplierService;
         private readonly ICashInvoiceService _cashInvoiceService;
         private readonly IMapper _mapper;
 
         IReadOnlyList<SupplierRDto> SuppliersDto = new List<SupplierRDto>();
-        ObservableCollection<ReturnCashInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnCashInvoiceDto>();
-        ObservableCollection<ReturnCashInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnCashInvoiceDto>();
+        ObservableCollection<CashInvoiceDto> observProductsLisLim = new ObservableCollection<CashInvoiceDto>();
+        ObservableCollection<CashInvoiceDto> observProductsListFiltered = new ObservableCollection<CashInvoiceDto>();
 
         #endregion
 
@@ -58,13 +60,16 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private async Task LoadInvoices()
         {
-            IReadOnlyList<ReturnCashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
+            IReadOnlyList<CashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
             observProductsLisLim.Clear();
             observProductsListFiltered.Clear();
             foreach (var product in invoiceDtos)
-            { 
+            {
+                product.DisplayId = countDisplayNo + 1;
                 observProductsLisLim.Add(product);
                 observProductsListFiltered.Add(product);
+                countDisplayNo++;
+
             }
 
         }
@@ -98,7 +103,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 
             };
              
-            ReturnCashInvoiceDto CreateInvoiceDtoRespons = _cashInvoiceService.AddInvoice(InputProduct);
+            CashInvoiceDto CreateInvoiceDtoRespons = _cashInvoiceService.AddInvoice(InputProduct);
             if (CreateInvoiceDtoRespons is null)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
@@ -126,7 +131,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 MessageBox.Show("من فضلك اختر علي الاقل صف قبل الحذف");
                 return;
             }
-            List<ReturnCashInvoiceDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<ReturnCashInvoiceDto>().ToList();
+            List<CashInvoiceDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<CashInvoiceDto>().ToList();
             int deletedCount = 0;
             foreach (var item in selectedItemsDto)
             {
@@ -157,14 +162,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void dgCashInvoice_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selectedInvoice)
+            if (dgCashInvoice.SelectedItem is CashInvoiceDto selectedInvoice)
             {
                 var productService = App.AppHost.Services.GetRequiredService<IProductService>();
-                var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+                var cashInvoiceItemsService = App.AppHost.Services.GetRequiredService<ICashInvoiceItemsService>();
                 var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
                 // افتح صفحة التفاصيل
-                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice , productService , cashInvoiceService , mapper);
+                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice , productService , cashInvoiceItemsService, mapper);
                 NavigationService?.Navigate(detailsPage);
             }
         }
@@ -186,7 +191,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void dgAllInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selected)
+            if (dgCashInvoice.SelectedItem is CashInvoiceDto selected)
             { 
                 SupplierRDto selectedSupplier =  SuppliersDto.FirstOrDefault(s =>s.Id == selected.SupplierId);
                 cb_SuppliersName.SelectedItem = selectedSupplier;
@@ -201,7 +206,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is not ReturnCashInvoiceDto selected)
+            if (dgCashInvoice.SelectedItem is not CashInvoiceDto selected)
             {
                 MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
                 return;
