@@ -1,6 +1,8 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
+using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
+using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -46,8 +48,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages
 
         private void Dueinvoice_Click(object sender, RoutedEventArgs e)
         {
-            //var Dashboard = new InvoicePages.Due_billsPage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+
+            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+
+            var Dashboard = new  DueInvoice.DueInvoicePage(supplierService, cashInvoiceService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }
 

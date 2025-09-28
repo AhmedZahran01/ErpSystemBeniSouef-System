@@ -8,7 +8,9 @@ using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Enum;
 
@@ -25,7 +27,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _mapper = mapper;
         }
 
-        public async Task<ReturnDueInvoiceDto> AddInvoice(AddDueInvoiceDto dto)
+        public async Task<DueInvoiceDto> AddInvoice(AddDueInvoiceDto dto)
         {
             var invoice = _mapper.Map<Invoice>(dto);
 
@@ -43,7 +45,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _unitOfWork.Repository<Invoice>().Add(invoice);
             await _unitOfWork.CompleteAsync();
 
-            return new ReturnDueInvoiceDto
+            return new DueInvoiceDto
             {
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
@@ -134,6 +136,8 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Notes = i.Notes
             }).ToList();
         }
+   
+    
     }
 }
 
