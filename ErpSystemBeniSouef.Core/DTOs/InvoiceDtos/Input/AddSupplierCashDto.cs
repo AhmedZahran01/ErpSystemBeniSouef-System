@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto
+namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input
 {
-    public class ReturnSupplierCashDto
+    public class AddSupplierCashDto
     {
-        public int Id { get; set; }
-        public string SupplierName { get; set; }
+        public int SupplierId { get; set; }
         public decimal Amount { get; set; }
         public string? Notes { get; set; }
         public DateTime PaymentDate { get; set; }

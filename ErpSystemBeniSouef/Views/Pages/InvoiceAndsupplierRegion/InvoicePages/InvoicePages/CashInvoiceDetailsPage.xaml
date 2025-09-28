@@ -133,7 +133,8 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
             <!-- سعر المنتج -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                <TextBlock Text="  سعر المنتج         :   " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
+                <TextBlock Text="  سعر المنتج         :   " 
+                           FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
                 <TextBox x:Name="txtPrice"
                                   TextChanged="txtPrice_TextChanged"
                            Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
@@ -141,7 +142,8 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
             <!-- السعر الإجمالي -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
-                <TextBlock Text=" السعر الإجمالي    :  " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
+                <TextBlock Text=" السعر الإجمالي    :  "
+                           FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
                 <TextBox x:Name="txtTotal"  IsEnabled="False" Width="120" FontSize="18"   />
             </StackPanel>
 
@@ -157,8 +159,8 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
                 <Button Content="  إضافة عنصر للفاتوره" Width="190" Height="40" FontSize="18" Margin="10 0"  Style="{DynamicResource AddButtonn}" Click="AddButton_Click"/>
                 <Button Content="حذف" Width="150" Height="40" FontSize="18" Margin="10 10"    Style="{DynamicResource DeleteButtonn }"  Click="DeleteButton_Click_1"   />
             </StackPanel>
-             <Button Content=" اضافه الفاتوره " Width="140" Height="40" FontSize="18" Margin="214 0 0 40" 
-                     Style="{DynamicResource DeleteButtonn }" Background="Green" Click="AddFinalInvoiceButton_Click"   />
+             <Button Content=" تحديث الفاتوره " Width="140" Height="40" FontSize="18" Margin="214 0 0 40" 
+                     Style="{DynamicResource DeleteButtonForInvoiceItem }" Background="Green" Click="AddFinalInvoiceButton_Click"   />
         </StackPanel>
 
         <!--<Button Grid.Row="4" HorizontalAlignment="Left" Content="↩" FontSize="22" 

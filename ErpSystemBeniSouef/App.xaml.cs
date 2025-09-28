@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract; 
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
-using ErpSystemBeniSouef.Service.CollectorServices;
-using ErpSystemBeniSouef.Service.InvoiceServices;
+using ErpSystemBeniSouef.Service.CollectorServices; 
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
@@ -16,7 +14,7 @@ using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views; 
+using ErpSystemBeniSouef.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -138,10 +136,10 @@ namespace ErpSystemBeniSouef
 
             //var login = new StorekeepersPage(storeKeeperService,mapper);
 
-            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
-                               InvoicePages.Cashinvoice(supplierService , cashInvoiceService);
+            //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+            //                   InvoicePages.Cashinvoice(supplierService , cashInvoiceService);
 
-            //var login = new StartPageBeforeLogin();
+            var login = new StartPageBeforeLogin();
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
 
