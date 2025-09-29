@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
@@ -30,34 +34,34 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
     /// Interaction logic for DueInvoicePage.xaml
     /// </summary>
     public partial class DueInvoicePage : Page
-    {  
+    {
         #region Global Variables  Region
         private readonly int _companyNo = 1;
         int countDisplayNo = 0;
         private readonly ISupplierService _supplierService;
-        private readonly ICashInvoiceService _cashInvoiceService;
+        private readonly IDueInvoiceService _dueInvoiceService;
         private readonly IMapper _mapper;
 
         IReadOnlyList<SupplierRDto> SuppliersDto = new List<SupplierRDto>();
-        ObservableCollection<ReturnCashInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnCashInvoiceDto>();
-        ObservableCollection<ReturnCashInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnCashInvoiceDto>();
+        ObservableCollection<DueInvoiceDetailsDto> observDueInvoiceLisLim = new ObservableCollection<DueInvoiceDetailsDto>();
+        ObservableCollection<DueInvoiceDetailsDto> observDueInvoiceFiltered = new ObservableCollection<DueInvoiceDetailsDto>();
 
         #endregion
 
         #region Constractor Region
 
-        public DueInvoicePage(ISupplierService supplierService, ICashInvoiceService cashInvoiceService)
+        public DueInvoicePage(ISupplierService supplierService, IDueInvoiceService dueInvoiceService)
         {
             InitializeComponent();
             _supplierService = supplierService;
-            _cashInvoiceService = cashInvoiceService;
+            _dueInvoiceService = dueInvoiceService;
             Loaded += async (s, e) =>
             {
                 SuppliersDto = await _supplierService.GetAllAsync();
                 cb_SuppliersName.ItemsSource = SuppliersDto;
                 cb_SuppliersName.SelectedIndex = 0;
                 await LoadInvoices();
-                dgCashInvoice.ItemsSource = observProductsLisLim;
+                dgCashInvoice.ItemsSource = observDueInvoiceLisLim;
 
             };
 
@@ -69,14 +73,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         private async Task LoadInvoices()
         {
-            IReadOnlyList<ReturnCashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
-            observProductsLisLim.Clear();
-            observProductsListFiltered.Clear();
+            IReadOnlyList<DueInvoiceDetailsDto> invoiceDtos = await _dueInvoiceService.GetAllAsync();
+            observDueInvoiceLisLim.Clear();
+            observDueInvoiceFiltered.Clear();
             foreach (var product in invoiceDtos)
             {
                 product.DisplayId = countDisplayNo + 1;
-                observProductsLisLim.Add(product);
-                observProductsListFiltered.Add(product);
+                observDueInvoiceLisLim.Add(product);
+                observDueInvoiceFiltered.Add(product);
                 countDisplayNo++;
 
             }
@@ -88,10 +92,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         #region Add Button Region
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            DateTime? invoiceDate = txtInvoiceDate.SelectedDate;
-            if (invoiceDate == null)
+            DateTime invoiceDate = txtInvoiceDate.SelectedDate ?? DateTime.UtcNow;
+            if (txtInvoiceDate.SelectedDate == null)
             {
                 MessageBox.Show("من فضلك اختر تاريخ صحيح");
                 return;
@@ -105,26 +109,35 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                 return;
             }
 
-            AddCashInvoiceDto InputProduct = new AddCashInvoiceDto()
+            if (!decimal.TryParse(DueTxtAmout.Text, out decimal DueAmout)
+                      || !(DueAmout > 0))
+            {
+                MessageBox.Show(" من فضلك ادخل نسبه تقسيط رقم اكبر من  0   ");
+                return;
+            }
+
+            AddDueInvoiceDto InputProduct = new AddDueInvoiceDto()
             {
                 InvoiceDate = invoiceDate,
-                SupplierId = selectedSupplier.Id
-
+                SupplierId = selectedSupplier.Id,
+                DueAmount = DueAmout
             };
 
-            ReturnCashInvoiceDto CreateInvoiceDtoRespons = _cashInvoiceService.AddInvoice(InputProduct);
+            DueInvoiceDetailsDto CreateInvoiceDtoRespons = await _dueInvoiceService.AddDueInvoice(InputProduct);
             if (CreateInvoiceDtoRespons is null)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
                 return;
             }
 
-            MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
+            MessageBox.Show("تم إضافة الفاتوره الاجل بنجاح");
 
             cb_SuppliersName.SelectedIndex = 0;
             txtInvoiceDate.SelectedDate = null;
-            observProductsLisLim.Add(CreateInvoiceDtoRespons);
-            observProductsListFiltered.Add(CreateInvoiceDtoRespons);
+            CreateInvoiceDtoRespons.DisplayId = countDisplayNo + 1;
+            CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
+            observDueInvoiceLisLim.Add(CreateInvoiceDtoRespons);
+            observDueInvoiceFiltered.Add(CreateInvoiceDtoRespons);
 
         }
 
@@ -140,23 +153,25 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                 MessageBox.Show("من فضلك اختر علي الاقل صف قبل الحذف");
                 return;
             }
-            List<ReturnCashInvoiceDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<ReturnCashInvoiceDto>().ToList();
+
+            List<DueInvoiceDetailsDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<DueInvoiceDetailsDto>().ToList();
             int deletedCount = 0;
             foreach (var item in selectedItemsDto)
             {
-                bool success = await _cashInvoiceService.SoftDeleteAsync(item.Id);
+                bool success = await _dueInvoiceService.SoftDeleteAsync(item.Id);
                 if (success)
                 {
-                    observProductsLisLim.Remove(item);
-                    observProductsListFiltered.Remove(item);
+                    observDueInvoiceLisLim.Remove(item);
+                    observDueInvoiceFiltered.Remove(item);
+                    dgCashInvoice.Items.Refresh();
                     deletedCount++;
                 }
             }
             if (deletedCount > 0)
             {
-                string ValueOfString = "فاتوره كاش  ";
+                string ValueOfString = "فاتوره اجل  ";
                 if (deletedCount > 1)
-                    ValueOfString = "من الفواتير الكاش  ";
+                    ValueOfString = "من الفواتير الاجل   ";
                 MessageBox.Show($"تم حذف {deletedCount} {ValueOfString} ");
             }
             else
@@ -166,26 +181,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         }
         #endregion
-
-        #region CashcInvoice Mouse Double Region
-
-        private void dgCashInvoice_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selectedInvoice)
-            {
-                var productService = App.AppHost.Services.GetRequiredService<IProductService>();
-                var cashInvoiceItemsService = App.AppHost.Services.GetRequiredService<ICashInvoiceItemsService>();
-                var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
-
-                // افتح صفحة التفاصيل
-                var detailsPage = new CashInvoiceDetailsPage(selectedInvoice, productService, cashInvoiceItemsService, mapper);
-                NavigationService?.Navigate(detailsPage);
-            }
-        }
-
-
-        #endregion
-
+         
         #region Back btn Region
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -200,11 +196,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         private void dgAllInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selected)
+            if (dgCashInvoice.SelectedItem is DueInvoiceDetailsDto selected)
             {
                 SupplierRDto selectedSupplier = SuppliersDto.FirstOrDefault(s => s.Id == selected.SupplierId);
                 cb_SuppliersName.SelectedItem = selectedSupplier;
                 txtInvoiceDate.SelectedDate = selected.InvoiceDate;
+                DueTxtAmout.Text = selected.DueAmount.ToString();
                 editBtn.Visibility = Visibility.Visible;
             }
         }
@@ -215,39 +212,42 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is not ReturnCashInvoiceDto selected)
+            if (dgCashInvoice.SelectedItem is not DueInvoiceDetailsDto selected)
             {
                 MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
                 return;
             }
-
             DateTime UpdateInvoiceDate = txtInvoiceDate.SelectedDate ?? DateTime.UtcNow;
-            //if(UpdateInvoiceDate is null )
-            //{
-            //    UpdateInvoiceDate = DateTime.UtcNow;
-            //}
+
+            if (!decimal.TryParse(DueTxtAmout.Text, out decimal DueAmout)
+                    || !(DueAmout > 0))
+            {
+                MessageBox.Show(" من فضلك ادخل نسبه تقسيط رقم اكبر من  0   ");
+                return;
+            }
+            decimal dueAmount = DueAmout;
 
             int updateSupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
 
-            var updateDto = new UpdateInvoiceDto()
+            var updateDto = new UpdateDueInvoiceDto()
             {
                 Id = selected.Id,
                 InvoiceDate = UpdateInvoiceDate,
-                SupplierId = updateSupplierId
+                SupplierId = updateSupplierId,
+                DueAmount = dueAmount
             };
 
-            bool success = _cashInvoiceService.Update(updateDto);
+            bool success = _dueInvoiceService.Update(updateDto);
 
             if (success)
             {
                 SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
 
                 selected.SupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
-               // selected.Supplier = ((SupplierRDto)cb_SuppliersName.SelectedItem);
                 selected.SupplierName = ((SupplierRDto)cb_SuppliersName.SelectedItem).Name;
                 selected.InvoiceDate = UpdateInvoiceDate;
                 txtInvoiceDate.SelectedDate = UpdateInvoiceDate;
-                MessageBox.Show("تم تعديل المنطقة بنجاح");
+                MessageBox.Show("تم تعديل الفاتوره الاجل بنجاح");
                 dgCashInvoice.Items.Refresh(); // لتحديث الجدول
             }
             else
@@ -259,41 +259,59 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
 
         #endregion
-         
+
         #region Search By Item FullName  Region
 
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        { 
             var query = SearchByItemTextBox.Text?.ToLower() ?? "";
 
             // فلترة النتائج
-            var filtered = observProductsLisLim
+            var filtered = observDueInvoiceLisLim
                 .Where(i => i.SupplierName != null && i.SupplierName.ToLower().Contains(query))
                 .ToList();
             // تحديث الـ DataGrid
-            observProductsListFiltered.Clear();
+            observDueInvoiceFiltered.Clear();
             foreach (var item in filtered)
             {
-                observProductsListFiltered.Add(item);
+                observDueInvoiceFiltered.Add(item);
             }
 
             // تحديث الاقتراحات
             var suggestions = filtered.Select(i => i.SupplierName);
             if (suggestions.Any())
             {
-                dgCashInvoice.ItemsSource = filtered;
-                //SuggestionsItemsListBox.ItemsSource = suggestions;
-                //SuggestionsPopup.IsOpen = true;
-            }
-            else
-            {
-                //SuggestionsPopup.IsOpen = false;
-            }
+                dgCashInvoice.ItemsSource = filtered; 
+            } 
 
         }
 
         #endregion
-         
+
+
+
+
+
+
+        #region CashcInvoice Mouse Double Region
+
+        private void dgCashInvoice_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgCashInvoice.SelectedItem is DueInvoiceDetailsDto selectedInvoice)
+            {
+                var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+                var cashInvoiceItemsService = App.AppHost.Services.GetRequiredService<ICashInvoiceItemsService>();
+                var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+
+                // افتح صفحة التفاصيل
+                var detailsPage = new DueInvoiceDetailsPage(selectedInvoice, productService, cashInvoiceItemsService, mapper);
+                NavigationService?.Navigate(detailsPage);
+            }
+        }
+
+
+        #endregion
+
 
     }
 }

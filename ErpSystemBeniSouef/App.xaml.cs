@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
-using ErpSystemBeniSouef.Core.Contract; 
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
-using ErpSystemBeniSouef.Service.CollectorServices; 
+using ErpSystemBeniSouef.Service.CollectorServices;
+using ErpSystemBeniSouef.Service.InvoiceServices;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
+using ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
@@ -60,6 +64,7 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
         services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
         services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
+        services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
 
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -117,6 +122,7 @@ namespace ErpSystemBeniSouef
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
             var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+            var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -137,9 +143,12 @@ namespace ErpSystemBeniSouef
             //var login = new StorekeepersPage(storeKeeperService,mapper);
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
-            //                   InvoicePages.Cashinvoice(supplierService , cashInvoiceService);
+            //                   InvoicePages.Cashinvoice(supplierService, cashInvoiceService);
+          
+            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+                               DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
 
-            var login = new StartPageBeforeLogin();
+            //var login = new StartPageBeforeLogin();
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
 

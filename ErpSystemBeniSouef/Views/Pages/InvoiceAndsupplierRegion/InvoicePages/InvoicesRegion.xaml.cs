@@ -1,6 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
@@ -50,9 +51,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages
         {
 
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
-            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+            var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
 
-            var Dashboard = new  DueInvoice.DueInvoicePage(supplierService, cashInvoiceService);
+            var Dashboard = new  DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }

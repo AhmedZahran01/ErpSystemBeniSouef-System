@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice
 {
-    public class InvoiceItemDetailsDto
+    public class CashInvoiceItemDetailsDto
     {
         public int DisplayId { get; set; } = 0;
         public int Id { get; set; }

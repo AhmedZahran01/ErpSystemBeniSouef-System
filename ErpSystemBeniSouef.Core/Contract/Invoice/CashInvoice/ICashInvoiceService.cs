@@ -25,13 +25,13 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice
          
         #region Get Invoice By Id Region
 
-        Task<InvoiceDetailsDto> GetInvoiceById(int id);
+        Task<CashInvoiceDetailsDto> GetInvoiceById(int id);
 
         #endregion
          
         #region Update Region
 
-        bool Update(UpdateInvoiceDto updateDto);
+        bool Update(UpdateCashInvoiceDto updateDto);
 
         #endregion
 

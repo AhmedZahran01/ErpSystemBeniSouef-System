@@ -19,7 +19,7 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice
  
         #region Get Invoice Items By Invoice Id Region
 
-        Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
+        Task<List<CashInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
 
         #endregion
          

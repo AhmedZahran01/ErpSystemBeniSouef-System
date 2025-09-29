@@ -1,67 +1,43 @@
-﻿using System;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
+using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using ErpSystemBeniSouef.Core;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Core.Enum;
 
-namespace ErpSystemBeniSouef.Service.InvoiceServices
+namespace ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService
 {
-    public class DueInvoiceService:IDueInvoiceService
+    public class DueInvoiceItemsService : IDueInvoiceItemService
     {
+
+        #region Constractor Region
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DueInvoiceService(IUnitOfWork unitOfWork, IMapper mapper)
+        public DueInvoiceItemsService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task<DueInvoiceDto> AddInvoice(AddDueInvoiceDto dto)
-        {
-            var invoice = _mapper.Map<Invoice>(dto);
+        #endregion
 
-            var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(dto.SupplierId);
-            if (supplier == null)
-                throw new Exception($"Supplier with Id {dto.SupplierId} not found.");
-
-            invoice.SupplierId = dto.SupplierId;
-            invoice.Supplier = supplier;
-            invoice.invoiceType = InvoiceType.Due;
-            invoice.TotalAmount = 0;
-            invoice.DueAmount = dto.DueAmount;
-            invoice.CreatedDate = DateTime.UtcNow;
-
-            _unitOfWork.Repository<Invoice>().Add(invoice);
-            await _unitOfWork.CompleteAsync();
-
-            return new DueInvoiceDto
-            {
-                Id = invoice.Id,
-                InvoiceDate = invoice.InvoiceDate,
-                TotalAmount = invoice.TotalAmount ?? 0,
-                SupplierName = supplier.Name,
-                DueAmount = invoice.DueAmount
-            };
-        }
+        #region Add Invoice Items Region
 
         public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
                 .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.Due,
                 i => i.Supplier);
-                
-            
+
+
             if (invoice == null)
                 throw new Exception($"Invoice with Id {dto.Id} not found.");
 
@@ -99,12 +75,15 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
 
             return true;
         }
+        #endregion
+
+        #region Get Invoice By Id Region
 
         public async Task<DueInvoiceDetailsDto> GetInvoiceById(int id)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
                 .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.Due && !i.IsDeleted,
-               i=>i.Supplier);
+               i => i.Supplier);
 
             if (invoice == null)
                 throw new Exception($"Invoice with Id {id} not found.");
@@ -119,6 +98,10 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Notes = invoice.Notes
             };
         }
+
+        #endregion
+
+        #region Get Invoice Items By Invoice Id Region
 
         public async Task<List<DueInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
         {
@@ -136,8 +119,8 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 Notes = i.Notes
             }).ToList();
         }
-   
-    
+
+        #endregion
+
     }
 }
-
