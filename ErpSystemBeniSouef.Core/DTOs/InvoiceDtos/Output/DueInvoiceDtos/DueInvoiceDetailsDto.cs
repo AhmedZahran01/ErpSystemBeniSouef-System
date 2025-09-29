@@ -9,10 +9,14 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos
     public class DueInvoiceDetailsDto
     {
         public int Id { get; set; }
+        public int DisplayId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal? DueAmount { get; set; }
         public string SupplierName { get; set; }
+        public int SupplierId { get; set; }
         public string? Notes { get; set; }
+
+
     }
 }

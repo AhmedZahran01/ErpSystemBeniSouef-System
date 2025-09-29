@@ -220,7 +220,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
             int updateSupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
 
-            var updateDto = new UpdateInvoiceDto()
+            var updateDto = new UpdateCashInvoiceDto()
             {
                 Id = selected.Id,
                  InvoiceDate = UpdateInvoiceDate,

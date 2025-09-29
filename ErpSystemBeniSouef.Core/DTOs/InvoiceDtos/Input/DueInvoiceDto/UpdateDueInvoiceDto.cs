@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos
+namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto
 {
-    public class DueInvoiceDto
-    {
+    public class UpdateDueInvoiceDto
+    { 
         public int Id { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
-        public string SupplierName { get; set; }
+        public int SupplierId { get; set; }
         public decimal? DueAmount { get; set; }
+
     }
 }

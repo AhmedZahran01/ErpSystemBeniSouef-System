@@ -78,7 +78,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
 
         #region Get Invoice Details Dto By Id Region
 
-        public async Task<InvoiceDetailsDto> GetInvoiceById(int id)
+        public async Task<CashInvoiceDetailsDto> GetInvoiceById(int id)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
                .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.cash,
@@ -87,7 +87,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
             if (invoice == null)
                 return null;
 
-            var response = _mapper.Map<InvoiceDetailsDto>(invoice);
+            var response = _mapper.Map<CashInvoiceDetailsDto>(invoice);
 
             return response;
 
@@ -96,7 +96,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
 
         #region Update Invoice Dto Region
 
-        public bool Update(UpdateInvoiceDto updateDto)
+        public bool Update(UpdateCashInvoiceDto updateDto)
         {
             var invoice = _unitOfWork.Repository<Invoice>().GetById(updateDto.Id);
             if (invoice == null)

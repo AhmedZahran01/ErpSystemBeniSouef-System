@@ -29,12 +29,12 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
 
         #region  Get All Invoice Items By Invoice Id Region
 
-        public async Task<List<InvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
+        public async Task<List<CashInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
         {
             var items = await _unitOfWork.Repository<InvoiceItem>()
                 .GetAllAsync();
             items = items.Where(i => i.InvoiceId == invoiceId).ToList();
-            return items.Select(i => new InvoiceItemDetailsDto
+            return items.Select(i => new CashInvoiceItemDetailsDto
             {
                 Id = i.Id,
                 InvoiceId = i.InvoiceId,
@@ -96,8 +96,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
         }
 
         #endregion
-
-
+         
         #region Soft Delete Invoice Region
 
         public bool SoftDelete(int id, decimal _totalLine, int _invoiceId)

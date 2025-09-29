@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice
 {
-    public class InvoiceDetailsDto
+    public class CashInvoiceDetailsDto
     {
         public int Id { get; set; }
         public DateTime InvoiceDate { get; set; }

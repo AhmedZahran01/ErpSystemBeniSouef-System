@@ -1,35 +1,39 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
-using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Diagnostics.Metrics;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
-namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages
+namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.DueInvoice
 {
     /// <summary>
-    /// Interaction logic for CashInvoiceDetailsPage.xaml
+    /// Interaction logic for DueInvoiceDetailsPage.xaml
     /// </summary>
-    public partial class CashInvoiceDetailsPage : Page
+    public partial class DueInvoiceDetailsPage : Page
     {
         #region  Properties Region
 
-        private readonly ReturnCashInvoiceDto _invoice;
+        private readonly DueInvoiceDetailsDto _invoice;
         int countDisplayNo = 0;
         private readonly IProductService _productService;
         private readonly ICashInvoiceItemsService _cashInvoiceItemsService;
@@ -47,7 +51,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         #region Constractor  Region
 
-        public CashInvoiceDetailsPage(ReturnCashInvoiceDto invoice, IProductService productService,
+        public DueInvoiceDetailsPage(DueInvoiceDetailsDto invoice, IProductService productService,
                                ICashInvoiceItemsService cashInvoiceService, IMapper mapper)
         {
             InitializeComponent();
@@ -251,9 +255,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             }
             MessageBox.Show($"  تم حذف  {deletedCount} عنصر   ");
         }
-         
+
         #endregion
-         
+
         #region Quantity Text Changed Region
 
         private void txtQuantity_TextChanged(object sender, TextChangedEventArgs e)
@@ -363,6 +367,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         }
 
         #endregion
+
 
     }
 }
