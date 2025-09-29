@@ -26,13 +26,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice
 {
-    public class CashInvoiceDto
+    public class ReturnCashInvoiceDto
     {
         public int Id { get; set; }
         public int DisplayId { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
-        public SupplierRDto Supplier { get; set; }   // لو هتحتاج Navigation
         public string SupplierName { get; set; }
         public int SupplierId { get; set; }
     }

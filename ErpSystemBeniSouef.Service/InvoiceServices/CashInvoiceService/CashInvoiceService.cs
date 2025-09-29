@@ -29,12 +29,12 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
         #endregion
 
         #region Get All Async Cash Invoice Dto Region
-        public async Task<IReadOnlyList<CashInvoiceDto>> GetAllAsync()
+        public async Task<IReadOnlyList<ReturnCashInvoiceDto>> GetAllAsync()
         {
             var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync(i => i.Supplier);
             var CahInvoice = invoices.Where(I => I.invoiceType == InvoiceType.cash).ToList();
 
-            var response = _mapper.Map<IReadOnlyList<CashInvoiceDto>>(CahInvoice);
+            var response = _mapper.Map<IReadOnlyList<ReturnCashInvoiceDto>>(CahInvoice);
 
             return response;
         }
@@ -43,7 +43,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
 
         #region  Add Cash Invoice Dto Region
 
-        public CashInvoiceDto AddInvoice(AddCashInvoiceDto dto)
+        public ReturnCashInvoiceDto AddInvoice(AddCashInvoiceDto dto)
         {
             var invoice = _mapper.Map<Invoice>(dto);
 
@@ -62,7 +62,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
             _unitOfWork.Complete();
 
             // Map Entity → Return DTO
-            var returnDto = new CashInvoiceDto
+            var returnDto = new ReturnCashInvoiceDto
             {
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,

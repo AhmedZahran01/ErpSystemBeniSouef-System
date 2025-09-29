@@ -29,7 +29,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
     {
         #region  Properties Region
 
-        private readonly CashInvoiceDto _invoice;
+        private readonly ReturnCashInvoiceDto _invoice;
         int countDisplayNo = 0;
         private readonly IProductService _productService;
         private readonly ICashInvoiceItemsService _cashInvoiceItemsService;
@@ -47,7 +47,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         #region Constractor  Region
 
-        public CashInvoiceDetailsPage(CashInvoiceDto invoice, IProductService productService,
+        public CashInvoiceDetailsPage(ReturnCashInvoiceDto invoice, IProductService productService,
                                ICashInvoiceItemsService cashInvoiceService, IMapper mapper)
         {
             InitializeComponent();

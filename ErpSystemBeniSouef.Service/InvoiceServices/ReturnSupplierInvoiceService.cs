@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Enum;
 

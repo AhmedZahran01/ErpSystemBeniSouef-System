@@ -13,13 +13,13 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice
     {
         #region Get All Cash Invoice Dto Async Region
 
-        Task<IReadOnlyList<CashInvoiceDto>> GetAllAsync();
+        Task<IReadOnlyList<ReturnCashInvoiceDto>> GetAllAsync();
 
         #endregion
 
         #region Add Cash Invoice Dto Region
 
-        CashInvoiceDto AddInvoice(AddCashInvoiceDto dto);
+        ReturnCashInvoiceDto AddInvoice(AddCashInvoiceDto dto);
 
         #endregion
          

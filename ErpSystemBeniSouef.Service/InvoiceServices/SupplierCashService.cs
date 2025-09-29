@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Core; 
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Enum;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.SupplierCashDtos;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.SupplierCash;
 
 namespace ErpSystemBeniSouef.Service.InvoiceServices
 {
@@ -24,7 +24,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _mapper = mapper;
         }
 
-        public async Task<Core.DTOs.InvoiceDtos.Input.SupplierCashDto> AddSupplierCash(AddSupplierCashDto dto)
+        public async Task<ReturnSupplierCashDto> AddSupplierCash(AddSupplierCashDto dto)
         {
             var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(dto.SupplierId);
             if (supplier == null)
@@ -41,7 +41,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
             _unitOfWork.Repository<SupplierAccount>().Add(entity);
             await _unitOfWork.CompleteAsync();
 
-            return new Core.DTOs.InvoiceDtos.Input.SupplierCashDto
+            return new ReturnSupplierCashDto
             {
                 Id = entity.Id,
                 SupplierName = supplier.Name,
@@ -50,12 +50,12 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                 PaymentDate = entity.TransactionDate
             };
         }
-        public async Task<List<Core.DTOs.InvoiceDtos.Input.SupplierCashDto>> GetAllSupplierAccounts()
+        public async Task<List<ReturnSupplierCashDto>> GetAllSupplierAccounts()
         {
             var accounts = await _unitOfWork.Repository<SupplierAccount>()
                 .GetAllAsync(a => a.Supplier); 
 
-            return accounts.Select(a => new Core.DTOs.InvoiceDtos.Input.SupplierCashDto
+            return accounts.Select(a => new ReturnSupplierCashDto
             {
                 Id = a.Id,
                 SupplierName = a.Supplier?.Name ?? "N/A",
@@ -92,7 +92,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices
                     DueAmount = i.DueAmount ?? 0,
                     Notes = i.Notes
                 }).ToList(),
-                Payments = payments.Select(p => new Core.DTOs.InvoiceDtos.Output.SupplierCashDto
+                Payments = payments.Select(p => new SupplierCashDto
                 {
                     Id = p.Id,
                     PaymentDate = p.TransactionDate,

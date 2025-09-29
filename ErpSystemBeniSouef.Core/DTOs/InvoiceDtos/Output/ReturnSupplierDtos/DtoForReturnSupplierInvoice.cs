@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output
+namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos
 {
-    public class ReturnDamageInvoiceDto
+    public class DtoForReturnSupplierInvoice
+    
     {
         public int Id { get; set; }
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
         public string SupplierName { get; set; }
+
     }
-    public class DamageInvoiceDetailsDto
+    public class ReturnSupplierInvoiceDetailsDto
     {
         public int Id { get; set; }
         public DateTime InvoiceDate { get; set; }
@@ -22,7 +24,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output
         public string? Notes { get; set; }
     }
 
-    public class DamageInvoiceItemDetailsDto
+    public class ReturnSupplierInvoiceItemDetailsDto
     {
         public int Id { get; set; }
         public int InvoiceId { get; set; }

@@ -30,8 +30,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         private readonly IMapper _mapper;
 
         IReadOnlyList<SupplierRDto> SuppliersDto = new List<SupplierRDto>();
-        ObservableCollection<CashInvoiceDto> observProductsLisLim = new ObservableCollection<CashInvoiceDto>();
-        ObservableCollection<CashInvoiceDto> observProductsListFiltered = new ObservableCollection<CashInvoiceDto>();
+        ObservableCollection<ReturnCashInvoiceDto> observProductsLisLim = new ObservableCollection<ReturnCashInvoiceDto>();
+        ObservableCollection<ReturnCashInvoiceDto> observProductsListFiltered = new ObservableCollection<ReturnCashInvoiceDto>();
 
         #endregion
 
@@ -60,7 +60,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private async Task LoadInvoices()
         {
-            IReadOnlyList<CashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
+            IReadOnlyList<ReturnCashInvoiceDto> invoiceDtos = await _cashInvoiceService.GetAllAsync();
             observProductsLisLim.Clear();
             observProductsListFiltered.Clear();
             foreach (var product in invoiceDtos)
@@ -103,7 +103,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 
             };
              
-            CashInvoiceDto CreateInvoiceDtoRespons = _cashInvoiceService.AddInvoice(InputProduct);
+            ReturnCashInvoiceDto CreateInvoiceDtoRespons = _cashInvoiceService.AddInvoice(InputProduct);
             if (CreateInvoiceDtoRespons is null)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");
@@ -131,7 +131,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 MessageBox.Show("من فضلك اختر علي الاقل صف قبل الحذف");
                 return;
             }
-            List<CashInvoiceDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<CashInvoiceDto>().ToList();
+            List<ReturnCashInvoiceDto> selectedItemsDto = dgCashInvoice.SelectedItems.Cast<ReturnCashInvoiceDto>().ToList();
             int deletedCount = 0;
             foreach (var item in selectedItemsDto)
             {
@@ -162,7 +162,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void dgCashInvoice_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is CashInvoiceDto selectedInvoice)
+            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selectedInvoice)
             {
                 var productService = App.AppHost.Services.GetRequiredService<IProductService>();
                 var cashInvoiceItemsService = App.AppHost.Services.GetRequiredService<ICashInvoiceItemsService>();
@@ -191,7 +191,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void dgAllInvoices_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is CashInvoiceDto selected)
+            if (dgCashInvoice.SelectedItem is ReturnCashInvoiceDto selected)
             { 
                 SupplierRDto selectedSupplier =  SuppliersDto.FirstOrDefault(s =>s.Id == selected.SupplierId);
                 cb_SuppliersName.SelectedItem = selectedSupplier;
@@ -206,7 +206,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (dgCashInvoice.SelectedItem is not CashInvoiceDto selected)
+            if (dgCashInvoice.SelectedItem is not ReturnCashInvoiceDto selected)
             {
                 MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
                 return;
@@ -234,7 +234,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
                  
                 selected.SupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
-                selected.Supplier = ((SupplierRDto)cb_SuppliersName.SelectedItem);
+               // selected.Supplier = ((SupplierRDto)cb_SuppliersName.SelectedItem);
                 selected.SupplierName = ((SupplierRDto)cb_SuppliersName.SelectedItem).Name;
                 selected. InvoiceDate = UpdateInvoiceDate;
                 txtInvoiceDate.SelectedDate = UpdateInvoiceDate;
