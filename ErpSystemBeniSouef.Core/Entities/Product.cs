@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 
 namespace ErpSystemBeniSouef.Core.Entities
 {
@@ -21,6 +22,6 @@ namespace ErpSystemBeniSouef.Core.Entities
         [ForeignKey("Company")]
         public int CompanyId { get; set; }
         public virtual Company Company { get; set; }
-         
+        public ICollection<CovenantProduct> CovenantProducts { get; set; }
     }
 }
