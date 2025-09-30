@@ -61,7 +61,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                 cb_SuppliersName.ItemsSource = SuppliersDto;
                 cb_SuppliersName.SelectedIndex = 0;
                 await LoadInvoices();
-                dgCashInvoice.ItemsSource = observDueInvoiceLisLim;
+                dgCashInvoice.ItemsSource = observDueInvoiceFiltered;
 
             };
 
@@ -94,6 +94,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
+             
+
             DateTime invoiceDate = txtInvoiceDate.SelectedDate ?? DateTime.UtcNow;
             if (txtInvoiceDate.SelectedDate == null)
             {
@@ -138,6 +140,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
             CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
             observDueInvoiceLisLim.Add(CreateInvoiceDtoRespons);
             observDueInvoiceFiltered.Add(CreateInvoiceDtoRespons);
+            countDisplayNo+=1; 
 
         }
 
@@ -210,6 +213,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
         #region Btn Edit Click  Region
 
+
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
             if (dgCashInvoice.SelectedItem is not DueInvoiceDetailsDto selected)
@@ -217,23 +221,27 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                 MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
                 return;
             }
-            DateTime UpdateInvoiceDate = txtInvoiceDate.SelectedDate ?? DateTime.UtcNow;
 
-            if (!decimal.TryParse(DueTxtAmout.Text, out decimal DueAmout)
-                    || !(DueAmout > 0))
+            DateTime updateInvoiceDate = txtInvoiceDate.SelectedDate ?? DateTime.UtcNow;
+
+            if (!decimal.TryParse(DueTxtAmout.Text, out decimal dueAmount) || !(dueAmount > 0))
             {
-                MessageBox.Show(" من فضلك ادخل نسبه تقسيط رقم اكبر من  0   ");
+                MessageBox.Show(" من فضلك ادخل نسبه تقسيط رقم اكبر من 0   ");
                 return;
             }
-            decimal dueAmount = DueAmout;
 
-            int updateSupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
+            SupplierRDto supplier = cb_SuppliersName.SelectedItem as SupplierRDto;
+            if (supplier == null)
+            {
+                MessageBox.Show("من فضلك اختر مورد صحيح");
+                return;
+            }
 
             var updateDto = new UpdateDueInvoiceDto()
             {
                 Id = selected.Id,
-                InvoiceDate = UpdateInvoiceDate,
-                SupplierId = updateSupplierId,
+                InvoiceDate = updateInvoiceDate,
+                SupplierId = supplier.Id,
                 DueAmount = dueAmount
             };
 
@@ -241,14 +249,13 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
             if (success)
             {
-                SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
+                // التغييرات هتتحدث أوتوماتيك بسبب INotifyPropertyChanged
+                selected.InvoiceDate = updateInvoiceDate;
+                selected.SupplierId = supplier.Id;
+                selected.SupplierName = supplier.Name;
+                selected.DueAmount = dueAmount;
 
-                selected.SupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
-                selected.SupplierName = ((SupplierRDto)cb_SuppliersName.SelectedItem).Name;
-                selected.InvoiceDate = UpdateInvoiceDate;
-                txtInvoiceDate.SelectedDate = UpdateInvoiceDate;
                 MessageBox.Show("تم تعديل الفاتوره الاجل بنجاح");
-                dgCashInvoice.Items.Refresh(); // لتحديث الجدول
             }
             else
             {
@@ -257,6 +264,51 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         }
 
 
+        //private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (dgCashInvoice.SelectedItem is not DueInvoiceDetailsDto selected)
+        //    {
+        //        MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
+        //        return;
+        //    }
+        //    DateTime UpdateInvoiceDate = txtInvoiceDate.SelectedDate ?? DateTime.UtcNow;
+
+        //    if (!decimal.TryParse(DueTxtAmout.Text, out decimal DueAmout)
+        //            || !(DueAmout > 0))
+        //    {
+        //        MessageBox.Show(" من فضلك ادخل نسبه تقسيط رقم اكبر من  0   ");
+        //        return;
+        //    }
+        //    decimal dueAmount = DueAmout;
+
+        //    int updateSupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
+
+        //    var updateDto = new UpdateDueInvoiceDto()
+        //    {
+        //        Id = selected.Id,
+        //        InvoiceDate = UpdateInvoiceDate,
+        //        SupplierId = updateSupplierId,
+        //        DueAmount = dueAmount
+        //    };
+
+        //    bool success = _dueInvoiceService.Update(updateDto);
+
+        //    if (success)
+        //    {
+        //        SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
+
+        //        selected.SupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
+        //        selected.SupplierName = ((SupplierRDto)cb_SuppliersName.SelectedItem).Name;
+        //        selected.InvoiceDate = UpdateInvoiceDate;
+        //        txtInvoiceDate.SelectedDate = UpdateInvoiceDate;
+        //        MessageBox.Show("تم تعديل الفاتوره الاجل بنجاح");
+        //        dgCashInvoice.Items.Refresh(); // لتحديث الجدول
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("حدث خطأ أثناء التعديل");
+        //    }
+        //}
 
         #endregion
 
@@ -300,11 +352,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
             if (dgCashInvoice.SelectedItem is DueInvoiceDetailsDto selectedInvoice)
             {
                 var productService = App.AppHost.Services.GetRequiredService<IProductService>();
-                var cashInvoiceItemsService = App.AppHost.Services.GetRequiredService<ICashInvoiceItemsService>();
+                var dueInvoiceItemService = App.AppHost.Services.GetRequiredService<IDueInvoiceItemService>();
                 var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
                 // افتح صفحة التفاصيل
-                var detailsPage = new DueInvoiceDetailsPage(selectedInvoice, productService, cashInvoiceItemsService, mapper);
+                var detailsPage = new DueInvoiceDetailsPage(selectedInvoice, productService, dueInvoiceItemService, mapper);
                 NavigationService?.Navigate(detailsPage);
             }
         }

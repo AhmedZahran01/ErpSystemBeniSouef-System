@@ -485,7 +485,7 @@ BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBindin
                             <Grid>
                                 <!-- مربع النص -->
                                 <DatePickerTextBox x:Name="PART_TextBox"
-                                         Margin="2,0,25,0"
+                                         Margin="2,0,25,0" FontSize="21"
                                          Background="Transparent"
                                          BorderThickness="0"
                                          VerticalContentAlignment="Center"/>

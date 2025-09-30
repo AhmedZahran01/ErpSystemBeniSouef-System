@@ -1,4 +1,6 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using System;
 using System.Collections.Generic;
@@ -12,21 +14,31 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice
     {
         #region Add Invoice Items Region
 
-        Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto);
+        Task<bool> AddInvoiceItems(AddDueInvoiceItemsDto dto);
 
         #endregion
 
         #region Get Invoice By Id Region
 
-        Task<DueInvoiceDetailsDto> GetInvoiceById(int id);
+        //Task<DueInvoiceDetailsDto> GetInvoiceById(int id);
 
         #endregion
+         
 
         #region Get Invoice Items By Invoice Id Region
 
         Task<List<DueInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId);
 
         #endregion
- 
+
+
+        #region Soft Delete Region
+
+        bool SoftDelete(int id, decimal totalLine, int invoiceId);
+
+        Task<bool> SoftDeleteAsync(int id);
+
+        #endregion
+
     }
 }

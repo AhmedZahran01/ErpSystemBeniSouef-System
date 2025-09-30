@@ -65,6 +65,7 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
         services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
         services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
+        services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
 
 
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

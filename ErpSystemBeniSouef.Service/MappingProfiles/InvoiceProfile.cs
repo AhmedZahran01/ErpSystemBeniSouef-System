@@ -44,6 +44,9 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<DtoForReturnSupplierInvoice, Invoice>().ReverseMap()
                  .ForMember(d => d.SupplierName, o => o.MapFrom(m => m.Supplier.Name));
             CreateMap<UpdateCashInvoiceDto, Invoice>().ReverseMap();
+            
+            //cash Region
+            CreateMap<CashInvoiceItemDto, CashInvoiceItemDetailsDto>().ReverseMap();
 
             //Due Region
 
@@ -53,6 +56,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<AddDueInvoiceDto, Invoice>().ReverseMap();
             CreateMap<UpdateDueInvoiceDto, Invoice>().ReverseMap();
 
+            CreateMap<DueInvoiceItemDto, DueInvoiceItemDetailsDto>().ReverseMap();
         }
     }
 }

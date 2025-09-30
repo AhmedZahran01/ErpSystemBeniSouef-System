@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
@@ -36,14 +38,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         private readonly DueInvoiceDetailsDto _invoice;
         int countDisplayNo = 0;
         private readonly IProductService _productService;
-        private readonly ICashInvoiceItemsService _cashInvoiceItemsService;
+        private readonly IDueInvoiceItemService _cashInvoiceItemsService;
         private readonly IMapper _mapper;
-        private readonly int _comanyNo = (int?)App.Current.Properties["CompanyId"] ?? 1;
+        //private readonly int _comanyNo = (int?)App.Current.Properties["CompanyId"] ?? 1;
         IReadOnlyList<CategoryDto> categories = new List<CategoryDto>();
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
-        ObservableCollection<CashInvoiceItemDetailsDto> observCashInvoiceItemDtosFiltered = new ObservableCollection<CashInvoiceItemDetailsDto>();
-        ObservableCollection<CashInvoiceItemDetailsDto> observCashInvoiceItemDtosList = new ObservableCollection<CashInvoiceItemDetailsDto>();
+        ObservableCollection<DueInvoiceItemDetailsDto> observCashInvoiceItemDtosFiltered = new ObservableCollection<DueInvoiceItemDetailsDto>();
+        ObservableCollection<DueInvoiceItemDetailsDto> observCashInvoiceItemDtosList = new ObservableCollection<DueInvoiceItemDetailsDto>();
         int invoiceIDFromInvoicePage;
         int counId = 0;
 
@@ -52,7 +54,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         #region Constractor  Region
 
         public DueInvoiceDetailsPage(DueInvoiceDetailsDto invoice, IProductService productService,
-                               ICashInvoiceItemsService cashInvoiceService, IMapper mapper)
+                               IDueInvoiceItemService cashInvoiceService, IMapper mapper)
         {
             InitializeComponent();
             _invoice = invoice; DataContext = _invoice; _productService = productService;
@@ -105,9 +107,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
-            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+            var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
 
-            var Dashboard = new Cashinvoice(supplierService, cashInvoiceService);
+            var Dashboard = new DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
 
@@ -173,7 +175,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
             string textPrice = txtPrice.Text;
 
-            CashInvoiceItemDetailsDto invoiceItemDetails = new CashInvoiceItemDetailsDto()
+            DueInvoiceItemDetailsDto invoiceItemDetails = new DueInvoiceItemDetailsDto()
             {
                 InvoiceId = invoiceIDFromInvoicePage,
                 ProductName = p.ProductName,
@@ -221,7 +223,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                 MessageBox.Show("من فضلك اختر عنصر محدد للحذف");
                 return;
             }
-            List<CashInvoiceItemDetailsDto> selectedInvoiceItemList = dgInvoiceItems.SelectedItems.Cast<CashInvoiceItemDetailsDto>().ToList();
+            List<DueInvoiceItemDetailsDto> selectedInvoiceItemList = dgInvoiceItems.SelectedItems.Cast<DueInvoiceItemDetailsDto>().ToList();
 
             int deletedCount = 0;
             foreach (var selectedInvoiceItem in selectedInvoiceItemList)
@@ -238,6 +240,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                     {
                         observCashInvoiceItemDtosFiltered.Remove(selectedInvoiceItem);
                         counId--;
+                        dgInvoiceItems.Items.Refresh();
                     }
                 }
                 else
@@ -294,13 +297,13 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         private async void AddFinalInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             var NewAddedItems = observCashInvoiceItemDtosFiltered.Where(i => i.Id == 0).ToList();
-            AddCashInvoiceItemsDto addCashInvoiceItemsDto = new AddCashInvoiceItemsDto();
+            AddDueInvoiceItemsDto addCashInvoiceItemsDto = new AddDueInvoiceItemsDto();
             addCashInvoiceItemsDto.Id = invoiceIDFromInvoicePage;
-            addCashInvoiceItemsDto.invoiceItemDtos = new List<CashInvoiceItemDto>();
+            addCashInvoiceItemsDto.invoiceItemDtos = new List<DueInvoiceItemDto>();
             decimal InvoiceTotalPrice = 0;
             foreach (var NewAddedItem in NewAddedItems)
             {
-                CashInvoiceItemDto cashInvoiceItemsDto = _mapper.Map<CashInvoiceItemDto>(NewAddedItem);
+                DueInvoiceItemDto cashInvoiceItemsDto = _mapper.Map<DueInvoiceItemDto>(NewAddedItem);
 
                 InvoiceTotalPrice += NewAddedItem.LineTotal;
                 CategoryDto category = categories.Where(i => i.Id == NewAddedItem.ProductTypeId).FirstOrDefault();
@@ -311,7 +314,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
             bool res = await _cashInvoiceItemsService.AddInvoiceItems(addCashInvoiceItemsDto);
             if (res)
             {
-                MessageBox.Show("تم تعديل الفاتوره الكاش بنجاح");
+                MessageBox.Show("تم تعديل الفاتوره الاجل  بنجاح");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("حدث خطأ أثناء الاضافه ");
                 return;
             }
 

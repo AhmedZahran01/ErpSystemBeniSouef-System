@@ -2,6 +2,8 @@
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Enum;
@@ -29,19 +31,20 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService
 
         #endregion
 
-        #region Add Invoice Items Region
+        #region Add Due Invoice Items Region
 
-        public async Task<bool> AddInvoiceItems(AddCashInvoiceItemsDto dto)
-        {
+        public async Task<bool> AddInvoiceItems(AddDueInvoiceItemsDto dto)
+        { 
             var invoice = await _unitOfWork.Repository<Invoice>()
                 .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.Due,
                 i => i.Supplier);
 
 
             if (invoice == null)
-                throw new Exception($"Invoice with Id {dto.Id} not found.");
+                return false;
+                //throw new Exception($"Invoice with Id {dto.Id} not found.");
 
-            decimal totalAmount = invoice.TotalAmount ?? 0;
+            decimal? totalAmount = dto.InvoiceTotalPrice + invoice.TotalAmount;
 
             foreach (var itemDto in dto.invoiceItemDtos)
             {
@@ -54,10 +57,11 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService
                     InvoiceId = invoice.Id,
                     ProductId = product.Id,
                     ProductName = product.ProductName,
-                    ProductType = product.Category?.Name ?? "N/A",
+                    ProductType = itemDto.ProductTypeName ?? "N/A",
                     Quantity = itemDto.Quantity,
                     UnitPrice = itemDto.UnitPrice,
-                    Notes = itemDto.Note
+                    Notes = itemDto.Note,
+                    
                 };
 
                 if (invoice.Items == null)
@@ -65,7 +69,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService
 
                 invoice.Items.Add(invoiceItem);
 
-                totalAmount += (itemDto.Quantity * itemDto.UnitPrice);
+                //totalAmount += (itemDto.Quantity * itemDto.UnitPrice);
             }
 
             invoice.TotalAmount = totalAmount;
@@ -75,39 +79,40 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService
 
             return true;
         }
+          
         #endregion
 
         #region Get Invoice By Id Region
 
-        public async Task<DueInvoiceDetailsDto> GetInvoiceById(int id)
-        {
-            var invoice = await _unitOfWork.Repository<Invoice>()
-                .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.Due && !i.IsDeleted,
-               i => i.Supplier);
+        //public async Task<DueInvoiceDetailsDto> GetInvoiceById(int id)
+        //{
+        //    var invoice = await _unitOfWork.Repository<Invoice>()
+        //        .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.Due && !i.IsDeleted,
+        //       i => i.Supplier);
 
-            if (invoice == null)
-                throw new Exception($"Invoice with Id {id} not found.");
+        //    if (invoice == null)
+        //        throw new Exception($"Invoice with Id {id} not found.");
 
-            return new DueInvoiceDetailsDto
-            {
-                Id = invoice.Id,
-                InvoiceDate = invoice.InvoiceDate,
-                TotalAmount = invoice.TotalAmount ?? 0,
-                SupplierName = invoice.Supplier?.Name ?? "N/A",
-                DueAmount = invoice.DueAmount,
-                Notes = invoice.Notes
-            };
-        }
+        //    return new DueInvoiceDetailsDto
+        //    {
+        //        Id = invoice.Id,
+        //        InvoiceDate = invoice.InvoiceDate,
+        //        TotalAmount = invoice.TotalAmount ?? 0,
+        //        SupplierName = invoice.Supplier?.Name ?? "N/A",
+        //        DueAmount = invoice.DueAmount,
+        //        Notes = invoice.Notes
+        //    };
+        //}
 
         #endregion
 
-        #region Get Invoice Items By Invoice Id Region
+        #region  Get All Invoice Items By Invoice Id Region
 
         public async Task<List<DueInvoiceItemDetailsDto>> GetInvoiceItemsByInvoiceId(int invoiceId)
         {
-            var items = await _unitOfWork.Repository<InvoiceItem>()
-              .GetAllAsync(i => i.InvoiceId == invoiceId);
-
+            var Allitems = await _unitOfWork.Repository<InvoiceItem>()
+              .GetAllAsync();
+            var items = Allitems.Where(i => i.InvoiceId == invoiceId).ToList();
             return items.Select(i => new DueInvoiceItemDetailsDto
             {
                 Id = i.Id,
@@ -121,6 +126,54 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService
         }
 
         #endregion
+          
+        #region Soft Delete Invoice Region
+
+        public bool SoftDelete(int id, decimal _totalLine, int _invoiceId)
+        {
+            var invoice = _unitOfWork.Repository<Invoice>().GetById(_invoiceId);
+            if (invoice == null)
+                return false;
+            invoice.TotalAmount -= _totalLine;
+            _unitOfWork.Repository<Invoice>().Update(invoice);
+
+
+            var invoiceItem = _unitOfWork.Repository<InvoiceItem>().GetById(id);
+            if (invoiceItem == null)
+                return false;
+
+            invoiceItem.IsDeleted = true;
+            _unitOfWork.Repository<InvoiceItem>().Update(invoiceItem);
+
+            _unitOfWork.CompleteAsync();
+
+            return true;
+        }
+
+        public async Task<bool> SoftDeleteAsync(int id)
+        {
+            var invoice = await _unitOfWork.Repository<Invoice>().GetByIdAsync(id);
+            if (invoice == null)
+                return false;
+            try
+            {
+                invoice.IsDeleted = true;
+                _unitOfWork.Repository<Invoice>().Update(invoice);
+                await _unitOfWork.CompleteAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
+
+        #endregion
+
+
+
+
 
     }
 }

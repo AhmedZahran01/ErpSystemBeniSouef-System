@@ -14,8 +14,8 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice
 {
     public class CashInvoiceItemDetailsDto
     {
-        public int DisplayId { get; set; } = 0;
         public int Id { get; set; }
+        public int DisplayId { get; set; } = 0;
         public int InvoiceId { get; set; }
         public string ProductName { get; set; }
         public int ProductId { get; set; }
@@ -25,7 +25,9 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal LineTotal => Quantity * UnitPrice;
-        public string? Notes { get; set; }
+        public string? Note { get; set; }
+
+
     }
 }
 

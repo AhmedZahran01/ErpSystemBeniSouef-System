@@ -177,7 +177,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 ProductTypeName = pT.Name,
                 ProductTypeId = pT.Id,
                 Quantity = Quant,
-                Notes = Notes,
+                Note = Notes,
                 UnitPrice = PriceUnit,
                 DisplayId = counId,
                 ProductId = p.Id,

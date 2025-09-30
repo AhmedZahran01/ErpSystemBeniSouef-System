@@ -44,7 +44,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
                 ProductTypeName = i.ProductType,
                 Quantity = i.Quantity,
                 UnitPrice = i.UnitPrice,
-                Notes = i.Notes
+                Note = i.Notes
             }).ToList();
         }
 
