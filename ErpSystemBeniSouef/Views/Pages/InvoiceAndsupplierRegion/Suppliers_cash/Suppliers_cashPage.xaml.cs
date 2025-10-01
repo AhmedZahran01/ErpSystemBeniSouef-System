@@ -260,12 +260,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 
 
 
-
-
-
-
-
-
+         
         #region Back btn Region
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -274,18 +269,44 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(invoicesRegion);
         }
 
+
+
         #endregion
 
 
-        private void DataGridOfSupplyCash_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        #region Search By Item FullName  Region
 
-        } 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var query = SearchByItemTextBox.Text?.ToLower() ?? "";
+
+            // فلترة النتائج
+            var filtered = observProductsLisLim
+                .Where(i => i.SupplierName != null && i.SupplierName.ToLower().Contains(query))
+                .ToList();
+            // تحديث الـ DataGrid
+            observProductsListFiltered.Clear();
+            foreach (var item in filtered)
+            {
+                observProductsListFiltered.Add(item);
+            }
+
+            // تحديث الاقتراحات
+            var suggestions = filtered.Select(i => i.SupplierName);
+            if (suggestions.Any())
+            {
+                DataGridOfSupplyCash.ItemsSource = filtered;
+                //SuggestionsItemsListBox.ItemsSource = suggestions;
+                //SuggestionsPopup.IsOpen = true;
+            }
+            else
+            {
+                //SuggestionsPopup.IsOpen = false;
+            }
 
         }
-          
+
+        #endregion
+         
     }
 }

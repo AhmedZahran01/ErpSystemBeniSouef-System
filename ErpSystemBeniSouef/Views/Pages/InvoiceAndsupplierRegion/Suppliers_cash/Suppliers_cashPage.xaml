@@ -51,7 +51,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- العمود الأيمن -->
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Margin="5 20 110 0">
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Vertical" Margin="5 20 10 0">
                 <StackPanel Orientation="Horizontal" Margin="0 5 0 10">
                     <ComboBox x:Name="cb_SuppliersName" Width="160"
                               DisplayMemberPath="Name" SelectedValuePath="Id" Style="{StaticResource SmallerComboBox}"  
@@ -71,7 +71,8 @@
             </StackPanel>
 
             <!-- العمود الأيسر -->
-            <StackPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Vertical" Margin="5 30 0 0 ">
+            <StackPanel Grid.Column="0"   Orientation="Vertical" Margin="315 30 0 0 ">
+ 
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="AmounttxtValue" Style="{StaticResource textboxx}" Height="30" />
                     <TextBlock  Text=" : المبلغ" Foreground="White" FontSize="24" Width="120"/>
@@ -81,6 +82,25 @@
                     <TextBox x:Name="TxtNotes" Style="{StaticResource textboxx}" Height="30"  Width="170"/>
                     <TextBlock Text=" : ملاحظات التوريد" Foreground="White" FontSize="24" Width="250" Height="55"/>
                 </StackPanel>
+
+
+            </StackPanel>
+
+            <!-- العمود الأيسر -->
+            <StackPanel  Orientation="Horizontal" Margin="35 0 0 0 ">
+
+                <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
+Width="120"
+Height="28" Margin="0 0 0 0"  ToolTip="ادخل اسم الفاتوره   " 
+Style="{StaticResource textboxx}"                    
+VerticalAlignment="Center"
+HorizontalAlignment="Center"
+TextChanged="SearchByItemFullNameBox_TextChanged"/>
+
+
+                <Label Margin="20,10,10,10" Content="  : بحث  " 
+                 HorizontalAlignment="Right" Foreground="White" Height="35"
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
             </StackPanel>
 
