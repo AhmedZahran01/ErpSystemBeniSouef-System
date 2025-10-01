@@ -9,7 +9,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier
 {
     public class AddReturnSupplierInvoiceDto
     {
-        public DateTime InvoiceDate { get; set; }
+        public DateTime? InvoiceDate { get; set; }
         public int SupplierId { get; set; }
     }
     

@@ -13,30 +13,5 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.SupplierCashDtos
         public List<SupplierCashDto> Payments { get; set; }
     }
 
-    public class SupplierInvoiceDto
-    {
-        public int Id { get; set; }
-        public DateTime InvoiceDate { get; set; }
-        public decimal TotalAmount { get; set; }
-        public decimal DueAmount { get; set; }
-        public string? Notes { get; set; }
-    }
-
-    public class SupplierCashDto
-    {
-        public int Id { get; set; }
-        public DateTime PaymentDate { get; set; }
-        public decimal Amount { get; set; }
-        public string? Notes { get; set; }
-    }
-    public class ReturnSupplierCashDto
-    {
-        public int Id { get; set; }
-        public string SupplierName { get; set; }
-        public decimal Amount { get; set; }
-        public string? Notes { get; set; }
-        public DateTime PaymentDate { get; set; }
-       
-    }
-
+     
 }

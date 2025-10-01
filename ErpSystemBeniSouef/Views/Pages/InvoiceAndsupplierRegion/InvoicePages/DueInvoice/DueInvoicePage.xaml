@@ -280,12 +280,24 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
                Margin="21,30,0,1"  
                Click="BackBtn_Click"/>-->
 
-            <Button Grid.Row="4" HorizontalAlignment="Left"  
+            <!--<Button Grid.Row="4" HorizontalAlignment="Left"  
+Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
+              Style="{StaticResource triggerrr}"
+Margin="21,0,30,1"  
+Click="BackBtn_Click"/>-->
+
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" >
+
+                <Button  HorizontalAlignment="Left"  
 Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
               Style="{StaticResource triggerrr}"
 Margin="21,0,30,1"  
 Click="BackBtn_Click"/>
+                <TextBlock Text="  فاتوره اجل      "   FontSize="28"  Foreground="LightGreen"
+VerticalAlignment="Center" Margin="770 0 0 0"/>
 
+            </StackPanel >
         </Grid>
     </Grid>
 

@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
@@ -11,11 +12,13 @@ using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.InvoiceServices;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService;
+using ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceService;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
+using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
@@ -66,6 +69,9 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
         services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
         services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
+        services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
+        services.AddScoped(typeof(IReturnSupplierInvoiceItemService), typeof(ReturnSupplierInvoiceItemService));
+        services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
 
 
 
@@ -130,6 +136,8 @@ namespace ErpSystemBeniSouef
             var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
             var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
             var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
+            var returnSupplierInvoice = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceService>();
+            var supplierCashService = App.AppHost.Services.GetRequiredService<ISupplierCashService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -152,8 +160,14 @@ namespace ErpSystemBeniSouef
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
             //                   InvoicePages.Cashinvoice(supplierService, cashInvoiceService);
           
-            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
-                               DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
+            //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+            //                   DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
+          
+            //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+            //                   ReturnToSupplier.ReturnToSupplieInvoicePage(supplierService, returnSupplierInvoice);
+          
+            var login = new Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
+                                .Suppliers_cashPage(supplierService, supplierCashService);
 
             //var login = new StartPageBeforeLogin();
 

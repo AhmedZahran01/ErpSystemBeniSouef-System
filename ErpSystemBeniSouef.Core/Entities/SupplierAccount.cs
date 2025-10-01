@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 namespace ErpSystemBeniSouef.Core.Entities
 {
     public class SupplierAccount:BaseEntity
-    {
-       // public int Id { get; set; }
-        public DateTime TransactionDate { get; set; }
+    { 
+        public DateTime? TransactionDate { get; set; }
         public decimal Amount { get; set; }
-        public string Description { get; set; }
+        public string Notes { get; set; }
 
         [ForeignKey("Supplier")]
         public int SupplierId { get; set; }

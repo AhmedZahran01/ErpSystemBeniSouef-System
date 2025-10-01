@@ -15,13 +15,15 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal LineTotal => Quantity * UnitPrice;
-        public string? Notes { get; set; }
+        public string? Notes { get; set; } 
 
 
         public int DisplayId { get; set; } = 0;  
         public int ProductId { get; set; } 
         public string ProductTypeName { get; set; }
         public int ProductTypeId { get; set; }   
+
+
 
     }
 

@@ -37,7 +37,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
         #region Constractor Region
 
-        public Cashinvoice(ISupplierService supplierService, ICashInvoiceService cashInvoiceService)
+        public Cashinvoice(ISupplierService supplierService, 
+            ICashInvoiceService cashInvoiceService)
         {
             InitializeComponent();
             _supplierService = supplierService;
@@ -250,8 +251,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
 
 
         #endregion
-
-
+         
         #region Search By Item FullName  Region
 
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -285,13 +285,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
         }
 
         #endregion
-
-
-        //private void SuggestionsItemsListBoxForText_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
-
+         
 
     }
 }

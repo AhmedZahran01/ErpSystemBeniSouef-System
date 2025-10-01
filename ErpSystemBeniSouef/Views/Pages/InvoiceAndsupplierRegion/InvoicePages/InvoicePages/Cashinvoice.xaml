@@ -74,8 +74,8 @@
                     <TextBlock Text="  :  اسم المورد     " 
                     Foreground="White" FontSize="28" 
                     VerticalAlignment="Center" Margin="20 0 0 0"/>
-                    
-                    
+
+
                 </StackPanel>
 
                 <!-- العمود الأيسر -->
@@ -102,7 +102,7 @@ Height="auto">
       SelectionMode="Multiple"
       />
                     </Popup>-->
-                    
+
                     <Label Margin="20,10,10,10" Content="  : بحث  " 
                  HorizontalAlignment="Right" Foreground="White" Height="35"
 FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
@@ -134,11 +134,11 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
       HeadersVisibility="Column"
       FontSize="19" 
           SelectionChanged="dgAllInvoices_SelectionChanged"  
+            MouseDoubleClick="dgCashInvoice_MouseDoubleClick"
                 RowHeight="30" Width="1200"
       Background="White" 
-        FlowDirection="RightToLeft" 
-            MouseDoubleClick="dgCashInvoice_MouseDoubleClick">
-               
+        FlowDirection="RightToLeft"   >
+
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Binding="{Binding DisplayId}" Header="رقم الفاتوره للمستخدم " Width="1.5*" >
@@ -171,7 +171,7 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
                         </DataGridTextColumn.HeaderStyle>
 
                     </DataGridTextColumn>
-                    
+
                     <DataGridTextColumn Binding="{Binding InvoiceDate}" Header=" تاريخ الفاتوره " Width="2*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -187,7 +187,7 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
 
                     </DataGridTextColumn>
 
-                    
+
                     <DataGridTextColumn Binding="{Binding TotalAmount}" Header=" المبلغ الاجمالى  " Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -203,7 +203,7 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
 
                     </DataGridTextColumn>
 
-                    
+
                     <DataGridTextColumn Binding="{Binding SupplierName}" Header=" اسم المستورد" Width="2*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
@@ -219,8 +219,8 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
 
                     </DataGridTextColumn>
 
-                    
-                
+
+
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -232,14 +232,28 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
                Margin="21,30,0,1"  
                Click="BackBtn_Click"/>-->
 
-            <Button Grid.Row="4" HorizontalAlignment="Left"  
+            <!--<Button Grid.Row="4" HorizontalAlignment="Left"  
+Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
+              Style="{StaticResource triggerrr}"
+Margin="21,0,30,1"  
+Click="BackBtn_Click"/>-->
+
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" >
+
+                <Button  HorizontalAlignment="Left"  
 Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
               Style="{StaticResource triggerrr}"
 Margin="21,0,30,1"  
 Click="BackBtn_Click"/>
+                <TextBlock Text="  فاتوره كاش    " 
+Foreground="White" FontSize="28" 
+VerticalAlignment="Center" Margin="770 0 0 0"/>
 
+            </StackPanel >
+            
         </Grid>
     </Grid>
 
-    
+
 </Page>

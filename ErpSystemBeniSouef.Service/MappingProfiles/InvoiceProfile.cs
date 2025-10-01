@@ -3,6 +3,7 @@ using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.SupplierCash;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos;
@@ -58,7 +59,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
 
             CreateMap<DueInvoiceItemDto, DueInvoiceItemDetailsDto>().ReverseMap();
 
-            //Return Supplier Invoice Mapping
+            //Return Supplier Accoint Mapping
 
             #region MyRegion
 
@@ -83,6 +84,7 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
 
             CreateMap<InvoiceItem, ReturnSupplierInvoiceItemDetailsDto>();
 
+            CreateMap<SupplierAccount, UpdateSupplierCashDto>().ReverseMap();
 
 
             #endregion

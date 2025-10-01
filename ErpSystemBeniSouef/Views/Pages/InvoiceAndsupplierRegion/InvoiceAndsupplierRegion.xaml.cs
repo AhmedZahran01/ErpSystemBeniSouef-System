@@ -1,4 +1,7 @@
-﻿using ErpSystemBeniSouef.ViewModel;
+﻿using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,8 +42,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion
 
         private void Suppliers_cash(object sender, RoutedEventArgs e)
         {
-            //var Suppliers_cashPage = new Suppliers_cashPage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Suppliers_cashPage);
+            var supplierCashService = App.AppHost.Services.GetRequiredService<ISupplierCashService>();
+            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+
+            var Suppliers_cashPage = new Suppliers_cash.Suppliers_cashPage(supplierService,supplierCashService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Suppliers_cashPage);
 
         }
 

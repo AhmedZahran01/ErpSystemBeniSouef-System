@@ -44,13 +44,20 @@
             <userControls:TitleBar/>
 
             <!-- قسم المدخلات -->
+
+            
             <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Right" Margin="10 0 5 0 ">
+                
                 <StackPanel Orientation="Horizontal" Margin="0 10 10 5">
 
                     <DatePicker x:Name="txtSupplirDate" Style="{StaticResource datepickerx1}" />
-                    <TextBlock Text="   : تاريخ الفاتوره        " 
+                    <!--<TextBlock Text="   : تاريخ الفاتوره        " 
                Foreground="White" FontSize="14" 
-              VerticalAlignment="Center"  Margin="5 0"/>
+              VerticalAlignment="Center"  Margin="5 0"/>-->
+
+                    <TextBlock Text="   : تاريخ الفاتوره        " 
+ Foreground="White" FontSize="25" 
+VerticalAlignment="Center"  Margin="5 0"/>
                 </StackPanel>
 
 
@@ -58,11 +65,17 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 10">
                     <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
                     <ComboBox x:Name="cb_ReturnSupplirName"   DisplayMemberPath="Name" SelectedValuePath="Id"
-                 Style="{StaticResource SmallerComboBox}"  
-                />
-                    <TextBlock Text="  :  اسم المورد" 
-                Foreground="White" FontSize="14" 
-                VerticalAlignment="Center" Margin="20 0"/>
+                 Style="{StaticResource SmallerComboBox}"    Width="190"    />
+                    
+                    
+                    <!--<TextBlock Text="  :  اسم المورد" 
+                Foreground="White" FontSize="28" 
+                VerticalAlignment="Center" Margin="20 0"/>-->
+
+                    <TextBlock Text="  :  اسم المورد     " 
+Foreground="White" FontSize="28" 
+VerticalAlignment="Center" Margin="20 0 0 0"/>
+
                 </StackPanel>
 
 
@@ -95,6 +108,7 @@
                Content="حذف"   Margin="10" Click="DeleteButton_Click"/>
                 <Button Style="{StaticResource AddButtonn}"
                  Content="إضافة"  Margin="10"  Click="AddButton_Click"/>
+ 
             </StackPanel>
 
             <!-- الجدول -->
@@ -105,27 +119,111 @@
   CanUserDeleteRows="False"
   IsReadOnly="False"
   HeadersVisibility="Column"
-  FontSize="14" 
+  FontSize="19" 
   SelectionChanged="dgAllInvoices_SelectionChanged" 
   MouseDoubleClick="dgCashInvoice_MouseDoubleClick"
-  RowHeight="25" Width="1200"
+  RowHeight="30" Width="1200"
   Background="White" 
   FlowDirection="RightToLeft">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Id}" Header="الرقم الفاتوره" Width="*"/>
-                    <DataGridTextColumn Binding="{Binding InvoiceDate }" Header=" تاريخ الفاتوره " Width="2*"/>
-                    <DataGridTextColumn Binding="{Binding TotalAmount }" Header=" المبلغ الاجمالى  " Width="2*"/>
-                    <DataGridTextColumn Binding="{Binding SupplierName }" Header=" اسم المستورد" Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding DisplayId}" Header="رقم الفاتوره للمستخدم " Width="1.5*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id From DB " Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding InvoiceDate}" Header=" تاريخ الفاتوره " Width="2*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn Binding="{Binding TotalAmount}" Header=" المبلغ الاجمالى  " Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
+
+                    <DataGridTextColumn Binding="{Binding SupplierName}" Header=" اسم المستورد" Width="2*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
                 </DataGrid.Columns>
             </DataGrid>
 
+            <StackPanel Grid.Row="4" Orientation="Horizontal" >
 
+                <Button  HorizontalAlignment="Left"  
+Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
+              Style="{StaticResource triggerrr}"
+Margin="21,0,30,1"  
+Click="BackBtn_Click"/>
+                <TextBlock Text="  فاتوره ارجاع للمورد    " 
+Foreground="White" FontSize="28" 
+VerticalAlignment="Center" Margin="770 0 0 0"/>
 
+            </StackPanel >
 
-            <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+ <!--<Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
            Content="↩" FontSize="22" Style="{StaticResource triggerrr}"
            Margin="21,30,0,1"  
-           Click="BackBtn_Click"/>
+           Click="BackBtn_Click"/>-->
 
         </Grid>
     </Grid>

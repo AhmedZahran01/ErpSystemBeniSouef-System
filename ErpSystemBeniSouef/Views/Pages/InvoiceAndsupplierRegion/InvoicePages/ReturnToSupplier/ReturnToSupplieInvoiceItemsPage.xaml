@@ -4,12 +4,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.ReturnToSupplier"
-      mc:Ignorable="d" 
-     
-         xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
-
- d:DesignHeight="900" d:DesignWidth="1700"
-      Title="ReturnSupplierInvoiceDetailsPage">
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+       mc:Ignorable="d" 
+       d:DesignHeight="900" d:DesignWidth="1700"
+      
+ Title="ReturnSupplierInvoiceDetailsPage" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+ ScrollViewer.VerticalScrollBarVisibility="Visible" Background="#1B7F" >
 
 
 
@@ -177,5 +177,5 @@ Click="BackBtn_Click"/>
 
         </Grid>
     </Grid>
-    
+
 </Page>

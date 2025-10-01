@@ -29,9 +29,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
     /// Interaction logic for ReturnToSupplieInvoicePage.xaml
     /// </summary>
     public partial class ReturnToSupplieInvoicePage : Page
-    { 
+    {
         #region Global Variables  Region
         private readonly int _companyNo = 1;
+        int countDisplayNo = 0;
         private readonly ISupplierService _supplierService;
         private readonly IReturnSupplierInvoiceService _returnSupplierInvoiceService;
         private readonly IMapper _mapper;
@@ -52,10 +53,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             Loaded += async (s, e) =>
             {
                 SuppliersDto = await _supplierService.GetAllAsync();
-                dgRepresentatives.ItemsSource = observProductsLisLim;
-                dgRepresentatives.SelectedIndex = 0;
                 await LoadInvoices();
                 cb_ReturnSupplirName.ItemsSource = SuppliersDto;
+                cb_ReturnSupplirName.SelectedIndex = 0;
+                dgRepresentatives.ItemsSource = observProductsLisLim;
 
             };
 
@@ -72,8 +73,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             observProductsListFiltered.Clear();
             foreach (var product in invoiceDtos)
             {
+                product.DisplayId = countDisplayNo + 1;
                 observProductsLisLim.Add(product);
                 observProductsListFiltered.Add(product);
+                countDisplayNo++;
             }
 
         }
@@ -102,7 +105,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
 
             AddReturnSupplierInvoiceDto InputProduct = new AddReturnSupplierInvoiceDto()
             {
-                //InvoiceDate = invoiceDate,
+                InvoiceDate = invoiceDate,
                 SupplierId = selectedSupplier.Id
 
             };
@@ -114,10 +117,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
                 return;
             }
 
-            MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
+            MessageBox.Show("تم إضافة فاتوره ارجاع للمورد بنجاح");
 
             cb_ReturnSupplirName.SelectedIndex = 0;
             txtSupplirDate.SelectedDate = null;
+            countDisplayNo++;
+            CreateInvoiceDtoRespons.DisplayId = countDisplayNo ;
+            CreateInvoiceDtoRespons.Supplier = selectedSupplier;
+            CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
             observProductsLisLim.Add(CreateInvoiceDtoRespons);
             observProductsListFiltered.Add(CreateInvoiceDtoRespons);
 
@@ -138,10 +145,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             List<DtoForReturnSupplierInvoice> selectedItemsDto = dgRepresentatives.SelectedItems.Cast<DtoForReturnSupplierInvoice>().ToList();
             int deletedCount = 0;
             foreach (var item in selectedItemsDto)
-            {
-                //bool success = await _returnSupplierInvoiceService.SoftDeleteAsync(item.Id);
-                if (true)
-                //if (success)
+            { 
+                bool success = await _returnSupplierInvoiceService.SoftDeleteAsync(item.Id);
+                if (success)
                 {
                     observProductsLisLim.Remove(item);
                     observProductsListFiltered.Remove(item);
@@ -169,10 +175,10 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
         {
             if (dgRepresentatives.SelectedItem is DtoForReturnSupplierInvoice selected)
             {
-                //SupplierRDto selectedSupplier = SuppliersDto.FirstOrDefault(s => s.Id == selected.SupplierId);
-                //cb_ReturnSupplirName.SelectedItem = selectedSupplier;
-                //txtSupplirDate.SelectedDate = selected.InvoiceDate;
-                //editBtn.Visibility = Visibility.Visible;
+                SupplierRDto selectedSupplier = SuppliersDto.FirstOrDefault(s => s.Id == selected.SupplierId);
+                cb_ReturnSupplirName.SelectedItem = selectedSupplier;
+                txtSupplirDate.SelectedDate = selected.InvoiceDate;
+                editBtn.Visibility = Visibility.Visible;
             }
         }
 
@@ -182,46 +188,46 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-        //    if (dgRepresentatives.SelectedItem is not DtoForReturnSupplierInvoice selected)
-        //    {
-        //        MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
-        //        return;
-        //    }
+            if (dgRepresentatives.SelectedItem is not DtoForReturnSupplierInvoice selected)
+            {
+                MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
+                return;
+            }
 
-        //    DateTime UpdateInvoiceDate = txtSupplirDate.SelectedDate ?? DateTime.UtcNow;
-        //    //if(UpdateInvoiceDate is null )
-        //    //{
-        //    //    UpdateInvoiceDate = DateTime.UtcNow;
-        //    //}
-
-        //    int updateSupplierId = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Id;
-
-        //    var updateDto = new UpdateInvoiceDto()
-        //    {
-        //        Id = selected.Id,
-        //        InvoiceDate = UpdateInvoiceDate,
-        //        SupplierId = updateSupplierId
-        //    };
-
-        //    bool success = _returnSupplierInvoiceService.Update(updateDto);
-
-        //    if (success)
-        //    {
-        //        SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
-
-
-        //        selected.Id = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Id;
-        //        selected.Supplier = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem);
-        //        selected.SupplierName = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Name;
-        //        selected.InvoiceDate = UpdateInvoiceDate;
-        //        txtSupplirDate.SelectedDate = UpdateInvoiceDate;
-        //        MessageBox.Show("تم تعديل المنطقة بنجاح");
-        //        dgRepresentatives.Items.Refresh(); // لتحديث الجدول
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("حدث خطأ أثناء التعديل");
+            DateTime UpdateInvoiceDate = txtSupplirDate.SelectedDate ?? DateTime.UtcNow;
+            //if(UpdateInvoiceDate is null )
+            //{
+            //    UpdateInvoiceDate = DateTime.UtcNow;
             //}
+
+            int updateSupplierId = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Id;
+
+            var updateDto = new UpdateInvoiceDto()
+            {
+                Id = selected.Id,
+                InvoiceDate = UpdateInvoiceDate,
+                SupplierId = updateSupplierId
+            };
+
+            bool success = _returnSupplierInvoiceService.Update(updateDto);
+
+            if (success)
+            {
+                SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
+
+
+                selected.Id = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Id;
+                selected.Supplier = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem);
+                selected.SupplierName = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Name;
+                selected.InvoiceDate = UpdateInvoiceDate;
+                txtSupplirDate.SelectedDate = UpdateInvoiceDate;
+                MessageBox.Show("تم تعديل المنطقة بنجاح");
+                dgRepresentatives.Items.Refresh(); // لتحديث الجدول
+            }
+            else
+            {
+                MessageBox.Show("حدث خطأ أثناء التعديل");
+            }
         }
 
 
@@ -268,13 +274,13 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
         {
             if (dgRepresentatives.SelectedItem is DtoForReturnSupplierInvoice selectedInvoice)
             {
-            //    var productService = App.AppHost.Services.GetRequiredService<IProductService>();
-            //    var cashInvoiceService = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceItemService>();
-            //    var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+                var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+                var cashInvoiceService = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceItemService>();
+                var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
-            //    // افتح صفحة التفاصيل
-            //    var detailsPage = new ReturnSupplierInvoiceDetailsPage(selectedInvoice, productService, cashInvoiceService, mapper);
-            //    NavigationService?.Navigate(detailsPage);
+                //// افتح صفحة التفاصيل
+                var detailsPage = new ReturnToSupplieInvoiceItemsPage(selectedInvoice, productService, cashInvoiceService, mapper);
+                NavigationService?.Navigate(detailsPage);
             }
         }
 
@@ -285,7 +291,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-            var invoicesRegion = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicesRegion(_companyNo);
+            var invoicesRegion = new InvoicesRegion(_companyNo);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(invoicesRegion);
         }
 
