@@ -15,6 +15,13 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier
         public decimal TotalAmount { get; set; }
         public string Note { get; set; }
 
+
+         
+        public string ProductTypeName { get; set; } 
+        public decimal LineTotal { get; set; }
+        public string Notes { get; set; }
+        public int InvoiceId { get; set; }
+
     }
 
 }

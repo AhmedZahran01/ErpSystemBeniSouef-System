@@ -57,6 +57,43 @@ namespace ErpSystemBeniSouef.Service.MappingProfiles
             CreateMap<UpdateDueInvoiceDto, Invoice>().ReverseMap();
 
             CreateMap<DueInvoiceItemDto, DueInvoiceItemDetailsDto>().ReverseMap();
+
+            //Return Supplier Invoice Mapping
+
+            #region MyRegion
+
+
+            CreateMap<ReturnSupplierInvoiceDetailsDto, Invoice>().ReverseMap();
+            CreateMap<DtoForReturnSupplierInvoice, Invoice>().ReverseMap()
+                 .ForMember(d => d.SupplierName, o => o.MapFrom(m => m.Supplier.Name));
+            CreateMap<UpdateInvoiceDto, Invoice>().ReverseMap();
+
+
+            CreateMap<InvoiceItem, ReturnSupplierInvoiceItemDetailsDto>()
+    .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.ProductName))
+    .ForMember(dest => dest.ProductType, opt => opt.MapFrom(src => src.ProductType))
+    .ForMember(dest => dest.Notes, opt => opt.MapFrom(src => src.Notes));
+
+
+            CreateMap<ReturnSupplierInvoiceItemDetailsDto, ReturnSupplierInvoiceItemDto>().ReverseMap();
+
+            CreateMap<Invoice, ReturnSupplierInvoiceDetailsDto>()
+    .ForMember(dest => dest.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name))
+    .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
+
+            CreateMap<InvoiceItem, ReturnSupplierInvoiceItemDetailsDto>();
+
+
+
+            #endregion
+
+
+
+
+
+
+
+
         }
     }
 }

@@ -1,0 +1,134 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.ReturnToSupplier.ReturnToSupplieInvoicePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.ReturnToSupplier"
+      mc:Ignorable="d" 
+       Title="ReturnToSupplieInvoicePage" 
+       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+ d:DesignHeight="950" d:DesignWidth="1000" >
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../../../Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="../../../../../Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="../../../../../Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="../../../../../Styles/TableStyles.xaml"/>
+                <ResourceDictionary Source="../../../../../Styles/BorderStyles.xaml"/>
+                <ResourceDictionary Source="../../../../../Styles/ComboBoxStyles.xaml"/>
+
+                <ResourceDictionary Source="../../../../../Styles/BorderStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="MainFont">pack://application:,,,/Assets/#Roboto</FontFamily>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <BooleanToVisibilityConverter x:Key="StringIsNullOrEmptyToVisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid Background="{DynamicResource BackgroundColor}" Margin=" 0 0 0 0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.5*"/>
+                <!-- المدخلات -->
+                <RowDefinition Height="1*"/>
+                <!-- الأزرار -->
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+                <!-- الجدول -->
+            </Grid.RowDefinitions>
+            <userControls:TitleBar/>
+
+            <!-- قسم المدخلات -->
+            <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Right" Margin="10 0 5 0 ">
+                <StackPanel Orientation="Horizontal" Margin="0 10 10 5">
+
+                    <DatePicker x:Name="txtSupplirDate" Style="{StaticResource datepickerx1}" />
+                    <TextBlock Text="   : تاريخ الفاتوره        " 
+               Foreground="White" FontSize="14" 
+              VerticalAlignment="Center"  Margin="5 0"/>
+                </StackPanel>
+
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 10">
+                    <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
+                    <ComboBox x:Name="cb_ReturnSupplirName"   DisplayMemberPath="Name" SelectedValuePath="Id"
+                 Style="{StaticResource SmallerComboBox}"  
+                />
+                    <TextBlock Text="  :  اسم المورد" 
+                Foreground="White" FontSize="14" 
+                VerticalAlignment="Center" Margin="20 0"/>
+                </StackPanel>
+
+
+
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="30">
+
+                <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
+                 Width="180"
+                 Height="28" Margin="0 0 0 0"  ToolTip="ادخل اسم الفاتوره   " 
+                 Style="{StaticResource textboxx}"                    
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 TextChanged="SearchByItemFullNameBox_TextChanged"
+                 />
+
+                <Label Margin="20,10,10,10" Content="  : بحث  " 
+                  HorizontalAlignment="Right" Foreground="White" Height="35"
+                  FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+
+            </StackPanel>
+
+            <!-- الأزرار -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0">
+                <Button x:Name="editBtn" Visibility="Hidden" Style="{StaticResource UpdateBtn}"
+               Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
+                <Button Style="{StaticResource DeleteButtonn}"
+               Content="حذف"   Margin="10" Click="DeleteButton_Click"/>
+                <Button Style="{StaticResource AddButtonn}"
+                 Content="إضافة"  Margin="10"  Click="AddButton_Click"/>
+            </StackPanel>
+
+            <!-- الجدول -->
+            <DataGrid Grid.Row="3"
+  x:Name="dgRepresentatives"
+  AutoGenerateColumns="False"
+  CanUserAddRows="False"
+  CanUserDeleteRows="False"
+  IsReadOnly="False"
+  HeadersVisibility="Column"
+  FontSize="14" 
+  SelectionChanged="dgAllInvoices_SelectionChanged" 
+  MouseDoubleClick="dgCashInvoice_MouseDoubleClick"
+  RowHeight="25" Width="1200"
+  Background="White" 
+  FlowDirection="RightToLeft">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="الرقم الفاتوره" Width="*"/>
+                    <DataGridTextColumn Binding="{Binding InvoiceDate }" Header=" تاريخ الفاتوره " Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding TotalAmount }" Header=" المبلغ الاجمالى  " Width="2*"/>
+                    <DataGridTextColumn Binding="{Binding SupplierName }" Header=" اسم المستورد" Width="2*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+
+            <Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+           Content="↩" FontSize="22" Style="{StaticResource triggerrr}"
+           Margin="21,30,0,1"  
+           Click="BackBtn_Click"/>
+
+        </Grid>
+    </Grid>
+    
+
+</Page>

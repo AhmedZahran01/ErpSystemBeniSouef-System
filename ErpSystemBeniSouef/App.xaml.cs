@@ -68,6 +68,12 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
 
 
+
+        //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
+        //services.AddScoped<IReturnSupplierInvoiceItemService, ReturnSupplierInvoiceItemService>();
+        //services.AddScoped(typeof(IDamageInvoiceService), typeof(DamageInvoiceService));
+
+
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     })

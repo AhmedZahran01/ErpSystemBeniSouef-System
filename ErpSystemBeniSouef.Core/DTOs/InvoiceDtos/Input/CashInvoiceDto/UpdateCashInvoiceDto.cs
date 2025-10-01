@@ -12,5 +12,6 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto
         public DateTime InvoiceDate { get; set; }
         public decimal TotalAmount { get; set; }
         public int SupplierId { get; set; }
+
     }
 }

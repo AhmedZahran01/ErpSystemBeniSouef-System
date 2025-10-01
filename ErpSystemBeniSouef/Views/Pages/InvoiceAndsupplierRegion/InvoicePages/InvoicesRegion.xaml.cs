@@ -2,6 +2,7 @@
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
+using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
@@ -32,7 +33,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages
 
         public InvoicesRegion(int companyNo)
         {
-            InitializeComponent(); 
+            InitializeComponent();
             _companyNo = companyNo;
         }
 
@@ -42,7 +43,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
             var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
 
-            var Dashboard = new InvoicePages.Cashinvoice( supplierService , cashInvoiceService);
+            var Dashboard = new InvoicePages.Cashinvoice(supplierService, cashInvoiceService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }
@@ -53,15 +54,17 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages
             var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
             var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
 
-            var Dashboard = new  DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
+            var Dashboard = new DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }
 
         private void Return_to_supplier_Click(object sender, RoutedEventArgs e)
         {
-            //var Return_to_supplierPage = new InvoicePages.Return_to_supplierPage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Return_to_supplierPage);
+            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            var returnSupplierInvoice = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceService>();
+            var Return_to_supplierPage = new ReturnToSupplier.ReturnToSupplieInvoicePage(supplierService, returnSupplierInvoice);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Return_to_supplierPage);
 
         }
 
