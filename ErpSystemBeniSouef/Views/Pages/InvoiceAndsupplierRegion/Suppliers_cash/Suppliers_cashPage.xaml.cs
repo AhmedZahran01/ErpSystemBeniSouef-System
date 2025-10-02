@@ -136,7 +136,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 
             MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
 
-            cb_SuppliersName.SelectedIndex = 0;
+            //cb_SuppliersName.SelectedIndex = 0;
             txtInvoiceDate.SelectedDate = null;
             observProductsLisLim.Add(CreateInvoiceDtoRespons);
             observProductsListFiltered.Add(CreateInvoiceDtoRespons);

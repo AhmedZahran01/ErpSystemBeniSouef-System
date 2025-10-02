@@ -18,6 +18,7 @@ using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
+using ErpSystemBeniSouef.Service.SupplierAccountServices;
 using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
@@ -72,6 +73,7 @@ namespace ErpSystemBeniSouef
         services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
         services.AddScoped(typeof(IReturnSupplierInvoiceItemService), typeof(ReturnSupplierInvoiceItemService));
         services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
+        services.AddScoped(typeof(ISupplierAccountService), typeof(supplierAccountService));
 
 
 
@@ -138,6 +140,7 @@ namespace ErpSystemBeniSouef
             var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
             var returnSupplierInvoice = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceService>();
             var supplierCashService = App.AppHost.Services.GetRequiredService<ISupplierCashService>();
+            var supplierAccountService = App.AppHost.Services.GetRequiredService<ISupplierAccountService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -166,8 +169,11 @@ namespace ErpSystemBeniSouef
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
             //                   ReturnToSupplier.ReturnToSupplieInvoicePage(supplierService, returnSupplierInvoice);
           
-            var login = new Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
-                                .Suppliers_cashPage(supplierService, supplierCashService);
+            //var login = new Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
+            //                    .Suppliers_cashPage(supplierService, supplierCashService);
+
+            var login = new Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts
+                             .SupplierAccountsPage(supplierService,supplierCashService ,supplierAccountService);
 
             //var login = new StartPageBeforeLogin();
 

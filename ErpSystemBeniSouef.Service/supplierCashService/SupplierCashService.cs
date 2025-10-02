@@ -156,46 +156,6 @@ namespace ErpSystemBeniSouef.Service.supplierCashService
 
 
 
-        #region Comment Un Used Code Region
-
-        //public async Task<SupplierAccountReportDto> GetSupplierAccount(int supplierId, DateTime? startDate, DateTime? endDate)
-        //{
-        //    var supplier = await _unitOfWork.Repository<Supplier>().GetByIdAsync(supplierId);
-        //    if (supplier == null)
-        //        throw new Exception($"Supplier with Id {supplierId} not found.");
-
-        //    var invoices = await _unitOfWork.Repository<Invoice>()
-        //        .GetAllAsync(i => i.SupplierId == supplierId &&
-        //                         (!startDate.HasValue || i.InvoiceDate >= startDate.Value) &&
-        //                         (!endDate.HasValue || i.InvoiceDate <= endDate.Value));
-
-        //    var payments = await _unitOfWork.Repository<SupplierAccount>()
-        //        .GetAllAsync(c => c.SupplierId == supplierId &&
-        //                         (!startDate.HasValue || c.TransactionDate >= startDate.Value) &&
-        //                         (!endDate.HasValue || c.TransactionDate <= endDate.Value));
-
-        //    return new SupplierAccountReportDto
-        //    {
-        //        SupplierName = supplier.Name,
-        //        Invoices = invoices.Select(i => new SupplierInvoiceDto
-        //        {
-        //            Id = i.Id,
-        //            InvoiceDate = i.InvoiceDate,
-        //            TotalAmount = i.TotalAmount ?? 0,
-        //            DueAmount = i.DueAmount ?? 0,
-        //            Notes = i.Notes
-        //        }).ToList(),
-        //        Payments = payments.Select(p => new SupplierCashDto
-        //        {
-        //            Id = p.Id,
-        //            PaymentDate = p.TransactionDate,
-        //            Amount = p.Amount,
-        //            Notes = p.Notes
-        //        }).ToList()
-        //    };
-        //}
-
-        #endregion
-
+      
     }
 }

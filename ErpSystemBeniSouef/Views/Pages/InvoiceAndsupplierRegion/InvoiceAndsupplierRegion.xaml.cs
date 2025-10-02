@@ -1,6 +1,10 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Service.SupplierAccountServices;
+using ErpSystemBeniSouef.Service.supplierCashService;
+using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -52,8 +56,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion
 
         private void Supplier_accounts(object sender, RoutedEventArgs e)
         {
-            //var Supplier_accountsPage = new Supplier_accountsPage();
-            //MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Supplier_accountsPage);
+            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            var supplierAccountService = App.AppHost.Services.GetRequiredService<ISupplierAccountService>();
+            var supplierCashService = App.AppHost.Services.GetRequiredService<ISupplierCashService>();
+
+            var Supplier_accountsPage = new  SupplierAccountsPage(supplierService, supplierCashService, supplierAccountService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Supplier_accountsPage);
 
         }
 

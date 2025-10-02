@@ -39,7 +39,6 @@ namespace ErpSystemBeniSouef.Core.Contract.Invoice
         #endregion
 
 
-        //Task<SupplierAccountReportDto> GetSupplierAccount(int supplierId, DateTime? startDate, DateTime? endDate);
 
 
     }

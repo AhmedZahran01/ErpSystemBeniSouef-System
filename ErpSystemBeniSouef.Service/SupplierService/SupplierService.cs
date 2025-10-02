@@ -66,7 +66,7 @@ namespace ErpSystemBeniSouef.Service.SupplierService
 
         #endregion
 
-        #region My  softDeleted
+        #region My softDeleted
         public bool SoftDelete(int id)
         {
             Supplier supplier = _unitOfWork.Repository<Supplier>().GetById(id);

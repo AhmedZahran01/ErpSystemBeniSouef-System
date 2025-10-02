@@ -1,0 +1,224 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts.SupplierAccountsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts"
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1600"
+      Title="SupplierAccountsPage">
+
+
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../../Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="../../../../Styles/TextBoxStyles.xaml"/>
+                <ResourceDictionary Source="../../../../Styles/TextBlockStyles.xaml"/>
+                <ResourceDictionary Source="../../../../Styles/TableStyles.xaml"/>
+                <ResourceDictionary Source="../../../../Styles/BorderStyles.xaml"/>
+                <ResourceDictionary Source="../../../../Styles/ComboBoxStyles.xaml"/>
+
+                <ResourceDictionary Source="../../../../Styles/BorderStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="MainFont">pack://application:,,,/Assets/#Roboto</FontFamily>
+            <BooleanToVisibilityConverter x:Key="BoolToVis" />
+            <BooleanToVisibilityConverter x:Key="StringIsNullOrEmptyToVisibilityConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid Background="{DynamicResource BackgroundColor}" Margin="20">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.6*"/>
+                <!-- المدخلات -->
+                <RowDefinition Height="1"/>
+                <!-- الأزرار -->
+                <RowDefinition Height="7*"/>
+                <RowDefinition Height="*"/>
+                <!-- الجدول -->
+            </Grid.RowDefinitions>
+            <userControls:TitleBar/>
+
+            <!-- قسم المدخلات -->
+            <StackPanel   FlowDirection="RightToLeft" Grid.Row="1" Orientation="Horizontal" 
+               Margin="0 10 0 10 ">
+                <StackPanel Orientation="Horizontal" Margin="5 5 10 5">
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 10">
+
+                        <TextBlock Text="    اسم المورد :" 
+                         Foreground="White" FontSize="24" Width="130"
+                         VerticalAlignment="Center" Margin="20 0"/>
+                        <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
+                        <ComboBox x:Name="cb_SuppliersName" DisplayMemberPath="Name" SelectedValuePath="Id"
+                         Style="{StaticResource SmallerComboBox}"   Width="170"  />
+
+                    </StackPanel>
+
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin=" 5 5 0 10">
+                    <StackPanel Orientation="Horizontal" Margin="0 10 10 5">
+                        <TextBlock Text="    بدايه الفترة   :     " Width="150"
+                        Foreground="White" FontSize="24" 
+                       VerticalAlignment="Center"  Margin="5 0"/>
+                        <DatePicker x:Name="txtStartDate" Style="{StaticResource datepickerx1}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin=" 5 5 0 10">
+                    <StackPanel Orientation="Horizontal" Margin="0 10 10 5">
+                        <TextBlock Text="   نهايه الفتره   :     " Width="150"
+            Foreground="White" FontSize="24" 
+           VerticalAlignment="Center"  Margin="5 0"/>
+                        <DatePicker x:Name="txtEndDate" Style="{StaticResource datepickerx1}" />
+                    </StackPanel>
+                </StackPanel>
+
+
+                <!-- الأزرار -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                    HorizontalAlignment="Center" Margin="10">
+
+                    <Button Style="{StaticResource AddButtonn}"
+                      Content="اظهار النتائج"  Margin="10" FontSize="24" Click="ResultShowButton_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+            <!-- الجدولين جنب بعض مع Title فوق و Input تحت -->
+            <Grid Grid.Row="3" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <!-- الموردين -->
+                    <ColumnDefinition Width="1.1*" />
+                    <!-- النقدية -->
+                </Grid.ColumnDefinitions>
+
+                <!-- القسم الأول: الموردين -->
+                <StackPanel Grid.Column="0" Margin="10" FlowDirection="RightToLeft">
+                    <!-- العنوان -->
+
+                    <TextBlock Text="💵 النقدية المسلّمة"
+                   FontSize="25" 
+                   FontWeight="Bold" 
+                   Foreground="White" 
+                   Margin="0 0 0 10"
+                   HorizontalAlignment="Center"/>
+
+                    <!-- الجدول -->
+                    <DataGrid x:Name="dgSuppliersCash"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="False"
+                  HeadersVisibility="Column"
+                  FontSize="20" 
+                  RowHeight="30"
+                  Background="White"
+                  Height="333"
+                  FlowDirection="RightToLeft"
+                  Margin="0 0 0 10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding Id}" Header="رقم المسلسل" Width="1.5*"/>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding PaymentDate}" Header="تاريخ التوريد" Width="2*"/>
+                            <!--<DataGridTextColumn Binding="{Binding Notes}" Header="اسم المورد" Width="2*"/>-->
+                            <DataGridTextColumn FontSize="17" Binding="{Binding Amount}" Header="المبلغ المورد" Width="2*"/>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding Notes}" Header="الملاحطات " Width="2*"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- المدخلات -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5">
+
+
+                        <TextBlock Text="اجل عند نهايه الفتره :" FontSize="24" Height="30"
+                                   Foreground="White" VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Width="200" Height="30" Style="{StaticResource textboxx}" TextChanged="TextBox_TextChanged" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- القسم الثاني: النقدية -->
+                <StackPanel Grid.Column="1" Margin="10" FlowDirection="RightToLeft">
+                    <!-- العنوان -->
+                    <TextBlock Text="📌 الفواتير"
+                   FontSize="25" 
+                   FontWeight="Bold" 
+                   Foreground="White" 
+                   Margin="0 0 0 10"
+                   HorizontalAlignment="Center"/>
+
+                    <!-- الجدول -->
+                    <DataGrid x:Name="dgInvoices"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="False"
+                  HeadersVisibility="Column"
+                  FontSize="20" 
+                  RowHeight="30"
+                  Background="White"
+                  Height="333"
+                  FlowDirection="RightToLeft"
+                  Margin="0 0 0 10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding Id}" Header="الرقم المسلسل" Width="2.5*"/>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding InvoiceDate}" Header="تاريخ الفاتوره" Width="3.5*"/>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding TotalAmount}" Header="المبلغ الاجمالي" Width="2.5*"/>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding SupplierName}" Header="نوع الحركه" Width="2*"/>
+                            <DataGridTextColumn FontSize="17" Binding="{Binding CashAmount}" Header="نوع الشراء" Width="2*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <!-- المدخلات -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5">
+
+
+                        <TextBlock Text="اجل عند بدايه الفتره :" Foreground="White"  Height="30"
+                                   FontSize="24"  VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Width="200" Height="30" Style="{StaticResource textboxx}" TextChanged="TextBox_TextChanged" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+
+
+            <!--<Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 
+                    Content="↩" FontSize="33" Style="{StaticResource triggerrr}"
+                    Margin="71,0,0,1"  Height="55"
+                    Click="BackBtn_Click"/>-->
+
+
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" >
+
+                <Button  HorizontalAlignment="Left"  
+Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
+              Style="{StaticResource triggerrr}"
+Margin="21,0,30,1"  
+Click="BackBtn_Click"/>
+                <TextBlock Text="  حسابات الموردين   " 
+Foreground="White" FontSize="28" 
+VerticalAlignment="Center" Margin="770 0 0 0"/>
+
+            </StackPanel >
+
+
+        
+        </Grid>
+    </Grid>
+
+
+
+
+</Page>
