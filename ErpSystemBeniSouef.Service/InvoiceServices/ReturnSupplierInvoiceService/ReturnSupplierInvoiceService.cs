@@ -38,9 +38,18 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
             if (supplier == null)
                 return null;
 
+            if(dto.RturnType==3)
+            {
+                invoice.invoiceType = InvoiceType.SupplierReturn;
+            }
+            else if (dto.RturnType == 4)
+            {
+                invoice.invoiceType = InvoiceType.Damage;
+
+            }
             invoice.SupplierId = dto.SupplierId;
             invoice.Supplier = supplier;
-            invoice.invoiceType = InvoiceType.SupplierReturn;
+            
             invoice.TotalAmount = 0;
             invoice.CreatedDate = DateTime.UtcNow;
 
@@ -53,7 +62,9 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
                 Id = invoice.Id,
                 InvoiceDate = invoice.InvoiceDate,
                 TotalAmount = (decimal)invoice.TotalAmount,
-                SupplierName = supplier.Name
+                SupplierName = supplier.Name,
+                InvoiceType= (int)invoice.invoiceType
+
             };
 
             return returnDto;
@@ -66,7 +77,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
         public async Task<IReadOnlyList<DtoForReturnSupplierInvoice>> GetAllAsync()
         {
             var invoices = await _unitOfWork.Repository<Invoice>().GetAllAsync(i => i.Supplier);
-            var CahInvoice = invoices.Where(I => I.invoiceType == InvoiceType.SupplierReturn).ToList();
+            var CahInvoice = invoices.Where(I => I.invoiceType == InvoiceType.SupplierReturn||I.invoiceType==InvoiceType.Damage).ToList();
 
             var response = _mapper.Map<IReadOnlyList<DtoForReturnSupplierInvoice>>(CahInvoice);
 
@@ -80,7 +91,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
         public async Task<ReturnSupplierInvoiceDetailsDto> GetInvoiceById(int id)
         {
             var invoice = await _unitOfWork.Repository<Invoice>()
-               .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.SupplierReturn,
+               .FindWithIncludesAsync(i => i.Id == id && i.invoiceType == InvoiceType.SupplierReturn || i.invoiceType == InvoiceType.Damage,
                                       i => i.Supplier,
                                       i => i.Items);
 
