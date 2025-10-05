@@ -11,6 +11,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier
     {
         public DateTime? InvoiceDate { get; set; }
         public int SupplierId { get; set; }
+        public int RturnType { get; set; }
     }
-    
+
 }
