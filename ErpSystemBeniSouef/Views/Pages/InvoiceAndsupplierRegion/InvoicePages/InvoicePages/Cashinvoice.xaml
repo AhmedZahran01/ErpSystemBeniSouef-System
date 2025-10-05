@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages"
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+        xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="950" d:DesignWidth="1200"
       Title="Cashinvoice">
@@ -69,7 +70,7 @@
                 <StackPanel  Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10">
                     <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
                     <ComboBox x:Name="cb_SuppliersName"  DisplayMemberPath="Name" SelectedValuePath="Id"
-                     Style="{StaticResource SmallerComboBox}" Width="190" 
+                     Style="{StaticResource SmallerComboBox}" Width="210" 
                     />
                     <TextBlock Text="  :  اسم المورد     " 
                     Foreground="White" FontSize="28" 
@@ -81,14 +82,27 @@
                 <!-- العمود الأيسر -->
                 <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="5 0 330 0 ">
 
-                    <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
+                    <!--<TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
 Width="180"
 Height="28" Margin="0 0 0 0"  ToolTip="ادخل اسم الفاتوره   " 
 Style="{StaticResource textboxx}"                    
 VerticalAlignment="Center"
 HorizontalAlignment="Center"
 TextChanged="SearchByItemFullNameBox_TextChanged"
-/>
+/>-->
+
+                    <!--Filter Textbox-->
+                    <Grid Width="300"   HorizontalAlignment="Right" Grid.Row="4" Margin="0 0 75 0">
+                        <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6"
+                            IsHitTestVisible="False" Panel.ZIndex="1" Text="ادخل اسم الفاتوره..." FontSize="20"
+                            Visibility="{Binding ElementName=SearchByItemTextBox,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                        <TextBox x:Name="SearchByItemTextBox" Height="50"
+                                 TextChanged="SearchByItemFullNameBox_TextChanged"
+                                 Style="{StaticResource textBoxFilter}" Text="{Binding SearchName,UpdateSourceTrigger=PropertyChanged}"/>
+                        <icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" VerticalAlignment="Center"
+                            Margin="0 0 15 0" Foreground="#b0b9c6" FlowDirection="RightToLeft"
+                                               HorizontalAlignment="Right"/>
+                    </Grid>
 
                     <!--<Popup x:Name="SuggestionsPopup"
 Placement="Bottom"
@@ -103,9 +117,9 @@ Height="auto">
       />
                     </Popup>-->
 
-                    <Label Margin="20,10,10,10" Content="  : بحث  " 
+                    <!--<Label Margin="20,10,10,10" Content="  : بحث  " 
                  HorizontalAlignment="Right" Foreground="White" Height="35"
-FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+FontSize="24"  Style="{StaticResource LabelStyle}"></Label>-->
 
                 </StackPanel>
 
@@ -157,7 +171,7 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
                     </DataGridTextColumn>
 
 
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id From DB " Width="*" >
+                    <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id From DB " Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment" Value="Center"/>
@@ -170,7 +184,7 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
 
-                    </DataGridTextColumn>
+                    </DataGridTextColumn>-->
 
                     <DataGridTextColumn Binding="{Binding InvoiceDate}" Header=" تاريخ الفاتوره " Width="2*" >
                         <DataGridTextColumn.ElementStyle>
@@ -246,8 +260,8 @@ Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
               Style="{StaticResource triggerrr}"
 Margin="21,0,30,1"  
 Click="BackBtn_Click"/>
-                <TextBlock Text="  فاتوره كاش    " 
-Foreground="White" FontSize="28" 
+                <Button Content="  فاتوره كاش    " Style="{StaticResource buttonTextBlock}"
+Foreground="White" FontSize="23" Background="#164256" Width="200"
 VerticalAlignment="Center" Margin="770 0 0 0"/>
 
             </StackPanel >

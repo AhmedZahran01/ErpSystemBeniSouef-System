@@ -12,7 +12,7 @@
     </Style>
     <!--Style for textbox -->
     <Style x:Key="textboxx" TargetType="TextBox">
-        <Setter Property="Width" Value="130"/>
+        <Setter Property="Width" Value="210"/>
         <Setter Property="Height" Value="35"/>
         <Setter Property="BorderBrush" Value="#c9b1ad"/>
         <Setter Property="Background" Value="White"/>
@@ -527,5 +527,68 @@ BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBindin
     </Style>
 
 
+    <Style x:Key="NewDeleteButtonn" TargetType="Button" >
 
+        <Setter Property="Width" Value="140"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+        <!--<Setter Property="Background" Value="#702720"/>-->
+        <Setter Property="Cursor" Value="Hand"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button" >
+                    <Border Background="#702720"  CornerRadius="15" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border Name="AddBorder" Background="{TemplateBinding Background }"  CornerRadius="13" 
+BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Padding="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="FontSize" Value="27" />
+                            <Setter Property="Width" Value="170" />
+                            <Setter Property="Height" Value="45" />
+                            <!--<Setter Property="Background" Value="#702720"  TargetName="AddBorder" />-->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+
+
+    <Style x:Key="buttonTextBlock" TargetType="Button" BasedOn="{StaticResource NewDeleteButtonn}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="White"/> 
+            </Trigger>
+            <Trigger Property="IsMouseCaptured" Value="True">
+
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+
+        </Style.Triggers>
+    </Style>
+
+
+
+    
 </ResourceDictionary>

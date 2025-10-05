@@ -81,7 +81,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       CanUserDeleteRows="False"   IsReadOnly="True"
                       FontSize="18"  RowHeight="30"  HeadersVisibility="Column"
-                      Height="400" FlowDirection="RightToLeft">
+                      Height="600" FlowDirection="RightToLeft">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayId}" Width="*"/>
                     <!--<DataGridTextColumn Header="الرقم  " Binding="{Binding DisplayId}" Width="*"/>-->
@@ -100,14 +100,14 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
             <!-- مسلسل الفاتورة -->
             <StackPanel  Orientation="Horizontal" Margin="0 0 0 25" FlowDirection="RightToLeft">
                 <TextBlock Text="    مسلسل الفاتورة  : " Foreground="White" FontSize="25" VerticalAlignment="Center"/>
-                <TextBox x:Name="InvoiceIdTxt" Width="120" FontSize="20" Margin="0 0 10 0"  Style="{StaticResource textboxx}" />
+                    <TextBox x:Name="InvoiceIdTxt" Width="150"  FontSize="20" Margin="0 0 10 0"  Style="{StaticResource textboxx}" />
             </StackPanel>
 
             <!-- نوع المنتج -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20" FlowDirection="RightToLeft">
                 <TextBlock Text="       نوع المنتج      : " Foreground="White"  FontSize="25" 
                            VerticalAlignment="Center" Margin="10 0"/>
-                <ComboBox x:Name="cbProductType" Width="120" FontSize="18"  
+                <ComboBox x:Name="cbProductType" Width="140" FontSize="18"  
                           SelectionChanged="cbProductType_SelectionChanged"
                           Style="{StaticResource SmallerComboBox}" />
             </StackPanel>
@@ -115,7 +115,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
             <!-- المنتج -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20" FlowDirection="RightToLeft">
                 <TextBlock Text="         المنتج          :  " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
-                <ComboBox x:Name="cbProduct" Width="120" FontSize="18"
+                <ComboBox x:Name="cbProduct" Width="140" FontSize="18"
                               DisplayMemberPath="ProductName"
                               SelectedValuePath="Id" 
                           SelectionChanged="cbProduct_SelectionChanged" 
@@ -127,8 +127,8 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
                 <TextBlock Text="         الكمية          :  " FontSize="25" Foreground="White"
                            VerticalAlignment="Center" Margin="10 0"/>
                 <TextBox x:Name="txtQuantity"
-                                  TextChanged="txtQuantity_TextChanged"
-                         Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
+                              Width="150"    TextChanged="txtQuantity_TextChanged"
+                           FontSize="18" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- سعر المنتج -->
@@ -137,14 +137,14 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
                            FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
                 <TextBox x:Name="txtPrice"
                                   TextChanged="txtPrice_TextChanged"
-                           Width="120" FontSize="18" Style="{StaticResource textboxx}"/>
+                           Width="150" FontSize="18" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- السعر الإجمالي -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
                 <TextBlock Text=" السعر الإجمالي    :  "
                            FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
-                <TextBox x:Name="txtTotal"  IsEnabled="False" Width="120" FontSize="18"   />
+                <TextBox x:Name="txtTotal"  IsEnabled="False" Width="150" FontSize="18"   />
             </StackPanel>
 
             <!-- ملاحظات -->
@@ -157,9 +157,9 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
             <!-- الأزرار -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0">
                 <Button Content="  إضافة عنصر للفاتوره" Width="190" Height="40" FontSize="18" Margin="10 0"  Style="{DynamicResource AddButtonn}" Click="AddButton_Click"/>
-                <Button Content="حذف" Width="150" Height="40" FontSize="18" Margin="10 10"    Style="{DynamicResource DeleteButtonn }"  Click="DeleteButton_Click_1"   />
+                <Button Content=" حذف عنصر من الفاتوره  " Width="190" Height="40" FontSize="18" Margin="10 10"    Style="{DynamicResource DeleteButtonn }"  Click="DeleteButton_Click_1"   />
             </StackPanel>
-             <Button Content=" تحديث الفاتوره " Width="140" Height="40" FontSize="18" Margin="214 0 0 40" 
+             <Button Content="  تحديث الفاتوره بالعناصر " Width="200" Height="40" FontSize="18" Margin="214 0 0 40" 
                      Style="{DynamicResource DeleteButtonForInvoiceItem }" Background="Green" Click="AddFinalInvoiceButton_Click"   />
         </StackPanel>
 
