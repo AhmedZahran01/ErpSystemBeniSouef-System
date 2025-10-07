@@ -339,12 +339,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         }
 
         #endregion
-
-
-
-
-
-
+         
         #region CashcInvoice Mouse Double Region
 
         private void dgCashInvoice_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -367,3 +362,5 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
     }
 }
+
+

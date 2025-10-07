@@ -15,8 +15,7 @@ using System.Threading.Tasks;
 namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
 {
     public class CashInvoiceItemsService : ICashInvoiceItemsService
-    {
-
+    { 
         #region Constractor Region
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -140,7 +139,6 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService
         }
 
         #endregion
-
-
+         
     }
 }

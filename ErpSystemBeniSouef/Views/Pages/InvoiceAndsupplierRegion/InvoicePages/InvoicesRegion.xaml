@@ -29,17 +29,17 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32" />
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <userControls:TitleBar/>
 
         <!-- Navigation Buttons -->
-        <StackPanel  Margin="0 120 0 0"  Orientation="Vertical" Grid.Row="1"  >
-            <Button Content=" فواتير كاش" Style="{StaticResource DefaultButtonStyle}"  Click="Cashinvoice_Click"/>
-            <Button Content=" فواتير اجل " Style="{StaticResource DefaultButtonStyle}" Click="Dueinvoice_Click"/>
-            <Button Content=" ارجاع للمورد   " Style="{StaticResource DefaultButtonStyle}"  Click="Return_to_supplier_Click"/>
-            <Button Content=" تلف" Style="{StaticResource DefaultButtonStyle}" Click="ruin_Click" />
+        <StackPanel  Margin="0 170 0 0"  Orientation="Vertical" Grid.Row="1"  >
+            <Button Margin="0 0 0 40" Content=" فواتير كاش" Style="{StaticResource DefaultButtonStyle}"  Click="Cashinvoice_Click" />
+            <Button Margin="0 0 0 40"  Content=" فواتير اجل " Style="{StaticResource DefaultButtonStyle}" Click="Dueinvoice_Click"/>
+            <Button Margin="0 0 0 40"  Content=" ارجاع للمورد   " Style="{StaticResource DefaultButtonStyle}"  Click="Return_to_supplier_Click"/>
+            <!--<Button Content=" تلف" Style="{StaticResource DefaultButtonStyle}" Click="ruin_Click" />-->
 
         </StackPanel>
 

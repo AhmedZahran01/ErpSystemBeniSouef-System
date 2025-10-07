@@ -92,11 +92,11 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 />-->
 
                     <!--Filter Textbox-->
-                    <Grid Width="300"   HorizontalAlignment="Right" Grid.Row="4" Margin="0 0 75 0">
+                    <Grid Width="300" FlowDirection="RightToLeft"   HorizontalAlignment="Right" Grid.Row="4" Margin="0 0 75 0">
                         <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6"
                             IsHitTestVisible="False" Panel.ZIndex="1" Text="ادخل اسم الفاتوره..." FontSize="20"
                             Visibility="{Binding ElementName=SearchByItemTextBox,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
-                        <TextBox x:Name="SearchByItemTextBox" Height="50"
+                        <TextBox x:Name="SearchByItemTextBox" Height="50" Foreground="Black"
                                  TextChanged="SearchByItemFullNameBox_TextChanged"
                                  Style="{StaticResource textBoxFilter}" Text="{Binding SearchName,UpdateSourceTrigger=PropertyChanged}"/>
                         <icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" VerticalAlignment="Center"
@@ -148,12 +148,12 @@ Content="تعديل" Margin="10" Click="BtnEdit_Click"/>
       HeadersVisibility="Column"
       FontSize="19" 
           SelectionChanged="dgAllInvoices_SelectionChanged"  
-            MouseDoubleClick="dgCashInvoice_MouseDoubleClick"
                 RowHeight="30" Width="1200"
       Background="White" 
-        FlowDirection="RightToLeft"   >
-
-                <DataGrid.Columns>
+        FlowDirection="RightToLeft" 
+            MouseDoubleClick="dgCashInvoice_MouseDoubleClick"   >
+   
+                    <DataGrid.Columns>
 
                     <DataGridTextColumn Binding="{Binding DisplayId}" Header="رقم الفاتوره للمستخدم " Width="1.5*" >
                         <DataGridTextColumn.ElementStyle>

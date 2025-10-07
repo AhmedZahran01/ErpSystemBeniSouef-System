@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.DueInvoice"
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1700"
       Title="DueInvoiceDetailsPage"  ScrollViewer.HorizontalScrollBarVisibility="Visible"
@@ -62,7 +63,20 @@
                     Margin="110 10 0 10"
                     Width="250" Height="45"/>
 
-                    <Label Margin="230,10,10,10" Content="   بحث : " 
+                    <!--Filter Textbox-->
+                    <Grid Width="270" FlowDirection="RightToLeft"   HorizontalAlignment="Right" Grid.Row="4" Margin="199 0 75 0">
+                        <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6"
+         IsHitTestVisible="False" Panel.ZIndex="1" Text="ادخل اسم الفاتوره..." FontSize="20"
+         Visibility="{Binding ElementName=SearchByItemTextBox,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                        <TextBox x:Name="SearchByItemTextBox" Height="50" Foreground="Black"
+              TextChanged="SearchByItemFullNameBox_TextChanged"
+              Style="{StaticResource textBoxFilter}" Text="{Binding SearchName,UpdateSourceTrigger=PropertyChanged}"/>
+                        <icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" VerticalAlignment="Center"
+         Margin="0 0 15 0" Foreground="#b0b9c6" FlowDirection="RightToLeft"
+                            HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <!--<Label Margin="230,10,10,10" Content="   بحث : " 
                  HorizontalAlignment="Right" Foreground="White" Height="35"
 FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
@@ -73,7 +87,7 @@ Style="{StaticResource textboxx}"
 VerticalAlignment="Center"
 HorizontalAlignment="Center"
 TextChanged="SearchByItemFullNameBox_TextChanged"
-/>
+/>-->
 
                 </StackPanel>
 
@@ -81,7 +95,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       CanUserDeleteRows="False"   IsReadOnly="True"
                       FontSize="18"  RowHeight="30"  HeadersVisibility="Column"
-                      Height="400" FlowDirection="RightToLeft">
+                      Height="650" FlowDirection="RightToLeft">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayId}" Width="*"/>
                         <!--<DataGridTextColumn Header="الرقم  " Binding="{Binding DisplayId}" Width="*"/>-->
@@ -99,7 +113,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
                 <!-- مسلسل الفاتورة -->
                 <StackPanel  Orientation="Horizontal" Margin="0 0 0 25" FlowDirection="RightToLeft">
-                    <TextBlock Text="    مسلسل الفاتورة  : " Foreground="White" FontSize="25" VerticalAlignment="Center"/>
+                    <TextBlock Text="    مسلسل الفاتورة  :   " Foreground="White" FontSize="25" VerticalAlignment="Center"/>
                     <TextBox x:Name="InvoiceIdTxt" Width="120" FontSize="20" Margin="0 0 10 0"  Style="{StaticResource textboxx}" />
                 </StackPanel>
 
@@ -124,7 +138,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
                 <!-- الكمية -->
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                    <TextBlock Text="         الكمية          :  " FontSize="25" Foreground="White"
+                    <TextBlock Text="         الكمية         :  " FontSize="25" Foreground="White"
                            VerticalAlignment="Center" Margin="10 0"/>
                     <TextBox x:Name="txtQuantity"
                                   TextChanged="txtQuantity_TextChanged"
@@ -133,7 +147,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
                 <!-- سعر المنتج -->
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                    <TextBlock Text="  سعر المنتج         :   " 
+                    <TextBlock Text="  سعر المنتج        :   " 
                            FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
                     <TextBox x:Name="txtPrice"
                                   TextChanged="txtPrice_TextChanged"

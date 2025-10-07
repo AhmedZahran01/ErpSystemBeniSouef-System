@@ -122,6 +122,10 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
 
             _mapper.Map(updateDto, invoice);
             invoice.UpdatedDate = DateTime.UtcNow;
+            if(updateDto.updateinvoiceTypeId == 3)
+            {   invoice.invoiceType = InvoiceType.SupplierReturn;  }
+            else 
+            {   invoice.invoiceType = InvoiceType.Damage;  }
 
             _unitOfWork.Repository<Invoice>().Update(invoice);
             _unitOfWork.CompleteAsync();

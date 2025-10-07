@@ -122,8 +122,7 @@ namespace ErpSystemBeniSouef.Service.supplierCashService
         }
 
         #endregion
-
-
+         
         #region Update Invoice Dto Region
 
         public bool Update(UpdateSupplierCashDto updateDto)
@@ -140,7 +139,7 @@ namespace ErpSystemBeniSouef.Service.supplierCashService
             }
 
             _mapper.Map(updateDto, supplierAccount);
-            supplierAccount.UpdatedDate = DateTime.UtcNow;
+            supplierAccount.UpdatedDate = DateTime.UtcNow; 
 
             _unitOfWork.Repository<SupplierAccount>().Update(supplierAccount);
             _unitOfWork.CompleteAsync();
@@ -148,14 +147,6 @@ namespace ErpSystemBeniSouef.Service.supplierCashService
         }
 
         #endregion
-
-
-
-
-
-
-
-
-      
+         
     }
 }

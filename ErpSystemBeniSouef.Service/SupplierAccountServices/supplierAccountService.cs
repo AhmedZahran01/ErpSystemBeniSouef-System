@@ -57,7 +57,8 @@ namespace ErpSystemBeniSouef.Service.SupplierAccountServices
                     InvoiceDate = i.InvoiceDate,
                     TotalAmount = i.TotalAmount ?? 0,
                     DueAmount = i.DueAmount ?? 0,
-                    Notes = i.Notes
+                    Notes = i.Notes,
+                    invoiceType = i.invoiceType
                 }).ToList(),
                 Payments = paymentsNew.Select(p => new SupplierCashDto
                 {

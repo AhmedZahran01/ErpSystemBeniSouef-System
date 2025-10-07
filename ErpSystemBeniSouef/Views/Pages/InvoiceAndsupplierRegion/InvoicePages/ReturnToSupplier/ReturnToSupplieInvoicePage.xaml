@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.ReturnToSupplier"
+        xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
        Title="ReturnToSupplieInvoicePage" 
        xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
@@ -37,7 +38,7 @@
                 <!-- المدخلات -->
                 <RowDefinition Height="1*"/>
                 <!-- الأزرار -->
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5.5*"/>
                 <RowDefinition Height="*"/>
                 <!-- الجدول -->
             </Grid.RowDefinitions>
@@ -80,8 +81,8 @@ VerticalAlignment="Center" Margin="20 0 0 0"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 10">
                     <!--<TextBox x:Name="txtSubRegionName" Width="200" Height="25"/>-->
-                    <ComboBox x:Name="cb_ReturnSupplirTypeData"   DisplayMemberPath="Name" SelectedValuePath="Id"
-                 Style="{StaticResource SmallerComboBox}"    Width="190"    />
+                    <ComboBox x:Name="cb_ReturnSupplirTypeData"   DisplayMemberPath="TypeName" SelectedValuePath="TypeId"
+                 Style="{StaticResource SmallerComboBox}"    Width="140"    />
 
 
                     <!--<TextBlock Text="  :  اسم المورد" 
@@ -100,18 +101,27 @@ VerticalAlignment="Center" Margin="20 0 0 0"/>
 
             <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="30">
 
-                <TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
+                <!--<TextBox x:Name="SearchByItemTextBox"  FlowDirection="RightToLeft"
                  Width="180"
                  Height="28" Margin="0 0 0 0"  ToolTip="ادخل اسم الفاتوره   " 
                  Style="{StaticResource textboxx}"                    
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  TextChanged="SearchByItemFullNameBox_TextChanged"
-                 />
+                 />-->
 
-                <Label Margin="20,10,10,10" Content="  : بحث  " 
-                  HorizontalAlignment="Right" Foreground="White" Height="35"
-                  FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
+                <!--Filter Textbox-->
+                <Grid Width="220" FlowDirection="RightToLeft"  HorizontalAlignment="Right" Grid.Row="4" Margin="90 0 75 0">
+                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6"
+         IsHitTestVisible="False" Panel.ZIndex="1" Text="ادخل اسم الفاتوره..." FontSize="20"
+         Visibility="{Binding ElementName=SearchByItemTextBox,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                    <TextBox x:Name="SearchByItemTextBox" Height="50"
+              TextChanged="SearchByItemFullNameBox_TextChanged" Foreground="Black"
+              Style="{StaticResource textBoxFilter}" Text="{Binding SearchName,UpdateSourceTrigger=PropertyChanged}"/>
+                    <icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" VerticalAlignment="Center"
+         Margin="0 0 15 0" Foreground="#b0b9c6" FlowDirection="RightToLeft"
+                            HorizontalAlignment="Right"/>
+                </Grid>
 
             </StackPanel>
 
@@ -157,7 +167,7 @@ VerticalAlignment="Center" Margin="20 0 0 0"/>
                     </DataGridTextColumn>
 
 
-                    <DataGridTextColumn Binding="{Binding Id}" Header="Id From DB " Width="*" >
+                    <!--<DataGridTextColumn Binding="{Binding Id}" Header="Id From DB " Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment" Value="Center"/>
@@ -170,7 +180,7 @@ VerticalAlignment="Center" Margin="20 0 0 0"/>
                             </Style>
                         </DataGridTextColumn.HeaderStyle>
 
-                    </DataGridTextColumn>
+                    </DataGridTextColumn>-->
 
                     <DataGridTextColumn Binding="{Binding InvoiceDate}" Header=" تاريخ الفاتوره " Width="2*" >
                         <DataGridTextColumn.ElementStyle>
@@ -189,6 +199,23 @@ VerticalAlignment="Center" Margin="20 0 0 0"/>
 
 
                     <DataGridTextColumn Binding="{Binding TotalAmount}" Header=" المبلغ الاجمالى  " Width="*" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.HeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                <Setter Property="FontSize" Value="23"/>
+                            </Style>
+                        </DataGridTextColumn.HeaderStyle>
+
+                    </DataGridTextColumn>
+
+
+
+                    <DataGridTextColumn Binding="{Binding InvoiceTypeName}" Header=" نوع الفاتوره   " Width="*" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="TextAlignment" Value="Center"/>
@@ -229,10 +256,13 @@ Content="↩" FontSize="44" Width="150" Height="60" Foreground="White"
               Style="{StaticResource triggerrr}"
 Margin="21,0,30,1"  
 Click="BackBtn_Click"/>
-                <TextBlock Text="  فاتوره ارجاع للمورد    " 
+                <!--<TextBlock Text="  فاتوره ارجاع للمورد    " 
 Foreground="White" FontSize="28" 
-VerticalAlignment="Center" Margin="770 0 0 0"/>
+VerticalAlignment="Center" Margin="770 0 0 0"/>-->
 
+                <Button Content="  فاتوره ارجاع للمورد    " Style="{StaticResource buttonTextBlock}"
+Foreground="White" FontSize="23" Background="#164256" Width="230"
+VerticalAlignment="Center" Margin="770 0 0 0"/>
             </StackPanel >
 
  <!--<Button Grid.Row="4" HorizontalAlignment="Left"   CommandParameter="DashBoardDoctor" 

@@ -97,7 +97,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
         {
             DateTime? invoiceDate = txtInvoiceDate.SelectedDate;
             string Amounttxt = AmounttxtValue.Text;
-            string notesTxt = TxtNotes.Text;
+            string notesTxt = txtNotes.Text;
             if (invoiceDate == null)
             {
                 MessageBox.Show("من فضلك اختر تاريخ صحيح");
@@ -137,12 +137,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
             MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
 
             //cb_SuppliersName.SelectedIndex = 0;
+            CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
             txtInvoiceDate.SelectedDate = null;
             observProductsLisLim.Add(CreateInvoiceDtoRespons);
             observProductsListFiltered.Add(CreateInvoiceDtoRespons);
-
         }
-
+         
         #endregion
          
         #region Delete Button Region
@@ -192,7 +192,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
                 cb_SuppliersName.SelectedItem = selectedSupplier;
                 txtInvoiceDate.SelectedDate = selected.PaymentDate;
                 AmounttxtValue.Text = selected.Amount.ToString();
-                TxtNotes.Text = selected.Notes;
+                txtNotes.Text = selected.Notes;
                 editBtn.Visibility = Visibility.Visible;
             }
         }
@@ -213,7 +213,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 
             int updateSupplierId = ((SupplierRDto)cb_SuppliersName.SelectedItem).Id;
 
-            string notesTxt = TxtNotes.Text;
+            string notesTxt = txtNotes.Text;
 
             string Amounttxt = AmounttxtValue.Text;
             if (!decimal.TryParse(Amounttxt, out decimal decimalAmount))
@@ -256,11 +256,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 
 
         #endregion
-
-
-
-
-         
+          
         #region Back btn Region
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -272,8 +268,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 
 
         #endregion
-
-
+         
         #region Search By Item FullName  Region
 
         private void SearchByItemFullNameBox_TextChanged(object sender, TextChangedEventArgs e)

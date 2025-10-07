@@ -5,6 +5,7 @@ using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
+using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -36,7 +37,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
         private readonly ISupplierService _supplierService;
         private readonly IReturnSupplierInvoiceService _returnSupplierInvoiceService;
         private readonly IMapper _mapper;
-
+        List<ReturnTypeComBoxData> invoiceTypeDataSeed = new List<ReturnTypeComBoxData>();
         IReadOnlyList<SupplierRDto> SuppliersDto = new List<SupplierRDto>();
         ObservableCollection<DtoForReturnSupplierInvoice> observProductsLisLim = new ObservableCollection<DtoForReturnSupplierInvoice>();
         ObservableCollection<DtoForReturnSupplierInvoice> observProductsListFiltered = new ObservableCollection<DtoForReturnSupplierInvoice>();
@@ -54,8 +55,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             {
                 SuppliersDto = await _supplierService.GetAllAsync();
                 await LoadInvoices();
+                
                 cb_ReturnSupplirName.ItemsSource = SuppliersDto;
                 cb_ReturnSupplirName.SelectedIndex = 0;
+                
+                cb_ReturnSupplirTypeData.ItemsSource = invoiceTypeDataSeed;
+                cb_ReturnSupplirTypeData.SelectedIndex = 0;
+
+
                 dgRepresentatives.ItemsSource = observProductsLisLim;
 
             };
@@ -68,14 +75,25 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
 
         private async Task LoadInvoices()
         {
+            invoiceTypeDataSeed = AppGlobalCompanyId.CompanyName();
             IReadOnlyList<DtoForReturnSupplierInvoice> invoiceDtos = await _returnSupplierInvoiceService.GetAllAsync();
             observProductsLisLim.Clear();
             observProductsListFiltered.Clear();
-            foreach (var product in invoiceDtos)
+            string invoiceValue = "";
+            foreach (var invoice in invoiceDtos)
             {
-                product.DisplayId = countDisplayNo + 1;
-                observProductsLisLim.Add(product);
-                observProductsListFiltered.Add(product);
+                if(invoice.InvoiceType == 3)
+                {
+                    invoiceValue = "جديد";
+                }
+                else if (invoice.InvoiceType == 4)
+                {
+                    invoiceValue = "تالف";
+                }
+                invoice.DisplayId = countDisplayNo + 1;
+                invoice.InvoiceTypeName = invoiceValue;
+                observProductsLisLim.Add(invoice);
+                observProductsListFiltered.Add(invoice);
                 countDisplayNo++;
             }
 
@@ -96,6 +114,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             }
 
             SupplierRDto selectedSupplier = (SupplierRDto)cb_ReturnSupplirName.SelectedItem;
+            ReturnTypeComBoxData selectedInvoiceType = (ReturnTypeComBoxData)cb_ReturnSupplirTypeData.SelectedItem;
+            ReturnTypeComBoxData selectedSupplierType = (ReturnTypeComBoxData)cb_ReturnSupplirTypeData.SelectedItem;
 
             if (selectedSupplier == null)
             {
@@ -106,8 +126,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             AddReturnSupplierInvoiceDto InputProduct = new AddReturnSupplierInvoiceDto()
             {
                 InvoiceDate = invoiceDate,
-                SupplierId = selectedSupplier.Id
-
+                SupplierId = selectedSupplier.Id,
+                RturnType = selectedSupplierType.TypeId
             };
 
             DtoForReturnSupplierInvoice CreateInvoiceDtoRespons = _returnSupplierInvoiceService.AddInvoice(InputProduct);
@@ -123,8 +143,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             txtSupplirDate.SelectedDate = null;
             countDisplayNo++;
             CreateInvoiceDtoRespons.DisplayId = countDisplayNo ;
+           
             CreateInvoiceDtoRespons.Supplier = selectedSupplier;
             CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
+            
+           
+            CreateInvoiceDtoRespons.InvoiceTypeName = selectedInvoiceType.TypeName;
+            CreateInvoiceDtoRespons.InvoiceType = selectedInvoiceType.TypeId;
+            
             observProductsLisLim.Add(CreateInvoiceDtoRespons);
             observProductsListFiltered.Add(CreateInvoiceDtoRespons);
 
@@ -176,7 +202,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             if (dgRepresentatives.SelectedItem is DtoForReturnSupplierInvoice selected)
             {
                 SupplierRDto selectedSupplier = SuppliersDto.FirstOrDefault(s => s.Id == selected.SupplierId);
+                ReturnTypeComBoxData SelectedinvoiceTypeDataSeed = invoiceTypeDataSeed.FirstOrDefault(s => s.TypeId == selected.InvoiceType);
                 cb_ReturnSupplirName.SelectedItem = selectedSupplier;
+                cb_ReturnSupplirTypeData.SelectedItem = SelectedinvoiceTypeDataSeed;
                 txtSupplirDate.SelectedDate = selected.InvoiceDate;
                 editBtn.Visibility = Visibility.Visible;
             }
@@ -201,12 +229,14 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             //}
 
             int updateSupplierId = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Id;
+            int updateinvoiceTypeIdValue = ((ReturnTypeComBoxData)cb_ReturnSupplirTypeData.SelectedItem).TypeId;
 
             var updateDto = new UpdateInvoiceDto()
             {
                 Id = selected.Id,
                 InvoiceDate = UpdateInvoiceDate,
-                SupplierId = updateSupplierId
+                SupplierId = updateSupplierId,
+                updateinvoiceTypeId = updateinvoiceTypeIdValue
             };
 
             bool success = _returnSupplierInvoiceService.Update(updateDto);
@@ -215,10 +245,16 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             {
                 SupplierRDto supplierDto = SuppliersDto.FirstOrDefault(i => i.Id == selected.SupplierId);
 
+                ReturnTypeComBoxData returnTypeComBoxData = invoiceTypeDataSeed.FirstOrDefault(i => i.TypeId == selected.InvoiceType);
 
                 selected.Id = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Id;
                 selected.Supplier = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem);
                 selected.SupplierName = ((SupplierRDto)cb_ReturnSupplirName.SelectedItem).Name;
+                
+                selected.InvoiceTypeName = ((ReturnTypeComBoxData)cb_ReturnSupplirTypeData.SelectedItem).TypeName; 
+                selected.InvoiceType = ((ReturnTypeComBoxData)cb_ReturnSupplirTypeData.SelectedItem).TypeId;
+
+
                 selected.InvoiceDate = UpdateInvoiceDate;
                 txtSupplirDate.SelectedDate = UpdateInvoiceDate;
                 MessageBox.Show("تم تعديل المنطقة بنجاح");

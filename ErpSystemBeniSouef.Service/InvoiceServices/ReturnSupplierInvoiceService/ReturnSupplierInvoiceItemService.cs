@@ -9,11 +9,9 @@ using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Enum;
 
 namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceService
-{ 
+{
     public class ReturnSupplierInvoiceItemService : IReturnSupplierInvoiceItemService
-    {
-
-
+    { 
         #region Constractor Region
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -55,10 +53,19 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
             Invoice invoice = new Invoice();
             try
             {
-                invoice = await _unitOfWork.Repository<Invoice>()
+                if (dto.invoiceTypeId == 3)
+                {
+                    invoice = await _unitOfWork.Repository<Invoice>()
      .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.SupplierReturn,
                             i => i.Supplier, i => i.Items);
+                }
+                else if (dto.invoiceTypeId == 4)
+                {
+                    invoice = await _unitOfWork.Repository<Invoice>()
+    .FindWithIncludesAsync(i => i.Id == dto.Id && i.invoiceType == InvoiceType.Damage,
+                           i => i.Supplier, i => i.Items);
 
+                }
 
             }
             catch (Exception ex)
@@ -147,8 +154,7 @@ namespace ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceServic
         }
 
         #endregion
-
-
+         
         #region Comment Mostafa Region
         //   private readonly IUnitOfWork _unitOfWork;
         //   private readonly IMapper _mapper;

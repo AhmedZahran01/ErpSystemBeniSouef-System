@@ -16,6 +16,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos
         public decimal TotalAmount { get; set; }
         public string SupplierName { get; set; }
          public int InvoiceType { get; set; }
+         public string InvoiceTypeName { get; set; }
         public int SupplierId { get; set; }
         public SupplierRDto Supplier { get; set; } 
 

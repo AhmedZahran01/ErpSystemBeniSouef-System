@@ -10,6 +10,7 @@ using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Enum;
 using ErpSystemBeniSouef.Infrastructer.Migrations;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.ProductService;
@@ -52,6 +53,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
         ObservableCollection<ReturnSupplierInvoiceItemDetailsDto> observCashInvoiceItemDtosFiltered = new ObservableCollection<ReturnSupplierInvoiceItemDetailsDto>();
         ObservableCollection<ReturnSupplierInvoiceItemDetailsDto> observCashInvoiceItemDtosList = new ObservableCollection<ReturnSupplierInvoiceItemDetailsDto>();
         int invoiceIDFromInvoicePage;
+        int invoiceTypeIDFromInvoicePage;
         int counId = 0;
 
         #endregion
@@ -65,7 +67,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             _invoice = invoice; DataContext = _invoice; _productService = productService;
             _returnSupplierInvoiceItem = cashInvoiceService;
             _mapper = mapper;
-            invoiceIDFromInvoicePage = invoice.Id; InvoiceIdTxt.Text = invoiceIDFromInvoicePage.ToString();
+            invoiceIDFromInvoicePage = invoice.Id; invoiceTypeIDFromInvoicePage = invoice.InvoiceType;
+            InvoiceIdTxt.Text = invoiceIDFromInvoicePage.ToString();
 
             Loaded += async (s, e) =>
             {
@@ -315,11 +318,17 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
                 addCashInvoiceItemsDto.invoiceItemDtos.Add(cashInvoiceItemsDto);
             }
             addCashInvoiceItemsDto.InvoiceTotalPrice = InvoiceTotalPrice;
+            addCashInvoiceItemsDto.invoiceTypeId = invoiceTypeIDFromInvoicePage;
             bool res = await _returnSupplierInvoiceItem.AddInvoiceItems(addCashInvoiceItemsDto);
             if (res)
             {
                 MessageBox.Show("تم تعديل الفاتوره الكاش بنجاح");
                 return;
+            }
+            else
+            {
+                MessageBox.Show("حدث خطأ أثناء التعديل");
+
             }
 
         }

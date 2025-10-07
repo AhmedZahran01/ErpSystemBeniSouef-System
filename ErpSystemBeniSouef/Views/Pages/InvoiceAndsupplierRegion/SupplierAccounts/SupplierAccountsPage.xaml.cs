@@ -1,27 +1,11 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.SupplierCashDtos;
-using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
-using ErpSystemBeniSouef.Service.supplierCashService;
-using ErpSystemBeniSouef.Service.SupplierService;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Collections.ObjectModel;
+using ErpSystemBeniSouef.ViewModel;
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts
 {
@@ -30,10 +14,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
     /// </summary>
     public partial class SupplierAccountsPage : Page
     {
-        #region MyRegion
+        #region Global Variables Region
 
         private readonly ISupplierAccountService _supplierAccountService;
-        int countDisplayNo = 0;
+        int countDisplayNo = 0; int countDisplayNoInvoiceDto = 0;
+        int countDisplayNoSupplierAccoun = 0;
+        string _MoveType = ""; string _SaleType = "";
 
         private readonly ISupplierService _supplierService;
         IReadOnlyList<SupplierRDto> SuppliersDto = new List<SupplierRDto>();
@@ -42,12 +28,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
         ObservableCollection<SupplierCashDto> observSupplierAccountLisLim = new ObservableCollection<SupplierCashDto>();
         ObservableCollection<SupplierInvoiceDto> observSupplierInvoiceDtoLisLim = new ObservableCollection<SupplierInvoiceDto>();
 
-
         private readonly ISupplierCashService _supplierCashService;
 
         #endregion
 
-        #region MyRegion
+        #region Constractor Region
 
         public SupplierAccountsPage(ISupplierService supplierService, ISupplierCashService supplierCashService,
                                       ISupplierAccountService supplierAccountService)
@@ -62,38 +47,35 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
                 cb_SuppliersName.ItemsSource = SuppliersDto;
                 cb_SuppliersName.SelectedIndex = 0;
                 await LoadInvoices();
-                //dgSuppliersCash.ItemsSource = observProductsLisLim;
 
             };
+
+            txtStartDate.SelectedDate = DateTime.Parse("7/23/2024 12:00:00 AM");
+            txtEndDate.SelectedDate = DateTime.Parse("7/23/2027 12:00:00 AM");
 
         }
 
         #endregion
-
 
         #region LoadInvoices Dta Region
 
         private async Task LoadInvoices()
         {
-            IReadOnlyList<ReturnSupplierCashDto> invoiceDtos = await _supplierCashService.GetAllSupplierAccounts();
-            observProductsLisLim.Clear();
-            //observProductsListFiltered.Clear();
-            foreach (var product in invoiceDtos)
-            {
-                product.DisplayId = countDisplayNo + 1;
-                observProductsLisLim.Add(product);
-                //observProductsListFiltered.Add(product);
-                //countDisplayNo++;
+            //IReadOnlyList<ReturnSupplierCashDto> invoiceDtos = await _supplierCashService.GetAllSupplierAccounts();
+            //observProductsLisLim.Clear(); 
+            //foreach (var product in invoiceDtos)
+            //{
+            //    product.DisplayId = countDisplayNo + 1;
+            //    observProductsLisLim.Add(product);  
 
-            }
+            //}
 
         }
 
 
         #endregion
 
-
-        #region MyRegion
+        #region Result Show Button_Click Region
 
 
         private async void ResultShowButton_Click(object sender, RoutedEventArgs e)
@@ -107,16 +89,27 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
             observSupplierAccountLisLim.Clear();
             foreach (var product in da.Payments)
             {
+                product.DisplayId = countDisplayNoSupplierAccoun + 1;
                 observSupplierAccountLisLim.Add(product);
                 //observProductsListFiltered.Add(product);
-                //countDisplayNo++;
+                countDisplayNoSupplierAccoun++;
             }
             observSupplierInvoiceDtoLisLim.Clear();
             foreach (var product in da.Invoices)
             {
+                int InvoiceTypeId =(int) product.invoiceType;
+                if (InvoiceTypeId == 1) { _MoveType = "اضافه"; _SaleType = "كاش"; }
+                else if (InvoiceTypeId  == 2) { _MoveType = "اضافه"; _SaleType = "تقسيط"; }
+                else if (InvoiceTypeId  == 3) { _MoveType = "ارجاع للمورد"; _SaleType = ""; }
+
+
+                
+                product.DisplayId = countDisplayNoInvoiceDto + 1;
+                product.MoveType =  _MoveType;
+                product.SaleType =  _SaleType;
                 observSupplierInvoiceDtoLisLim.Add(product);
                 //observProductsListFiltered.Add(product);
-                //countDisplayNo++;
+                countDisplayNoInvoiceDto++;
             }
 
             dgSuppliersCash.ItemsSource = observSupplierAccountLisLim;
@@ -126,10 +119,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
         }
 
         #endregion
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
+        #region Back Btn Click Region
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -138,15 +129,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        #endregion
 
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
 
     }
 }

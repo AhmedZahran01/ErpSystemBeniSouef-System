@@ -10,6 +10,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier
     {
         public int Id { get; set; }
         public decimal InvoiceTotalPrice { get; set; }
+        public decimal invoiceTypeId { get; set; }
         public List<ReturnSupplierInvoiceItemDto> invoiceItemDtos { get; set; }
     }
 }

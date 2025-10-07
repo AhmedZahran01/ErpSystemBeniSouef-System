@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages"
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      xmlns:icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="1700"
       Title="CashInvoiceDetailsPage" ScrollViewer.HorizontalScrollBarVisibility="Visible"
@@ -62,7 +63,21 @@
                     Margin="110 10 0 10"
                     Width="250" Height="45"/>
 
-                <Label Margin="230,10,10,10" Content="   بحث : " 
+                    <!--Filter Textbox-->
+                    <Grid Width="240" FlowDirection="RightToLeft"   HorizontalAlignment="Right" Grid.Row="4" Margin="190 0 75 0">
+                        <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6"
+         IsHitTestVisible="False" Panel.ZIndex="1" Text="ادخل اسم الفاتوره..." FontSize="20"
+         Visibility="{Binding ElementName=SearchByItemTextBox,Path=Text.IsEmpty,Converter={StaticResource BoolToVis}}"/>
+                        <TextBox x:Name="SearchByItemTextBox" Height="50" Foreground="Black"
+              TextChanged="SearchByItemFullNameBox_TextChanged"
+              Style="{StaticResource textBoxFilter}" Text="{Binding SearchName,UpdateSourceTrigger=PropertyChanged}"/>
+                        <icon:PackIconMaterial Kind="Magnify" Width="20" Height="20" VerticalAlignment="Center"
+         Margin="0 0 15 0" Foreground="#b0b9c6" FlowDirection="RightToLeft"
+                            HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    
+                <!--<Label Margin="230,10,10,10" Content="   بحث : " 
                  HorizontalAlignment="Right" Foreground="White" Height="35"
 FontSize="24"  Style="{StaticResource LabelStyle}"></Label>
 
@@ -73,7 +88,7 @@ Style="{StaticResource textboxx}"
 VerticalAlignment="Center"
 HorizontalAlignment="Center"
 TextChanged="SearchByItemFullNameBox_TextChanged"
-/>
+/>-->
 
             </StackPanel>
 
@@ -114,7 +129,7 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
             <!-- المنتج -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20" FlowDirection="RightToLeft">
-                <TextBlock Text="         المنتج          :  " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
+                <TextBlock Text="         المنتج         :  " FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
                 <ComboBox x:Name="cbProduct" Width="140" FontSize="18"
                               DisplayMemberPath="ProductName"
                               SelectedValuePath="Id" 
@@ -124,27 +139,27 @@ TextChanged="SearchByItemFullNameBox_TextChanged"
 
             <!-- الكمية -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                <TextBlock Text="         الكمية          :  " FontSize="25" Foreground="White"
+                <TextBlock Text="         الكمية        :  " FontSize="25" Foreground="White"
                            VerticalAlignment="Center" Margin="10 0"/>
                 <TextBox x:Name="txtQuantity"
-                              Width="150"    TextChanged="txtQuantity_TextChanged"
+                              Width="145"    TextChanged="txtQuantity_TextChanged"
                            FontSize="18" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- سعر المنتج -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 20">
-                <TextBlock Text="  سعر المنتج         :   " 
+                <TextBlock Text="  سعر المنتج       :   " 
                            FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
                 <TextBox x:Name="txtPrice"
                                   TextChanged="txtPrice_TextChanged"
-                           Width="150" FontSize="18" Style="{StaticResource textboxx}"/>
+                           Width="145" FontSize="18" Style="{StaticResource textboxx}"/>
             </StackPanel>
 
             <!-- السعر الإجمالي -->
             <StackPanel Orientation="Horizontal" Margin="0 0 0 8">
                 <TextBlock Text=" السعر الإجمالي    :  "
                            FontSize="25" Foreground="White" VerticalAlignment="Center" Margin="10 0"/>
-                <TextBox x:Name="txtTotal"  IsEnabled="False" Width="150" FontSize="18"   />
+                <TextBox x:Name="txtTotal"  IsEnabled="False" Width="140" FontSize="18"   />
             </StackPanel>
 
             <!-- ملاحظات -->

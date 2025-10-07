@@ -160,14 +160,14 @@ namespace ErpSystemBeniSouef
 
             //var login = new StorekeepersPage(storeKeeperService,mapper);
 
-            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
-                               InvoicePages.Cashinvoice(supplierService, cashInvoiceService);
+            //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+            //                   InvoicePages.Cashinvoice(supplierService, cashInvoiceService);
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
             //                   DueInvoice.DueInvoicePage(supplierService, dueInvoiceService);
 
-            //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
-            //                   ReturnToSupplier.ReturnToSupplieInvoicePage(supplierService, returnSupplierInvoice);
+            var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.
+                               ReturnToSupplier.ReturnToSupplieInvoicePage(supplierService, returnSupplierInvoice);
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
             //                    .Suppliers_cashPage(supplierService, supplierCashService);

@@ -111,10 +111,12 @@ namespace ErpSystemBeniSouef.Infrastructer
             return await _context.Set<T>().Where(predicate).FirstOrDefaultAsync();
         }
         #endregion
-        public async Task<T?> FindWithIncludesAsync(
-    Expression<Func<T, bool>> predicate,
-    params Expression<Func<T, object>>[] includes)
-        { 
+
+        #region FindWithIncludesAsync Region
+
+        public async Task<T?> FindWithIncludesAsync
+            (Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
+        {
             try
             {
                 IQueryable<T> query = _context.Set<T>();
@@ -123,7 +125,7 @@ namespace ErpSystemBeniSouef.Infrastructer
                 {
                     query = query.Include(include);
                 }
-                return  query.FirstOrDefault(predicate);
+                return query.FirstOrDefault(predicate);
             }
             catch (Exception ex)
             {
@@ -131,9 +133,12 @@ namespace ErpSystemBeniSouef.Infrastructer
             }
         }
 
+        #endregion
+       
+        #region GetByIdWithIncludesAsync Region
+
         public async Task<T?> GetByIdWithIncludesAsync(
-       int id,
-         params Expression<Func<T, object>>[] includes)
+          int id, params Expression<Func<T, object>>[] includes)
         {
             IQueryable<T> query = _context.Set<T>();
 
@@ -144,6 +149,8 @@ namespace ErpSystemBeniSouef.Infrastructer
 
             return await query.FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
         }
+
+        #endregion
 
     }
 }
