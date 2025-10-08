@@ -17,8 +17,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
         #region Global Variables Region
 
         private readonly ISupplierAccountService _supplierAccountService;
-        int countDisplayNo = 0; int countDisplayNoInvoiceDto = 0;
-        int countDisplayNoSupplierAccoun = 0;
+        int countDisplayNo = 0;
         string _MoveType = ""; string _SaleType = "";
 
         private readonly ISupplierService _supplierService;
@@ -80,6 +79,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
 
         private async void ResultShowButton_Click(object sender, RoutedEventArgs e)
         {
+            int countDisplayNoInvoiceDto = 0;
+            int countDisplayNoSupplierAccoun = 0;
             DateTime? StartInterval = txtStartDate.SelectedDate;
             DateTime? EndInterval = txtEndDate.SelectedDate;
             SupplierRDto selectedSupplier = (SupplierRDto)cb_SuppliersName.SelectedItem;
@@ -90,8 +91,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
             foreach (var product in da.Payments)
             {
                 product.DisplayId = countDisplayNoSupplierAccoun + 1;
-                observSupplierAccountLisLim.Add(product);
-                //observProductsListFiltered.Add(product);
+                observSupplierAccountLisLim.Add(product); 
                 countDisplayNoSupplierAccoun++;
             }
             observSupplierInvoiceDtoLisLim.Clear();
@@ -101,14 +101,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccoun
                 if (InvoiceTypeId == 1) { _MoveType = "اضافه"; _SaleType = "كاش"; }
                 else if (InvoiceTypeId  == 2) { _MoveType = "اضافه"; _SaleType = "تقسيط"; }
                 else if (InvoiceTypeId  == 3) { _MoveType = "ارجاع للمورد"; _SaleType = ""; }
-
-
-                
+                 
                 product.DisplayId = countDisplayNoInvoiceDto + 1;
                 product.MoveType =  _MoveType;
                 product.SaleType =  _SaleType;
-                observSupplierInvoiceDtoLisLim.Add(product);
-                //observProductsListFiltered.Add(product);
+                observSupplierInvoiceDtoLisLim.Add(product); 
                 countDisplayNoInvoiceDto++;
             }
 

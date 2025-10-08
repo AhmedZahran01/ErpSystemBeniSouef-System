@@ -1,31 +1,13 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.Contract.Invoice; 
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.SupplierCash;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.SupplierCashDtos;
-using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
-using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
-using ErpSystemBeniSouef.Service.SupplierService;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
-using System;
-using System.Collections.Generic;
+using ErpSystemBeniSouef.Core.DTOs.SupplierDto; 
+using ErpSystemBeniSouef.ViewModel; 
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows; 
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 {
@@ -114,7 +96,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
 
             if ( !decimal.TryParse(Amounttxt, out decimal decimalAmount)   )
             {
-                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
+                MessageBox.Show("من فضلك ادخل مبلغ صحيح ");
                 return;
             }
 
@@ -134,9 +116,11 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
                 return;
             }
 
-            MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
+            MessageBox.Show("تم إضافة النقديه بنجاح");
 
             //cb_SuppliersName.SelectedIndex = 0;
+            countDisplayNo++;
+            CreateInvoiceDtoRespons.DisplayId = countDisplayNo;
             CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
             txtInvoiceDate.SelectedDate = null;
             observProductsLisLim.Add(CreateInvoiceDtoRespons);
@@ -176,7 +160,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
             }
             else
             {
-                MessageBox.Show("لم يتم حذف أي فاتوره بسبب خطأ ما");
+                MessageBox.Show("لم يتم حذف أي نقديه بسبب خطأ ما");
             }
 
         }
@@ -205,7 +189,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
         {
             if (DataGridOfSupplyCash.SelectedItem is not ReturnSupplierCashDto selected)
             {
-                MessageBox.Show("من فضلك اختر فاتوره محدده للتعديل");
+                MessageBox.Show("من فضلك اختر نقديه محدده للتعديل");
                 return;
             }
 
@@ -244,7 +228,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.Suppliers_cash
                 selected.Amount = updateDto.Amount;
                 selected.Notes = updateDto.Notes;
                 txtInvoiceDate.SelectedDate = UpdateInvoiceDate;
-                MessageBox.Show("تم تعديل المنطقة بنجاح");
+                MessageBox.Show("تم تعديل النقديه بنجاح");
                 DataGridOfSupplyCash.Items.Refresh(); // لتحديث الجدول
             }
             else

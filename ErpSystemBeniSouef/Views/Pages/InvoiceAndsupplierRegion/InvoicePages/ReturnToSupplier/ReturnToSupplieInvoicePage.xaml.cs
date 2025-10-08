@@ -1,28 +1,16 @@
 ﻿using AutoMapper;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract; 
 using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
 using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.ViewModel;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection; 
+using System.Collections.ObjectModel; 
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Controls; 
+using System.Windows.Input; 
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.ReturnToSupplier
 {
@@ -257,7 +245,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
 
                 selected.InvoiceDate = UpdateInvoiceDate;
                 txtSupplirDate.SelectedDate = UpdateInvoiceDate;
-                MessageBox.Show("تم تعديل المنطقة بنجاح");
+                MessageBox.Show("تم تعديل الفاتوره بنجاح");
                 dgRepresentatives.Items.Refresh(); // لتحديث الجدول
             }
             else

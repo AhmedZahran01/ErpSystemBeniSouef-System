@@ -1,32 +1,15 @@
 ﻿using AutoMapper;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
+using ErpSystemBeniSouef.Core.Contract; 
 using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto; 
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
+using ErpSystemBeniSouef.ViewModel; 
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel; 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Input; 
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.DueInvoice
 {
@@ -136,11 +119,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
 
             cb_SuppliersName.SelectedIndex = 0;
             txtInvoiceDate.SelectedDate = null;
-            CreateInvoiceDtoRespons.DisplayId = countDisplayNo + 1;
+            countDisplayNo++; 
+            CreateInvoiceDtoRespons.DisplayId = countDisplayNo ;
             CreateInvoiceDtoRespons.SupplierId = selectedSupplier.Id;
             observDueInvoiceLisLim.Add(CreateInvoiceDtoRespons);
             observDueInvoiceFiltered.Add(CreateInvoiceDtoRespons);
-            countDisplayNo+=1; 
+            dgCashInvoice.ItemsSource = observDueInvoiceFiltered; 
 
         }
 
@@ -165,8 +149,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
                 if (success)
                 {
                     observDueInvoiceLisLim.Remove(item);
-                    observDueInvoiceFiltered.Remove(item);
-                    dgCashInvoice.Items.Refresh();
+                    observDueInvoiceFiltered.Remove(item); 
+                    dgCashInvoice.ItemsSource = observDueInvoiceFiltered;
+
                     deletedCount++;
                 }
             }
@@ -210,9 +195,8 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
         }
 
         #endregion
-
+         
         #region Btn Edit Click  Region
-
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {

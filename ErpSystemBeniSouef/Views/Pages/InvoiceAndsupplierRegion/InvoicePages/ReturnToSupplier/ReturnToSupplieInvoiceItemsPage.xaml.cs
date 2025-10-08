@@ -1,38 +1,14 @@
 ﻿using AutoMapper;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
-using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
+using ErpSystemBeniSouef.Core.Contract; 
+using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice; 
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.ReturnSupplier; 
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.ReturnSupplierDtos;
-using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
-using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Core.Enum;
-using ErpSystemBeniSouef.Infrastructer.Migrations;
-using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
-using ErpSystemBeniSouef.Service.ProductService;
-using ErpSystemBeniSouef.Service.SupplierService;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto; 
+using ErpSystemBeniSouef.ViewModel; 
+using Microsoft.Extensions.DependencyInjection; 
+using System.Collections.ObjectModel; 
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Controls; 
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.ReturnToSupplier
 { 
@@ -216,7 +192,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             observCashInvoiceItemDtosList.Add(invoiceItemDetails);
             dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosFiltered;
 
-            MessageBox.Show("تم اضافه عنصر للفاتوره الكاش بنجاح");
+            MessageBox.Show("تم اضافه عنصر للفاتوره الارجاع بنجاح");
             return;
         }
 
@@ -322,7 +298,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.R
             bool res = await _returnSupplierInvoiceItem.AddInvoiceItems(addCashInvoiceItemsDto);
             if (res)
             {
-                MessageBox.Show("تم تعديل الفاتوره الكاش بنجاح");
+                MessageBox.Show("تم تعديل الفاتوره الارجاع بنجاح");
                 return;
             }
             else

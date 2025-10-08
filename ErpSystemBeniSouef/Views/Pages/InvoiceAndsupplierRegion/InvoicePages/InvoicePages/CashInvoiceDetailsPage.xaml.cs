@@ -1,22 +1,13 @@
 ﻿using AutoMapper;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
+using ErpSystemBeniSouef.Core.Contract; 
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto; 
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
-using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
-using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.Core.DTOs.ProductsDto; 
 using ErpSystemBeniSouef.ViewModel;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection; 
 using System.Collections.ObjectModel;
-using System.Data;
-using System.Diagnostics.Metrics;
-using System.Threading.Tasks;
+using System.Data; 
 using System.Windows;
 using System.Windows.Controls;
 

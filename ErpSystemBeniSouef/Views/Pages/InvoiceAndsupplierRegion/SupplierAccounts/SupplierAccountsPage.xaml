@@ -100,7 +100,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <!-- الموردين -->
-                    <ColumnDefinition Width="1.1*" />
+                    <ColumnDefinition Width="1.2*" />
                     <!-- النقدية -->
                 </Grid.ColumnDefinitions>
 
@@ -129,11 +129,76 @@
                   FlowDirection="RightToLeft"
                   Margin="0 0 0 10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding DisplayId}" Header="رقم المسلسل" Width="1.5*"/>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding PaymentDate}" Header="تاريخ التوريد" Width="2*"/>
-                            <!--<DataGridTextColumn Binding="{Binding Notes}" Header="اسم المورد" Width="2*"/>-->
-                            <DataGridTextColumn FontSize="17" Binding="{Binding Amount}" Header="المبلغ المورد" Width="2*"/>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding Notes}" Header="الملاحطات " Width="2*"/>
+                           
+                            <DataGridTextColumn  Binding="{Binding DisplayId}" Header="رقم المسلسل" Width="1.7*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="19"/> 
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="19"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+ 
+                            
+                            <DataGridTextColumn  Binding="{Binding PaymentDate}" Header="تاريخ التوريد" Width="3*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="19"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+
+                            <DataGridTextColumn  Binding="{Binding Amount}" Header="المبلغ المورد" Width="1.8*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+
+                            <DataGridTextColumn FontSize="17" Binding="{Binding Notes}" Header="الملاحظات " Width="1.7*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="23"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
 
                         </DataGrid.Columns>
                     </DataGrid>
@@ -172,11 +237,96 @@
                   FlowDirection="RightToLeft"
                   Margin="0 0 0 10">
                         <DataGrid.Columns>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding DisplayId}" Header="الرقم المسلسل" Width="2.5*"/>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding InvoiceDate}" Header="تاريخ الفاتوره" Width="3.5*"/>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding TotalAmount}" Header="المبلغ الاجمالي" Width="2.5*"/>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding MoveType}" Header="نوع الحركه" Width="2*"/>
-                            <DataGridTextColumn FontSize="17" Binding="{Binding SaleType}" Header="نوع الشراء" Width="2*"/>
+                            
+                            <DataGridTextColumn  Binding="{Binding DisplayId}" Header="الرقم المسلسل" Width="2*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+                            
+                            <!--<DataGridTextColumn FontSize="17" Binding="{Binding InvoiceDate}" Header="تاريخ الفاتوره" Width="3.5*"/>-->
+                            <DataGridTextColumn Binding="{Binding InvoiceDate}" Header="تاريخ الفاتوره   " Width="3.5*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+                            <DataGridTextColumn  Binding="{Binding TotalAmount}" Header="المبلغ الكلي" Width="1.7*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+                            <DataGridTextColumn  Binding="{Binding MoveType}" Header="نوع الحركه" Width="1.5*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+                            
+                            <DataGridTextColumn  Binding="{Binding SaleType}" Header="نوع الشراء" Width="1.5*" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="TextAlignment" Value="Center"/>
+                                        <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="21"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+
+                            </DataGridTextColumn>
+                            
+                            
                         </DataGrid.Columns>
                     </DataGrid>
 

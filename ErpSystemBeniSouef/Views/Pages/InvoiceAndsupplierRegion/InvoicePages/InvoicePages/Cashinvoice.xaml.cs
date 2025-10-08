@@ -114,7 +114,9 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
             MessageBox.Show("تم إضافة الفاتوره الكاش بنجاح");
 
             cb_SuppliersName.SelectedIndex = 0;
-            txtInvoiceDate.SelectedDate = null; 
+            txtInvoiceDate.SelectedDate = null;
+            countDisplayNo++;
+            CreateInvoiceDtoRespons.DisplayId = countDisplayNo;
             observProductsLisLim.Add(CreateInvoiceDtoRespons);
             observProductsListFiltered.Add(CreateInvoiceDtoRespons);
 
@@ -239,12 +241,12 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.I
                 selected.SupplierName = ((SupplierRDto)cb_SuppliersName.SelectedItem).Name;
                 selected. InvoiceDate = UpdateInvoiceDate;
                 txtInvoiceDate.SelectedDate = UpdateInvoiceDate;
-                MessageBox.Show("تم تعديل المنطقة بنجاح");
+                MessageBox.Show("تم تعديل الفاتوره الكاش بنجاح");
                 dgCashInvoice.Items.Refresh(); // لتحديث الجدول
             }
             else
             {
-                MessageBox.Show("حدث خطأ أثناء التعديل");
+                MessageBox.Show("حدث خطأ أثناء تعديل الفاتوره ");
             }
         }
 

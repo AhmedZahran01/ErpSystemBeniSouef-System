@@ -1,30 +1,15 @@
 ﻿using AutoMapper;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
-using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.DueInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
+using ErpSystemBeniSouef.Core.Contract; 
+using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.CashInvoiceDto;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Input.DueInvoiceDto; 
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel; 
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.DueInvoice
 {
@@ -208,7 +193,7 @@ namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.D
             observCashInvoiceItemDtosList.Add(invoiceItemDetails);
             dgInvoiceItems.ItemsSource = observCashInvoiceItemDtosFiltered;
 
-            MessageBox.Show("تم اضافه عنصر للفاتوره الكاش بنجاح");
+            MessageBox.Show("تم اضافه عنصر للفاتوره الاجل بنجاح");
             return;
         }
 

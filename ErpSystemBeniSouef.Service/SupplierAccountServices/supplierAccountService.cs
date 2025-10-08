@@ -26,8 +26,7 @@ namespace ErpSystemBeniSouef.Service.SupplierAccountServices
         }
 
         #endregion
-
-
+         
         #region  Get Supplier Account Region
 
         public async Task<SupplierAccountReportDto> GetSupplierAccount(int supplierId, DateTime? startDate, DateTime? endDate)

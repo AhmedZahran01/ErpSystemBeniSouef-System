@@ -1,31 +1,13 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.Contract.Invoice;
-using ErpSystemBeniSouef.Service.SupplierAccountServices;
-using ErpSystemBeniSouef.Service.supplierCashService;
-using ErpSystemBeniSouef.Service.SupplierService;
+using ErpSystemBeniSouef.Core.Contract.Invoice; 
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection; 
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Windows.Controls; 
 
 namespace ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion
-{
-    /// <summary>
-    /// Interaction logic for InvoiceAndsupplierRegion.xaml
-    /// </summary>
+{ 
     public partial class InvoiceAndsupplierRegion : Page
     {
         private readonly int _companyNo;
