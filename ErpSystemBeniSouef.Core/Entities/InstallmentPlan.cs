@@ -11,7 +11,7 @@ namespace ErpSystemBeniSouef.Core.Entities
         public int InvoiceId { get; set; }
         public CustomerInvoice Invoice { get; set; }
 
-        public int SystemNumber { get; set; } 
+        //public int SystemNumber { get; set; } 
         public int NumberOfMonths { get; set; }
         public decimal Amount { get; set; }
     }

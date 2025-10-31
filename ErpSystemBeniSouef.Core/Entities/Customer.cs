@@ -8,6 +8,7 @@ namespace ErpSystemBeniSouef.Core.Entities
 {
     public class Customer : BaseEntity
     {
+        public int CustomerNumber { get; set; }
         public string Name { get; set; }                      
         public string MobileNumber { get; set; }              
         public string Address { get; set; }     

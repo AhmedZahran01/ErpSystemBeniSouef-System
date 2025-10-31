@@ -26,10 +26,10 @@ namespace ErpSystemBeniSouef.Core
       Task<T?> FindWithIncludesAsync(
    Expression<Func<T, bool>> predicate,
    params Expression<Func<T, object>>[] includes);
-            #endregion
+        #endregion
 
         #region Get By Id Region
-
+        IQueryable<T> GetAllQueryable(params Expression<Func<T, object>>[] includes);
         Task<T?> GetByIdAsync(int id);
         T? GetById(int id);
 

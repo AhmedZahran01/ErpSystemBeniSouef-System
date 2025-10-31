@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.Entities;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace ErpSystemBeniSouef.Core
         IGenaricRepositoy<T> Repository<T>() where T : BaseEntity;
 
         Task<int> CompleteAsync();
-        int Complete(); 
+        int Complete();
+      Task<IDbContextTransaction> BeginTransactionAsync();
     }
 }

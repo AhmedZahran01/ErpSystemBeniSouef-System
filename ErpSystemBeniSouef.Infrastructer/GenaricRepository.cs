@@ -62,6 +62,21 @@ namespace ErpSystemBeniSouef.Infrastructer
 
         #endregion
 
+        #region get all as queryable
+        public IQueryable<T> GetAllQueryable(params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return query;
+        }
+
+        #endregion
+
         #region Get By Condion And Inclide Region
 
         public List<T> GetByCondionAndInclide(

@@ -1,6 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,6 +45,9 @@ namespace ErpSystemBeniSouef.Infrastructer
         public async ValueTask DisposeAsync()
             => await _context.DisposeAsync();
 
-
+       async Task<IDbContextTransaction> IUnitOfWork.BeginTransactionAsync()
+        {
+            return await _context.Database.BeginTransactionAsync();
+        }
     }
 }
