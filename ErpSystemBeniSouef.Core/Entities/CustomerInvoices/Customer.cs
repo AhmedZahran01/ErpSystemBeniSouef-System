@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ErpSystemBeniSouef.Core.Entities
+namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
 {
     public class Customer : BaseEntity
     {

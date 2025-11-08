@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ErpSystemBeniSouef.Core.Entities
+namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
 {
-    public class CustomerInvoiceItems:BaseEntity
+    public class CashCustomerInvoiceItems:BaseEntity
     {
-        public int InvoiceId { get; set; }
-        public CustomerInvoice Invoice { get; set; }
-
+       
+        public int? CashCustomerInvoiceId { get; set; }
+        public CashCstomerInvoice? cashCstomerInvoice { get; set; }
         public int ProductId { get; set; }
         public Product Product { get; set; }
 

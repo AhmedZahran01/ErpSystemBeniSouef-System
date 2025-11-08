@@ -1,4 +1,5 @@
 ﻿using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -37,12 +38,22 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<Storekeeper> storekeepers { get; set; }
         public DbSet<Invoice> invoices { get; set; }
         public DbSet<InvoiceItem> invoiceItems { get; set; }
+        public DbSet<CashCstomerInvoice> cashCstomerInvoices { get; set; }
+        public DbSet<CustomerInvoice> customerInvoices { get; set; }
+        public DbSet<CustomerInvoiceItems> customerInvoiceItems { get; set; }
+        public DbSet<InstallmentPlan> installmentPlans { get; set; }
+
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //optionsBuilder.UseSqlServer(
+            //"Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
+            //    );
             optionsBuilder.UseSqlServer(
-            "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
-                );
+           "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
+               );
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

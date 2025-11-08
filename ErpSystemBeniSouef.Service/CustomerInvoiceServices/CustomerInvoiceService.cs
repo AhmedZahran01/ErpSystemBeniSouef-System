@@ -13,6 +13,7 @@ using ErpSystemBeniSouef.Core.GenericResponseModel;
 using Microsoft.EntityFrameworkCore;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.GetAllDetailsForCustomerInvoiceDtos;
 using ErpSystemBeniSouef.Core.Entities.CovenantModels;
+using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 
 namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 {
