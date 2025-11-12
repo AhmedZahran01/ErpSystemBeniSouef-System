@@ -8,10 +8,13 @@ using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.ReturnAllCashCustomerInvoices;
 using Microsoft.EntityFrameworkCore;
+using ErpSystemBeniSouef.Core.GenericResponseModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 
 namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
 {
-    public class CashCustomerInvoiceService
+    public class CashCustomerInvoiceService:ICashCustomerInvoiceService
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -20,7 +23,7 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<bool> AddCashCustomerInvoice(CreateCashCustomerInvoiceDTO dto)
+        public async Task<ServiceResponse<bool>> AddCashCustomerInvoice(CreateCashCustomerInvoiceDTO dto)
         {
             try
             {
@@ -52,15 +55,15 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
                 _unitOfWork.Repository<CashCstomerInvoice>().Add(invoice);
                 await _unitOfWork.CompleteAsync();
 
-                return true;
+                return ServiceResponse<bool>.SuccessResponse(true, " created cash invoice.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error creating cash invoice: {ex.Message}");
-                return false;
+                return ServiceResponse<bool>.Failure("Error creating cash invoice.");
             }
         }
-        public async Task<List<ReturnAllCashCustomerInvoicesDTO>> GetAllCashCustomerInvoices()
+        public async Task< ServiceResponse< List<ReturnAllCashCustomerInvoicesDTO>>> GetAllCashCustomerInvoices()
         {
             var repo = _unitOfWork.Repository<CashCstomerInvoice>();
 
@@ -81,9 +84,44 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
                 total = invoice.TotalAmount ?? 0
             }).ToList();
 
-            return result;
+            return ServiceResponse<List<ReturnAllCashCustomerInvoicesDTO>>.SuccessResponse(result, "Fetched all cash invoices.");
+        }
+        public async Task<ServiceResponse< bool>> DeleteCashCustomerInvoiceAsync(int invoiceId)
+        {
+            try
+            {
+                var invoiceRepo = _unitOfWork.Repository<CashCstomerInvoice>();
+                var itemRepo = _unitOfWork.Repository<CashCustomerInvoiceItems>();
+
+                var invoice = await invoiceRepo
+                    .GetAllQueryable(i => i.Items)
+                    .FirstOrDefaultAsync(i => i.Id == invoiceId);
+
+                if (invoice == null)
+                    return ServiceResponse<bool>.Failure("Cash invoice not found.");
+
+                if (invoice.Items != null && invoice.Items.Any())
+                {
+                    foreach (var item in invoice.Items)
+                    {
+                        itemRepo.Delete(item);
+                    }
+                }
+
+                invoiceRepo.Delete(invoice);
+
+                await _unitOfWork.CompleteAsync();
+
+                return ServiceResponse<bool>.SuccessResponse(true, "Created sussessfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting cash invoice: {ex.Message}");
+                return ServiceResponse<bool>.Failure("Error deleting cash invoice.");
+            }
         }
     }
 }
+
 
 
