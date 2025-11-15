@@ -32,6 +32,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 
         public async Task<ServiceResponse<bool>> CreateCustomerInvoiceAsync(CreateCustomerInvoiceDTO dto)
         {
+            using var transaction = await _unitOfWork.BeginTransactionAsync();
             try
             {
                 // Validate Collector, Representative, and SubArea
@@ -66,14 +67,16 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 _unitOfWork.Repository<Customer>().Add(customer);
                 await _unitOfWork.CompleteAsync();
 
+                var totalAmount = dto.customerinvoicedtos.Sum(i => i.Total);
                 // 3 Create the invoice
                 var invoice = new CustomerInvoice
                 {
                     CustomerId = customer.Id,
                     InvoiceDate = DateTime.UtcNow,
-                    TotalAmount = dto.customerinvoicedtos.Sum(i => i.Total)
+                    TotalAmount = totalAmount
                 };
-
+                decimal deposit = dto.Deposit;
+                decimal netAmount = totalAmount - deposit;
                 _unitOfWork.Repository<CustomerInvoice>().Add(invoice);
                 await _unitOfWork.CompleteAsync();
 
@@ -93,6 +96,12 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     };
 
                     _unitOfWork.Repository<CustomerInvoiceItems>().Add(invoiceItem);
+                    var covenantResult = await DeductFromCovenantAsync(representative.Id, product.Id, item.Quantity);
+                    if (!covenantResult.Success)
+                        return ServiceResponse<bool>.Failure(covenantResult.Message);
+
+                    // Create commission record (snapshot commissionPerUnit and total)
+                    await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate);
                 }
 
                 //  Create installment plans
@@ -106,6 +115,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     };
 
                     _unitOfWork.Repository<InstallmentPlan>().Add(installment);
+                    await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, invoice.InvoiceDate);
                 }
 
                 await _unitOfWork.CompleteAsync();
@@ -114,6 +124,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
             }
             catch (Exception ex)
             {
+                await transaction.RollbackAsync();
                 return ServiceResponse<bool>.Failure($"An error occurred: {ex.Message}");
             }
         }
@@ -307,6 +318,24 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 
                     //  Deduct Representative Commission
                     await DeductCommissionForInvoice( invoice, representative.Id);
+                    //  Remove monthly installments and plans related to this invoice
+                    var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
+                        .GetAllAsync(m => m.InvoiceId == invoice.Id);
+
+                    if (monthlyInstallments != null && monthlyInstallments.Any())
+                    {
+                        foreach (var mi in monthlyInstallments)
+                            _unitOfWork.Repository<MonthlyInstallment>().Delete(mi);
+                    }
+
+                    var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
+                        .GetAllAsync(p => p.InvoiceId == invoice.Id);
+
+                    if (installmentPlans != null && installmentPlans.Any())
+                    {
+                        foreach (var p in installmentPlans)
+                            _unitOfWork.Repository<InstallmentPlan>().Delete(p);
+                    }
                 }
 
                 //  Delete Customer and Invoices
@@ -328,6 +357,90 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         // ------------------------------------------
         // Helper Methods
         // ------------------------------------------
+
+        private async Task<(bool Success, string Message)> DeductFromCovenantAsync(int representativeId, int productId, int quantity)
+        {
+            // find current covenant for representative (current month)
+            var currentMonth = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1);
+
+            var covenant = await _unitOfWork.Repository<Covenant>()
+                .GetAllQueryable()
+                .Include(c => c.CovenantProducts)
+                .FirstOrDefaultAsync(c => c.RepresentativeId == representativeId && c.MonthDate == currentMonth);
+
+            if (covenant == null)
+            {
+                // if no covenant exists, you may want to create one OR return error
+                return (false, "Representative covenant for current month not found.");
+            }
+
+            var covenantProduct = covenant.CovenantProducts.FirstOrDefault(cp => cp.ProductId == productId);
+            if (covenantProduct == null)
+                return (false, "Product is not available in representative covenant.");
+
+            if (covenantProduct.Amount < quantity)
+                return (false, "Not enough quantity in representative covenant.");
+
+            covenantProduct.Amount -= quantity;
+            _unitOfWork.Repository<CovenantProduct>().Update(covenantProduct);
+
+            await _unitOfWork.CompleteAsync();
+            return (true, "OK");
+        }
+
+        private async Task CreateCommissionRecordAsync(int representativeId, int invoiceId, Product product, int quantity, DateTime invoiceDate)
+        {
+            // commission per unit is product.CommissionRate (snapshot)
+            var perUnit = product.CommissionRate;
+            var total = Math.Round(perUnit * quantity, 2);
+
+            var commission = new Commission
+            {
+                RepresentativeId = representativeId,
+                InvoiceId = invoiceId,
+                ProductId = product.Id,
+                TotalCommission = total,
+                CommissionAmount = total, // snapshot of gross before any deductions
+                MonthDate = new DateTime(invoiceDate.Year, invoiceDate.Month, 1),
+                DeductedAmount = 0m,
+                IsDeducted = false,
+                Note = "Created on invoice creation"
+            };
+
+            _unitOfWork.Repository<Commission>().Add(commission);
+            await _unitOfWork.CompleteAsync();
+        }
+
+        private async Task GenerateMonthlyInstallmentsAsync(CustomerInvoice invoice, int months, decimal planAmount, DateTime startDate)
+        {
+            if (months <= 0) return;
+
+            // distribute planAmount across months: round to 2 decimals, put remainder in last month
+            decimal monthly = Math.Floor((planAmount / months) * 100) / 100m; // floor to 2 decimals
+            decimal sum = monthly * months;
+            decimal remainder = Math.Round(planAmount - sum, 2);
+
+            for (int i = 0; i < months; i++)
+            {
+                decimal amountThisMonth = monthly;
+                if (i == months - 1) amountThisMonth += remainder; // adjust last month
+
+                var monthlyInstallment = new MonthlyInstallment
+                {
+                    InvoiceId = invoice.Id,
+                    CustomerId = invoice.CustomerId,
+                    CollectorId = invoice.Customer.CollectorId,
+                    MonthDate = new DateTime(startDate.Year, startDate.Month, 1).AddMonths(i),
+                    Amount = amountThisMonth,
+                    CollectedAmount = 0m,
+                    IsDelayed = false
+                };
+
+                _unitOfWork.Repository<MonthlyInstallment>().Add(monthlyInstallment);
+            }
+
+            await _unitOfWork.CompleteAsync();
+        }
         private async Task ReverseDiscountsForInvoice(CustomerInvoice invoice)
         {
             var discountRepo = _unitOfWork.Repository<Discount>();
@@ -367,7 +480,322 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 
         #endregion
 
+        #region Update Customer Invoice
 
+        public async Task<ServiceResponse<bool>> UpdateCustomerInvoiceAsync(int invoiceId, UpdateCustomerInvoiceDTO dto)
+        {
+            using var transaction = await _unitOfWork.BeginTransactionAsync();
+            try
+            {
+                // 1. Get existing invoice with all related data
+                var existingInvoice = await _unitOfWork.Repository<CustomerInvoice>()
+                    .GetAllQueryable(
+                        i => i.Customer,
+                        i => i.Items,
+                        i => i.Installments,
+                        i => i.Items.Select(ii => ii.Product)
+                    )
+                    .FirstOrDefaultAsync(i => i.Id == invoiceId && !i.IsDeleted);
+
+                if (existingInvoice == null)
+                    return ServiceResponse<bool>.Failure("Invoice not found.");
+
+                // 2. Validate related entities if they're being updated
+                if (dto.CollectorId.HasValue)
+                {
+                    var collector = await _unitOfWork.Repository<Collector>().GetByIdAsync(dto.CollectorId.Value);
+                    if (collector == null)
+                        return ServiceResponse<bool>.Failure("Collector not found.");
+                }
+
+                if (dto.RepresentativeId.HasValue)
+                {
+                    var representative = await _unitOfWork.Repository<Representative>().GetByIdAsync(dto.RepresentativeId.Value);
+                    if (representative == null)
+                        return ServiceResponse<bool>.Failure("Representative not found.");
+                }
+
+                if (dto.SubAreaId.HasValue)
+                {
+                    var subArea = await _unitOfWork.Repository<SubArea>().GetByIdAsync(dto.SubAreaId.Value);
+                    if (subArea == null)
+                        return ServiceResponse<bool>.Failure("Sub-area not found.");
+                }
+
+                var customer = existingInvoice.Customer;
+                if (customer != null)
+                {
+                    if (dto.CustomerNumber!=null)
+                        customer.CustomerNumber = (int)dto.CustomerNumber;
+
+                    if (!string.IsNullOrEmpty(dto.Name))
+                        customer.Name = dto.Name;
+
+                    if (!string.IsNullOrEmpty(dto.MobileNumber))
+                        customer.MobileNumber = dto.MobileNumber;
+
+                    if (!string.IsNullOrEmpty(dto.Address))
+                        customer.Address = dto.Address;
+
+                    if (!string.IsNullOrEmpty(dto.NationalNumber))
+                        customer.NationalNumber = dto.NationalNumber;
+
+                    if (dto.Deposit.HasValue)
+                        customer.Deposit = dto.Deposit.Value;
+
+                    if (dto.SaleDate.HasValue)
+                        customer.SaleDate = dto.SaleDate.Value;
+
+                    if (dto.FirstInvoiceDate.HasValue)
+                        customer.FirstInvoiceDate = dto.FirstInvoiceDate.Value;
+
+                    if (dto.SubAreaId.HasValue)
+                        customer.SubAreaId = dto.SubAreaId.Value;
+
+                    if (dto.CollectorId.HasValue)
+                        customer.CollectorId = dto.CollectorId.Value;
+
+                    if (dto.RepresentativeId.HasValue)
+                        customer.RepresentativeId = dto.RepresentativeId.Value;
+
+                    _unitOfWork.Repository<Customer>().Update(customer);
+                }
+
+                if (dto.UpdatedItems != null && dto.UpdatedItems.Any())
+                {
+                    await UpdateInvoiceItemsAsync(existingInvoice, dto.UpdatedItems, dto.RepresentativeId ?? customer.RepresentativeId);
+                }
+
+                if (dto.UpdatedInstallments != null && dto.UpdatedInstallments.Any())
+                {
+                    await UpdateInstallmentPlansAsync(existingInvoice, dto.UpdatedInstallments);
+                }
+
+                await RecalculateInvoiceTotalAsync(existingInvoice);
+
+                await _unitOfWork.CompleteAsync();
+                await transaction.CommitAsync();
+
+                return ServiceResponse<bool>.SuccessResponse(true, "Customer invoice updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                await transaction.RollbackAsync();
+                return ServiceResponse<bool>.Failure($"An error occurred while updating invoice: {ex.Message}");
+            }
+        }
+
+        // Helper method to update invoice items
+        private async Task UpdateInvoiceItemsAsync(CustomerInvoice invoice, List<UpdateInvoiceItemDTO> updatedItems, int representativeId)
+        {
+            var existingItems = invoice.Items?.ToList() ?? new List<CustomerInvoiceItems>();
+
+            // Handle items to be removed
+            var itemsToRemove = existingItems.Where(ei => !updatedItems.Any(ui => ui.Id == ei.Id)).ToList();
+            foreach (var item in itemsToRemove)
+            {
+                await ReturnToCovenantAsync(representativeId, item.ProductId, item.Quantity);
+                _unitOfWork.Repository<CustomerInvoiceItems>().Delete(item);
+
+                // Remove related commission
+                await RemoveCommissionRecordAsync(invoice.Id, item.ProductId);
+            }
+
+            // Handle items to be updated or added
+            foreach (var updatedItem in updatedItems)
+            {
+                var existingItem = existingItems.FirstOrDefault(ei => ei.Id == updatedItem.Id);
+
+                if (existingItem != null)
+                {
+                    // Update existing item
+                    var quantityDifference = updatedItem.Quantity - existingItem.Quantity;
+
+                    if (quantityDifference != 0)
+                    {
+                        await AdjustCovenantAsync(representativeId, existingItem.ProductId, quantityDifference);
+                    }
+
+                    existingItem.Quantity = updatedItem.Quantity;
+                    existingItem.Price = updatedItem.Price;
+
+                    _unitOfWork.Repository<CustomerInvoiceItems>().Update(existingItem);
+
+                    // Update commission
+                    await UpdateCommissionRecordAsync(invoice.Id, existingItem.ProductId, updatedItem.Quantity);
+                }
+                else
+                {
+                    // Add new item
+                    var product = await _unitOfWork.Repository<Product>().GetByIdAsync(updatedItem.ProductId);
+                    if (product == null)
+                        throw new Exception($"Product with ID {updatedItem.ProductId} not found.");
+
+                    var newItem = new CustomerInvoiceItems
+                    {
+                        InvoiceId = invoice.Id,
+                        ProductId = updatedItem.ProductId,
+                        Quantity = updatedItem.Quantity,
+                        Price = updatedItem.Price
+                    };
+
+                    _unitOfWork.Repository<CustomerInvoiceItems>().Add(newItem);
+
+                    // Deduct from covenant
+                    var covenantResult = await DeductFromCovenantAsync(representativeId, product.Id, updatedItem.Quantity);
+                    if (!covenantResult.Success)
+                        throw new Exception(covenantResult.Message);
+
+                    // Create commission record
+                    await CreateCommissionRecordAsync(representativeId, invoice.Id, product, updatedItem.Quantity, invoice.InvoiceDate);
+                }
+            }
+        }
+
+        // Helper method to update installment plans
+        private async Task UpdateInstallmentPlansAsync(CustomerInvoice invoice, List<UpdateInstallmentDTO> updatedInstallments)
+        {
+            var existingPlans = invoice.Installments?.ToList() ?? new List<InstallmentPlan>();
+
+            // Remove existing plans and monthly installments
+            foreach (var plan in existingPlans)
+            {
+                // Remove related monthly installments
+                var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
+                    .GetAllAsync(m => m.InvoiceId == invoice.Id);
+
+                foreach (var monthly in monthlyInstallments)
+                {
+                    _unitOfWork.Repository<MonthlyInstallment>().Delete(monthly);
+                }
+
+                _unitOfWork.Repository<InstallmentPlan>().Delete(plan);
+            }
+
+            // Add new plans and generate monthly installments
+            foreach (var inst in updatedInstallments)
+            {
+                var newPlan = new InstallmentPlan
+                {
+                    InvoiceId = invoice.Id,
+                    NumberOfMonths = inst.NumberOfMonths,
+                    Amount = inst.Amount
+                };
+
+                _unitOfWork.Repository<InstallmentPlan>().Add(newPlan);
+                await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, invoice.InvoiceDate);
+            }
+        }
+
+        // Helper method to recalculate invoice total
+        private async Task RecalculateInvoiceTotalAsync(CustomerInvoice invoice)
+        {
+            var items = await _unitOfWork.Repository<CustomerInvoiceItems>()
+                .GetAllAsync(i => i.InvoiceId == invoice.Id);
+
+            decimal itemsTotal = items.Sum(i => i.Quantity * i.Price);
+            decimal deposit = invoice.Customer?.Deposit ?? 0;
+
+            invoice.TotalAmount = itemsTotal;
+            // Note: Net amount would be itemsTotal - deposit if you need it
+
+            _unitOfWork.Repository<CustomerInvoice>().Update(invoice);
+        }
+
+        // Helper method to adjust covenant
+        private async Task AdjustCovenantAsync(int representativeId, int productId, int quantityDifference)
+        {
+            if (quantityDifference > 0)
+            {
+                // Need to deduct more from covenant
+                var result = await DeductFromCovenantAsync(representativeId, productId, quantityDifference);
+                if (!result.Success)
+                    throw new Exception(result.Message);
+            }
+            else if (quantityDifference < 0)
+            {
+                // Return to covenant
+                await ReturnToCovenantAsync(representativeId, productId, Math.Abs(quantityDifference));
+            }
+        }
+
+        // Helper method to return products to covenant
+        private async Task ReturnToCovenantAsync(int representativeId, int productId, int quantity)
+        {
+            var currentMonth = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1);
+
+            var covenant = await _unitOfWork.Repository<Covenant>()
+                .GetAllQueryable()
+                .Include(c => c.CovenantProducts)
+                .FirstOrDefaultAsync(c => c.RepresentativeId == representativeId && c.MonthDate == currentMonth);
+
+            if (covenant == null)
+            {
+                // Create new covenant if doesn't exist
+                covenant = new Covenant
+                {
+                    RepresentativeId = representativeId,
+                    CovenantDate = DateTime.UtcNow,
+                    MonthDate = currentMonth,
+                    CovenantType = "Return",
+                    CovenantProducts = new List<CovenantProduct>()
+                };
+                _unitOfWork.Repository<Covenant>().Add(covenant);
+            }
+
+            var covenantProduct = covenant.CovenantProducts.FirstOrDefault(cp => cp.ProductId == productId);
+            if (covenantProduct != null)
+            {
+                covenantProduct.Amount += quantity;
+                _unitOfWork.Repository<CovenantProduct>().Update(covenantProduct);
+            }
+            else
+            {
+                var product = await _unitOfWork.Repository<Product>().GetByIdAsync(productId);
+                var newCovenantProduct = new CovenantProduct
+                {
+                    CovenantId = covenant.Id,
+                    ProductId = productId,
+                    CategoryId = product?.CategoryId ?? 0,
+                    Amount = quantity
+                };
+                _unitOfWork.Repository<CovenantProduct>().Add(newCovenantProduct);
+            }
+        }
+
+        // Helper method to update commission record
+        private async Task UpdateCommissionRecordAsync(int invoiceId, int productId, int newQuantity)
+        {
+            var commission = await _unitOfWork.Repository<Commission>()
+                .GetAllQueryable()
+                .FirstOrDefaultAsync(c => c.InvoiceId == invoiceId && c.ProductId == productId);
+
+            if (commission != null)
+            {
+                var product = await _unitOfWork.Repository<Product>().GetByIdAsync(productId);
+                if (product != null)
+                {
+                    commission.TotalCommission = Math.Round(product.CommissionRate * newQuantity, 2);
+                    commission.CommissionAmount = commission.TotalCommission;
+                    _unitOfWork.Repository<Commission>().Update(commission);
+                }
+            }
+        }
+
+        // Helper method to remove commission record
+        private async Task RemoveCommissionRecordAsync(int invoiceId, int productId)
+        {
+            var commission = await _unitOfWork.Repository<Commission>()
+                .GetAllQueryable()
+                .FirstOrDefaultAsync(c => c.InvoiceId == invoiceId && c.ProductId == productId);
+
+            if (commission != null)
+            {
+                _unitOfWork.Repository<Commission>().Delete(commission);
+            }
+        }
+
+        #endregion
 
 
 

@@ -14,13 +14,24 @@ namespace ErpSystemBeniSouef.Core.Entities
 
         public int InvoiceId { get; set; }
         public CustomerInvoice Invoice { get; set; }
+        public int? InvoiceItemId { get; set; }
+        public CustomerInvoiceItems InvoiceItem { get; set; }
+        public int? ProductId { get; set; }
+        public Product Product { get; set; }
 
+        public CommissionType Type { get; set; }
+        public decimal TotalCommission { get; set; }
         public DateTime MonthDate { get; set; }
         public decimal CommissionAmount { get; set; }
-        public decimal DeductedAmount { get; set; }
         public string Note { get; set; }
-
+        public decimal DeductedAmount { get; set; }
         public bool IsDeducted { get; set; }
         public DateTime? DeductedDate { get; set; }
+    }
+
+    public enum CommissionType
+    {
+        Earn = 1,
+        Deduct = 2
     }
 }
