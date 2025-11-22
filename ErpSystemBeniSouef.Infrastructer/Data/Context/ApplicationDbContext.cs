@@ -61,25 +61,51 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+             
+            #region Fix Cascade Issue for MonthlyInstallment
+
+            builder.Entity<MonthlyInstallment>()
+                .HasOne(m => m.Collector)
+                .WithMany()
+                .HasForeignKey(m => m.CollectorId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<MonthlyInstallment>()
+                .HasOne(m => m.Customer)
+                .WithMany()
+                .HasForeignKey(m => m.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<MonthlyInstallment>()
+                .HasOne(m => m.Invoice)
+                .WithMany()
+                .HasForeignKey(m => m.InvoiceId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            #endregion
+
 
             #region Edit Data Region
 
-       //     builder.Entity<Product>()
-       //     .HasOne(p => p.Company)
-       //     .WithMany(c => c.Products)
-       //     .HasForeignKey(p => p.CompanyId)
-       //     .OnDelete(DeleteBehavior.SetNull); // 👈 بدل Cascade
+
+            //     builder.Entity<Product>()
+            //     .HasOne(p => p.Company)
+            //     .WithMany(c => c.Products)
+            //     .HasForeignKey(p => p.CompanyId)
+            //     .OnDelete(DeleteBehavior.SetNull); // 👈 بدل Cascade
 
 
-       //     builder.Entity<Category>()
-       //.HasOne(c => c.Company)
-       //.WithMany()
-       //.HasForeignKey(c => c.CompanyId)
-       //.OnDelete(DeleteBehavior.Cascade); // تسيبها زي ما هي
+            //     builder.Entity<Category>()
+            //.HasOne(c => c.Company)
+            //.WithMany()
+            //.HasForeignKey(c => c.CompanyId)
+            //.OnDelete(DeleteBehavior.Cascade); // تسيبها زي ما هي
 
             #endregion
 
         }
+
+
 
 
 

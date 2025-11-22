@@ -77,5 +77,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(invoicePage);
 
         }
+         
+
+        private void CustomersPage_Click(object sender, RoutedEventArgs e)
+        { 
+            var customersPage = new  CustomersRegion.CustomersPage();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
+        }
     }
 }
+     

@@ -68,7 +68,7 @@
             <!-- التسجيل -->
             <StackPanel  Grid.Row="1" Grid.Column="1" Background="#1B7F" Margin="10"  >
                 <TextBlock Text=""   Style="{StaticResource HeaderTextBlock}"/>
-                <Button Content="العملاء"    Style="{StaticResource TestButtonStyle}"/>
+                <Button Content="العملاء"    Style="{StaticResource TestButtonStyle}" Click="CustomersPage_Click" />
                 <Button Content="الفواتير ونقدية الموردين"   Style="{StaticResource TestButtonStyle}" Click="InvoiceMainPage_Click_2" />
                 <Button Content="العهدة"    Style="{StaticResource TestButtonStyle}" Click="Button_Click"/>
                 <Button Content="التحصيل"   Style="{StaticResource TestButtonStyle}"/>
