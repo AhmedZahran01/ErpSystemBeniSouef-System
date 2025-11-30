@@ -1,0 +1,17 @@
+[
+  {
+    "CustomerId": 3,
+    "InvoiceDate": "2024-02-10T00:00:00",
+    "TotalAmount": 4500.00
+  },
+  {
+    "CustomerId": 3,
+    "InvoiceDate": "2024-02-12T00:00:00",
+    "TotalAmount": 7200.00
+  },
+  {
+    "CustomerId": 4,
+    "InvoiceDate": "2024-02-12T00:00:00",
+    "TotalAmount": 1600.00
+  }
+]

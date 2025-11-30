@@ -45,7 +45,7 @@ namespace ErpSystemBeniSouef.Infrastructer
         public async ValueTask DisposeAsync()
             => await _context.DisposeAsync();
 
-       async Task<IDbContextTransaction> IUnitOfWork.BeginTransactionAsync()
+        async Task<IDbContextTransaction> IUnitOfWork.BeginTransactionAsync()
         {
             return await _context.Database.BeginTransactionAsync();
         }

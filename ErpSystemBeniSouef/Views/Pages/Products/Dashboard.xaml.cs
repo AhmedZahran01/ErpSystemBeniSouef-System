@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.ViewModel; 
@@ -80,8 +81,15 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
          
 
         private void CustomersPage_Click(object sender, RoutedEventArgs e)
-        { 
-            var customersPage = new  CustomersRegion.CustomersPage();
+        {
+            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+            var customerInvoiceService = App.AppHost.Services.GetRequiredService<ICustomerInvoiceService>();
+            var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
+            var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+
+            var customersPage = new  CustomersRegion.CustomersPage(customerInvoiceService, productService , mainAreaService,
+                                             subAreaService , representativeService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
     }

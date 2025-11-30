@@ -16,7 +16,7 @@ namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
         public decimal TotalAmount { get; set; }
 
         // Navigation
-        public ICollection<CustomerInvoiceItems> Items { get; set; }
-        public ICollection<InstallmentPlan> Installments { get; set; }
+        public ICollection<CustomerInvoiceItems>? Items { get; set; }
+        public ICollection<InstallmentPlan>? Installments { get; set; }
     }
 }

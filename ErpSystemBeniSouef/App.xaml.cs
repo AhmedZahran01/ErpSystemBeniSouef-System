@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
@@ -9,6 +10,7 @@ using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.CollectorServices;
+using ErpSystemBeniSouef.Service.CustomerInvoiceServices;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService;
 using ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceService;
@@ -25,7 +27,7 @@ using ErpSystemBeniSouef.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging; 
+using Microsoft.Extensions.Logging;
 using System.Windows;
 
 namespace ErpSystemBeniSouef
@@ -53,38 +55,35 @@ namespace ErpSystemBeniSouef
             AppHost = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) =>
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(
-            "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
-                 ));
-        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
-        services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
-        services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
-        services.AddScoped(typeof(IProductService), typeof(ProductService));
-        services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
-        services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
-        services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
-        services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
-        services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
-        services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
-        services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
-        services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
-        services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
-        services.AddScoped(typeof(IReturnSupplierInvoiceItemService), typeof(ReturnSupplierInvoiceItemService));
-        services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
-        services.AddScoped(typeof(ISupplierAccountService), typeof(supplierAccountService));
-
-
-
-        //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
-        //services.AddScoped<IReturnSupplierInvoiceItemService, ReturnSupplierInvoiceItemService>();
-        //services.AddScoped(typeof(IDamageInvoiceService), typeof(DamageInvoiceService));
-
-
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-    })
-    .Build();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
+                     ));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
+            services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
+            services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
+            services.AddScoped(typeof(IProductService), typeof(ProductService));
+            services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
+            services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
+            services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
+            services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
+            services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
+            services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
+            services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
+            services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
+            services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
+            services.AddScoped(typeof(IReturnSupplierInvoiceItemService), typeof(ReturnSupplierInvoiceItemService));
+            services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
+            services.AddScoped(typeof(ISupplierAccountService), typeof(supplierAccountService));
+            services.AddScoped(typeof(ICustomerInvoiceService), typeof(CustomerInvoiceService));
+       
+        
+            //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
+            //services.AddScoped<IReturnSupplierInvoiceItemService, ReturnSupplierInvoiceItemService>();
+            //services.AddScoped(typeof(IDamageInvoiceService), typeof(DamageInvoiceService));
+       
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+                 })    .Build();
 
             await AppHost.StartAsync();
 
@@ -109,7 +108,7 @@ namespace ErpSystemBeniSouef
             }
             // افتح الـ MainWindow
             var mainWindow = new Views.Windows.MainWindow();
-             
+
             //========================================
 
             //using (var context = new ApplicationDbContext())
@@ -130,16 +129,17 @@ namespace ErpSystemBeniSouef
             var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
             var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
-            var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
-            var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
-            var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
+            //var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
+            //var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
+            //var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
-            var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
-            var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
-            var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
-            var returnSupplierInvoice = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceService>();
-            var supplierCashService = App.AppHost.Services.GetRequiredService<ISupplierCashService>();
-            var supplierAccountService = App.AppHost.Services.GetRequiredService<ISupplierAccountService>();
+            //var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
+            //var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
+            //var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
+            //var returnSupplierInvoice = App.AppHost.Services.GetRequiredService<IReturnSupplierInvoiceService>();
+            //var supplierCashService = App.AppHost.Services.GetRequiredService<ISupplierCashService>();
+            //var supplierAccountService = App.AppHost.Services.GetRequiredService<ISupplierAccountService>();
+            var customerInvoiceService = App.AppHost.Services.GetRequiredService<ICustomerInvoiceService>();
             //var mainRegionPage = new MainRegionPage(repo);
 
 
@@ -174,9 +174,13 @@ namespace ErpSystemBeniSouef
             //var login = new Views.Pages.InvoiceAndsupplierRegion.SupplierAccounts
             //                 .SupplierAccountsPage(supplierService,supplierCashService ,supplierAccountService);
 
-            var login = new StartPageBeforeLogin();
-
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
+            var login = new Views.Pages.CustomersRegion.CustomersPage(customerInvoiceService, productService , mainAreaService
+                                      , subAreaService ,representativeService );
+
+
+            //var login = new StartPageBeforeLogin();
+
 
             mainWindow.Frame.NavigationService.Navigate(login);
             mainWindow.Show();

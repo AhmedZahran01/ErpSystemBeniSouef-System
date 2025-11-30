@@ -1,301 +1,363 @@
 ﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.CustomersRegion.CustomersPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.CustomersRegion"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
-      mc:Ignorable="d" 
-      d:DesignHeight="850" d:DesignWidth="1700"
-      Title="CustomersPage">
+      mc:Ignorable="d"
+      Background="#F1F3F6" 
+      d:DesignWidth="1700"
+      d:DesignHeight="900"
+      Title="CustomersPage"
+      >
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../../Styles/ButtonStyles.xaml"/>
-                <ResourceDictionary Source="../../../Styles/TextBoxStyles.xaml"/>
-                <ResourceDictionary Source="../../../Styles/TextBlockStyles.xaml"/>
-                <ResourceDictionary Source="../../../Styles/TableStyles.xaml"/>
-                <ResourceDictionary Source="../../../Styles/BorderStyles.xaml"/>
+    <Grid Margin="25"          Background="#1B7F">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="53"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
 
-                <ResourceDictionary Source="../../../Styles/ComboBoxStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <FontFamily x:Key="MainFont">pack://application:,,,/Assets/#Roboto</FontFamily>
-            <BooleanToVisibilityConverter x:Key="BoolToVis" />
-            <BooleanToVisibilityConverter x:Key="StringIsNullOrEmptyToVisibilityConverter" />
-        </ResourceDictionary>
-    </Page.Resources>
+        <!-- 🔵 Title Bar -->
+        <userControls:TitleBar Grid.Row="0"/>
 
-    <Grid>
-
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="32"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <userControls:TitleBar/>
-
-            <!-- 🧾 العنوان -->
-            <TextBlock Text="📋 إدارة العملاء"
-                   FontSize="24"
+        <!-- 🟦 Main Title -->
+        <TextBlock Text="📋 إدارة العملاء"
+                   FontSize="21"
                    FontWeight="Bold"
-                   Foreground="FloralWhite"
-                   Margin="0,0,0,0"/>
-            <!--Foreground="#2B3A67"-->
+                   Foreground="#2B3A67"
+                   Margin="0,10,0,20"
+                   Grid.Row="1" HorizontalAlignment="Right"/>
 
-            <!-- 🧩 النموذج -->
-            <Border Grid.Row="1"
-                Background="White"
-                CornerRadius="12"
-                Padding="20"
-                Margin="0,40,0,20"
-                        >
-                <!--Effect="{DynamicResource {x:Static SystemParameters.DropShadowKey}}"-->
-                <StackPanel>
-                    <UniformGrid Columns="3" Rows="2" Margin="0,0,0,10">
-                        <StackPanel Margin="5">
-                            <TextBlock Text="اسم العميل" FontWeight="SemiBold"/>
-                            <TextBox x:Name="NameTxt" Height="28" Margin="0,3,0,0"/>
+        <!-- 🟧 Layout -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 🟦 قسم البيانات الأساسية -->
+            <Border Grid.Column="1"
+                    Background="#164256"
+                    CornerRadius="16"
+                    Padding="10" 
+                    Margin="0,0,20,0"
+                    SnapsToDevicePixels="True"
+                    >
+                    <!--Effect="{DynamicResource {x:Static SystemParameters.DropShadowKey}}"-->
+
+                <StackPanel FlowDirection="RightToLeft">
+
+                    <Grid>
+
+                        <!-- عنوان داخلي -->
+                        <TextBlock Text="البيانات الأساسية"
+                               FontSize="17"
+                               FontWeight="Bold"
+                               Margin="0,0,0,0"
+                               Foreground="Black"/>
+
+                        <!-- عنوان داخلي -->
+                        <TextBlock Text="البيانات الثانويه"
+              FontSize="17"
+              FontWeight="Bold"
+              Margin="0,0,330,0"
+              Foreground="Black"
+                               FlowDirection="LeftToRight"/>
+
+                    </Grid>
+                    <!-- Main Grid -->
+                    <Grid Margin="0,5,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- رقم العميل -->
+                        <StackPanel Margin="5" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="رقم العميل" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="CustomerNumberTxt" Height="32" Margin="0,5,0,0" Width="200"/>
                         </StackPanel>
 
-                        <StackPanel Margin="5">
-                            <TextBlock Text="رقم الهاتف" FontWeight="SemiBold"/>
-                            <TextBox x:Name="PhoneTxt" Height="28" Margin="0,3,0,0"/>
+                        <!-- اسم العميل -->
+                        <StackPanel Margin="5" Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="اسم العميل" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="NameTxt" Height="32" Margin="0,5,0,0" Width="200"/>
                         </StackPanel>
 
-                        <StackPanel Margin="5">
-                            <TextBlock Text="العنوان" FontWeight="SemiBold"/>
-                            <TextBox x:Name="AddressTxt" Height="28" Margin="0,3,0,0"/>
+                        <!-- الموبايل -->
+                        <StackPanel Margin="5" Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="رقم الموبايل" FontWeight="SemiBold" Foreground="White" />
+                            <TextBox x:Name="PhoneTxt" Height="32" Margin="0,5,0,0" Width="200"/>
                         </StackPanel>
 
-                        <StackPanel Margin="5">
-                            <TextBlock Text="البريد الإلكتروني" FontWeight="SemiBold"/>
-                            <TextBox x:Name="EmailTxt" Height="28" Margin="0,3,0,0"/>
+                        <!-- العنوان -->
+                        <StackPanel Margin="5" Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="العنوان" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="AddressTxt" Height="32" Margin="0,5,0,0" Width="200"/>
                         </StackPanel>
 
-                        <StackPanel Margin="5">
-                            <TextBlock Text="النوع" FontWeight="SemiBold"/>
-                            <ComboBox x:Name="GenderCombo" Height="28" Margin="0,3,0,0">
-                                <ComboBoxItem Content="ذكر"/>
-                                <ComboBoxItem Content="أنثى"/>
-                            </ComboBox>
+                        <!-- المقدم -->
+                        <StackPanel Margin="5" Grid.Row="4" Grid.Column="0" Orientation="Horizontal">
+                            <TextBlock Text="المقدم" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="PayTxt" Height="32" Margin="0,5,0,0" Width="200"/>
+                        </StackPanel>
+                        <!-- تاريخ البيع -->
+                        <StackPanel Margin="5" Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="تاريخ البيع" FontWeight="SemiBold" Foreground="White"/>
+                            <DatePicker x:Name="SaleDatePicker" Height="32" Margin="0,5,0,0"/>
                         </StackPanel>
 
-                        <StackPanel Margin="5">
-                            <TextBlock Text="الخصم (%)" FontWeight="SemiBold"/>
-                            <TextBox x:Name="DiscountTxt" Height="28" Margin="0,3,0,0"/>
+                        <!-- تاريخ أول فاتورة -->
+                        <StackPanel Margin="5" Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="تاريخ أول فاتورة" FontWeight="SemiBold" Foreground="White"/>
+                            <DatePicker x:Name="FirstInvoiceDatePicker" Height="32" Margin="0,5,0,0" Width="100"/>
                         </StackPanel>
+
+                        <!-- المنطقة -->
+                        <StackPanel Margin="5" Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="المنطقة : " FontWeight="SemiBold" Foreground="White"/>
+                            <ComboBox x:Name="MainAreaCombo" DisplayMemberPath="Name" SelectedValuePath="Id" Height="32" Margin="0,5,10,0" Width="100" SelectionChanged="cbMainArea_SelectionChanged"/>
+                            <ComboBox x:Name="SubAreaCombo"  DisplayMemberPath="Name" SelectedValuePath="Id" Height="32" Margin="0,5,0,0" Width="100"/>
+                        </StackPanel>
+
+                        <!-- المندوب -->
+                        <StackPanel Margin="5" Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="المندوب" FontWeight="SemiBold" Foreground="White"/>
+                            <ComboBox x:Name="RepresentativeCombo"  DisplayMemberPath="Name" SelectedValuePath="Id"  Height="32" Margin="0,5,0,0" Width="150"/>
+                        </StackPanel>
+
+                        <!-- الرقم القومي -->
+                        <StackPanel Margin="5" Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="الرقم القومي" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="numberIdTxt" Height="32" Margin="0,5,0,0" Width="200"/>
+                        </StackPanel>
+                        
+                        <!-- المحصل --><!--
+                        <StackPanel Margin="5" Grid.Row="4" Grid.Column="0">
+                            <TextBlock Text="المحصّل" FontWeight="SemiBold" Foreground="White"/>
+                            <ComboBox x:Name="CollectorCombo" Height="32" Margin="0,5,0,0"/>
+                        </StackPanel>-->
+
+                    </Grid>
+
+                    <!-- 🟦 Main Title -->
+                    <TextBlock Text=" انظمه التقسيط 📋   "
+FontSize="11"
+FontWeight="Bold"
+Foreground="White"
+Margin="0,10,0,20"
+Grid.Row="1" HorizontalAlignment="Left"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" /> 
+                        </Grid.RowDefinitions>
+                       
+                        <!-- اسم العميل -->
+                        <StackPanel Margin="5"   Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                            <TextBlock Text="اسم العميل" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="seTxt" Height="32" Margin="0,5,0,0" Width="200"/>
+                        </StackPanel>
+
+                        <!-- اسم العميل -->
+                        <StackPanel Margin="5"   Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                            <TextBlock Text="اسم العميل" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="se2Txt" Height="32" Margin="0,5,0,0" Width="200"/>
+                        </StackPanel>
+
+                        <!-- اسم العميل -->
+                        <StackPanel Margin="5"   Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                            <TextBlock Text="اسم العميل" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="se3Txt" Height="32" Margin="0,5,0,0" Width="200"/>
+                        </StackPanel>
+
+                        <!-- اسم العميل -->
+                        <StackPanel Margin="5"   Orientation="Horizontal" Grid.Row="0" Grid.Column="3">
+                            <TextBlock Text="اسم العميل" FontWeight="SemiBold" Foreground="White"/>
+                            <TextBox x:Name="se4Txt" Height="32" Margin="0,5,0,0" Width="200"/>
+                        </StackPanel>
+
+
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" /> 
+                            <ColumnDefinition Width="*" /> 
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        
+                        <Button Content="إضافة" Grid.Column="0" Grid.Row="0"
+                                Background="#3E5C76" Foreground="White"
+                              Width="120" Height="38" Margin="5" BorderThickness="0"
+                              Click="AddCustomer_Click" />
+ 
+                        <Button Content="تعديل" Background="Green" 
+                                Foreground="White" Grid.Column="1" Grid.Row="0"
+                                Width="120" Height="38" Margin="5" BorderThickness="0" Click="EditButton_Click"/>
+ 
+                        <Button Content="حذف" Grid.Row="0" Grid.Column="2"
+                                Background="#E63946" Foreground="White"
+                                Width="120" Height="38" Margin="5" BorderThickness="0"/>
+
+                        <!--<Button Content="بحث" Background="#457B9D" Foreground="White"
+                                Width="120" Height="38" Margin="5" BorderThickness="0"/>-->
+
+
+                    </Grid>
+
+                    
+                </StackPanel>
+
+            </Border>
+
+            <!-- 🟩 قسم السلع والمشتريات -->
+            <Border Grid.Column="0"
+                    Background="#1B7F"
+                    CornerRadius="16"
+                    Padding="20"    
+                    SnapsToDevicePixels="True"
+                    >
+                    <!--Effect="{DynamicResource {x:Static SystemParameters.DropShadowKey}}"-->
+
+                <StackPanel FlowDirection="RightToLeft">
+
+                    <TextBlock Text="السلع والمشتريات"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Margin="0,0,0,15"
+                               Foreground="#2B3A67"/>
+
+                    <UniformGrid Columns="5" Rows="1" Margin="0,5,0,10">
+
+                        <!-- نوع المنتج -->
+                        <StackPanel Margin="5">
+                            <TextBlock Text="نوع المنتج" FontWeight="SemiBold"/>
+                            <ComboBox x:Name="ProductTypeCombo" Height="32" Margin="0,5,0,0" SelectionChanged="cbProductType_SelectionChanged"/>
+                        </StackPanel>
+
+                        <!-- المنتج -->
+                        <StackPanel Margin="5">
+                            <TextBlock Text="المنتج" FontWeight="SemiBold"/>
+                            <ComboBox x:Name="ProductCombo"  DisplayMemberPath="ProductName"
+                                      SelectedValuePath="Id"  Height="32" Margin="0,5,0,0"/>
+                        </StackPanel>
+
+                        <!-- الكمية -->
+                        <StackPanel Margin="5">
+                            <TextBlock Text="الكمية" FontWeight="SemiBold"/>
+                            <TextBox x:Name="QuantityTxt" Height="32" Margin="0,5,0,0"/>
+                        </StackPanel>
+
+                        <!-- السعر -->
+                        <StackPanel Margin="5">
+                            <TextBlock Text="السعر" FontWeight="SemiBold"/>
+                            <TextBox x:Name="PriceTxt" Height="32" Margin="0,5,0,0"/>
+                        </StackPanel>
+
+                        <Button Content="إضافة" Grid.Column="0" Grid.Row="0"
+          Background="#3E5C76" Foreground="White"
+        Width="80" Height="38" Margin="5" BorderThickness="0"
+        Click="AddInvoiceItemCustomer_Click" />
                     </UniformGrid>
 
-                    <!-- أزرار -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                        <Button Content="إضافة" Background="#2B3A67" Foreground="White"
-                            Width="100" Height="35" Margin="5" BorderThickness="0"
-                              Click="AddCustomer_Click"/>
-                        <Button Content="تعديل" Background="#3E5C76" Foreground="White"
-                            Width="100" Height="35" Margin="5" BorderThickness="0"
-                            />
-                        <Button Content="حذف" Background="#E63946" Foreground="White"
-                            Width="100" Height="35" Margin="5" BorderThickness="0"
-                             />
-                        <Button Content="بحث" Background="#457B9D" Foreground="White"
-                            Width="100" Height="35" Margin="5" BorderThickness="0"
-                             />
-                    </StackPanel>
+                    <!-- 🟧 العمليات -->
+                    <TextBlock Text="العمليات"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Margin="0,15,0,10"
+                               Foreground="#2B3A67"/>
+
+                    <DataGrid x:Name="dgInvoiceItems" Margin="20 0 0 0"
+           AutoGenerateColumns="False" CanUserAddRows="False"
+           CanUserDeleteRows="False"   IsReadOnly="True"
+           FontSize="18"  RowHeight="30"  HeadersVisibility="Column"
+             FlowDirection="RightToLeft">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayId}" Width=".5*"/>
+                            <!--<DataGridTextColumn Header="الرقم  " Binding="{Binding DisplayId}" Width="*"/>-->
+                            <DataGridTextColumn Header="نوع السلعة" Binding="{Binding ProductType}" Width=".8*"/>
+                            <DataGridTextColumn Header="اسم السلعة" Binding="{Binding ProductName}" Width="*"/>
+                            <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width=".7*"/>
+                            <DataGridTextColumn Header="السعر" Binding="{Binding UnitPrice}" Width=".5*"/>
+                            <DataGridTextColumn Header="الإجمالي" Binding="{Binding LineTotal}" Width=".7*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+
                 </StackPanel>
+
             </Border>
-
-            <!-- 📋 DataGrid -->
-            <Border Grid.Row="2"
-                Background="White"
-                CornerRadius="12"
-                Padding="10"
-                        >
-                <DataGrid x:Name="CustomersGrid"
-                      AutoGenerateColumns="False"
-                      IsReadOnly="True"
-                      HeadersVisibility="Column"
-                      RowHeight="20"
-                      SelectionMode="Single"
-                      BorderThickness="0"
-                      GridLinesVisibility="None" FlowDirection="RightToLeft"
-                      AlternatingRowBackground="#F8FAFC">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" الرقم المسلسل " Width=".94*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" رقم العميل " Width="0.7*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" اسم العميل " Width="0.8*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" رقم الموبايل " Width="0.8*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" تاريخ البيع " Width="0.7*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header="تاريخ اول فاتوره " Width="1*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" مكان العمل\الاقامه" Width="1.1*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header=" اسم المندوب" Width="0.8*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header="اسم المحصل  " Width="0.8*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header="رقم المندوب  " Width="0.8*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Binding="{Binding SalePrice}" Header="المقدم " Width="0.7*">
-
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center"/>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                                    <Setter Property="FontSize" Value="19"/>
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-
-                        </DataGridTextColumn>
-
-                    </DataGrid.Columns>
-                </DataGrid>
-            </Border>
-            <Button Grid.Row="3"  HorizontalAlignment="Left"  Content="↩" FontSize="35" 
-  Width="150" Height="55" Foreground="White"
-  Style="{StaticResource triggerrr}" Margin="31,0,0,1"  
-  Click="BackBtn_Click"/>
+ 
         </Grid>
+
+        <!-- 🟦 DataGrid -->
+        <Border Grid.Row="3"
+                Background="#164256"
+                CornerRadius="16"
+                Margin="0,25,0,0"
+                Padding="15"
+                SnapsToDevicePixels="True"
+                >
+                <!--Effect="{DynamicResource {x:Static SystemParameters.DropShadowKey}}"-->
+
+            <DataGrid x:Name="CustomersGrid"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      FlowDirection="RightToLeft"
+                      AlternatingRowBackground="#F3F6FA"
+                      BorderThickness="0"
+                      GridLinesVisibility="None"
+                      RowHeight="28"
+                      FontSize="15">
+
+                <DataGrid.Columns>
+                    
+                    <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayId}" Width="*"/>
+                    <DataGridTextColumn Header="رقم العميل " Binding="{Binding CustomerNumber}" Width="*"/>
+                    <DataGridTextColumn Header="اسم العميل" Binding="{Binding Name}" Width="*"/>
+                    <DataGridTextColumn Header="رقم الموبايل" Binding="{Binding MobileNumber}" Width="*"/>
+                    <DataGridTextColumn Header="العنوان" Binding="{Binding Address}" Width="*"/>
+                    <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding SaleDate}" Width="*"/>
+                    <DataGridTextColumn Header="تاريخ أول فاتورة" Binding="{Binding FirstInvoiceDate}" Width="*"/>
+                    <DataGridTextColumn Header="المنطقة" Binding="{Binding SubAreaName}" Width="*"/>
+                    <DataGridTextColumn Header="اسم المندوب" Binding="{Binding RepresentativeName}" Width="*"/>
+                    <DataGridTextColumn Header="رقم البطاقه" Binding="{Binding NationalNumber}" Width="*"/>
+                    <DataGridTextColumn Header=" المقدم" Binding="{Binding Deposit}" Width="*"/>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+
+        </Border>
+
     </Grid>
 </Page>
