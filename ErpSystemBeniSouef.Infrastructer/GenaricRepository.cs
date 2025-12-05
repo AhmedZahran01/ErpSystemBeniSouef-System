@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Infrastructer
 {
-    public class GenaricRepository<T> : IGenaricRepositoy<T> where T : BaseEntity
+    public class GenaricRepository<T> : IGenaricRepositoy<T> where T : class
     {
         #region Constractor Region
         private protected readonly ApplicationDbContext _context;
@@ -26,7 +26,7 @@ namespace ErpSystemBeniSouef.Infrastructer
 
         public List<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
 
             foreach (var include in includes)
             {
@@ -38,7 +38,7 @@ namespace ErpSystemBeniSouef.Infrastructer
 
         public async Task<List<T>> GetAllProductsAsync(int comanyNo, params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
 
             foreach (var include in includes)
             {
@@ -50,7 +50,7 @@ namespace ErpSystemBeniSouef.Infrastructer
 
         public async Task<List<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
 
             foreach (var include in includes)
             {
@@ -65,7 +65,7 @@ namespace ErpSystemBeniSouef.Infrastructer
         #region get all as queryable
         public IQueryable<T> GetAllQueryable(params Expression<Func<T, object>>[] includes)
         {
-            IQueryable<T> query = _context.Set<T>().AsNoTracking().Where(m => m.IsDeleted == false);
+            IQueryable<T> query = _context.Set<T>().AsNoTracking();
 
             foreach (var include in includes)
             {
@@ -162,7 +162,7 @@ namespace ErpSystemBeniSouef.Infrastructer
                 query = query.Include(include);
             }
 
-            return await query.FirstOrDefaultAsync(e => e.Id == id && !e.IsDeleted);
+            return await query.FirstOrDefaultAsync();
         }
 
         #endregion

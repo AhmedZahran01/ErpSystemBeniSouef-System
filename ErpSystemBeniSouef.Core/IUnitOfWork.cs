@@ -10,7 +10,7 @@ namespace ErpSystemBeniSouef.Core
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
-        IGenaricRepositoy<T> Repository<T>() where T : BaseEntity;
+        IGenaricRepositoy<T> Repository<T>() where T : class;
 
         Task<int> CompleteAsync();
         int Complete();

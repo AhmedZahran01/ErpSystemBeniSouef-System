@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core
 {
-    public interface IGenaricRepositoy<T> where T : BaseEntity
+    public interface IGenaricRepositoy<T> where T : class
     {
         #region Get All Region 
 
