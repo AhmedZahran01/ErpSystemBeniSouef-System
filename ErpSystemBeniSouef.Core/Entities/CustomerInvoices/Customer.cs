@@ -19,15 +19,16 @@ namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
 
 
         public int SubAreaId { get; set; }
-        public SubArea SubArea { get; set; }
+        public SubArea? SubArea { get; set; }
 
         public int CollectorId { get; set; }
-        public Collector Collector { get; set; }
+        public Collector? Collector { get; set; }
+
         public int RepresentativeId { get; set; } 
-        public Representative Representative { get; set; }
+        public Representative? Representative { get; set; }
 
 
-        public ICollection<CustomerInvoice> Invoices { get; set; }
+        public ICollection<CustomerInvoice>? Invoices { get; set; }
         
     }
 }

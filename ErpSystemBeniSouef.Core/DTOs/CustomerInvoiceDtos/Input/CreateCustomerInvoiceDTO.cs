@@ -21,7 +21,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input
 
         public int CollectorId { get; set; }
         public int RepresentativeId { get; set; }
-      public List<installmentsdtos> installmentsdtos { get; set; }
+        public List<installmentsdtos> installmentsdtos { get; set; }
         public List<customerinvoicedtos> customerinvoicedtos { get; set; }
     }
     public class installmentsdtos
@@ -29,8 +29,9 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input
         public int NumberOfMonths { get; set; }
         public decimal Amount { get; set; }
     }
-    public class customerinvoicedtos {
-        public int InvoiceId { get; set; }
+    public class customerinvoicedtos
+    {
+        //public int InvoiceId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }

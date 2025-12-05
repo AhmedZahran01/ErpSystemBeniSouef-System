@@ -8,6 +8,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output
 {
     public class ReturnCustomerInvoiceListDTO
     {
+        public int DisplayId { get; set; }
         public int serialNumber { get; set; }
         public int CustomerNumber { get; set; }
         public string Name { get; set; }

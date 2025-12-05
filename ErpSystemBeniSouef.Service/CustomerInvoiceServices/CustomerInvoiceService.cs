@@ -130,8 +130,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-
-
+         
         #region Get All Customer Invoices
 
         public async Task<ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>> GetAllCustomerInvoicesAsync()
@@ -180,8 +179,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-
-
+         
         #region get customerinvoicebyid
         public async Task<ServiceResponse<ReturnCustomerInvoiceDetailsDTO>> GetCustomerInvoiceByIdAsync(int invoiceId)
         {
@@ -240,13 +238,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-
-
-
-
-
-
-
+           
         #region delete customer invoice
         public async Task<ServiceResponse<bool>> DeleteCustomerAsync(int customerId)
         {
@@ -796,8 +788,6 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-
-
-
+          
     }
 }

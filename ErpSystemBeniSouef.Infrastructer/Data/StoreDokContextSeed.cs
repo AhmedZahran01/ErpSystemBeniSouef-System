@@ -1,5 +1,6 @@
 ﻿using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using System;
 using System.Collections.Generic;
@@ -283,7 +284,32 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
             //        await dbcontext.SaveChangesAsync();
             //    }
             //}
-            
+
+            #endregion
+
+            #region customerInvoices Region 
+
+            if (!dbcontext.customerInvoices.Any()) // Check if the database is empty
+            {
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "customerInvoices.json");
+
+                if (!File.Exists(filePath))
+                    throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
+
+                var subRegionData = File.ReadAllText(filePath);
+
+                var invoiceItems = JsonSerializer.Deserialize<List<CustomerInvoice>>(subRegionData);
+
+                if (invoiceItems?.Count() > 0)
+                {
+                    foreach (var invoiceItem in invoiceItems)
+                    {
+                        dbcontext.Set<CustomerInvoice>().Add(invoiceItem);
+                    }
+                    await dbcontext.SaveChangesAsync();
+                }
+            }
+
             #endregion
 
         }
