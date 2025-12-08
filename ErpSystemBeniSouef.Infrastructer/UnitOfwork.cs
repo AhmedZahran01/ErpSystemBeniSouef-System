@@ -13,7 +13,7 @@ namespace ErpSystemBeniSouef.Infrastructer
 {
     public class UnitOfwork : IUnitOfWork
     {
-        private readonly Hashtable _Repository;
+        private readonly Dictionary<Type, object> _repositories;
         private readonly ApplicationDbContext _context;
 
 
@@ -21,19 +21,20 @@ namespace ErpSystemBeniSouef.Infrastructer
         public UnitOfwork(ApplicationDbContext context)
         {
             _context = context;
-            _Repository = new Hashtable();
+            _repositories = new Dictionary<Type, object>();
         }
 
-        public IGenaricRepositoy<T> Repository<T>() where T : BaseEntity
+        public IGenaricRepositoy<T> Repository<T>() where T : class
         {
-            var key = typeof(T).Name;  // driver
-            if (!_Repository.ContainsKey(key))
+            var type = typeof(T);
+
+            if (!_repositories.ContainsKey(type))
             {
-                var repo = new GenaricRepository<T>(_context);
-                _Repository.Add(key, repo);
+                var repositoryInstance = new GenaricRepository<T>(_context);
+                _repositories.Add(type, repositoryInstance);
             }
 
-            return _Repository[key] as IGenaricRepositoy<T>;
+            return (IGenaricRepositoy<T>)_repositories[type];
         }
 
         public async Task<int> CompleteAsync()
