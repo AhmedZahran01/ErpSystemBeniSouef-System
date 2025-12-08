@@ -21,21 +21,35 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input
 
         public int CollectorId { get; set; }
         public int RepresentativeId { get; set; }
-        public List<installmentsdtos> installmentsdtos { get; set; }
-        public List<customerinvoicedtos> customerinvoicedtos { get; set; }
+        public List<Customerinvoicedtos> customerinvoicedtos { get; set; }
+
+        public List<Installmentsdtos> installmentsdtos { get; set; }
     }
-    public class installmentsdtos
+    public class Installmentsdtos
     {
         public int NumberOfMonths { get; set; }
         public decimal Amount { get; set; }
     }
-    public class customerinvoicedtos
+    public class Customerinvoicedtos
     {
         //public int InvoiceId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public decimal Total => Quantity * Price;
+
+    }
+
+    public class DisplayForUiCustomerinvoicedtos
+    {
+        //public int InvoiceId { get; set; }
+        public int DisplayId { get; set; }
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+        public decimal Total => Quantity * Price;
+        public string ProductCategoryName { get; set; }
+        public string ProductName { get; set; } 
 
     }
 

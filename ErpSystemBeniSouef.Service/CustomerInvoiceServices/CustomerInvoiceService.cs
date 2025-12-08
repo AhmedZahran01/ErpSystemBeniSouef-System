@@ -96,12 +96,12 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     };
 
                     _unitOfWork.Repository<CustomerInvoiceItems>().Add(invoiceItem);
-                    var covenantResult = await DeductFromCovenantAsync(representative.Id, product.Id, item.Quantity);
-                    if (!covenantResult.Success)
-                        return ServiceResponse<bool>.Failure(covenantResult.Message);
+                    //var covenantResult = await DeductFromCovenantAsync(representative.Id, product.Id, item.Quantity);
+                    //if (!covenantResult.Success)
+                    //    return ServiceResponse<bool>.Failure(covenantResult.Message);
 
                     // Create commission record (snapshot commissionPerUnit and total)
-                    await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate);
+                    //await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate);
                 }
 
                 //  Create installment plans
@@ -115,13 +115,15 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     };
 
                     _unitOfWork.Repository<InstallmentPlan>().Add(installment);
+
                     await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, invoice.InvoiceDate);
                 }
 
                 await _unitOfWork.CompleteAsync();
-
+                await transaction.CommitAsync();
                 return ServiceResponse<bool>.SuccessResponse(true, "Customer invoice created successfully.");
             }
+
             catch (Exception ex)
             {
                 await transaction.RollbackAsync();
@@ -130,14 +132,14 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-         
+
         #region Get All Customer Invoices
 
         public async Task<ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>> GetAllCustomerInvoicesAsync()
         {
             try
             {
-               
+
                 var query = _unitOfWork.Repository<Customer>()
             .GetAllQueryable(
                 c => c.SubArea,
@@ -179,7 +181,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-         
+
         #region get customerinvoicebyid
         public async Task<ServiceResponse<ReturnCustomerInvoiceDetailsDTO>> GetCustomerInvoiceByIdAsync(int invoiceId)
         {
@@ -238,7 +240,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-           
+
         #region delete customer invoice
         public async Task<ServiceResponse<bool>> DeleteCustomerAsync(int customerId)
         {
@@ -281,7 +283,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                         CovenantType = "Return",
                         CovenantProducts = new List<CovenantProduct>()
                     };
-                     _unitOfWork.Repository<Covenant>().Add(covenant);
+                    _unitOfWork.Repository<Covenant>().Add(covenant);
                 }
 
                 //  Return Products to Covenant
@@ -306,10 +308,10 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     }
 
                     // Reverse Discounts for Current Month
-                    await ReverseDiscountsForInvoice( invoice);
+                    await ReverseDiscountsForInvoice(invoice);
 
                     //  Deduct Representative Commission
-                    await DeductCommissionForInvoice( invoice, representative.Id);
+                    await DeductCommissionForInvoice(invoice, representative.Id);
                     //  Remove monthly installments and plans related to this invoice
                     var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
                         .GetAllAsync(m => m.InvoiceId == invoice.Id);
@@ -337,7 +339,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 await _unitOfWork.CompleteAsync();
                 await transaction.CommitAsync();
 
-                return ServiceResponse<bool>.SuccessResponse(true,"Customer deleted successfully.");
+                return ServiceResponse<bool>.SuccessResponse(true, "Customer deleted successfully.");
             }
             catch (Exception ex)
             {
@@ -408,22 +410,21 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
             if (months <= 0) return;
 
             // distribute planAmount across months: round to 2 decimals, put remainder in last month
-            decimal monthly = Math.Floor((planAmount / months) * 100) / 100m; // floor to 2 decimals
-            decimal sum = monthly * months;
-            decimal remainder = Math.Round(planAmount - sum, 2);
+            //decimal monthly = Math.Floor((planAmount / months) * 100) / 100m; // floor to 2 decimals
+            //decimal sum = monthly * months;
+            //decimal remainder = Math.Round(planAmount - sum, 2);
 
             for (int i = 0; i < months; i++)
             {
-                decimal amountThisMonth = monthly;
-                if (i == months - 1) amountThisMonth += remainder; // adjust last month
-
+                //decimal amountThisMonth = monthly;
+                //if (i == months - 1) amountThisMonth += remainder; // adjust last month
                 var monthlyInstallment = new MonthlyInstallment
                 {
                     InvoiceId = invoice.Id,
                     CustomerId = invoice.CustomerId,
                     CollectorId = invoice.Customer.CollectorId,
-                    MonthDate = new DateTime(startDate.Year, startDate.Month, 1).AddMonths(i),
-                    Amount = amountThisMonth,
+                    MonthDate = DateTime.Now.AddMonths(1),
+                    Amount = planAmount,
                     CollectedAmount = 0m,
                     IsDelayed = false
                 };
@@ -517,7 +518,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 var customer = existingInvoice.Customer;
                 if (customer != null)
                 {
-                    if (dto.CustomerNumber!=null)
+                    if (dto.CustomerNumber != null)
                         customer.CustomerNumber = (int)dto.CustomerNumber;
 
                     if (!string.IsNullOrEmpty(dto.Name))
@@ -788,6 +789,6 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
-          
+
     }
 }

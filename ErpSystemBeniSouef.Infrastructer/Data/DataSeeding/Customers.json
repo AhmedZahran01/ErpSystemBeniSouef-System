@@ -1,7 +1,7 @@
-[
+[ 
   {
     "CustomerNumber": 1001,
-    "Name": "أحمد محمود",
+    "Name": "علي محمود",
     "MobileNumber": "01012345678",
     "Address": "بني سويف - حي الرمد",
     "SaleDate": "2024-01-15T00:00:00",
@@ -14,7 +14,33 @@
   },
   {
     "CustomerNumber": 1002,
-    "Name": "علي رضا ",
+    "Name": "محمد رضا ",
+    "MobileNumber": "01012325821",
+    "Address": "الجيزه - حي الرمد",
+    "SaleDate": "2024-01-15T00:00:00",
+    "FirstInvoiceDate": "2024-01-16T00:00:00",
+    "NationalNumber": "29811234567891",
+    "Deposit": 500.00,
+    "SubAreaId": 1,
+    "CollectorId": 1,
+    "RepresentativeId": 3
+  },
+  {
+    "CustomerNumber": 1001,
+    "Name": "أحمد محمد ",
+    "MobileNumber": "01012345678",
+    "Address": "بني سويف - حي الرمد",
+    "SaleDate": "2024-01-15T00:00:00",
+    "FirstInvoiceDate": "2024-01-16T00:00:00",
+    "NationalNumber": "29811234567891",
+    "Deposit": 500.00,
+    "SubAreaId": 1,
+    "CollectorId": 1,
+    "RepresentativeId": 2
+  },
+  {
+    "CustomerNumber": 1002,
+    "Name": "سيد احمد   ",
     "MobileNumber": "01012325821",
     "Address": "الجيزه - حي الرمد",
     "SaleDate": "2024-01-15T00:00:00",

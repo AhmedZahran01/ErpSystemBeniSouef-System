@@ -286,25 +286,25 @@ namespace ErpSystemBeniSouef.Infrastructer.Data
             //}
 
             #endregion
-
+             
             #region customerInvoices Region 
 
             if (!dbcontext.customerInvoices.Any()) // Check if the database is empty
             {
-                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "customerInvoices.json");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Data", "DataSeeding", "Customers.json");
 
                 if (!File.Exists(filePath))
                     throw new FileNotFoundException($"ملف dummy_products.json مش موجود في: {filePath}");
 
                 var subRegionData = File.ReadAllText(filePath);
 
-                var invoiceItems = JsonSerializer.Deserialize<List<CustomerInvoice>>(subRegionData);
+                var invoiceItems = JsonSerializer.Deserialize<List<Customer>>(subRegionData);
 
                 if (invoiceItems?.Count() > 0)
                 {
                     foreach (var invoiceItem in invoiceItems)
                     {
-                        dbcontext.Set<CustomerInvoice>().Add(invoiceItem);
+                        dbcontext.Set<Customer>().Add(invoiceItem);
                     }
                     await dbcontext.SaveChangesAsync();
                 }
