@@ -588,25 +588,27 @@
                     <ColumnDefinition Width="5.5*"/>
                 </Grid.ColumnDefinitions>
                 <!-- العنوان -->
-                <TextBlock FlowDirection="LeftToRight" Grid.Row="0" Grid.Column="0"
+                <TextBlock FlowDirection="RightToLeft" Grid.Row="0" Grid.Column="0"
                    Text="قائمة العملاء"
                    Foreground="{StaticResource LightTextBrush}"
                    FontSize="16"
                    FontWeight="Bold"
-                   Margin="0,0,0,10"/>
+                   Margin="0,0,0,10"
+                           HorizontalAlignment="Right"/>
 
                 <!-- الداتا -->
                 <Border Grid.Row="1" Grid.Column="1"
- Background="#071B2A"
- CornerRadius="8"
- Padding="6">
+                      CornerRadius="8"
+                      Background="#071B2A"
+                      Padding="6">
 
                     <DataGrid x:Name="CustomersGrid"
-       Style="{StaticResource ModernDataGrid}"
-       AutoGenerateColumns="False"
-       FlowDirection="RightToLeft"
-       ScrollViewer.VerticalScrollBarVisibility="Visible"
-       ScrollViewer.CanContentScroll="True">
+                        Style="{StaticResource ModernDataGrid}"
+                        AutoGenerateColumns="False"
+                        FlowDirection="RightToLeft"
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        ScrollViewer.CanContentScroll="True"
+                        MouseDoubleClick="CustomersGrid_MouseDoubleClick">
 
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayId}" Width=".8*"/>
@@ -627,7 +629,10 @@
 
                 <Grid Grid.Column="0" Grid.Row="1" Margin=" 0 70 0 0">
                     <TextBlock Text="جزء البحث  " FontSize="35" Foreground="White"/>
-
+                    <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Content="↩" FontSize="35" 
+                         Width="90" Height="48" Foreground="White"
+                         Style="{StaticResource triggerrr}" Margin="1,0,0,1"  
+                         Click="BackBtn_Click"/>
                 </Grid>
             </Grid>
 

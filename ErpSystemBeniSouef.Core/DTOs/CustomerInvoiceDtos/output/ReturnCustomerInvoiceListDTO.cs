@@ -8,6 +8,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output
 {
     public class ReturnCustomerInvoiceListDTO
     {
+        public int Id { get; set; }
         public int DisplayId { get; set; }
         public int serialNumber { get; set; }
         public int CustomerNumber { get; set; }
@@ -19,9 +20,16 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output
         public decimal Deposit { get; set; }
         public DateTime SaleDate { get; set; }
         public DateTime FirstInvoiceDate { get; set; }
-        public string  SubAreaName { get; set; }
         public string CollectorName { get; set; }
+        public string SubAreaName { get; set; }
         public string RepresentativeName { get; set; }
+
+        public int SubAreaId { get; set; }
+        public int MainAreaId { get; set; }
+        public int CollectorId { get; set; }
+        public int RepresentativeId { get; set; }
+
+
 
     }
 }

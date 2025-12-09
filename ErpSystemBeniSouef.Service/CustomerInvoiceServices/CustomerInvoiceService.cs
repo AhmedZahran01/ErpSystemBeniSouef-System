@@ -19,17 +19,23 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 {
     public class CustomerInvoiceService : ICustomerInvoiceService
     {
+        #region Properies Region
+
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
+        #endregion
+
+        #region Constractor Region
         public CustomerInvoiceService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        #region Create Customer Invoice
+        #endregion
 
+        #region Create Customer Invoice
         public async Task<ServiceResponse<bool>> CreateCustomerInvoiceAsync(CreateCustomerInvoiceDTO dto)
         {
             using var transaction = await _unitOfWork.BeginTransactionAsync();
@@ -141,12 +147,12 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
             {
 
                 var query = _unitOfWork.Repository<Customer>()
-            .GetAllQueryable(
+                  .GetAllQueryable(
                 c => c.SubArea,
                 c => c.Collector,
                 c => c.Representative,
                 c => c.Invoices
-            );
+                             );
 
 
                 var customers = await query.ToListAsync();
@@ -168,7 +174,12 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     FirstInvoiceDate = c.FirstInvoiceDate,
                     SubAreaName = c.SubArea?.Name ?? "N/A",
                     CollectorName = c.Collector?.Name ?? "N/A",
-                    RepresentativeName = c.Representative?.Name ?? "N/A"
+                    RepresentativeName = c.Representative?.Name ?? "N/A",
+                    MainAreaId = c.SubArea.MainAreaId,
+                    CollectorId = c.CollectorId,
+                    RepresentativeId = c.RepresentativeId,
+                    SubAreaId = c.SubAreaId,
+                    Id = c.Id,
                 }).ToList();
 
                 return ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>
@@ -191,10 +202,10 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     .GetAllQueryable(
                         i => i.Customer,
                         i => i.Items,
-                        i => i.Items.Select(ii => ii.Product),
+                        //i => i.Items.Select(ii => ii.Product),
                         i => i.Installments
                     )
-                    .FirstOrDefaultAsync(i => i.Id == invoiceId && !i.IsDeleted);
+                    .FirstOrDefaultAsync(i => i.CustomerId == invoiceId && !i.IsDeleted);
 
                 if (invoice == null)
                     return ServiceResponse<ReturnCustomerInvoiceDetailsDTO>.Failure("Invoice not found.");
