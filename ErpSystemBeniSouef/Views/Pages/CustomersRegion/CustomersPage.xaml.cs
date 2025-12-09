@@ -22,6 +22,8 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
     public partial class CustomersPage : Page
     {
         #region Global Variables  Region
+        private int _currentCustomerId = 0;
+
         //private readonly int _companyNo = 1;
         //private readonly ISupplierService _supplierService;
         //private readonly ICashInvoiceService _cashInvoiceService;
@@ -336,10 +338,90 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
         #region Edit Button Region
 
-        private void EditButton_Click(object sender, RoutedEventArgs e)
+        private async void UpdateCustomer_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                // لازم يكون فيه عميل مختار
+                if (_currentCustomerId == 0)
+                {
+                    MessageBox.Show("لم يتم اختيار عميل للتعديل", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
+                // التحقق من الحقول المطلوبة
+                if (!ValidateInputs())
+                {
+                    MessageBox.Show("يرجى تصحيح الأخطاء أولاً", "خطأ", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                int RepresentativeDtoId = ((RepresentativeDto)RepresentativeCombo.SelectedItem).Id;
+                // جمع البيانات الجديدة
+                var updatedCustomer = new UpdateCustomerInvoiceDTO
+                {
+                    //Id = _currentCustomerId.Value,
+                    CustomerNumber = int.Parse(CustomerNumberTxt.Text),
+                    Name = NameTxt.Text,
+                    NationalNumber = numberIdTxt.Text,
+                    MobileNumber = PhoneTxt.Text,
+                    Address = AddressTxt.Text,
+                    //MainAreaId = ((MainAreaDto)MainAreaCombo.SelectedItem).Id,
+                    SubAreaId = ((SubAreaDto)SubAreaCombo.SelectedItem).Id,
+                    RepresentativeId = RepresentativeDtoId,
+                    Deposit = decimal.Parse(PayTxt.Text),
+                    SaleDate = SaleDatePicker.SelectedDate ?? DateTime.Now,
+                    FirstInvoiceDate = FirstInvoiceDatePicker.SelectedDate ?? DateTime.Now,
+                    //Items = customerinvoicedtosList.ToList(),
+                    CollectorId = RepresentativeDtoId
+                };
+
+                // إرسال التعديل للسيرفس
+                var Satus = await _customerInvoiceService.UpdateCustomerInvoiceAsync( _currentCustomerId,updatedCustomer);
+
+                if (Satus.Success)
+                {
+                    MessageBox.Show("تم تعديل العميل والفاتورة بنجاح", "نجاح", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    // تحديث الجدول
+                    LoadInvoices();
+
+                    // تنظيف البيانات
+                    ClearInputs();
+                    _currentCustomerId = 0;
+                }
+                else
+                {
+                    MessageBox.Show("حدث خطأ أثناء التعديل: " + Satus.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
+        private void ClearInputs()
+        {
+            CustomerNumberTxt.Text = "";
+            NameTxt.Text = "";
+            numberIdTxt.Text = "";
+            PhoneTxt.Text = "";
+            AddressTxt.Text = "";
+            PayTxt.Text = "";
+            MainAreaCombo.SelectedItem = null;
+            SubAreaCombo.SelectedItem = null;
+            RepresentativeCombo.SelectedItem = null;
+            SaleDatePicker.SelectedDate = null;
+            FirstInvoiceDatePicker.SelectedDate = null;
+
+            displayItemsGrid.Clear();
+            customerinvoicedtosList.Clear();
+            dgInvoiceItems.ItemsSource = null;
+
+            _currentCustomerId = 0;
+        }
+
+
 
         #endregion
 
@@ -472,8 +554,11 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             if (CustomersGrid.SelectedItem is ReturnCustomerInvoiceListDTO selectedCustomer)
             {
                 FillCustomerInputs(selectedCustomer);
+                _currentCustomerId = selectedCustomer.Id;
+                UpdateCustomerData.IsEnabled = true;
             }
         }
+        
         private void FillCustomerInputs(ReturnCustomerInvoiceListDTO customer)
         {
             // بيانات العميل
@@ -518,7 +603,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             }
 
             // تحميل العناصر (Items)
-            LoadInvoiceItems(customer.Id);
+            //LoadInvoiceItems(customer.Id);
         }
 
         private async void LoadInvoiceItems(int invoiceId)

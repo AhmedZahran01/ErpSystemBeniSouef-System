@@ -496,10 +496,11 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     .GetAllQueryable(
                         i => i.Customer,
                         i => i.Items,
-                        i => i.Installments,
-                        i => i.Items.Select(ii => ii.Product)
+                        i => i.Installments
+                        //,
+                        //i => i.Items.Select(ii => ii.Product)
                     )
-                    .FirstOrDefaultAsync(i => i.Id == invoiceId && !i.IsDeleted);
+                    .FirstOrDefaultAsync(i => i.CustomerId == invoiceId && !i.IsDeleted);
 
                 if (existingInvoice == null)
                     return ServiceResponse<bool>.Failure("Invoice not found.");

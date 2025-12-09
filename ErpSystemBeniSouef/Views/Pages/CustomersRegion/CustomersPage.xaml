@@ -548,14 +548,14 @@
                         Margin="5,0"
                         Click="AddCustomer_Click"/>
 
-                                <Button Content="تعديل"
+                                <Button Content="تعديل" x:Name="UpdateCustomerData"
                         Style="{StaticResource SuccessButton}"
-                        Margin="5,0"
-                        Click="EditButton_Click"/>
+                        Margin="5,0"  IsEnabled="False"
+                        Click="UpdateCustomer_Click"/>
 
                                 <Button Content="حذف"
                         Style="{StaticResource DangerButton}"
-                        Margin="5,0"
+                        Margin="5,0" IsEnabled="False"
                         Click="DeleteButton_Click"/>
 
                             </StackPanel>

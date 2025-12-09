@@ -16,6 +16,7 @@ namespace ErpSystemBeniSouef.Core.Contract.CustomerInvoice
         Task<ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>> GetAllCustomerInvoicesAsync();
         Task<ServiceResponse<ReturnCustomerInvoiceDetailsDTO>> GetCustomerInvoiceByIdAsync(int invoiceId);
         Task<ServiceResponse<bool>> DeleteCustomerAsync(int customerId);
+        Task<ServiceResponse<bool>> UpdateCustomerInvoiceAsync(int invoiceId, UpdateCustomerInvoiceDTO dto);
 
     }
 }
