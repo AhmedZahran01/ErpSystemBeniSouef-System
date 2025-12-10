@@ -127,6 +127,32 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return result;
         }
 
+        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
+        {
+            var query = _unit.Repository<CashCstomerInvoice>()
+                .GetAllQueryable(x => x.Representative, x => x.Items)
+                .Where(x =>
+                    x.Representative.Id == collectorId &&
+                    x.InvoiceDate >= fromDate &&
+                    x.InvoiceDate <= toDate
+                );
+
+            var result = query
+                .SelectMany(c => c.Items.Select(cp => new CashInvoicesReportDto
+                {
+                    ProductName = cp.Product.ProductName,
+                    ProductType = cp.Product.Category.Name,
+                    Quentity = cp.Quantity,
+                    UnitPrice = cp.Price,
+                }))
+                .ToList();
+
+            return result;
+        }
+
         // ------------------------------------
         // تسليم التحصيل الشهري
         // ------------------------------------
