@@ -122,7 +122,17 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 
                     _unitOfWork.Repository<InstallmentPlan>().Add(installment);
 
-                    await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, invoice.InvoiceDate);
+                    var lastInstallment = _unitOfWork.Repository<MonthlyInstallment>()
+                        .GetAllQueryable()
+                        .Where(m => m.InvoiceId == invoice.Id)
+                        .OrderByDescending(m => m.MonthDate)
+                        .FirstOrDefault();
+
+                    var startDate = lastInstallment is null
+                        ? invoice.InvoiceDate.AddMonths(1)
+                        : lastInstallment.MonthDate.AddMonths(1);
+
+                    await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, startDate);
                 }
 
                 await _unitOfWork.CompleteAsync();
@@ -434,7 +444,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     InvoiceId = invoice.Id,
                     CustomerId = invoice.CustomerId,
                     CollectorId = invoice.Customer.CollectorId,
-                    MonthDate = DateTime.Now.AddMonths(1),
+                    MonthDate = DateTime.Now.AddMonths(i),
                     Amount = planAmount,
                     CollectedAmount = 0m,
                     IsDelayed = false
