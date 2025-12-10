@@ -553,7 +553,7 @@
                         Margin="5,0"  IsEnabled="False"
                         Click="UpdateCustomer_Click"/>
 
-                                <Button Content="حذف"
+                                <Button Content="حذف"  x:Name="deleteCustomerInvoice"
                         Style="{StaticResource DangerButton}"
                         Margin="5,0" IsEnabled="False"
                         Click="DeleteButton_Click"/>

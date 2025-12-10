@@ -329,10 +329,74 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
         #region Delete Button Region
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_currentCustomerId == 0)
+            {
+                MessageBox.Show("من فضلك اختر عميل أولاً من الجدول.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
+            // رسالة تأكيد
+            var result = MessageBox.Show(
+                "هل أنت متأكد أنك تريد حذف هذا العميل والفواتير الخاصة به؟",
+                "تأكيد الحذف",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            // تنفيذ الحذف من السيرفس
+            var deleteResponse = await _customerInvoiceService.DeleteCustomerAsync(_currentCustomerId);
+
+            if (!deleteResponse.Success)
+            {
+                MessageBox.Show(deleteResponse.Message, "خطأ", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBox.Show("تم حذف العميل وكل البيانات المرتبطة به بنجاح.", "تم", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // تنظيف الإدخالات
+            ClearCustomerInputs();
+
+            // إعادة تحميل البيانات
+            countDisplayNo = 0;
+            await LoadInvoices();
+
+            // ربط الجدول بعد التحديث
+            CustomersGrid.ItemsSource = null;
+            CustomersGrid.ItemsSource = observCustomerInvoiceFilteredList;
+
+            // تعطيل الأزرار
+            UpdateCustomerData.IsEnabled = false;
+            deleteCustomerInvoice.IsEnabled = false;
+
+            _currentCustomerId = 0;
         }
+
+        private void ClearCustomerInputs()
+        {
+            CustomerNumberTxt.Text = "";
+            NameTxt.Text = "";
+            PhoneTxt.Text = "";
+            AddressTxt.Text = "";
+            numberIdTxt.Text = "";
+            PayTxt.Text = "";
+
+            SaleDatePicker.SelectedDate = null;
+            FirstInvoiceDatePicker.SelectedDate = null;
+
+            MainAreaCombo.SelectedItem = null;
+            SubAreaCombo.SelectedItem = null;
+            RepresentativeCombo.SelectedItem = null;
+
+            displayItemsGrid.Clear();
+            dgInvoiceItems.ItemsSource = displayItemsGrid;
+        }
+
 
         #endregion
 
@@ -376,7 +440,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
                 };
 
                 // إرسال التعديل للسيرفس
-                var Satus = await _customerInvoiceService.UpdateCustomerInvoiceAsync( _currentCustomerId,updatedCustomer);
+                var Satus = await _customerInvoiceService.UpdateCustomerInvoiceAsync(_currentCustomerId, updatedCustomer);
 
                 if (Satus.Success)
                 {
@@ -555,10 +619,12 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             {
                 FillCustomerInputs(selectedCustomer);
                 _currentCustomerId = selectedCustomer.Id;
+
                 UpdateCustomerData.IsEnabled = true;
+                deleteCustomerInvoice.IsEnabled = true;
             }
         }
-        
+
         private void FillCustomerInputs(ReturnCustomerInvoiceListDTO customer)
         {
             // بيانات العميل
@@ -635,6 +701,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
             dgInvoiceItems.ItemsSource = displayItemsGrid;
         }
+
 
 
     }
