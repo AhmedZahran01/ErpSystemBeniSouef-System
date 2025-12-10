@@ -1,5 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
+using ErpSystemBeniSouef.Infrastructer.Migrations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -44,8 +46,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<InstallmentPlan> installmentPlans { get; set; }
 
 
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(
@@ -83,6 +83,12 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
                 .HasForeignKey(m => m.InvoiceId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Covenant>()
+                .HasOne(m => m.Customer)
+                .WithMany()
+                .HasForeignKey(m => m.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             #endregion
 
 
@@ -105,11 +111,5 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             #endregion
 
         }
-
-
-
-
-
     }
 }
-

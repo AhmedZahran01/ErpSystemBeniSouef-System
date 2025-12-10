@@ -302,7 +302,8 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                         CovenantDate = DateTime.Now,
                         MonthDate = currentMonth,
                         CovenantType = "Return",
-                        CovenantProducts = new List<CovenantProduct>()
+                        CovenantProducts = new List<CovenantProduct>(),
+                        CustomerId = customer.Id
                     };
                     _unitOfWork.Repository<Covenant>().Add(covenant);
                 }
