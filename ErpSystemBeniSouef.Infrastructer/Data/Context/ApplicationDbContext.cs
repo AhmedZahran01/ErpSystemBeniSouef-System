@@ -1,5 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
+using ErpSystemBeniSouef.Infrastructer.Migrations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -44,16 +46,15 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<InstallmentPlan> installmentPlans { get; set; }
 
 
-
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(
             //"Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
             //    );
-            optionsBuilder.UseSqlServer(
-           "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
-               );
+           // optionsBuilder.UseSqlServer(
+           //"Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
+           //    );
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -82,6 +83,12 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
                 .HasForeignKey(m => m.InvoiceId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<Covenant>()
+                .HasOne(m => m.Customer)
+                .WithMany()
+                .HasForeignKey(m => m.CustomerId)
+                .OnDelete(DeleteBehavior.NoAction);
+
             #endregion
 
 
@@ -104,11 +111,5 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             #endregion
 
         }
-
-
-
-
-
     }
 }
-

@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Castle.Core.Resource;
+using ErpSystemBeniSouef.Core;
+using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.GetAllDetailsForCustomerInvoiceDtos;
+using ErpSystemBeniSouef.Core.DTOs.Reports;
+using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
+using ErpSystemBeniSouef.Core.Entities;
+using ErpSystemBeniSouef.Core.Entities.CovenantModels;
+using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
-using ErpSystemBeniSouef.Core;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 
 namespace ErpSystemBeniSouef.Service.ReportsServices
 {
@@ -42,6 +47,110 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                 WorkPlace = x.Customer.Address,
                 InstallmentAmount = x.Amount
             }).ToList();
+        }
+
+        public async Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
+        {
+            var monthlyInstallments = _unit.Repository<MonthlyInstallment>()
+                .GetAllQueryable(x => x.Customer, x => x.Invoice, x => x.Collector)
+                .ToList();
+
+            var invoiceIds = monthlyInstallments.Select(m => m.InvoiceId).Distinct().ToList();
+
+            var invoicesQuery = _unit.Repository<CustomerInvoice>()
+                .GetAllQueryable(x => x.Customer!, x => x.Installments!, x => x.Items!)
+                .Where(x => invoiceIds.Contains(x.Id));
+
+            invoicesQuery = invoicesQuery.Where(x => x.InvoiceDate >= fromDate && x.InvoiceDate <= toDate);
+
+            var invoices = invoicesQuery.ToList();
+
+            var result = invoices.Select(invoice => new InstallmentReportDto
+            {
+                InvoiceDate = invoice.InvoiceDate,
+                CustomerName = invoice.Customer.Name,
+                TotalAmount = invoice.TotalAmount,
+                Deposit = invoice.Customer.Deposit,
+
+                Plans = invoice.Installments?.Select(p => new InstallmentPlanDto
+                {
+                    InstallmentAmount = p.Amount,
+                    Months = p.NumberOfMonths
+                }).ToList() ?? [],
+
+                Items = invoice.Items?.Select(item => new CustomerInvoiceItemDto
+                {
+                    ProductName = item.Product.ProductName,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.Price,
+                    Total = item.Total
+                }).ToList() ?? []
+
+            }).ToList();
+
+            return result;
+        }
+
+        public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
+        {
+            var query = _unit.Repository<Covenant>()
+                .GetAllQueryable(
+                    x => x.Representative,
+                    x => x.Customer,
+                    x => x.CovenantProducts,
+                    x => x.CovenantProducts.Select(p => p.Product)
+                )
+                .Where(x =>
+                    x.Representative.Id == collectorId &&
+                    x.MonthDate >= fromDate &&
+                    x.MonthDate <= toDate
+                );
+
+            var result = query
+                .SelectMany(c => c.CovenantProducts.Select(cp => new CovenantReportRowDto
+                {
+                    CustomerNumber = c.Customer.CustomerNumber,
+                    CustomerName = c.Customer.Name,
+                    ProductName = cp.Product.ProductName,
+                    Quantity = cp.Amount,
+                    CommisionRate = cp.Product.CommissionRate,
+                    TotalCommisionRate = cp.Amount * cp.Product.CommissionRate,
+                }))
+                .ToList();
+
+            return result;
+        }
+
+        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
+        {
+            var query = _unit.Repository<CashCstomerInvoice>()
+                .GetAllQueryable(x => x.Representative, x => x.Items)
+                .Where(x =>
+                    x.Representative.Id == collectorId &&
+                    x.InvoiceDate >= fromDate &&
+                    x.InvoiceDate <= toDate
+                );
+
+            var result = query
+                .SelectMany(c => c.Items.Select(cp => new CashInvoicesReportDto
+                {
+                    ProductName = cp.Product.ProductName,
+                    ProductType = cp.Product.Category.Name,
+                    Quentity = cp.Quantity,
+                    UnitPrice = cp.Price,
+                }))
+                .ToList();
+
+            return result;
         }
 
         // ------------------------------------
@@ -143,4 +252,4 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
         //    return true;
         //}
     }
-    }
+}
