@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
@@ -9,6 +10,7 @@ using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
+using ErpSystemBeniSouef.Service.CashCustomerInvoices;
 using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.CustomerInvoiceServices;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
@@ -76,6 +78,7 @@ namespace ErpSystemBeniSouef
             services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
             services.AddScoped(typeof(ISupplierAccountService), typeof(supplierAccountService));
             services.AddScoped(typeof(ICustomerInvoiceService), typeof(CustomerInvoiceService));
+            services.AddScoped(typeof(ICashCustomerInvoiceService), typeof(CashCustomerInvoiceService));
        
         
             //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));

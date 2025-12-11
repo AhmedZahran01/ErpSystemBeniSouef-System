@@ -14,14 +14,20 @@ using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 
 namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
 {
-    public class CashCustomerInvoiceService:ICashCustomerInvoiceService
+    public class CashCustomerInvoiceService : ICashCustomerInvoiceService
     {
         private readonly IUnitOfWork _unitOfWork;
+
+        #region Constractor Region
 
         public CashCustomerInvoiceService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
+        #endregion
+
+        #region Add Cash Customer Invoice Region
 
         public async Task<ServiceResponse<bool>> AddCashCustomerInvoice(CreateCashCustomerInvoiceDTO dto)
         {
@@ -32,7 +38,7 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
                 var invoice = new CashCstomerInvoice
                 {
                     SubAreaId = dto.SubAreaId,
-                    RepresentativeId=dto.RepresentativeId,
+                    RepresentativeId = dto.RepresentativeId,
                     InvoiceDate = dto.SaleDate,
                     TotalAmount = totalAmount,
                     Items = new List<CashCustomerInvoiceItems>()
@@ -63,16 +69,21 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
                 return ServiceResponse<bool>.Failure("Error creating cash invoice.");
             }
         }
-        public async Task< ServiceResponse< List<ReturnAllCashCustomerInvoicesDTO>>> GetAllCashCustomerInvoices()
+
+        #endregion
+
+        #region Get All Cash Customer Invoices Region
+
+        public async Task<ServiceResponse<List<ReturnAllCashCustomerInvoicesDTO>>> GetAllCashCustomerInvoices()
         {
             var repo = _unitOfWork.Repository<CashCstomerInvoice>();
 
             var invoices = await repo
                 .GetAllQueryable(
                 c => c.SubArea,
-                  c=>c.SubArea.mainRegions,
+                  c => c.SubArea.mainRegions,
                 c => c.Representative
-                ).ToListAsync() ;
+                ).ToListAsync();
 
             var result = invoices.Select((invoice, index) => new ReturnAllCashCustomerInvoicesDTO
             {
@@ -86,7 +97,12 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
 
             return ServiceResponse<List<ReturnAllCashCustomerInvoicesDTO>>.SuccessResponse(result, "Fetched all cash invoices.");
         }
-        public async Task<ServiceResponse< bool>> DeleteCashCustomerInvoiceAsync(int invoiceId)
+
+        #endregion
+
+        #region Delete Cash Customer Invoice Region
+
+        public async Task<ServiceResponse<bool>> DeleteCashCustomerInvoiceAsync(int invoiceId)
         {
             try
             {
@@ -120,6 +136,9 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
                 return ServiceResponse<bool>.Failure("Error deleting cash invoice.");
             }
         }
+
+        #endregion
+
     }
 }
 

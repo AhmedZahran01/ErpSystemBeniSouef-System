@@ -444,10 +444,10 @@
                                 <StackPanel Grid.Column="0" Margin="0,0,18,0">
 
                                     <TextBlock Text="تاريخ البيع" Style="{StaticResource FieldLabel}"/>
-                                    <DatePicker x:Name="SaleDatePicker" Style="{StaticResource InputDatePicker}"/>
+                                    <DatePicker x:Name="SaleDatePicker" Foreground="Black" Style="{StaticResource InputDatePicker}"/>
 
                                     <TextBlock Text="تاريخ أول فاتورة" Style="{StaticResource FieldLabel}"/>
-                                    <DatePicker x:Name="FirstInvoiceDatePicker" Style="{StaticResource InputDatePicker}"/>
+                                    <DatePicker x:Name="FirstInvoiceDatePicker" Foreground="Black" Style="{StaticResource InputDatePicker}"/>
 
                                     <TextBlock Text="الرقم القومي" Style="{StaticResource FieldLabel}"/>
                                     <TextBox x:Name="numberIdTxt" Style="{StaticResource InputTextBox}"/>
@@ -557,6 +557,10 @@
                         Style="{StaticResource DangerButton}"
                         Margin="5,0" IsEnabled="False"
                         Click="DeleteButton_Click"/>
+                                <Button Content=" صفحه الكاش  "  x:Name="deleteCustomerInvoice2"
+                        Style="{StaticResource PrimaryButton}"
+                        Margin="5,0"  
+                        Click="DeleteButton_Click2"/>
 
                             </StackPanel>
                         </StackPanel>

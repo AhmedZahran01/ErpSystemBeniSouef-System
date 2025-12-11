@@ -12,9 +12,9 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.CreateCashCustomerInv
         public int SubAreaId { get; set; }
         public int RepresentativeId { get; set; }
         public DateTime SaleDate { get; set; }
-        public List<cashcustomerinvoicedtos> cashcustomerinvoicedtos { get; set; }
+        public List<Cashcustomerinvoicedtos>? cashcustomerinvoicedtos { get; set; }
     }
-    public class cashcustomerinvoicedtos
+    public class Cashcustomerinvoicedtos
     {
         public int InvoiceId { get; set; }
         public int ProductId { get; set; }

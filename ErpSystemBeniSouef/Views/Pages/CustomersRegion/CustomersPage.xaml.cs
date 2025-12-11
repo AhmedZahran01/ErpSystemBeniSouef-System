@@ -1,4 +1,6 @@
-﻿using ErpSystemBeniSouef.Core.Contract;
+﻿using AutoMapper;
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output;
@@ -6,7 +8,12 @@ using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
+using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
+using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage;
+using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -702,7 +709,17 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             dgInvoiceItems.ItemsSource = displayItemsGrid;
         }
 
+        private void DeleteButton_Click2(object sender, RoutedEventArgs e)
+        {
 
-
+            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+            var mainAreaService = App.AppHost.Services.GetRequiredService<IMainAreaService>();
+            var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var cashCustomerInvoiceService = App.AppHost.Services.GetRequiredService<ICashCustomerInvoiceService>();
+            var detailsPage = new CashCustomerInvoicePage(productService, mainAreaService, subAreaService,
+                                        representativeService, cashCustomerInvoiceService);
+            NavigationService?.Navigate(detailsPage);
+        }
     }
 }
