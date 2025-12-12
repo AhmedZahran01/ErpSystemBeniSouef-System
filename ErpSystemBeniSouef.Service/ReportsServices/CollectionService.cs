@@ -6,6 +6,8 @@ using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
+using ErpSystemBeniSouef.Core.Enum;
+using ErpSystemBeniSouef.Infrastructer;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -54,9 +56,9 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             DateTime toDate,
             int collectorId)
         {
-            var monthlyInstallments = _unit.Repository<MonthlyInstallment>()
+            var monthlyInstallments = await _unit.Repository<MonthlyInstallment>()
                 .GetAllQueryable(x => x.Customer, x => x.Invoice, x => x.Collector)
-                .ToList();
+                .ToListAsync();
 
             var invoiceIds = monthlyInstallments.Select(m => m.InvoiceId).Distinct().ToList();
 
@@ -66,7 +68,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
 
             invoicesQuery = invoicesQuery.Where(x => x.InvoiceDate >= fromDate && x.InvoiceDate <= toDate);
 
-            var invoices = invoicesQuery.ToList();
+            var invoices = await invoicesQuery.ToListAsync();
 
             var result = invoices.Select(invoice => new InstallmentReportDto
             {
@@ -112,7 +114,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                     x.MonthDate <= toDate
                 );
 
-            var result = query
+            var result = await query
                 .SelectMany(c => c.CovenantProducts.Select(cp => new CovenantReportRowDto
                 {
                     CustomerNumber = c.Customer.CustomerNumber,
@@ -122,7 +124,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                     CommisionRate = cp.Product.CommissionRate,
                     TotalCommisionRate = cp.Amount * cp.Product.CommissionRate,
                 }))
-                .ToList();
+                .ToListAsync();
 
             return result;
         }
@@ -140,7 +142,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                     x.InvoiceDate <= toDate
                 );
 
-            var result = query
+            var result = await query
                 .SelectMany(c => c.Items.Select(cp => new CashInvoicesReportDto
                 {
                     ProductName = cp.Product.ProductName,
@@ -148,7 +150,31 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                     Quentity = cp.Quantity,
                     UnitPrice = cp.Price,
                 }))
-                .ToList();
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
+        {
+            var result = await _unit.Repository<Commission>()
+                .GetAllQueryable(x => x.Representative, x => x.Product, x => x.InvoiceItem, x => x.Invoice)
+                .Where(x =>
+                    x.Representative.Id == collectorId &&
+                    x.MonthDate >= fromDate &&
+                    x.MonthDate <= toDate &&
+                    x.Type == CommissionType.Earn)
+                    .Select(c => new RepresentativeCommissionReportDto
+                    {
+                        ProductName = c.Product.ProductName,
+                        CommissionAmount = c.CommissionAmount,
+                        QuantitySold = c.InvoiceItem.Quantity,
+                        TotalPercentage = c.CommissionAmount * c.InvoiceItem.Quantity
+                    })
+                    .ToListAsync();
 
             return result;
         }
