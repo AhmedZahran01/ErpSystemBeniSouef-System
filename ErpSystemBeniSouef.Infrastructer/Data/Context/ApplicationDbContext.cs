@@ -44,6 +44,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<CustomerInvoice> customerInvoices { get; set; }
         public DbSet<CustomerInvoiceItems> customerInvoiceItems { get; set; }
         public DbSet<InstallmentPlan> installmentPlans { get; set; }
+        public DbSet<Commission> Commissions{ get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -62,32 +63,15 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             builder.Entity<IdentityRole>().ToTable("Roles");
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-             
-            #region Fix Cascade Issue for MonthlyInstallment
 
-            builder.Entity<MonthlyInstallment>()
-                .HasOne(m => m.Collector)
-                .WithMany()
-                .HasForeignKey(m => m.CollectorId)
-                .OnDelete(DeleteBehavior.NoAction);
+            #region Fix on DeleteCascade Behavior
 
-            builder.Entity<MonthlyInstallment>()
-                .HasOne(m => m.Customer)
-                .WithMany()
-                .HasForeignKey(m => m.CustomerId)
-                .OnDelete(DeleteBehavior.NoAction);
+            var cascadeFks = builder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => fk.DeleteBehavior == DeleteBehavior.Cascade && !fk.IsOwnership);
 
-            builder.Entity<MonthlyInstallment>()
-                .HasOne(m => m.Invoice)
-                .WithMany()
-                .HasForeignKey(m => m.InvoiceId)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<Covenant>()
-                .HasOne(m => m.Customer)
-                .WithMany()
-                .HasForeignKey(m => m.CustomerId)
-                .OnDelete(DeleteBehavior.NoAction);
+            foreach (var fk in cascadeFks)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
 
             #endregion
 
