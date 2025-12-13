@@ -241,6 +241,64 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return (stream.ToArray(), totalDeposits);
         }
 
+        public async Task<(Byte[] FileContent, decimal totalCash)> PrintCashInvoicesAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int representativeId)
+        {
+            var customers = await _unit.Repository<CashCstomerInvoice>()
+                .GetAllQueryable(x => x.Representative!, x => x.Items!, x => x.SubArea)
+                .Where(x => x.Representative!.Id == representativeId && x.InvoiceDate >= fromDate && x.InvoiceDate <= toDate)
+                .Select(x => new PrintCashInvoicesDto
+                {
+                    Representative = x.Representative.Name,
+                    MainArea = x.SubArea.mainRegions!.Name,
+                    SubArea = x.SubArea.Name,
+                    InvoiceDate = x.InvoiceDate,
+                    TotalAmount = x.TotalAmount ?? 0
+                })
+                .ToListAsync();
+
+            var totalCash = customers.Sum(c => c.TotalAmount);
+
+            using var workbook = new XLWorkbook();
+            var sheet = workbook.AddWorksheet("Total Cash");
+
+            var headers = new string[] { "Representative", "Mainarea", "Subarea", "Invoice date", "Total amount"};
+
+            for (int i = 0; i < headers.Length; i++)
+                sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+            var headerRange = sheet.Range(1, 1, 1, headers.Length);
+            headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+            headerRange.Style.Font.SetBold();
+            headerRange.Style.Font.SetFontSize(14);
+            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+            for (int rowIndex = 0; rowIndex < customers.Count; rowIndex++)
+            {
+                var s = customers[rowIndex];
+                int excelRow = rowIndex + 2;
+
+                sheet.Cell(excelRow, 1).SetValue(s.Representative);
+                sheet.Cell(excelRow, 2).SetValue(s.MainArea);
+                sheet.Cell(excelRow, 3).SetValue(s.SubArea);
+                sheet.Cell(excelRow, 4).SetValue(s.InvoiceDate);
+                sheet.Cell(excelRow, 4).SetValue(s.TotalAmount);
+            }
+
+            sheet.Columns().AdjustToContents();
+            sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+            sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+            await using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+
+            return (stream.ToArray(), totalCash);
+        }
+
         // ------------------------------------
         // تسليم التحصيل الشهري
         // ------------------------------------
