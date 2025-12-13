@@ -9,7 +9,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"
          
-        MinHeight="200" MinWidth="1000"
+        MinHeight="750" MinWidth="1200"
        WindowState="Maximized"
        WindowStartupLocation="CenterScreen"
 Background="{DynamicResource BackgroundColor}"

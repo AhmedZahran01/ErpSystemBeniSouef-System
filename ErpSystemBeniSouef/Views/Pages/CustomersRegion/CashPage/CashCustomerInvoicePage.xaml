@@ -7,7 +7,7 @@
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
       xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
       mc:Ignorable="d"
-      d:DesignWidth="1700" d:DesignHeight="900">
+      d:DesignWidth="1700" d:DesignHeight="850">
 
     <Page.Resources>
 
@@ -337,9 +337,12 @@
                           Style="{StaticResource ModernDataGrid}" 
                          ScrollViewer.VerticalScrollBarVisibility="Visible"
                          ScrollViewer.CanContentScroll="True"
-                          SelectionChanged="CustomersGrid_MouseDoubleClick">
+                         SelectionChanged="CustomersGrid_SelectionChanged"  
+                          >
+                         <!--MouseDoubleClick="CustomersGrid_MouseDoubleClick"-->
 
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="الرقم المسلسل من ال DB" Binding="{Binding serialNumberIdFromDB}" Width=".9*"/>
                         <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding serialNumber}" Width=".7*"/>
                         <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding SaleDate}" Width="1.1*" />
                         <!--<DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayId}" Width=".8*"/>-->

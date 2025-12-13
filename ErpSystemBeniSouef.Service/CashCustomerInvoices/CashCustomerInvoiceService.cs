@@ -88,6 +88,7 @@ namespace ErpSystemBeniSouef.Service.CashCustomerInvoices
             var result = invoices.Select((invoice, index) => new ReturnAllCashCustomerInvoicesDTO
             {
                 serialNumber = index + 1,
+                serialNumberIdFromDB = invoice.Id ,
                 SaleDate = invoice.InvoiceDate,
                 MainAreaName = invoice.SubArea?.mainRegions?.Name ?? "",
                 SubAreaName = invoice.SubArea?.Name ?? "",

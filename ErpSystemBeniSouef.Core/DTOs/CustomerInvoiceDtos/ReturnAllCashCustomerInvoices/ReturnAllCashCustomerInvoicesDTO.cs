@@ -9,6 +9,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.ReturnAllCashCustomer
     public class ReturnAllCashCustomerInvoicesDTO
     {
         public int serialNumber { get; set; }
+        public int serialNumberIdFromDB { get; set; }
       
         public DateTime SaleDate { get; set; }
         public string MainAreaName { get; set; }

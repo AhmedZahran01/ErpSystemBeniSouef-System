@@ -1,39 +1,22 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
-using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.CreateCashCustomerInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input;
-using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.ReturnAllCashCustomerInvoices;
+using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.ViewModel;
-using System;
-using System.Collections.Generic;
+using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 {
-    /// <summary>
-    /// Interaction logic for CashCustomerInvoicePage.xaml
-    /// </summary>
     public partial class CashCustomerInvoicePage : Page
     {
-
         #region Global Variables  Region 
         int countDisplayNo = 0;
         private readonly IProductService _productService;
@@ -47,14 +30,17 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 
         private IReadOnlyList<SubAreaDto> allSubAreas = new List<SubAreaDto>();
         private ObservableCollection<SubAreaDto> observalSubRegionFilter = new();
+
         private List<ReturnAllCashCustomerInvoicesDTO> returnAllCashCustomers = new();
+        private List<ReturnAllCashCustomerInvoicesDTO> returnAllCashCustomersFilter = new();
 
         ObservableCollection<DisplayForUiCustomerinvoicedtos> displayItemsGrid = new ObservableCollection<DisplayForUiCustomerinvoicedtos>();
 
         List<Cashcustomerinvoicedtos> cashcustomerinvoicedtosFromUi = new List<Cashcustomerinvoicedtos>();
         int countItemGridDisplayNo = 1;
         decimal cashInvoiceTotal = 0;
-
+        //List<int> ListOfIds = new List<int>();
+        int selectedCashCustomerInvoiceIdOfDB = 0;
         int selectedCashCustomerInvoiceId = 0;
         #endregion
 
@@ -83,7 +69,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
                 RepresentativeCombo.ItemsSource = await _representativeService.GetAllAsync();
                 RepresentativeCombo.SelectedIndex = 0;
 
-                CashDataGrid.ItemsSource = returnAllCashCustomers;
+                CashDataGrid.ItemsSource = returnAllCashCustomersFilter;
             };
         }
 
@@ -101,8 +87,9 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 
             allSubAreas = _subAreaService.GetAll();
             var returnAllCashCustomerss = await _cashCustomerInvoiceService.GetAllCashCustomerInvoices();
-            returnAllCashCustomers = returnAllCashCustomerss.Data;
 
+            returnAllCashCustomers = returnAllCashCustomerss.Data;
+            returnAllCashCustomersFilter = returnAllCashCustomers;
         }
 
 
@@ -118,22 +105,29 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 
         #endregion
 
+        #region Add Product Click Region
+
         private void AddProductBtn_Click(object sender, RoutedEventArgs e)
         {
             ProductDto selectedProduct = (ProductDto)ProductCombo.SelectedItem;
             CategoryDto selectedProductType = (CategoryDto)ProductTypeCombo.SelectedItem;
+            int quantity = int.TryParse(QuantityTxt.Text, out int pa) ? pa : 0;
+            if(quantity<= 0)
+            {
+                MessageBox.Show("من فضلك ادخل كميه صحيحه ");
+                return;
+            }
             Customerinvoicedtos customerinvoicedtoss = new Customerinvoicedtos()
             {
                 Price = decimal.TryParse(PriceTxt.Text, out decimal price) ? price : 0,
-                Quantity = int.TryParse(QuantityTxt.Text, out int quantity) ? quantity : 0,
+                Quantity = quantity,
                 ProductId = selectedProduct.Id,
             };
             decimal productPrice = decimal.TryParse(PriceTxt.Text, out decimal pwa) ? pwa : 0;
-            int quantityPrice = int.TryParse(QuantityTxt.Text, out int pa) ? pa : 0;
             displayItemsGrid.Add(new DisplayForUiCustomerinvoicedtos()
             {
                 Price = productPrice,
-                Quantity = quantityPrice,
+                Quantity = quantity,
                 ProductId = selectedProduct.Id,
                 ProductName = selectedProduct.ProductName,
                 ProductCategoryName = selectedProductType.Name,
@@ -144,13 +138,17 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
             {
                 Price = productPrice,
                 ProductId = selectedProduct.Id,
-                Quantity = quantityPrice,
+                Quantity = quantity,
             });
 
             ItemsDataGrid.ItemsSource = displayItemsGrid;
             cashInvoiceTotal += customerinvoicedtoss.Total;
             TotalAmountTxt.Text = cashInvoiceTotal.ToString();
         }
+
+        #endregion
+
+        #region Product Type Selection Changed Region
 
         private void cbProductType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -168,6 +166,10 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
             }
         }
 
+        #endregion
+
+        #region Product Selection Changed Region
+
         private void cbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ProductDto selectedProduct = (ProductDto)ProductCombo.SelectedItem;
@@ -176,6 +178,10 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
                 PriceTxt.Text = selectedProduct.PurchasePrice.ToString() ?? "";
             }
         }
+
+        #endregion
+
+        #region Main Area Selection Changed Region
 
         private void cbMainArea_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -192,6 +198,10 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 
             }
         }
+
+        #endregion
+
+        #region Add Cash Customer Btn Click Region
 
         private void AddCashCustomerBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -214,7 +224,11 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
             }
 
             DateTime? saleDatePicker = SaleDateTxt.SelectedDate;
-
+            if (saleDatePicker == null)
+            {
+                MessageBox.Show("من فضلك اختر تاريخ صحيح");
+                return;
+            }
             ReturnAllCashCustomerInvoicesDTO cashCustomerInvoicesDTO = new ReturnAllCashCustomerInvoicesDTO()
             {
                 CollectorName = representiveName,
@@ -222,7 +236,6 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
                 RepresentativeName = representiveName,
                 SubAreaName = SubAreaName,
                 SaleDate = saleDatePicker ?? DateTime.UtcNow,
-                serialNumber = 2,
                 total = cashInvoiceTotal
             };
 
@@ -234,26 +247,94 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
                 SaleDate = saleDatePicker ?? DateTime.UtcNow,
 
             };
-
             var res = _cashCustomerInvoiceService.AddCashCustomerInvoice(createCashCustomer);
+            if (res.IsCompleted == false)
+            {
+                returnAllCashCustomersFilter.Add(new ReturnAllCashCustomerInvoicesDTO()
+                {
+                    RepresentativeName = representiveName,
+                    CollectorName = representiveName,
+                    MainAreaName = mainAreaName,
+                    SaleDate = saleDatePicker ?? DateTime.UtcNow,
+                    //serialNumber= 2,
+                    total = cashInvoiceTotal,
+                    SubAreaName = SubAreaName,
+                    serialNumber = returnAllCashCustomersFilter.Last().serialNumber + 1,
+                    serialNumberIdFromDB = returnAllCashCustomersFilter.Last().serialNumberIdFromDB + 1
+                });
+                CashDataGrid.Items.Refresh();
+            }
+            //CreateCash(createCashCustomer  );
+
         }
 
-        private void CustomersGrid_MouseDoubleClick(object sender, SelectionChangedEventArgs e)
+        //private async Task CreateCash(CreateCashCustomerInvoiceDTO createCashCustomer)
+        //{ 
+        //        var res = await _cashCustomerInvoiceService.AddCashCustomerInvoice(createCashCustomer);
+        //if (res.Success)
+        //{
+        //    //returnAllCashCustomersFilter.Add(new ReturnAllCashCustomerInvoicesDTO()
+        //    //{
+        //    //    RepresentativeName = representiveName,
+        //    //    CollectorName = representiveName,
+        //    //    MainAreaName = mainAreaName,
+        //    //    SaleDate = saleDatePicker ?? DateTime.UtcNow,
+        //    //    //serialNumber= 2,
+        //    //    total = cashInvoiceTotal,
+        //    //    SubAreaName = SubAreaName,
+        //    //});
+
+        //} 
+        //}
+        #endregion
+
+        #region Customers Grid Mouse Double Click Region
+
+        //private void CustomersGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //{
+        //    if (CashDataGrid.SelectedItem is ReturnAllCashCustomerInvoicesDTO s)
+        //    {
+        //        selectedCashCustomerInvoiceIdOfDB = s.serialNumberIdFromDB;
+        //        selectedCashCustomerInvoiceId = s.serialNumber;
+
+        //    }
+        //}
+
+        #endregion
+
+        #region Delete Cash Customer Btn Click Region
+
+        private void DeleteCashCustomerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (CashDataGrid.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("من فضلك اختر صف قبل الحذف");
+                return;
+            }
+            var DeleteRes = _cashCustomerInvoiceService.DeleteCashCustomerInvoiceAsync(selectedCashCustomerInvoiceIdOfDB);
+            if (DeleteRes.IsCompleted == false)
+            {
+                returnAllCashCustomersFilter.Remove(returnAllCashCustomersFilter[selectedCashCustomerInvoiceId - 1]);
+                CashDataGrid.Items.Refresh();
+                MessageBox.Show($"تم حذف فاتوره كاش  ");
+            }
+            else
+            {
+                MessageBox.Show("لم يتم حذف أي فاتوره عميل بسبب خطأ ما");
+            }
+        }
+
+
+        #endregion
+
+        private void CustomersGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CashDataGrid.SelectedItem is ReturnAllCashCustomerInvoicesDTO s)
             {
+                selectedCashCustomerInvoiceIdOfDB = s.serialNumberIdFromDB;
                 selectedCashCustomerInvoiceId = s.serialNumber;
 
             }
         }
-
-        private void DeleteCashCustomerBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedCashCustomerInvoiceId != 0)
-            {
-                var DeleteRes = _cashCustomerInvoiceService.DeleteCashCustomerInvoiceAsync(selectedCashCustomerInvoiceId);
-            }
-        }
-
     }
 }
