@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
+using ErpSystemBeniSouef.Core.Entities;
 
 namespace ErpSystemBeniSouef.Service.ReceiptServices;
 
@@ -71,7 +72,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
                 x => x.Invoice.Items!.Select(i => i.Product)
             );
 
-        query = query.Where(x => x.MonthDate == month);
+        query = query.Where(x => x.MonthDate.Year == month.Year && x.MonthDate.Month == month.Month);
 
         if (mainAraeId.HasValue)
         {
@@ -96,6 +97,68 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 
         return (receipts, file);
 
+    }
+
+    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime month, int collectorId)
+    {
+        var query = _unitOfWork.Repository<MonthlyInstallment>()
+            .GetAllQueryable(
+                x => x.Customer,
+                x => x.Customer.SubArea!,
+                x => x.Customer.SubArea!.mainRegions!,
+                x => x.Invoice,
+                x => x.Invoice.Items!.Select(i => i.Product)
+            );
+
+        query = query.Where(x => x.Collector.Id == collectorId);
+        query = query.Where(x => x.MonthDate.Year == month.Year && x.MonthDate.Month == month.Month);
+
+        var receipts = await query.Select(receipt => new GetAllReceiptsDto
+        {
+            CustomerNumber = receipt.Customer.CustomerNumber,
+            CustomerName = receipt.Customer.Name,
+            Address = receipt.Customer.Address,
+            AreaName = receipt.Customer.SubArea!.Name,
+            TotalPrice = receipt.Invoice.Items!.Sum(item => item.Quantity * item.Price)
+        })
+        .AsNoTracking()
+        .ToListAsync();
+
+        var file = await PrintMonthlyReceipts(receipts);
+
+        return (receipts, file);
+    }
+
+    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCustomerReceiptsAsync(int collectorNumber)
+    {
+        var customerExists = _unitOfWork.Repository<Customer>()
+            .GetByCondionAndInclide(x => x.CustomerNumber == collectorNumber) ?? throw new Exception("رقم العميل غير صحيح أو غير موجود");
+
+        var query = _unitOfWork.Repository<MonthlyInstallment>()
+            .GetAllQueryable(
+                x => x.Customer,
+                x => x.Customer.SubArea!,
+                x => x.Customer.SubArea!.mainRegions!,
+                x => x.Invoice,
+                x => x.Invoice.Items!.Select(i => i.Product)
+            );
+
+        query = query.Where(x => x.Customer.CustomerNumber == collectorNumber);
+
+        var receipts = await query.Select(receipt => new GetAllReceiptsDto
+        {
+            CustomerNumber = receipt.Customer.CustomerNumber,
+            CustomerName = receipt.Customer.Name,
+            Address = receipt.Customer.Address,
+            AreaName = receipt.Customer.SubArea!.Name,
+            TotalPrice = receipt.Invoice.Items!.Sum(item => item.Quantity * item.Price)
+        })
+        .AsNoTracking()
+        .ToListAsync();
+
+        var file = await PrintMonthlyReceipts(receipts);
+
+        return (receipts, file);
     }
 
     private async Task<Byte[]> PrintAllReceipts(List<GetAllReceiptsDto> receipts)
