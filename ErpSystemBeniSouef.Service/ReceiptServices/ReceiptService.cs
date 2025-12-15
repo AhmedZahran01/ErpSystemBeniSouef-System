@@ -1,4 +1,6 @@
-﻿namespace ErpSystemBeniSouef.Service.ReceiptServices;
+﻿using DocumentFormat.OpenXml.Bibliography;
+
+namespace ErpSystemBeniSouef.Service.ReceiptServices;
 
 public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 {
@@ -53,12 +55,50 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         .AsNoTracking()
         .ToListAsync();
 
-        var file = await PrintReceipts(receipts);
+        var file = await PrintAllReceipts(receipts);
 
         return (receipts, file);
     }
 
-    private async Task<Byte[]> PrintReceipts(List<GetAllReceiptsDto> receipts)
+    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetMonthlyReceiptsAsync(DateTime month, int? mainAraeId, int? subAreaId)
+    {
+        var query = _unitOfWork.Repository<MonthlyInstallment>()
+            .GetAllQueryable(
+                x => x.Customer,
+                x => x.Customer.SubArea!,
+                x => x.Customer.SubArea!.mainRegions!,
+                x => x.Invoice,
+                x => x.Invoice.Items!.Select(i => i.Product)
+            );
+
+        query = query.Where(x => x.MonthDate == month);
+
+        if (mainAraeId.HasValue)
+        {
+            query = query.Where(x => x.Customer.SubArea!.MainAreaId == mainAraeId);
+
+            if (subAreaId.HasValue)
+                query = query.Where(x => x.Customer.SubAreaId == subAreaId);
+        }
+
+        var receipts = await query.Select(receipt => new GetAllReceiptsDto
+        {
+            CustomerNumber = receipt.Customer.CustomerNumber,
+            CustomerName = receipt.Customer.Name,
+            Address = receipt.Customer.Address,
+            AreaName = receipt.Customer.SubArea!.Name,
+            TotalPrice = receipt.Invoice.Items!.Sum(item => item.Quantity * item.Price)
+        })
+        .AsNoTracking()
+        .ToListAsync();
+
+        var file = await PrintMonthlyReceipts(receipts);
+
+        return (receipts, file);
+
+    }
+
+    private async Task<Byte[]> PrintAllReceipts(List<GetAllReceiptsDto> receipts)
     {
         using var workbook = new XLWorkbook();
         var sheet = workbook.AddWorksheet("All Receipts");
@@ -96,6 +136,45 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             sheet.Cell(excelRow, 13).SetValue(string.Join(", ", r.Items.Select(x => $"{x.Quantity} {x.ProductName}")));
             sheet.Cell(excelRow, 14).SetValue(r.TotalPrice);
             sheet.Cell(excelRow, 15).SetValue(string.Join(", ", r.Plans.Select(x => $"{x.Months} * {x.InstallmentAmount}")));
+        }
+
+        sheet.Columns().AdjustToContents();
+        sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+        sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+        sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+        await using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+
+        return stream.ToArray();
+    }
+    private async Task<Byte[]> PrintMonthlyReceipts(List<GetAllReceiptsDto> receipts)
+    {
+        using var workbook = new XLWorkbook();
+        var sheet = workbook.AddWorksheet("Monthly Receipts");
+
+        var headers = new string[] {"Customer number", "Customer name", "Address", "Area", "Total price"};
+
+        for (int i = 0; i < headers.Length; i++)
+            sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+        var headerRange = sheet.Range(1, 1, 1, headers.Length);
+        headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+        headerRange.Style.Font.SetBold();
+        headerRange.Style.Font.SetFontSize(14);
+        headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        for (int rowIndex = 0; rowIndex < receipts.Count; rowIndex++)
+        {
+            var r = receipts[rowIndex];
+            int excelRow = rowIndex + 2;
+
+            sheet.Cell(excelRow, 1).SetValue(r.CustomerNumber);
+            sheet.Cell(excelRow, 2).SetValue(r.CustomerName);
+            sheet.Cell(excelRow, 3).SetValue(r.Address);
+            sheet.Cell(excelRow, 4).SetValue(r.AreaName);
+            sheet.Cell(excelRow, 5).SetValue(r.TotalPrice);
         }
 
         sheet.Columns().AdjustToContents();
