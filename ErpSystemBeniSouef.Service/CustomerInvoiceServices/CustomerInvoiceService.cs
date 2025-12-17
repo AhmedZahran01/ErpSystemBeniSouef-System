@@ -393,7 +393,29 @@ public class CustomerInvoiceService(IUnitOfWork unitOfWork) : ICustomerInvoiceSe
 
     #endregion
 
+    #region InstallmentsTransfer
+    public async Task<ServiceResponse<bool>> InstallmentsTransferAsync(int customerInvoiceId)
+    {
+        var installments = await _unitOfWork.Repository<MonthlyInstallment>()
+            .GetAllQueryable()
+            .Where(x => x.InvoiceId == customerInvoiceId && !x.IsPaid
+                    && x.MonthDate.Month >= DateTime.Now.Month && DateTime.Now.Year == x.MonthDate.Year)
+            .ToListAsync();
 
+        if (!installments.Any())
+            return ServiceResponse<bool>.Failure("There are no installments for this customer.");
+
+        foreach (var installment in installments)
+        {
+            installment.MonthDate = installment.MonthDate.AddMonths(1);
+            installment.IsDelayed = true;
+        }
+        await _unitOfWork.CompleteAsync();
+
+        return ServiceResponse<bool>.SuccessResponse(true, "The installments were successfully transferred");
+    }
+
+    #endregion
     // ------------------------------------------
     // Helper Methods
     // ------------------------------------------
