@@ -1,28 +1,21 @@
-﻿using Castle.Core.Resource;
-using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using ClosedXML.Excel;
 using ErpSystemBeniSouef.Core;
-using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.GetAllDetailsForCustomerInvoiceDtos;
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Reports;
 using ErpSystemBeniSouef.Core.DTOs.Reports;
 using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 using ErpSystemBeniSouef.Core.Enum;
-using ErpSystemBeniSouef.Infrastructer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Service.ReportsServices
 {
-    public class CollectionService
+    public class CollectionService: ICollectionService
     {
+        #region Constractor Region
+
         private readonly IUnitOfWork _unit;
 
         public CollectionService(IUnitOfWork unit)
@@ -30,9 +23,13 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             _unit = unit;
         }
 
+        #endregion
+
         // ------------------------------------
         // 1️⃣ Get Installments for printing page
         // ------------------------------------
+        #region Get Monthly Installments Async Region
+
         public async Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(int collectorId, DateTime month)
         {
             var installments = _unit.Repository<MonthlyInstallment>()
@@ -54,10 +51,11 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             }).ToList();
         }
 
-        public async Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId)
+        #endregion
+       
+        #region Get Installment Sales Report Async Region
+
+        public async Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
         {
             var monthlyInstallments = await _unit.Repository<MonthlyInstallment>()
                 .GetAllQueryable(x => x.Customer, x => x.Invoice, x => x.Collector)
@@ -99,10 +97,11 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return result;
         }
 
-        public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId)
+        #endregion
+
+        #region Get Representative Covenants Async Region
+
+        public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(DateTime fromDate, DateTime toDate, int collectorId)
         {
             var query = _unit.Repository<Covenant>()
                 .GetAllQueryable(
@@ -132,10 +131,11 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return result;
         }
 
-        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId)
+        #endregion
+
+        #region Get Representative Cash Invoices Async Region
+
+        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(DateTime fromDate, DateTime toDate, int collectorId)
         {
             var query = _unit.Repository<CashCstomerInvoice>()
                 .GetAllQueryable(x => x.Representative, x => x.Items)
@@ -158,10 +158,11 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return result;
         }
 
-        public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId)
+        #endregion
+
+        #region Get All Items Installment Sales Report Region
+
+        public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
         {
             var result = await _unit.Repository<Commission>()
                 .GetAllQueryable(x => x.Representative, x => x.Product, x => x.InvoiceItem, x => x.Invoice)
@@ -182,10 +183,11 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return result;
         }
 
-        public async Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int representativeId)
+        #endregion
+
+        #region Print Customers Account Region
+
+        public async Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(DateTime fromDate, DateTime toDate, int representativeId)
         {
             var customers = await _unit.Repository<Customer>()
                 .GetAllQueryable(x => x.Representative!, x => x.Collector!, x => x.SubArea!, x => x.Invoices!)
@@ -207,7 +209,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             using var workbook = new XLWorkbook();
             var sheet = workbook.AddWorksheet("customers");
 
-            var headers = new string[] { "Customer Name", "Deposit", "TotalInvoices", "NetAmount "};
+            var headers = new string[] { "Customer Name", "Deposit", "TotalInvoices", "NetAmount " };
 
             for (int i = 0; i < headers.Length; i++)
                 sheet.Cell(1, i + 1).SetValue(headers[i]);
@@ -240,6 +242,10 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
 
             return (stream.ToArray(), totalDeposits);
         }
+
+        #endregion
+
+        #region Comment Region
 
         // ------------------------------------
         // تسليم التحصيل الشهري
@@ -339,5 +345,8 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
 
         //    return true;
         //}
+
+        #endregion
+    
     }
 }

@@ -3,7 +3,13 @@ using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.HelperFunctions;
-using ErpSystemBeniSouef.ViewModel; 
+using ErpSystemBeniSouef.Service.CustomerInvoiceServices;
+using ErpSystemBeniSouef.Service.MainAreaServices;
+using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.Service.RepresentativeService;
+using ErpSystemBeniSouef.Service.SubAreaServices;
+using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -90,6 +96,13 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
             var customersPage = new  CustomersRegion.CustomersPage(customerInvoiceService, productService , mainAreaService,
                                              subAreaService , representativeService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
+        }
+
+        private void RepresentativeReports_Click(object sender, RoutedEventArgs e)
+        {
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var customersPage = new ChooseRepresentative(representativeService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
     }
