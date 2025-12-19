@@ -97,11 +97,10 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return result;
         }
 
-        #endregion
-
-        #region Get Representative Covenants Async Region
-
-        public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(DateTime fromDate, DateTime toDate, int collectorId)
+        public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
         {
             var query = _unit.Repository<Covenant>()
                 .GetAllQueryable(
@@ -110,11 +109,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                     x => x.CovenantProducts,
                     x => x.CovenantProducts.Select(p => p.Product)
                 )
-                .Where(x =>
-                    x.Representative.Id == collectorId &&
-                    x.MonthDate >= fromDate &&
-                    x.MonthDate <= toDate
-                );
+                .Where(x => x.Representative.Id == collectorId && x.MonthDate >= fromDate && x.MonthDate <= toDate);
 
             var result = await query
                 .SelectMany(c => c.CovenantProducts.Select(cp => new CovenantReportRowDto
@@ -128,24 +123,57 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                 }))
                 .ToListAsync();
 
-            return result;
-        }
+            var totalCommision = result.Sum(c => c.TotalCommisionRate);
 
-        #endregion
+            using var workbook = new XLWorkbook();
+            var sheet = workbook.AddWorksheet("CovenantReport");
 
-        #region Get Representative Cash Invoices Async Region
+            var headers = new string[] { "Customer Number", "Customer Name", "Product",
+                "Quantity", "CommisionRate", "TotalCommisionRate"};
 
-        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(DateTime fromDate, DateTime toDate, int collectorId)
+            for (int i = 0; i < headers.Length; i++)
+                sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+            var headerRange = sheet.Range(1, 1, 1, headers.Length);
+            headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+            headerRange.Style.Font.SetBold();
+            headerRange.Style.Font.SetFontSize(14);
+            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+            for (int rowIndex = 0; rowIndex < result.Count; rowIndex++)
+            {
+                var s = result[rowIndex];
+                int excelRow = rowIndex + 2;
+
+                sheet.Cell(excelRow, 1).SetValue(s.CustomerNumber);
+                sheet.Cell(excelRow, 2).SetValue(s.CustomerName);
+                sheet.Cell(excelRow, 3).SetValue(s.ProductName);
+                sheet.Cell(excelRow, 4).SetValue(s.Quantity);
+                sheet.Cell(excelRow, 5).SetValue(s.CommisionRate);
+                sheet.Cell(excelRow, 6).SetValue(s.TotalCommisionRate);
+            }
+
+        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
+            DateTime fromDate,
+            DateTime toDate,
+            int collectorId)
         {
             var query = _unit.Repository<CashCstomerInvoice>()
                 .GetAllQueryable(x => x.Representative, x => x.Items)
-                .Where(x =>
-                    x.Representative.Id == collectorId &&
-                    x.InvoiceDate >= fromDate &&
-                    x.InvoiceDate <= toDate
-                );
+                .Where(x => x.Representative.Id == collectorId && x.InvoiceDate >= fromDate && x.InvoiceDate <= toDate);
 
-            var result = await query
+            var cashInvoicesToPrint = await query
+                .Select(x => new PrintCashInvoicesDto
+                {
+                    Representative = x.Representative.Name,
+                    MainArea = x.SubArea.mainRegions!.Name,
+                    SubArea = x.SubArea.Name,
+                    InvoiceDate = x.InvoiceDate,
+                    TotalAmount = x.TotalAmount ?? 0
+                })
+                .ToListAsync();
+
+            var cashInvoicesToTable = await query
                 .SelectMany(c => c.Items.Select(cp => new CashInvoicesReportDto
                 {
                     ProductName = cp.Product.ProductName,
@@ -155,7 +183,44 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                 }))
                 .ToListAsync();
 
-            return result;
+            var totalCash = cashInvoicesToPrint.Sum(c => c.TotalAmount);
+
+            using var workbook = new XLWorkbook();
+            var sheet = workbook.AddWorksheet("Total Cash");
+
+            var headers = new string[] { "Representative", "Mainarea", "Subarea", "Invoice date", "Total amount" };
+
+            for (int i = 0; i < headers.Length; i++)
+                sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+            var headerRange = sheet.Range(1, 1, 1, headers.Length);
+            headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+            headerRange.Style.Font.SetBold();
+            headerRange.Style.Font.SetFontSize(14);
+            headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+            for (int rowIndex = 0; rowIndex < cashInvoicesToPrint.Count; rowIndex++)
+            {
+                var s = cashInvoicesToPrint[rowIndex];
+                int excelRow = rowIndex + 2;
+
+                sheet.Cell(excelRow, 1).SetValue(s.Representative);
+                sheet.Cell(excelRow, 2).SetValue(s.MainArea);
+                sheet.Cell(excelRow, 3).SetValue(s.SubArea);
+                sheet.Cell(excelRow, 4).SetValue(s.InvoiceDate);
+                sheet.Cell(excelRow, 4).SetValue(s.TotalAmount);
+            }
+
+            sheet.Columns().AdjustToContents();
+            sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+            sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+            await using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+
+            return (cashInvoicesToTable, stream.ToArray(), totalCash);
         }
 
         #endregion

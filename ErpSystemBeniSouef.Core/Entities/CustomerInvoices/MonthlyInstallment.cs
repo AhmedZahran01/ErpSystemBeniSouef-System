@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
 {
-   public class MonthlyInstallment : BaseEntity
+    public class MonthlyInstallment : BaseEntity
     {
         public int InvoiceId { get; set; }
         public CustomerInvoice Invoice { get; set; }
@@ -20,7 +20,7 @@ namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
         public DateTime MonthDate { get; set; } // لكل شهر
         public decimal Amount { get; set; }     // قيمة القسط
         public decimal CollectedAmount { get; set; } = 0;
-       // public bool IsCollected => CollectedAmount >= Amount;
+        // public bool IsCollected => CollectedAmount >= Amount;
         public bool IsPaid { get; set; } = false;
         public bool IsDelayed { get; set; } // هل اتأجل للشهر اللي بعده؟
     }
