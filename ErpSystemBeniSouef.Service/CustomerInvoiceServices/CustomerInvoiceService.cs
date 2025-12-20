@@ -74,12 +74,13 @@ public class CustomerInvoiceService(IUnitOfWork unitOfWork) : ICustomerInvoiceSe
                 };
 
                 _unitOfWork.Repository<CustomerInvoiceItems>().Add(invoiceItem);
+                await _unitOfWork.CompleteAsync();
                 //var covenantResult = await DeductFromCovenantAsync(representative.Id, product.Id, item.Quantity);
                 //if (!covenantResult.Success)
                 //    return ServiceResponse<bool>.Failure(covenantResult.Message);
 
-                // Create commission record (snapshot commissionPerUnit and total)
-                //await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate);
+                //Create commission record(snapshot commissionPerUnit and total)
+                await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate, invoiceItem.Id);
             }
 
             //  Create installment plans
@@ -450,7 +451,7 @@ public class CustomerInvoiceService(IUnitOfWork unitOfWork) : ICustomerInvoiceSe
         return (true, "OK");
     }
 
-    private async Task CreateCommissionRecordAsync(int representativeId, int invoiceId, Product product, int quantity, DateTime invoiceDate)
+    private async Task CreateCommissionRecordAsync(int representativeId, int invoiceId, Product product, int quantity, DateTime invoiceDate, int customerInvoiceItemId)
     {
         // commission per unit is product.CommissionRate (snapshot)
         var perUnit = product.CommissionRate;
@@ -465,6 +466,7 @@ public class CustomerInvoiceService(IUnitOfWork unitOfWork) : ICustomerInvoiceSe
             CommissionAmount = total, // snapshot of gross before any deductions
             MonthDate = new DateTime(invoiceDate.Year, invoiceDate.Month, 1),
             DeductedAmount = 0m,
+            InvoiceItemId = customerInvoiceItemId,
             IsDeducted = false,
             Note = "Created on invoice creation"
         };
@@ -707,7 +709,7 @@ public class CustomerInvoiceService(IUnitOfWork unitOfWork) : ICustomerInvoiceSe
                     throw new Exception(covenantResult.Message);
 
                 // Create commission record
-                await CreateCommissionRecordAsync(representativeId, invoice.Id, product, updatedItem.Quantity, invoice.InvoiceDate);
+                await CreateCommissionRecordAsync(representativeId, invoice.Id, product, updatedItem.Quantity, invoice.InvoiceDate, newItem.Id);
             }
         }
     }
