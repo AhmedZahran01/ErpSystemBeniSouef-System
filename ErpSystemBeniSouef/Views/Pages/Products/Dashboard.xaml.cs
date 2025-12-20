@@ -105,6 +105,11 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var customersPage = new ChooseRepresentative(representativeService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
+
+        private void ReportsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
      

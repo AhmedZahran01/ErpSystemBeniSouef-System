@@ -41,7 +41,6 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
         {
 
         }
-
         private void EnterButton_Click(object sender, RoutedEventArgs e)
         {
             DateTime? startDatePicker = StartDatePicker.SelectedDate;
@@ -49,25 +48,85 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
 
             if (startDatePicker == null)
             {
-                MessageBox.Show("يرجى تحديد تاريخ بدايه الحساب");
+                MessageBox.Show("يرجى تحديد تاريخ بداية الحساب");
                 return;
             }
+
             if (endDatePicker == null)
             {
-                MessageBox.Show("يرجى تحديد تاريخ نهايه الحساب");
+                MessageBox.Show("يرجى تحديد تاريخ نهاية الحساب");
                 return;
             }
 
-            int RepresentativeId = ((RepresentativeDto)RepresentativeCombo.SelectedItem).Id;
-            if (RepresentativeId <= 0)
+            // ✅ التحقق من المدى الزمني
+            if (startDatePicker > endDatePicker)
             {
-                MessageBox.Show(" اخيار المندوب خاطي ");
+                MessageBox.Show(
+                    "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية",
+                    "خطأ في الفترة الزمنية",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
                 return;
-            } 
-            var pr = new HomeReportsChooseTab(startDatePicker??DateTime.UtcNow , endDatePicker ?? DateTime.UtcNow, RepresentativeId);
-            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(pr);
+            }
 
+            if (RepresentativeCombo.SelectedItem == null)
+            {
+                MessageBox.Show("يرجى اختيار المندوب");
+                return;
+            }
+
+            int representativeId = ((RepresentativeDto)RepresentativeCombo.SelectedItem).Id;
+
+            var pr = new HomeReportsChooseTab(
+                startDatePicker.Value,
+                endDatePicker.Value,
+                representativeId
+            );
+
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(pr);
         }
+
+
+        //private void EnterButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    DateTime? startDatePicker = StartDatePicker.SelectedDate;
+        //    DateTime? endDatePicker = EndDatePicker.SelectedDate;
+
+        //    if (startDatePicker == null)
+        //    {
+        //        MessageBox.Show("يرجى تحديد تاريخ بدايه الحساب");
+        //        return;
+        //    }
+        //    if (endDatePicker == null)
+        //    {
+        //        MessageBox.Show("يرجى تحديد تاريخ نهايه الحساب");
+        //        return;
+        //    }
+
+        //    // ✅ التحقق من المدى الزمني
+        //    if (startDatePicker > endDatePicker)
+        //    {
+        //        MessageBox.Show(
+        //            "تاريخ البداية يجب أن يكون أقل من أو يساوي تاريخ النهاية",
+        //            "خطأ في الفترة الزمنية",
+        //            MessageBoxButton.OK,
+        //            MessageBoxImage.Warning
+        //        );
+        //        return;
+        //    }
+
+
+        //    int RepresentativeId = ((RepresentativeDto)RepresentativeCombo.SelectedItem).Id;
+        //    if (RepresentativeId <= 0)
+        //    {
+        //        MessageBox.Show(" اخيار المندوب خاطي ");
+        //        return;
+        //    } 
+        //    var pr = new HomeReportsChooseTab(startDatePicker??DateTime.UtcNow , endDatePicker ?? DateTime.UtcNow, RepresentativeId);
+        //    MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(pr);
+        //}
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var Dashboard = new Products.Dashboard();

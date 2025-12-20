@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Reports;
@@ -12,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ErpSystemBeniSouef.Service.ReportsServices
 {
-    public class CollectionService: ICollectionService
+    public class CollectionService : ICollectionService
     {
         #region Constractor Region
 
@@ -52,20 +53,25 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
         }
 
         #endregion
-       
+
         #region Get Installment Sales Report Async Region
 
         public async Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
         {
             var monthlyInstallments = await _unit.Repository<MonthlyInstallment>()
-                .GetAllQueryable(x => x.Customer, x => x.Invoice, x => x.Collector)
+                .GetAllQueryable(x => x.Customer, x => x.Invoice, x => x.Collector, x => x.Invoice.Items
+                   , x => x.Invoice.Items.Select(i => i.Product))
                 .ToListAsync();
 
             var invoiceIds = monthlyInstallments.Select(m => m.InvoiceId).Distinct().ToList();
 
+            //var invoicesQuery = _unit.Repository<CustomerInvoice>()
+            //    .GetAllQueryable(x => x.Customer!, x => x.Installments!, x => x.Items!)
+            //    .Where(x => invoiceIds.Contains(x.Id));
+
             var invoicesQuery = _unit.Repository<CustomerInvoice>()
                 .GetAllQueryable(x => x.Customer!, x => x.Installments!, x => x.Items!)
-                .Where(x => invoiceIds.Contains(x.Id));
+             .Where(x => invoiceIds.Contains(x.Id));
 
             invoicesQuery = invoicesQuery.Where(x => x.InvoiceDate >= fromDate && x.InvoiceDate <= toDate);
 
@@ -86,21 +92,150 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
 
                 Items = invoice.Items?.Select(item => new CustomerInvoiceItemDto
                 {
-                    ProductName = item.Product.ProductName,
+                    ProductName = item.Product!.ProductName,
                     Quantity = item.Quantity,
                     UnitPrice = item.Price,
                     Total = item.Total
                 }).ToList() ?? []
+
 
             }).ToList();
 
             return result;
         }
 
-        public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId)
+        //public async Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
+        //    DateTime fromDate,
+        //    DateTime toDate,
+        //    int collectorId)
+        //{
+        //    var query = _unit.Repository<Covenant>()
+        //        .GetAllQueryable(
+        //            x => x.Representative,
+        //            x => x.Customer,
+        //            x => x.CovenantProducts,
+        //            x => x.CovenantProducts.Select(p => p.Product)
+        //        )
+        //        .Where(x => x.Representative.Id == collectorId && x.MonthDate >= fromDate && x.MonthDate <= toDate);
+
+        //    var result = await query
+        //        .SelectMany(c => c.CovenantProducts.Select(cp => new CovenantReportRowDto
+        //        {
+        //            CustomerNumber = c.Customer.CustomerNumber,
+        //            CustomerName = c.Customer.Name,
+        //            ProductName = cp.Product.ProductName,
+        //            Quantity = cp.Amount,
+        //            CommisionRate = cp.Product.CommissionRate,
+        //            TotalCommisionRate = cp.Amount * cp.Product.CommissionRate,
+        //        }))
+        //        .ToListAsync();
+
+        //    var totalCommision = result.Sum(c => c.TotalCommisionRate);
+
+        //    using var workbook = new XLWorkbook();
+        //    var sheet = workbook.AddWorksheet("CovenantReport");
+
+        //    var headers = new string[] { "Customer Number", "Customer Name", "Product",
+        //        "Quantity", "CommisionRate", "TotalCommisionRate"};
+
+        //    for (int i = 0; i < headers.Length; i++)
+        //        sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+        //    var headerRange = sheet.Range(1, 1, 1, headers.Length);
+        //    headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+        //    headerRange.Style.Font.SetBold();
+        //    headerRange.Style.Font.SetFontSize(14);
+        //    headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        //    for (int rowIndex = 0; rowIndex < result.Count; rowIndex++)
+        //    {
+        //        var s = result[rowIndex];
+        //        int excelRow = rowIndex + 2;
+
+        //        sheet.Cell(excelRow, 1).SetValue(s.CustomerNumber);
+        //        sheet.Cell(excelRow, 2).SetValue(s.CustomerName);
+        //        sheet.Cell(excelRow, 3).SetValue(s.ProductName);
+        //        sheet.Cell(excelRow, 4).SetValue(s.Quantity);
+        //        sheet.Cell(excelRow, 5).SetValue(s.CommisionRate);
+        //        sheet.Cell(excelRow, 6).SetValue(s.TotalCommisionRate);
+        //    }
+        //}
+
+        //public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
+        //    DateTime fromDate,
+        //    DateTime toDate,
+        //    int collectorId)
+        //{
+        //    var query = _unit.Repository<CashCstomerInvoice>()
+        //        .GetAllQueryable(x => x.Representative, x => x.Items)
+        //        .Where(x => x.Representative.Id == collectorId && x.InvoiceDate >= fromDate && x.InvoiceDate <= toDate);
+
+        //    var cashInvoicesToPrint = await query
+        //        .Select(x => new PrintCashInvoicesDto
+        //        {
+        //            Representative = x.Representative.Name,
+        //            MainArea = x.SubArea.mainRegions!.Name,
+        //            SubArea = x.SubArea.Name,
+        //            InvoiceDate = x.InvoiceDate,
+        //            TotalAmount = x.TotalAmount ?? 0
+        //        })
+        //        .ToListAsync();
+
+        //    var cashInvoicesToTable = await query
+        //        .SelectMany(c => c.Items.Select(cp => new CashInvoicesReportDto
+        //        {
+        //            ProductName = cp.Product.ProductName,
+        //            ProductType = cp.Product.Category.Name,
+        //            Quentity = cp.Quantity,
+        //            UnitPrice = cp.Price,
+        //        }))
+        //        .ToListAsync();
+
+        //    var totalCash = cashInvoicesToPrint.Sum(c => c.TotalAmount);
+
+        //    using var workbook = new XLWorkbook();
+        //    var sheet = workbook.AddWorksheet("Total Cash");
+
+        //    var headers = new string[] { "Representative", "Mainarea", "Subarea", "Invoice date", "Total amount" };
+
+        //    for (int i = 0; i < headers.Length; i++)
+        //        sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+        //    var headerRange = sheet.Range(1, 1, 1, headers.Length);
+        //    headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+        //    headerRange.Style.Font.SetBold();
+        //    headerRange.Style.Font.SetFontSize(14);
+        //    headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        //    for (int rowIndex = 0; rowIndex < cashInvoicesToPrint.Count; rowIndex++)
+        //    {
+        //        var s = cashInvoicesToPrint[rowIndex];
+        //        int excelRow = rowIndex + 2;
+
+        //        sheet.Cell(excelRow, 1).SetValue(s.Representative);
+        //        sheet.Cell(excelRow, 2).SetValue(s.MainArea);
+        //        sheet.Cell(excelRow, 3).SetValue(s.SubArea);
+        //        sheet.Cell(excelRow, 4).SetValue(s.InvoiceDate);
+        //        sheet.Cell(excelRow, 4).SetValue(s.TotalAmount);
+        //    }
+
+        //    sheet.Columns().AdjustToContents();
+        //    sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        //    sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+        //    sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+        //    sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+        //    await using var stream = new MemoryStream();
+        //    workbook.SaveAs(stream);
+
+        //    return (cashInvoicesToTable, stream.ToArray(), totalCash);
+        //}
+
+
+        public async Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
+    DateTime fromDate,
+    DateTime toDate,
+    int collectorId)
         {
             var query = _unit.Repository<Covenant>()
                 .GetAllQueryable(
@@ -129,7 +264,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             var sheet = workbook.AddWorksheet("CovenantReport");
 
             var headers = new string[] { "Customer Number", "Customer Name", "Product",
-                "Quantity", "CommisionRate", "TotalCommisionRate"};
+        "Quantity", "CommisionRate", "TotalCommisionRate"};
 
             for (int i = 0; i < headers.Length; i++)
                 sheet.Cell(1, i + 1).SetValue(headers[i]);
@@ -153,10 +288,46 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
                 sheet.Cell(excelRow, 6).SetValue(s.TotalCommisionRate);
             }
 
-        public async Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId)
+            sheet.Columns().AdjustToContents();
+            sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+            sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+            sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+            await using var stream = new MemoryStream();
+            workbook.SaveAs(stream);
+
+            return (result, stream.ToArray(), totalCommision);
+        }
+        #endregion
+
+        #region Get All Items Installment Sales Report Region
+
+        public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
+        {
+            var result = await _unit.Repository<Commission>()
+                .GetAllQueryable(x => x.Representative, x => x.Product, x => x.InvoiceItem, x => x.Invoice)
+                .Where(x =>
+                    x.Representative.Id == collectorId &&
+                    x.MonthDate >= fromDate &&
+                    x.MonthDate <= toDate &&
+                    x.Type == CommissionType.Earn)
+                    .Select(c => new RepresentativeCommissionReportDto
+                    {
+                        ProductName = c.Product.ProductName,
+                        CommissionAmount = c.CommissionAmount,
+                        QuantitySold = c.InvoiceItem.Quantity,
+                        TotalPercentage = c.CommissionAmount * c.InvoiceItem.Quantity
+                    })
+                    .ToListAsync();
+
+            return result;
+        }
+
+        #endregion
+
+        public async Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCashInvoicesAsync(
+            DateTime fromDate, DateTime toDate, int collectorId)
         {
             var query = _unit.Repository<CashCstomerInvoice>()
                 .GetAllQueryable(x => x.Representative, x => x.Items)
@@ -223,33 +394,6 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
             return (cashInvoicesToTable, stream.ToArray(), totalCash);
         }
 
-        #endregion
-
-        #region Get All Items Installment Sales Report Region
-
-        public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
-        {
-            var result = await _unit.Repository<Commission>()
-                .GetAllQueryable(x => x.Representative, x => x.Product, x => x.InvoiceItem, x => x.Invoice)
-                .Where(x =>
-                    x.Representative.Id == collectorId &&
-                    x.MonthDate >= fromDate &&
-                    x.MonthDate <= toDate &&
-                    x.Type == CommissionType.Earn)
-                    .Select(c => new RepresentativeCommissionReportDto
-                    {
-                        ProductName = c.Product.ProductName,
-                        CommissionAmount = c.CommissionAmount,
-                        QuantitySold = c.InvoiceItem.Quantity,
-                        TotalPercentage = c.CommissionAmount * c.InvoiceItem.Quantity
-                    })
-                    .ToListAsync();
-
-            return result;
-        }
-
-        #endregion
-
         #region Print Customers Account Region
 
         public async Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(DateTime fromDate, DateTime toDate, int representativeId)
@@ -309,6 +453,7 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
         }
 
         #endregion
+
 
         #region Comment Region
 
@@ -412,6 +557,6 @@ namespace ErpSystemBeniSouef.Service.ReportsServices
         //}
 
         #endregion
-    
+
     }
 }

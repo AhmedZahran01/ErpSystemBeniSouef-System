@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.ReportsRegion"
       Background="#1F2E3A"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="750" d:DesignWidth="800"
       Title="HomeReportsChooseTab">
 
     <Page.Resources>
@@ -23,13 +23,14 @@
 
         <Style x:Key="MainButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="55"/>
-            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Width" Value="225"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
             <Setter Property="Background" Value="{StaticResource PrimaryButtonBrush}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Margin" Value="20,7,0,15"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -68,47 +69,64 @@
 
     </Page.Resources>
 
-    <Grid Height="883" Margin="10,8,10,8">
+    <Grid Height="783" Margin="10,8,10,8">
+        <Border Width="568"
+        Height="560"
+        Background="{StaticResource CardBrush}"
+        CornerRadius="16"
+        Padding="25"
+        Effect="{StaticResource CardShadow}"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
 
-        <Border Width="468"
-             Height="520"
-             Background="{StaticResource CardBrush}"
-             CornerRadius="16"
-             Padding="25"
-             Effect="{StaticResource CardShadow}"
-             HorizontalAlignment="Center"
-             VerticalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <StackPanel VerticalAlignment="Center">
+                <!-- المحتوى الرئيسي -->
+                <StackPanel Grid.Row="0" VerticalAlignment="Center">
 
-                <TextBlock Text="تقارير المناديب"
-                        FontSize="22"
-                        FontWeight="Bold"
-                        Foreground="{StaticResource TextBrush}"
-                        HorizontalAlignment="Center"
-                        Margin="0,0,0,30"/>
+                    <TextBlock Text="تقارير المناديب"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextBrush}"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
 
-                <Button Content="المبيعات تقسيط"
-                     Style="{StaticResource MainButtonStyle}" Click="SaleButton_Click"/>
+                    <Button Content="المبيعات تقسيط"
+                    Style="{StaticResource MainButtonStyle}" Click="SaleButton_Click"/>
 
-                <Button Content="المبيعات كاش"
-                     Style="{StaticResource MainButtonStyle}"/>
+                    <Button Content="المبيعات كاش"
+                    Style="{StaticResource MainButtonStyle}" Click="Cash_SalesButton_Click"/>
 
-                <Button Content="نسب المرتجعات"
-                     Style="{StaticResource MainButtonStyle}"/>
+                    <Button Content="نسب المرتجعات"
+                    Style="{StaticResource MainButtonStyle}" Click="ReturnRateButton_Click"/>
 
-                <Button Content="نسب المندبة الجديدة"
-                     Style="{StaticResource MainButtonStyle}"/>
+                    <Button Content="نسب المندبة الجديدة"
+                    Style="{StaticResource MainButtonStyle}" Click="New_lamentation_RatiosBtn_Click"/>
 
-                <Button Content="تصفية العهدة"
-                     Style="{StaticResource MainButtonStyle}"
-                     Margin="0"/>
+                    <Button Content="تصفية العهدة"
+                    Style="{StaticResource MainButtonStyle}"
+                   />
+                </StackPanel>
 
-            </StackPanel>
-                <Button Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Content="↩" FontSize="35" 
-Width="90" Height="58" Foreground="White"
-Style="{StaticResource triggerrr}" Margin="21,10,0,11"  
-Click="BackBtn_Click"/>
+                <!-- زر الرجوع -->
+                <Button Grid.Row="1"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                Content="↩"
+                FontSize="35"
+                Width="90"
+                Height="58"
+                Foreground="White"
+                Style="{StaticResource triggerrr}"
+                Margin="21,10,0,11"
+                Click="BackBtn_Click"/>
+            </Grid>
+
         </Border>
+
     </Grid>
 </Page>

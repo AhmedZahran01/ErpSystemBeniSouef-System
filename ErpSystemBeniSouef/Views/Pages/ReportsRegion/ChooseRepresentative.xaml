@@ -93,20 +93,20 @@
                 <TextBlock Text="المندوب : " FlowDirection="RightToLeft" Foreground="White" FontSize="24"
                            Style="{StaticResource FieldLabel}"/>
                 <ComboBox x:Name="RepresentativeCombo" HorizontalAlignment="Center"
-                          DisplayMemberPath="Name" Width="150" Height="33"
+                          DisplayMemberPath="Name" Width="200" Height="33"
                            SelectedValuePath="Id" Margin="0,5,0,10" />
  
                 <TextBlock FlowDirection="RightToLeft" Text="بدايه الحساب  :  "
                            Foreground="White" FontSize="24"
                            Style="{StaticResource FieldLabel}"/>
-                <DatePicker x:Name="StartDatePicker" Margin="110 10 10 20" Width="200"
+                <DatePicker x:Name="StartDatePicker" Margin="110 10 10 20" Width="270"
                             Height="40" Foreground="Black" Style="{StaticResource InputDatePicker}"/>
  
                 <TextBlock FlowDirection="RightToLeft" FontSize="24"
                            Text=" نهايه الحساب : " Foreground="White"
                            Style="{StaticResource FieldLabel}"/>
                 <DatePicker x:Name="EndDatePicker" Foreground="Black"  Margin="120 0 0 0"
-                            Width="200" Height="40" Style="{StaticResource InputDatePicker}"/>
+                            Width="270" Height="40" Style="{StaticResource InputDatePicker}"/>
  
                 <Button Content="الدخول "
                         Style="{StaticResource MainButtonStyle}"

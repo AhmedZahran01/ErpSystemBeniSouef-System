@@ -19,18 +19,18 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
         );
 
         // 3️⃣ Representative Covenants
-        Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId
-        );
+        //Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
+        //    DateTime fromDate,
+        //    DateTime toDate,
+        //    int collectorId
+        //);
 
         // 4️⃣ Representative Cash Invoices
-        Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId
-        );
+        //Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
+        //    DateTime fromDate,
+        //    DateTime toDate,
+        //    int collectorId
+        //);
 
         // 5️⃣ Installment Sales Commission Report
         Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
@@ -45,5 +45,16 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
             DateTime toDate,
             int representativeId
         );
+
+
+        Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCashInvoicesAsync(
+           DateTime fromDate, DateTime toDate, int collectorId);
+
+        Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
+    DateTime fromDate,
+    DateTime toDate,
+    int collectorId);
+
+
     }
 }
