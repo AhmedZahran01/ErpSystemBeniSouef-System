@@ -29,6 +29,7 @@ using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
+using ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -140,6 +141,7 @@ namespace ErpSystemBeniSouef
             //var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
             //var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
             //var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
             //var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
             //var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
@@ -182,11 +184,12 @@ namespace ErpSystemBeniSouef
             //                 .SupplierAccountsPage(supplierService,supplierCashService ,supplierAccountService);
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
-            var login = new ChooseRepresentative(representativeService );
+            var login = new ChooseRepresentative(representativeService);
             //var login = new Views.Pages.CustomersRegion.CustomersPage(customerInvoiceService, productService , mainAreaService
             //                          , subAreaService ,representativeService );
 
 
+            //var login = new Cash_SalesPage(collectionService );
             //var login = new StartPageBeforeLogin();
 
 

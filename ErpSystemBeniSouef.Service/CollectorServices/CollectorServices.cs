@@ -1,20 +1,10 @@
-﻿using AutoMapper;
-using ErpSystemBeniSouef.Core;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.DTOs.Collector;
-using ErpSystemBeniSouef.Core.DTOs.SupplierDto;
-using ErpSystemBeniSouef.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ErpSystemBeniSouef.Core.DTOs.Collector;
 
 namespace ErpSystemBeniSouef.Service.CollectorServices
 {
     public class CollectorServices : ICollectorService
 
-    { 
+    {
         #region Constractor Region
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -89,6 +79,6 @@ namespace ErpSystemBeniSouef.Service.CollectorServices
 
         #endregion
 
-      
+
     }
 }

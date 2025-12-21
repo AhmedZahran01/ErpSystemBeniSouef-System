@@ -144,13 +144,14 @@
              Padding="10" 
              Margin="0,0,15,0">
 
-                <DataGrid Style="{StaticResource CashDataGridStyle}">
+                <DataGrid x:Name="CashReportsDataGrid" FlowDirection="LeftToRight"
+                          HorizontalAlignment="Center"  FontSize="24" Style="{StaticResource CashDataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="نوع السلعة" Binding="{Binding ItemType}" Width="*"/>
-                        <DataGridTextColumn Header="المبيعات" Binding="{Binding Quantity}" Width="*"/>
-                        <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
-                        <DataGridTextColumn Header="المبلغ" Binding="{Binding Amount}" Width="*"/>
-                        <DataGridTextColumn Header="المبلغ الإجمالي" Binding="{Binding TotalAmount}" Width="*"/>
+                        <DataGridTextColumn FontSize = "18"   Header="المبلغ الإجمالي" Binding="{Binding TotalPrice}" Width=".9*"/>
+                        <DataGridTextColumn FontSize = "18"   Header="المبلغ" Binding="{Binding UnitPrice}" Width=".5*"/>
+                        <DataGridTextColumn FontSize = "18"   Header="الكمية" Binding="{Binding Quentity}" Width=".5*"/>
+                        <DataGridTextColumn FontSize = "18"   Header="المبيعات" Binding="{Binding ProductName}" Width="*"/>
+                        <DataGridTextColumn FontSize = "18"   Header="نوع السلعة" Binding="{Binding ProductType}" Width="1.2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -178,9 +179,9 @@
 
                             <TextBox Grid.Column="0" 
                       Style="{StaticResource SummaryTextBoxStyle}" 
-                      Width="Auto" 
+                      Width="Auto" Text="0"
                       Margin="0,0,5,0" 
-                      Text=""/>
+                       />
                             <Button Content="طباعة" 
                      Grid.Column="1" 
                      Style="{StaticResource MainButtonStyle}" 
@@ -194,7 +195,7 @@
                         <TextBlock Text="إجمالي الكاش" 
                     Foreground="{StaticResource TextBrush}" 
                     VerticalAlignment="Center" 
-                    Margin="0,0,10,0" 
+                    Margin="0,0,10,0"  
                     Width="165"
                     FontSize="16"/>
 
@@ -206,7 +207,7 @@
 
                             <TextBox Grid.Column="0" 
                       Style="{StaticResource SummaryTextBoxStyle}" 
-                      Width="Auto" 
+                      Width="Auto" Name="TotalCashReport"
                       Margin="0,0,5,0" 
                       Text=""/>
                             <Button Content="طباعة" 
@@ -278,9 +279,9 @@
                     <Button Content="صفحه المبيعات كاش" 
                   Grid.Column="1"  Background="Red" 
                   Style="{StaticResource MainButtonStyle}" 
-                  Height="36" Width="320"
-                  FontSize="12"
-                  Margin="5,20,0,0" Click="Button_Click"/>
+                  Height="40" Width="270"
+                  FontSize="17"
+                  Margin="5,220,0,0" Click="Button_Click"/>
                 </StackPanel>
             </Border>
         </Grid>

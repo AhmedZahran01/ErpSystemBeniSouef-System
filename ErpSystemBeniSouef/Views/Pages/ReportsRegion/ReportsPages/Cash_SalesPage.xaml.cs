@@ -1,5 +1,6 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Reports;
+using ErpSystemBeniSouef.Core.DTOs.Reports;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,18 +28,31 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     public partial class Cash_SalesPage : Page
     {
         private readonly ICollectionService _collectionService;
-        private readonly System.DateTime dateTime1;
-        private readonly System.DateTime dateTime2;
-        private readonly int repId;
-        public Cash_SalesPage( )
-        //public Cash_SalesPage(ICollectionService collectionService, DateTime dateTime1, DateTime dateTime2, int repId)
+        private  DateTime _dateTime1;
+        private  DateTime _dateTime2;
+        private  int _repId;
+        List<CashInvoicesReportDto> cashInvoicesReport = new List<CashInvoicesReportDto>();
+        decimal totalCash = 0;
+
+        //public Cash_SalesPage( )
+        public Cash_SalesPage(ICollectionService collectionService , DateTime dateTime1, DateTime dateTime2,int repId)
         {
             InitializeComponent();
+            _collectionService = collectionService;
             Loaded += async (s, e) =>
             {
                 try
                 {
+                    _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
+                    _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
+                    _repId = 2;
+
+                    //_dateTime1 = dateTime1;
+                    //_dateTime2 = dateTime2;
+                    //_repId = repId;
+
                     await LoadData();
+
                 }
                 catch
                 {
@@ -50,8 +64,11 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
 
         private async Task LoadData()
         {
-            var s = await _collectionService.GetRepresentativeCashInvoicesAsync(dateTime1, dateTime2, repId);
-
+            var s = await _collectionService.GetRepresentativeCashInvoicesAsync(_dateTime1, _dateTime2, _repId);
+            totalCash = s.totalCommision;
+            cashInvoicesReport = s.Item1;  
+            CashReportsDataGrid.ItemsSource = cashInvoicesReport;
+            TotalCashReport.Text = totalCash.ToString();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
