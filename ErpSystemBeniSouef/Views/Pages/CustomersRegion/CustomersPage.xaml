@@ -433,7 +433,7 @@
                         </StackPanel>
 
                         <!-- المحتوى اللي يفتح ويقفل -->
-                        <StackPanel x:Name="SubBasicCardContent" Visibility="Collapsed">
+                        <StackPanel x:Name="SubBasicCardContent" Visibility="Visible">
 
                             <Grid>
                                 <Grid.ColumnDefinitions>

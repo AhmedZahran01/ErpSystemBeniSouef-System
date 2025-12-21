@@ -1,13 +1,22 @@
-﻿namespace ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
+﻿using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.GetAllDetailsForCustomerInvoiceDtos;
+using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input;
+using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output;
+using ErpSystemBeniSouef.Core.GenericResponseModel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-public interface ICustomerInvoiceService
+namespace ErpSystemBeniSouef.Core.Contract.CustomerInvoice
 {
-    Task<ServiceResponse<bool>> CreateCustomerInvoiceAsync(CreateCustomerInvoiceDTO dto);
-    Task<ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>> GetAllCustomerInvoicesAsync();
-    Task<ServiceResponse<ReturnCustomerInvoiceDetailsDTO>> GetCustomerInvoiceByIdAsync(int invoiceId);
-    Task<ServiceResponse<bool>> DeleteCustomerAsync(int customerId);
-    Task<ServiceResponse<bool>> UpdateCustomerInvoiceAsync(int invoiceId, UpdateCustomerInvoiceDTO dto);
-    Task<ServiceResponse<List<MonthlyInstallmentDto>>> GetMonthlyInstallmentsByInvoiceIdAsync(int customerInvoiceId);
-    Task<ServiceResponse<bool>> UpdateInstallmentsAsync(UpdateMonthlyInstallmentsDto dto);
-    Task<ServiceResponse<bool>> InstallmentsTransferAsync(int customerInvoiceId);
+    public interface ICustomerInvoiceService
+    {
+        Task<ServiceResponse<bool>> CreateCustomerInvoiceAsync(CreateCustomerInvoiceDTO dto);
+        Task<ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>> GetAllCustomerInvoicesAsync();
+        Task<ServiceResponse<ReturnCustomerInvoiceDetailsDTO>> GetCustomerInvoiceByIdAsync(int invoiceId);
+        Task<ServiceResponse<bool>> DeleteCustomerAsync(int customerId);
+        Task<ServiceResponse<bool>> UpdateCustomerInvoiceAsync(int invoiceId, UpdateCustomerInvoiceDTO dto);
+
+    }
 }
