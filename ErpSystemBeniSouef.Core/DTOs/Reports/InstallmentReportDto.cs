@@ -1,6 +1,4 @@
-﻿using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
-
-namespace ErpSystemBeniSouef.Core.DTOs.Reports;
+﻿namespace ErpSystemBeniSouef.Core.DTOs.Reports;
 
 public class InstallmentReportDto
 {
@@ -9,6 +7,6 @@ public class InstallmentReportDto
     public decimal TotalAmount { get; set; }
     public decimal Deposit { get; set; }
 
-    public List<InstallmentPlanDto> Plans { get; set; } = [];
-    public List<CustomerInvoiceItemDto> Items { get; set; } = [];
+    public string Plans { get; set; } = string.Empty;
+    public string Items { get; set; } = string.Empty;
 }

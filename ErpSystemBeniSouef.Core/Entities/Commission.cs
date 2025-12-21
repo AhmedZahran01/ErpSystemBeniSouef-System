@@ -11,10 +11,10 @@ namespace ErpSystemBeniSouef.Core.Entities
         public int InvoiceId { get; set; }
         public CustomerInvoice Invoice { get; set; } = default!;
 
-        public int? InvoiceItemId { get; set; }
+        public int InvoiceItemId { get; set; }
         public CustomerInvoiceItems InvoiceItem { get; set; } = default!;
 
-        public int? ProductId { get; set; }
+        public int ProductId { get; set; }
         public Product Product { get; set; } = default!;
 
         public CommissionType Type { get; set; }
