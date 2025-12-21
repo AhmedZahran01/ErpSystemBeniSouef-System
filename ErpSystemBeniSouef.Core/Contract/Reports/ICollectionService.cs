@@ -51,9 +51,10 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
            DateTime fromDate, DateTime toDate, int collectorId);
 
         Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
-    DateTime fromDate,
-    DateTime toDate,
-    int collectorId);
+          DateTime fromDate,
+          DateTime toDate,
+          int collectorId
+        );
 
 
     }

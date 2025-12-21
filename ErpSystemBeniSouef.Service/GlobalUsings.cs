@@ -13,3 +13,5 @@ global using ErpSystemBeniSouef.Core.Entities;
 global using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.GetAllDetailsForCustomerInvoiceDtos;
 global using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 global using ErpSystemBeniSouef.Core.GenericResponseModel;
+global using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
+global using ErpSystemBeniSouef.Core.Contract.Reports;

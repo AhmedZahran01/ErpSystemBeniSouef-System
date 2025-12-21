@@ -86,29 +86,15 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 _unitOfWork.Repository<CustomerInvoice>().Add(invoice);
                 await _unitOfWork.CompleteAsync();
 
-                // Create invoice items
-                foreach (var item in dto.customerinvoicedtos)
-                {
-                    var product = await _unitOfWork.Repository<Product>().GetByIdAsync(item.ProductId);
-                    if (product == null)
-                        return ServiceResponse<bool>.Failure($"Product with ID {item.ProductId} not found.");
+                _unitOfWork.Repository<CustomerInvoiceItems>().Add(invoiceItem);
+                await _unitOfWork.CompleteAsync();
+                //var covenantResult = await DeductFromCovenantAsync(representative.Id, product.Id, item.Quantity);
+                //if (!covenantResult.Success)
+                //    return ServiceResponse<bool>.Failure(covenantResult.Message);
 
-                    var invoiceItem = new CustomerInvoiceItems
-                    {
-                        InvoiceId = invoice.Id,
-                        ProductId = item.ProductId,
-                        Quantity = item.Quantity,
-                        Price = item.Price
-                    };
-
-                    _unitOfWork.Repository<CustomerInvoiceItems>().Add(invoiceItem);
-                    //var covenantResult = await DeductFromCovenantAsync(representative.Id, product.Id, item.Quantity);
-                    //if (!covenantResult.Success)
-                    //    return ServiceResponse<bool>.Failure(covenantResult.Message);
-
-                    // Create commission record (snapshot commissionPerUnit and total)
-                    //await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate);
-                }
+                //Create commission record(snapshot commissionPerUnit and total)
+                await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate, invoiceItem.Id);
+            }
 
                 //  Create installment plans
                 foreach (var inst in dto.installmentsdtos)
@@ -465,19 +451,33 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 .Where(d => d.InvoiceId == invoice.Id && !d.IsDeleted)
                 .ToList();
 
-            foreach (var discount in invoiceDiscounts)
-            {
-                discount.IsReversed = true;
-                discount.ReversedDate = DateTime.Now;
-                discount.Reason = "Reversed automatically due to customer deletion.";
-                discountRepo.Update(discount);
-            }
-        }
+        await _unitOfWork.CompleteAsync();
+        return (true, "OK");
+    }
+
+    private async Task CreateCommissionRecordAsync(int representativeId, int invoiceId, Product product, int quantity, DateTime invoiceDate, int customerInvoiceItemId)
+    {
+        // commission per unit is product.CommissionRate (snapshot)
+        var perUnit = product.CommissionRate;
+        var total = Math.Round(perUnit * quantity, 2);
 
         private async Task DeductCommissionForInvoice(CustomerInvoice invoice, int representativeId)
         {
-            var commissionRepo = _unitOfWork.Repository<Commission>();
-            var commissions = await commissionRepo.GetAllAsync(c => c.Representative);
+            RepresentativeId = representativeId,
+            InvoiceId = invoiceId,
+            ProductId = product.Id,
+            TotalCommission = total,
+            CommissionAmount = total, // snapshot of gross before any deductions
+            MonthDate = new DateTime(invoiceDate.Year, invoiceDate.Month, 1),
+            DeductedAmount = 0m,
+            InvoiceItemId = customerInvoiceItemId,
+            IsDeducted = false,
+            Note = "Created on invoice creation"
+        };
+
+        _unitOfWork.Repository<Commission>().Add(commission);
+        await _unitOfWork.CompleteAsync();
+    }
 
             var commission = commissions
                 .FirstOrDefault(c => c.InvoiceId == invoice.Id && c.RepresentativeId == representativeId);
@@ -698,8 +698,15 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     Amount = inst.Amount
                 };
 
-                _unitOfWork.Repository<InstallmentPlan>().Add(newPlan);
-                await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, invoice.InvoiceDate);
+                _unitOfWork.Repository<CustomerInvoiceItems>().Add(newItem);
+
+                // Deduct from covenant
+                var covenantResult = await DeductFromCovenantAsync(representativeId, product.Id, updatedItem.Quantity);
+                if (!covenantResult.Success)
+                    throw new Exception(covenantResult.Message);
+
+                // Create commission record
+                await CreateCommissionRecordAsync(representativeId, invoice.Id, product, updatedItem.Quantity, invoice.InvoiceDate, newItem.Id);
             }
         }
 
