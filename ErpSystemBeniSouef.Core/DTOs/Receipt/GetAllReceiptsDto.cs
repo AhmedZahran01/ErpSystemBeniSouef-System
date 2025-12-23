@@ -12,10 +12,10 @@ public class GetAllReceiptsDto
     public string CollectorName { get; set; } = string.Empty;
     public string RepresentativeName { get; set; } = string.Empty;
     public string AreaName { get; set; } = string.Empty;
+    public DateTime FirstInvoiceDate { get; set; }
     public DateTime InvoiceDate { get; set; }
-    public DateTime MonthDate { get; set; }
     public decimal TotalPrice { get; set; }
 
-    public List<InstallmentPlanDto> Plans { get; set; } = [];
-    public List<CustomerInvoiceItemDto> Items { get; set; } = [];
+    public string Plans { get; set; } = string.Empty;
+    public string Items { get; set; } = string.Empty;
 }
