@@ -1,4 +1,7 @@
-﻿namespace ErpSystemBeniSouef.Core.DTOs.Reports;
+﻿using ErpSystemBeniSouef.Core.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ErpSystemBeniSouef.Core.DTOs.Reports;
 
 public class CustomerInvoiceItemDto
 {
@@ -6,4 +9,8 @@ public class CustomerInvoiceItemDto
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal Total { get; set; }
+    
+    //[ForeignKey(nameof(Product))]
+    //public int productId { get; set; }
+    //public Product? product { get; set; }
 }

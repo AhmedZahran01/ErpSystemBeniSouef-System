@@ -7,12 +7,9 @@ using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
-using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
-using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.Dtos.MainAreaDto; 
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
+using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage; 
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -89,8 +86,10 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
                 ProductCombo.ItemsSource = observProductsListFiltered;
                 MainAreaCombo.ItemsSource = _mainAreaService.GetAll();
+                MainAreaCombo.SelectedIndex = 0;
 
                 RepresentativeCombo.ItemsSource = await _representativeService.GetAllAsync();
+                RepresentativeCombo.SelectedIndex = 0;
 
 
 
@@ -338,12 +337,12 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentCustomerId == 0)
+            if (CustomersGrid.SelectedItems.Count == 0)
             {
                 MessageBox.Show("من فضلك اختر عميل أولاً من الجدول.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
+              
             // رسالة تأكيد
             var result = MessageBox.Show(
                 "هل أنت متأكد أنك تريد حذف هذا العميل والفواتير الخاصة به؟",
@@ -717,9 +716,13 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             var cashCustomerInvoiceService = App.AppHost.Services.GetRequiredService<ICashCustomerInvoiceService>();
+
+
             var detailsPage = new CashCustomerInvoicePage(productService, mainAreaService, subAreaService,
                                         representativeService, cashCustomerInvoiceService);
+           
             NavigationService?.Navigate(detailsPage);
         }
+   
     }
 }

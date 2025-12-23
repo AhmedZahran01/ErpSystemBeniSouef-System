@@ -2,14 +2,12 @@
 using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.CreateCashCustomerInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input;
-using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.ReturnAllCashCustomerInvoices;
-using ErpSystemBeniSouef.Core.DTOs.InvoiceDtos.Output.CashInvoice;
+using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.ReturnAllCashCustomerInvoices; 
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages;
+using ErpSystemBeniSouef.ViewModel; 
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -56,6 +54,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
             _subAreaService = subAreaService;
             _representativeService = representativeService;
             this._cashCustomerInvoiceService = cashCustomerInvoiceService;
+
             Loaded += async (s, e) =>
             {
                 await LoadInvoices();
@@ -112,7 +111,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
             ProductDto selectedProduct = (ProductDto)ProductCombo.SelectedItem;
             CategoryDto selectedProductType = (CategoryDto)ProductTypeCombo.SelectedItem;
             int quantity = int.TryParse(QuantityTxt.Text, out int pa) ? pa : 0;
-            if(quantity<= 0)
+            if (quantity <= 0)
             {
                 MessageBox.Show("من فضلك ادخل كميه صحيحه ");
                 return;
@@ -161,8 +160,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
                     observProductsListFiltered.Add(product);
                 }
                 ProductCombo.ItemsSource = observProductsListFiltered;
-                ProductCombo.SelectedIndex = 0;
-
+                ProductCombo.SelectedIndex = 0; 
             }
         }
 
@@ -263,7 +261,8 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
                     serialNumberIdFromDB = returnAllCashCustomersFilter.Last().serialNumberIdFromDB + 1
                 });
                 CashDataGrid.Items.Refresh();
-            }
+                MessageBox.Show($"تم اضافه فاتوره كاش  ");
+            } 
             //CreateCash(createCashCustomer  );
 
         }
@@ -327,6 +326,8 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 
         #endregion
 
+        #region Customers Grid SelectionChanged Region
+
         private void CustomersGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CashDataGrid.SelectedItem is ReturnAllCashCustomerInvoicesDTO s)
@@ -336,5 +337,8 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage
 
             }
         }
+
+        #endregion
+
     }
 }

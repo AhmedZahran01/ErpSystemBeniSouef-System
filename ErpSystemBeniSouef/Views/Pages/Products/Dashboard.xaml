@@ -79,8 +79,8 @@
             <StackPanel  Grid.Row="1"  Grid.Column="2" Background="#1B7F" Margin="0"  >
                 <TextBlock Text=""    Style="{StaticResource HeaderTextBlock}"/>
                 <Button Content="الإيصالات"          Style="{StaticResource TestButtonStyle}"   />
-                <Button Content="تقارير المناديب" Style="{StaticResource TestButtonStyle}"  />
-                <Button Content="التقارير"         Style="{StaticResource TestButtonStyle}"  />
+                <Button Content="تقارير المناديب" Style="{StaticResource TestButtonStyle}"  Click="RepresentativeReports_Click" />
+                <Button Content="التقارير"         Style="{StaticResource TestButtonStyle}" Click="ReportsButton_Click"  />
                 <Button Content="تقرير الداخل والخارج" Style="{StaticResource TestButtonStyle}"/>
                 <Button Content="مسودة العملاء" Style="{StaticResource TestButtonStyle}"/>
                 <Button Content="شهرية" Style="{StaticResource TestButtonStyle}" />

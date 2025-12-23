@@ -1,0 +1,124 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.ReportsRegion.ChooseRepresentative"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.ReportsRegion"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1000"
+      Title="ChooseRepresentative">
+
+ 
+    <Page.Resources>
+        <SolidColorBrush x:Key="CardBrush" Color="#2B3A4A"/>
+        <SolidColorBrush x:Key="PrimaryButtonBrush" Color="#0E6C8E"/>
+        <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#1080A8"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                              BlurRadius="25"
+                              ShadowDepth="0"
+                              Opacity="0.45"/>
+
+
+        <Style x:Key="MainButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryButtonBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="14">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background"
+                            Value="{StaticResource PrimaryButtonHoverBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CardBorderStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBrush}"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="Margin" Value="8"/>
+        </Style>
+
+        <Style x:Key="FieldLabel" TargetType="TextBlock"/>
+        <Style x:Key="InputTextBox" TargetType="TextBox"/>
+        <Style x:Key="InputComboBox" TargetType="ComboBox"/>
+        <Style x:Key="InputDatePicker" TargetType="DatePicker"/>
+        <Style x:Key="PrimaryButton" TargetType="Button"/>
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}"/>
+        <Style x:Key="SuccessButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}"/>
+        <Style TargetType="DataGrid" x:Key="ModernDataGrid"/>
+
+    </Page.Resources>
+
+    <Grid   Margin="10,8,10,8">
+
+        <Border Width="468" 
+                Background="{StaticResource CardBrush}"
+                CornerRadius="16"
+                Padding="25"
+                Effect="{StaticResource CardShadow}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+
+            <StackPanel VerticalAlignment="Center">
+
+                <TextBlock Text="تقارير المناديب"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource TextBrush}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           Margin="0,0,0,30"/>
+
+                <TextBlock Text="المندوب : " FlowDirection="RightToLeft" Foreground="White" FontSize="24"
+                           Style="{StaticResource FieldLabel}"/>
+                <ComboBox x:Name="RepresentativeCombo" HorizontalAlignment="Center"
+                          DisplayMemberPath="Name" Width="200" Height="33"
+                           SelectedValuePath="Id" Margin="0,5,0,10" />
+ 
+                <TextBlock FlowDirection="RightToLeft" Text="بدايه الحساب  :  "
+                           Foreground="White" FontSize="24"
+                           Style="{StaticResource FieldLabel}"/>
+                <DatePicker x:Name="StartDatePicker" Margin="110 10 10 20" Width="270"
+                            Height="40" Foreground="Black" Style="{StaticResource InputDatePicker}"/>
+ 
+                <TextBlock FlowDirection="RightToLeft" FontSize="24"
+                           Text=" نهايه الحساب : " Foreground="White"
+                           Style="{StaticResource FieldLabel}"/>
+                <DatePicker x:Name="EndDatePicker" Foreground="Black"  Margin="120 0 0 0"
+                            Width="270" Height="40" Style="{StaticResource InputDatePicker}"/>
+ 
+                <Button Content="الدخول "
+                        Style="{StaticResource MainButtonStyle}"
+                        Margin="0 30 230 20" Click="EnterButton_Click"/>
+
+                <Button Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Left"  Content="↩" FontSize="35" 
+      Width="90" Height="58" Foreground="White"
+      Style="{StaticResource triggerrr}" Margin="21,10,0,11"  
+      Click="BackBtn_Click"/>
+                
+            </StackPanel>
+        </Border>
+    </Grid>
+    
+</Page>
