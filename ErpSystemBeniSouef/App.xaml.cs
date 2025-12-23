@@ -19,6 +19,7 @@ using ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService;
 using ErpSystemBeniSouef.Service.InvoiceServices.ReturnSupplierInvoiceService;
 using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.Service.ReceiptServices;
 using ErpSystemBeniSouef.Service.ReportsServices;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.StoreKeeperService;
@@ -84,6 +85,7 @@ namespace ErpSystemBeniSouef
             services.AddScoped(typeof(ICustomerInvoiceService), typeof(CustomerInvoiceService));
             services.AddScoped(typeof(ICashCustomerInvoiceService), typeof(CashCustomerInvoiceService));
             services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
+            services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
        
         
             //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
