@@ -28,53 +28,76 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     public partial class Cash_SalesPage : Page
     {
         private readonly ICollectionService _collectionService;
-        private  DateTime _dateTime1;
-        private  DateTime _dateTime2;
-        private  int _repId;
+        private DateTime _dateTime1;
+        private DateTime _dateTime2;
+        private int _repId;
         List<CashInvoicesReportDto> cashInvoicesReport = new List<CashInvoicesReportDto>();
         decimal totalCash = 0;
 
         //public Cash_SalesPage( )
-        public Cash_SalesPage(ICollectionService collectionService , DateTime dateTime1, DateTime dateTime2,int repId)
+        public Cash_SalesPage(ICollectionService collectionService, DateTime dateTime1, DateTime dateTime2, int repId)
         {
             InitializeComponent();
             _collectionService = collectionService;
             Loaded += async (s, e) =>
             {
+                LoadingBar.Visibility = Visibility.Visible;
+                LoadingText.Visibility = Visibility.Visible;
+                LoadingText.Text = "جاري تحميل البيانات...";
+
                 try
                 {
                     _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
                     _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
                     _repId = 2;
 
-                    //_dateTime1 = dateTime1;
-                    //_dateTime2 = dateTime2;
-                    //_repId = repId;
-
                     await LoadData();
 
+                    LoadingText.Text = "تم تحميل البيانات بنجاح";
+
+                    await Task.Delay(2000);
+                    LoadingBar.Visibility = Visibility.Collapsed;
+                    LoadingText.Visibility = Visibility.Collapsed;
                 }
                 catch
                 {
-
+                    LoadingText.Text = "حدث خطأ أثناء تحميل البيانات";
                 }
-
             };
+            //Loaded += async (s, e) =>
+            //{
+            //    LoadDataFromDB.Content = " جاري تحميل البيانات... ";
+            //    try
+            //    {
+            //        _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
+            //        _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
+            //        _repId = 2;
+
+            //        //_dateTime1 = dateTime1;
+            //        //_dateTime2 = dateTime2;
+            //        //_repId = repId;
+
+            //        await LoadData();
+            //        LoadDataFromDB.Content = "تم تحميل الداتا بنجاح";
+            //    }
+            //    catch
+            //    {
+            //        LoadDataFromDB.Content = "Data Not Loaded , There is an error ";
+            //    }
+
+            //};
+
         }
 
         private async Task LoadData()
         {
             var s = await _collectionService.GetRepresentativeCashInvoicesAsync(_dateTime1, _dateTime2, _repId);
-            totalCash = s.totalCommision;
-            cashInvoicesReport = s.Item1;  
+            totalCash = s.totalCash;
+            cashInvoicesReport = s.Item1;
             CashReportsDataGrid.ItemsSource = cashInvoicesReport;
             TotalCashReport.Text = totalCash.ToString();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {

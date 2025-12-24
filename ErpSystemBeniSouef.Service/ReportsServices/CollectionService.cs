@@ -1,13 +1,10 @@
-﻿namespace ErpSystemBeniSouef.Service.ReportsServices;
+﻿namespace ErpSystemBeniSouef.Service.CollectorServices;
 
 public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
 
-    // ------------------------------------
-    // 1️⃣ Get Installments for printing page
-    // ------------------------------------
     public async Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(int collectorId, DateTime month)
     {
         var installments = _unitOfWork.Repository<MonthlyInstallment>()
@@ -211,7 +208,7 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
             .Include(x => x.InvoiceItem)
             .Where(x =>
                 x.RepresentativeId == representativeId
-                && x.MonthDate.Date >= fromDate.Date 
+                && x.MonthDate.Date >= fromDate.Date
                 && x.MonthDate.Date <= toDate.Date)
                 .Select(c => new RepresentativeCommissionReportDto
                 {
@@ -253,7 +250,7 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
         using var workbook = new XLWorkbook();
         var sheet = workbook.AddWorksheet("customers");
 
-        var headers = new string[] { "Customer Name", "Deposit", "TotalInvoices", "NetAmount "};
+        var headers = new string[] { "Customer Name", "Deposit", "TotalInvoices", "NetAmount " };
 
         for (int i = 0; i < headers.Length; i++)
             sheet.Cell(1, i + 1).SetValue(headers[i]);

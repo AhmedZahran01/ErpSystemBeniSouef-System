@@ -126,7 +126,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="42" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="*" /> 
             <RowDefinition Height="82"/>
         </Grid.RowDefinitions>
         <userControls:TitleBar FlowDirection="LeftToRight"/>
@@ -276,12 +276,33 @@
                   Margin="0,0,0,0"/>
                     </StackPanel>
 
+
+                    <StackPanel  HorizontalAlignment="Center" Margin="5,220,0,0">
+
+                        <ProgressBar
+        x:Name="LoadingBar"
+        Width="270"
+        Height="6"
+        IsIndeterminate="True"
+        Visibility="Collapsed"/>
+
+                        <TextBlock
+        x:Name="LoadingText"
+        Foreground="White"
+        FontSize="15"
+        Margin="0,10,0,0"
+        TextAlignment="Center"
+        Visibility="Collapsed"/>
+                    </StackPanel>
+
+
                     <Button Content="صفحه المبيعات كاش" 
-                  Grid.Column="1"  Background="Red" 
-                  Style="{StaticResource MainButtonStyle}" 
-                  Height="40" Width="270"
-                  FontSize="17"
-                  Margin="5,220,0,0" Click="Button_Click"/>
+Grid.Column="1"  Background="Red" 
+Style="{StaticResource MainButtonStyle}" 
+Height="40" Width="270"
+FontSize="17"
+Margin="5,20,0,0" />
+
                 </StackPanel>
             </Border>
         </Grid>

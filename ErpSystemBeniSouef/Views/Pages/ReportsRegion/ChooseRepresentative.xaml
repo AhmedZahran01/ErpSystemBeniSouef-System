@@ -70,9 +70,11 @@
 
     </Page.Resources>
 
+    
     <Grid   Margin="10,8,10,8">
+        <userControls:TitleBar VerticalAlignment="Top" />
 
-        <Border Width="468" 
+        <Border Width="468" Margin=" 0 20 0 0"
                 Background="{StaticResource CardBrush}"
                 CornerRadius="16"
                 Padding="25"

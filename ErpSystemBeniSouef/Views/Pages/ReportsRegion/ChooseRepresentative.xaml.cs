@@ -32,7 +32,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
             _representativeService = representativeService;
             Loaded += async (s, e) =>
             {
-                RepresentativeCombo.ItemsSource = await _representativeService.GetAllAsync();
+                var f = await _representativeService.GetAllAsync();
+                RepresentativeCombo.ItemsSource = f;
                 RepresentativeCombo.SelectedIndex = 0;
             };
         }

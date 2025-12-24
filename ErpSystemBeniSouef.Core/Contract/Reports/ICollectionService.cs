@@ -47,7 +47,7 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
         );
 
 
-        Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCashInvoicesAsync(
+        Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
            DateTime fromDate, DateTime toDate, int collectorId);
 
         Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
