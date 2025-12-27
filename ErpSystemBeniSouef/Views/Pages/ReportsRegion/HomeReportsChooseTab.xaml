@@ -108,8 +108,7 @@
                     Style="{StaticResource MainButtonStyle}" Click="New_lamentation_RatiosBtn_Click"/>
 
                     <Button Content="تصفية العهدة"
-                    Style="{StaticResource MainButtonStyle}"
-                   />
+                    Style="{StaticResource MainButtonStyle}" Click="LiquidationOfTheTrust_Click" />
                 </StackPanel>
 
                 <!-- زر الرجوع -->

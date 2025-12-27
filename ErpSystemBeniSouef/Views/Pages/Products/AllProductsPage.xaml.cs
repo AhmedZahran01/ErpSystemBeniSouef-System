@@ -233,7 +233,6 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         {
             var Dashboard = new Dashboard();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
-
         }
 
         #endregion

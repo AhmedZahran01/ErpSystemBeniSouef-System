@@ -126,15 +126,15 @@
               Padding="10" 
               Margin="0,0,15,0">
 
-                <DataGrid Style="{StaticResource InstallmentDataGridStyle}">
+                <DataGrid Style="{StaticResource InstallmentDataGridStyle}" x:Name="GridDataForInstallmwnt">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding SerialNumber}" Width="*"/>
-                        <DataGridTextColumn Header="رقم العميل" Binding="{Binding CustomerId}" Width="*"/>
-                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="*"/>
-                        <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding SaleDate, StringFormat='dd/MM/yyyy'}" Width="*"/>
-                        <DataGridTextColumn Header="المقدم " Binding="{Binding TotalAmount}" Width="*"/>
-                        <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding InstallmentSystem}" Width="1.5*"/>
-                        <DataGridTextColumn Header="السلع" Binding="{Binding ItemsSummary}" Width="2*"/>
+                        <DataGridTextColumn Header=" المسلسل" Binding="{Binding SerialNumber}" Width=".8*"/>
+                        <DataGridTextColumn Header="رقم العميل" Binding="{Binding CustomerNumber}" Width=".8*"/>
+                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width=".8*"/>
+                        <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding InvoiceDate, StringFormat='dd/MM/yyyy'}" Width="*"/>
+                        <DataGridTextColumn Header="المقدم " Binding="{Binding Deposit}" Width=".7*"/>
+                        <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="1.5*"/>
+                        <DataGridTextColumn Header="السلع" Binding="{Binding Items}" Width="2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -264,7 +264,7 @@
  Style="{StaticResource MainButtonStyle}"
  Height="36" Width="320" 
  FontSize="12" Background="Red" 
- Margin="5,20,0,0" Click="Button_Click"/>
+ Margin="5,220,0,0" Click="Button_Click"/>
 
                 </StackPanel>
             </Border>

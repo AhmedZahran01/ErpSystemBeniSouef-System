@@ -142,12 +142,12 @@
              Padding="10" 
              Margin="0,0,15,0">
 
-                <DataGrid Style="{StaticResource CashDataGridStyle}">
+                <DataGrid Style="{StaticResource CashDataGridStyle}" Name="dataGridOfNewReprese">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="اسم السلعة" Binding="{Binding ItemType}" Width="*"/>
-                        <DataGridTextColumn Header="نسبه السلعة" Binding="{Binding ItemType}" Width="*"/>
-                        <DataGridTextColumn Header="العدد المباع" Binding="{Binding Quantity}" Width="*"/>
-                        <DataGridTextColumn Header=" النسبه الكليه لكل سلعه " Binding="{Binding TotalAmount}" Width="2*"/>
+                        <DataGridTextColumn Header="اسم السلعة" Binding="{Binding ProductName}" Width="*"/>
+                        <DataGridTextColumn Header="نسبه السلعة" Binding="{Binding CommissionAmount}" Width="*"/>
+                        <DataGridTextColumn Header="العدد المباع" Binding="{Binding QuantitySold}" Width="*"/>
+                        <DataGridTextColumn Header=" النسبه الكليه لكل سلعه " Binding="{Binding TotalPercentage}" Width="2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -275,9 +275,9 @@
                     <Button Content="صفحه المندبه الجديده   " 
                   Grid.Column="1" 
                   Style="{StaticResource MainButtonStyle}" 
-                  Height="36" Width="320"
-                  FontSize="12" Background="Red" 
-                  Margin="5,20,0,0" Click="Button_Click"/>
+                  Height="36" Width="300" Foreground="LightSkyBlue"
+                  FontSize="16" Background="Red" 
+                  Margin="5,220,0,0" Click="Button_Click"/>
                 </StackPanel>
             </Border>
         </Grid>

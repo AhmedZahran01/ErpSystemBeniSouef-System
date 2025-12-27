@@ -47,6 +47,7 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
         {
             InvoiceDate = invoice.MonthDate,
             CustomerName = invoice.Customer.Name,
+            CustomerNumber = invoice.Customer.CustomerNumber,
             TotalAmount = invoice.Invoice.TotalAmount,
             Deposit = invoice.Customer.Deposit,
             Plans = string.Join("+", invoice.Invoice.Installments!.Select(x => $"{x.Amount} * {x.NumberOfMonths}")),

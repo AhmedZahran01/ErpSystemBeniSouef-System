@@ -28,6 +28,7 @@ using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views;
+using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages;
 using Microsoft.EntityFrameworkCore;
@@ -141,8 +142,7 @@ namespace ErpSystemBeniSouef
             //var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
             //var supplierService = App.AppHost.Services.GetRequiredService<ISupplierService>();
             //var collectorService = App.AppHost.Services.GetRequiredService<ICollectorService>();
-            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
-            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            //var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             //var storeKeeperService = App.AppHost.Services.GetRequiredService<IStoreKeeperService>();
             //var cashInvoiceService = App.AppHost.Services.GetRequiredService<ICashInvoiceService>();
             //var dueInvoiceService = App.AppHost.Services.GetRequiredService<IDueInvoiceService>();
@@ -151,6 +151,8 @@ namespace ErpSystemBeniSouef
             //var supplierAccountService = App.AppHost.Services.GetRequiredService<ISupplierAccountService>();
             //var customerInvoiceService = App.AppHost.Services.GetRequiredService<ICustomerInvoiceService>();
             //var mainRegionPage = new MainRegionPage(repo);
+            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            var receiptService = App.AppHost.Services.GetRequiredService<IReceiptService>();
 
 
             //var login = new MainRegionPage(repo , mainAreaService);
@@ -185,12 +187,13 @@ namespace ErpSystemBeniSouef
             //                 .SupplierAccountsPage(supplierService,supplierCashService ,supplierAccountService);
 
             //var login = new Views.Pages.InvoiceAndsupplierRegion.InvoicePages.InvoicePages.Cashinvoice(0, supplierService);
-            var login = new ChooseRepresentative(representativeService);
+            //var login = new ChooseRepresentative(representativeService);
             //var login = new Views.Pages.CustomersRegion.CustomersPage(customerInvoiceService, productService , mainAreaService
             //                          , subAreaService ,representativeService );
 
 
             //var login = new Cash_SalesPage(collectionService );
+            var login = new HomeReceiptsPage();
             //var login = new StartPageBeforeLogin();
 
 

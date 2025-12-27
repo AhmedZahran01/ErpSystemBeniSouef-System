@@ -37,6 +37,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         }
 
         #endregion
+
         #region MyRegion
 
         //        #region Create Customer Invoice
@@ -826,5 +827,6 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         //        #endregion
 
         #endregion
+
     }
 }

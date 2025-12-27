@@ -9,6 +9,7 @@ using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -109,6 +110,12 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         private void ReportsButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Receipts_Click(object sender, RoutedEventArgs e)
+        { 
+            var customersPage = new HomeReceiptsPage();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
     }
 }

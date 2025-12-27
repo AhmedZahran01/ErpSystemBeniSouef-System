@@ -1,0 +1,182 @@
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages.PrintReceiptsInFullPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages"
+      mc:Ignorable="d"  
+      Title="PrintReceiptsInFullPage"
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      FlowDirection="RightToLeft"
+       
+     Background="#1F2E3A" 
+     d:DesignWidth="1920" d:DesignHeight="1080">
+
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="CardBrush" Color="#2B3A4A"/>
+        <SolidColorBrush x:Key="PrimaryButtonBrush" Color="#0E6C8E"/>
+        <SolidColorBrush x:Key="PrimaryButtonHoverBrush" Color="#1080A8"/>
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="GridHeaderBrush" Color="#304151"/>
+        <SolidColorBrush x:Key="GridLineBrush" Color="#FFFFFF"/>
+
+        <Style x:Key="BlackTextComboBox" TargetType="ComboBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="Black" />
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="MainButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryButtonBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryButtonHoverBrush}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGrid" x:Key="FullWidthDataGridStyle">
+            <Setter Property="Background" Value="#1E3040"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="RowBackground" Value="#253748"/>
+            <Setter Property="AlternatingRowBackground" Value="#2B3A4A"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RowHeight" Value="35"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource GridLineBrush}"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="68"/>
+        </Grid.RowDefinitions>
+        <userControls:TitleBar FlowDirection="LeftToRight"/>
+
+        <Grid Margin="10" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="198"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="اسم المنطقة" Foreground="{StaticResource TextBrush}" FontSize="14" Margin="0,0,0,5"/>
+                    <ComboBox Name="MainAreaCombo" Style="{StaticResource BlackTextComboBox}" 
+                              HorizontalAlignment="Center"
+                          DisplayMemberPath="Name" Width="130" Height="26"
+                           SelectedValuePath="Id" Margin="0,5,0,10"/>
+
+                    <TextBlock Text="من رقم عميل" Foreground="{StaticResource TextBrush}" FontSize="14" Margin="0,0,0,5"/>
+                    <TextBox Height="35" Margin="0,0,0,15" Background="#1E3040" Name="FromClient"
+                              Foreground="White" BorderBrush="#304151" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                    <TextBlock Text="إلى رقم عميل" Foreground="{StaticResource TextBrush}" FontSize="14" Margin="0,0,0,5"/>
+                    <TextBox Height="35"  Name="ToClient" Margin="0,0,0,20" Background="#1E3040" Foreground="White" BorderBrush="#304151" VerticalContentAlignment="Center" Padding="5,0"/>
+
+                    <Button Content="طباعة الإيصالات بالكامل" Style="{StaticResource MainButtonStyle}" Click="GetReceiptDataBtn_Click"/>
+                    <Button Content="طباعة دفتر العملاء" Style="{StaticResource MainButtonStyle}"/>
+                    <Button Content="طباعة دفتر العملاء النموذج رقم 2" Style="{StaticResource MainButtonStyle}" FontSize="9"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5">
+                <DataGrid Style="{StaticResource FullWidthDataGridStyle}" 
+                   EnableColumnVirtualization="True" 
+                   ColumnWidth="SizeToHeader" x:Name="ReceiptsDataGrid">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="المسلسل" Binding="{Binding Serial}" Width="Auto"/>
+                        <DataGridTextColumn Header="رقم العميل" Binding="{Binding CustomerNumber}" Width="0.5*"/>
+                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1*"/>
+                        <DataGridTextColumn Header="الموبايل" Binding="{Binding MobileNumber}" Width="0.5*"/>
+                        <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding InvoiceDate}" Width="0.5*"/>
+                        <DataGridTextColumn Header="مكان الإقامة" Binding="{Binding Address}" Width="*"/>
+                        <DataGridTextColumn Header="المنطقة الأساسية" Binding="{Binding MainArea}" Width=".7*"/>
+                        <DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="0.5*"/>
+                        <DataGridTextColumn Header="المندوب" Binding="{Binding RepresentativeName}" Width=".8*"/>
+                        <!--<DataGridTextColumn Header="المحصل" Binding="{Binding Collector}" Width="*"/>-->
+                        <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationlNumber}" Width="1.2*"/>
+                        <DataGridTextColumn Header="المقدم" Binding="{Binding Deposite}" Width=".7*"/>
+                        <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="1.3*"/>
+                        <DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotalPrice}" Width=".8*"/>
+                        <DataGridTextColumn Header="المبيعات" Binding="{Binding Items}" Width="1.5*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+
+        <Grid Grid.Row="2">
+            <StackPanel  HorizontalAlignment="Center" Margin="5,20,0,0">
+
+                <ProgressBar
+x:Name="LoadingBar"
+Width="270"
+Height="6"
+IsIndeterminate="True"
+Visibility="Collapsed"/>
+
+                <TextBlock
+x:Name="LoadingText"
+Foreground="White" 
+FontSize="15"
+Margin="0,10,0,0"
+TextAlignment="Center"
+Visibility="Collapsed"/>
+            </StackPanel>
+
+            <!-- زر الرجوع -->
+            <Button Grid.Row="1"
+VerticalAlignment="Bottom"
+HorizontalAlignment="Right"
+Content="↩"
+FontSize="35"
+Width="90"
+Height="58"
+Foreground="White"
+Style="{StaticResource triggerrr}" 
+Margin="21,10,40,1" Click="BackBtn_Click"  />
+        </Grid>
+    </Grid>
+</Page>

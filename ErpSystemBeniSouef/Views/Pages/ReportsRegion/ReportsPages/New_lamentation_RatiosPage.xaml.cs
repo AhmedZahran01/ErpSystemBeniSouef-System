@@ -1,4 +1,6 @@
-﻿using ErpSystemBeniSouef.Core.Contract;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
+using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Reports;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using static ClosedXML.Excel.XLPredefinedFormat;
 
 namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
 {
@@ -23,9 +26,44 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     /// </summary>
     public partial class New_lamentation_RatiosPage : Page
     {
-        public New_lamentation_RatiosPage()
+        private readonly ICollectionService _collectionService;
+        private DateTime _dateTime1;
+        private DateTime _dateTime2;
+        private int _repId;
+        public New_lamentation_RatiosPage(ICollectionService collectionService)
         {
             InitializeComponent();
+            this._collectionService = collectionService;
+            Loaded += async (s, e) =>
+            {
+                try
+                {
+                    await LoadData();
+                }
+                catch
+                {
+
+                }
+            };
+        }
+
+        private async Task LoadData()
+        {
+            _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
+            _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
+            _repId = 3;
+            var commissionReportDtos1 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 2);
+            
+            //var commissionReportDtos = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 1);
+            //var commissionReportDtos2 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 3);
+            //var commissionReportDtos3 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 4);
+            //var commissionReportDtos4 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
+            //var commissionReportDtos5 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 6);
+            //var commissionReportDtos6 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 7);
+            //var commissionReportDtos7 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 8);
+
+
+            dataGridOfNewReprese.ItemsSource = commissionReportDtos1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

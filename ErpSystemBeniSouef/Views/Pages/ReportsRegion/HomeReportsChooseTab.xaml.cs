@@ -81,8 +81,15 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
         }
 
         private void New_lamentation_RatiosBtn_Click(object sender, RoutedEventArgs e)
+        { 
+            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            var cash_SalesPage = new New_lamentation_RatiosPage(collectionService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
+        }
+
+        private void LiquidationOfTheTrust_Click(object sender, RoutedEventArgs e)
         {
-            var cash_SalesPage = new New_lamentation_RatiosPage();
+            var cash_SalesPage = new Liquidation_of_theTrustPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
         }
     }

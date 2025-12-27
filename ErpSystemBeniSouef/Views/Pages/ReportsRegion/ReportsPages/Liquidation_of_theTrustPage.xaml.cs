@@ -17,63 +17,33 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+//using static ClosedXML.Excel.XLPredefinedFormat;
 
 namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
 {
     /// <summary>
-    /// Interaction logic for Installment_SalesPage.xaml
+    /// Interaction logic for Liquidation_of_theTrustPage.xaml
     /// </summary>
-    public partial class Installment_SalesPage : Page
+    public partial class Liquidation_of_theTrustPage : Page
     {
         private readonly ICollectionService _collectionService;
         private DateTime _dateTime1;
         private DateTime _dateTime2;
         private int _repId;
-
-        public Installment_SalesPage(ICollectionService collectionService, DateTime dateTime1, DateTime dateTime2, int repId)
+        public Liquidation_of_theTrustPage()
         {
             InitializeComponent();
-            _collectionService = collectionService;
-            _dateTime1 = dateTime1;
-            _dateTime2 = dateTime2;
-            _repId = repId;
-            //Loaded += async (s, d) =>
-            //{
-            Loaded += async (s, e) =>
-            {
-                try
-                {
-                    await LoadData();
-                }
-                catch
-                {
-
-                }
-            };
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //GetAllItemsInstallmentSalesReportAsync
-        }
-
-        private async Task LoadData()
-        {
-            _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
-            _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
-            _repId = 3;
-
-            //var s2 = await _collectionService.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 4);
-            var installmentReportDtos = await _collectionService.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
-            GridDataForInstallmwnt.ItemsSource = installmentReportDtos;
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
+            _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
+            _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
+            _repId = 2;
+
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             var customersPage = new HomeReportsChooseTab(_dateTime1, _dateTime2, _repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
-
         }
     }
 }

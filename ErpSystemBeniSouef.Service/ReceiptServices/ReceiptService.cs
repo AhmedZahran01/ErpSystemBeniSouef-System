@@ -42,7 +42,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
                 Address = receipt.First().Customer.Address,
                 NationlNumber = receipt.First().Customer.NationalNumber,
                 Deposite = receipt.First().Customer.Deposit,
-                CollectorName = receipt.First().Collector.Name,
+                //CollectorName = receipt.First().Collector.Name,
                 RepresentativeName = receipt.First().Customer.Representative!.Name,
                 AreaName = receipt.First().Customer.SubArea!.Name,
                 FirstInvoiceDate = receipt.First().Customer.FirstInvoiceDate,
@@ -191,7 +191,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             sheet.Cell(excelRow, 5).SetValue(r.Address);
             sheet.Cell(excelRow, 6).SetValue(r.NationlNumber);
             sheet.Cell(excelRow, 7).SetValue(r.Deposite);
-            sheet.Cell(excelRow, 8).SetValue(r.CollectorName);
+            //sheet.Cell(excelRow, 8).SetValue(r.CollectorName);
             sheet.Cell(excelRow, 9).SetValue(r.RepresentativeName);
             sheet.Cell(excelRow, 10).SetValue(r.AreaName);
             sheet.Cell(excelRow, 11).SetValue(r.InvoiceDate);
