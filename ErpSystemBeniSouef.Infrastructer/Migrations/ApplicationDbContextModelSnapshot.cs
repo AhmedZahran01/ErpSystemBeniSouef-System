@@ -134,7 +134,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("categories");
+                    b.ToTable("categories", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Collector", b =>
@@ -163,7 +163,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("collectors");
+                    b.ToTable("collectors", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Commission", b =>
@@ -233,7 +233,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("RepresentativeId");
 
-                    b.ToTable("Commissions");
+                    b.ToTable("Commissions", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Company", b =>
@@ -254,7 +254,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("company");
+                    b.ToTable("company", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CovenantModels.Covenant", b =>
@@ -299,7 +299,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("RepresentativeId");
 
-                    b.ToTable("Covenant");
+                    b.ToTable("Covenant", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CovenantModels.CovenantProduct", b =>
@@ -340,7 +340,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CovenantProduct");
+                    b.ToTable("CovenantProduct", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CashCstomerInvoice", b =>
@@ -381,7 +381,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("SubAreaId");
 
-                    b.ToTable("cashCstomerInvoices");
+                    b.ToTable("cashCstomerInvoices", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CashCustomerInvoiceItems", b =>
@@ -425,7 +425,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("cashCstomerInvoiceId");
 
-                    b.ToTable("CashCustomerInvoiceItems");
+                    b.ToTable("CashCustomerInvoiceItems", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CollectionBatch", b =>
@@ -464,7 +464,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("CollectorId");
 
-                    b.ToTable("CollectionBatch");
+                    b.ToTable("CollectionBatch", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CollectionEntry", b =>
@@ -505,7 +505,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("MonthlyInstallmentId");
 
-                    b.ToTable("CollectionEntry");
+                    b.ToTable("CollectionEntry", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.Customer", b =>
@@ -573,7 +573,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("SubAreaId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CustomerInvoice", b =>
@@ -609,7 +609,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("customerInvoices");
+                    b.ToTable("customerInvoices", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CustomerInvoiceItems", b =>
@@ -650,7 +650,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("customerInvoiceItems");
+                    b.ToTable("customerInvoiceItems", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.MonthlyInstallment", b =>
@@ -710,7 +710,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("MonthlyInstallment");
+                    b.ToTable("MonthlyInstallment", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.InstallmentPlan", b =>
@@ -746,7 +746,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("installmentPlans");
+                    b.ToTable("installmentPlans", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Invoice", b =>
@@ -791,7 +791,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("invoices");
+                    b.ToTable("invoices", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.InvoiceItem", b =>
@@ -843,7 +843,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("invoiceItems");
+                    b.ToTable("invoiceItems", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.MainArea", b =>
@@ -880,7 +880,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("mainAreas");
+                    b.ToTable("mainAreas", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Product", b =>
@@ -928,7 +928,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("products");
+                    b.ToTable("products", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Representative", b =>
@@ -964,7 +964,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("representatives");
+                    b.ToTable("representatives", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Storekeeper", b =>
@@ -1001,7 +1001,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("storekeepers");
+                    b.ToTable("storekeepers", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.SubArea", b =>
@@ -1036,7 +1036,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("MainAreaId");
 
-                    b.ToTable("subAreas");
+                    b.ToTable("subAreas", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Supplier", b =>
@@ -1065,7 +1065,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("suppliers");
+                    b.ToTable("suppliers", (string)null);
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.SupplierAccount", b =>
@@ -1105,7 +1105,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("SupplierAccount");
+                    b.ToTable("SupplierAccount", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

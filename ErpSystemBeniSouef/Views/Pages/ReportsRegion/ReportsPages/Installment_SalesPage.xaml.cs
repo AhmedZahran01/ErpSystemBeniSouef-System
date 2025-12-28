@@ -25,15 +25,15 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     /// </summary>
     public partial class Installment_SalesPage : Page
     {
-        private readonly ICollectionService _collectionService;
+        private readonly ICollectorsReports _collectorsReports;
         private DateTime _dateTime1;
         private DateTime _dateTime2;
         private int _repId;
 
-        public Installment_SalesPage(ICollectionService collectionService, DateTime dateTime1, DateTime dateTime2, int repId)
+        public Installment_SalesPage(ICollectorsReports collectorsReports, DateTime dateTime1, DateTime dateTime2, int repId)
         {
             InitializeComponent();
-            _collectionService = collectionService;
+            _collectorsReports = collectorsReports;
             _dateTime1 = dateTime1;
             _dateTime2 = dateTime2;
             _repId = repId;
@@ -64,7 +64,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
             _repId = 3;
 
             //var s2 = await _collectionService.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 4);
-            var installmentReportDtos = await _collectionService.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
+            var installmentReportDtos = await _collectorsReports.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
             GridDataForInstallmwnt.ItemsSource = installmentReportDtos;
         }
 

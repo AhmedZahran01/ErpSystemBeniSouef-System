@@ -26,14 +26,14 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     /// </summary>
     public partial class New_lamentation_RatiosPage : Page
     {
-        private readonly ICollectionService _collectionService;
+        private readonly ICollectorsReports _collectorsReports;
         private DateTime _dateTime1;
         private DateTime _dateTime2;
         private int _repId;
-        public New_lamentation_RatiosPage(ICollectionService collectionService)
+        public New_lamentation_RatiosPage(ICollectorsReports collectorsReports)
         {
             InitializeComponent();
-            this._collectionService = collectionService;
+            this._collectorsReports = collectorsReports;
             Loaded += async (s, e) =>
             {
                 try
@@ -52,7 +52,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
             _dateTime1 = new DateTime(1025, 1, 1, 10, 30, 0);
             _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
             _repId = 3;
-            var commissionReportDtos1 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 2);
+            var commissionReportDtos1 = await _collectorsReports.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 2);
             
             //var commissionReportDtos = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 1);
             //var commissionReportDtos2 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 3);
