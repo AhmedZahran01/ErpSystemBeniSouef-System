@@ -80,7 +80,7 @@
                      Style="{StaticResource ReceiptButtonStyle}" Click="PrintMonthlyReceiptsByRegion_Click"/>
 
                 <Button Content="طباعة التحصيل الشهري حسب المحصل" 
-                     Style="{StaticResource ReceiptButtonStyle}"/>
+                     Style="{StaticResource ReceiptButtonStyle}" Click="PrintMonthlyReceiptsByRepresentative_Click"/>
 
                 <Button Content="طباعة ايصال" 
                      Style="{StaticResource ReceiptButtonStyle}"

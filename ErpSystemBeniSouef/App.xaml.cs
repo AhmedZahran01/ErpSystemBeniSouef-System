@@ -2,6 +2,7 @@
 using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
+using ErpSystemBeniSouef.Core.Contract.Covenant;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.CashInvoice;
@@ -13,6 +14,7 @@ using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.CashCustomerInvoices;
 using ErpSystemBeniSouef.Service.CollectorServices;
+using ErpSystemBeniSouef.Service.CovenantServices;
 using ErpSystemBeniSouef.Service.CustomerInvoiceServices;
 using ErpSystemBeniSouef.Service.InvoiceServices.CashInvoiceService;
 using ErpSystemBeniSouef.Service.InvoiceServices.DueInvoiceService;
@@ -26,11 +28,8 @@ using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierAccountServices;
 using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
-using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views;
-using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
-using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
-using ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages;
+using ErpSystemBeniSouef.ViewModel; 
+using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion; 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -86,6 +85,7 @@ namespace ErpSystemBeniSouef
             services.AddScoped(typeof(ICashCustomerInvoiceService), typeof(CashCustomerInvoiceService));
             services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
             services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
+            services.AddScoped(typeof(ICovenantService), typeof(CovenantService));
        
         
             //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));

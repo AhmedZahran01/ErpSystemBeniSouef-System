@@ -443,6 +443,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         // ------------------------------------------
         // Helper Methods
         // ------------------------------------------
+        #region Helper Methods Region
 
         private async Task<(bool Success, string Message)> DeductFromCovenantAsync(int representativeId, int productId, int quantity)
         {
@@ -879,6 +880,8 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 _unitOfWork.Repository<Commission>().Delete(commission);
             }
         }
+
+        #endregion
 
         #endregion
 

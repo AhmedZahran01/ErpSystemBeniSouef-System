@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErpSystemBeniSouef.Infrastructer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251227193407_EditConvnantClass")]
+    partial class EditConvnantClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,12 +272,13 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CovenantType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DeletionDate")
@@ -1279,7 +1283,9 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 {
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Representative", "Representative")
                         .WithMany("Covenants")

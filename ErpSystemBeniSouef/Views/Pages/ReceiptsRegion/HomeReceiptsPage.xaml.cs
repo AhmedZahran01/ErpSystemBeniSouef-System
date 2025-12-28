@@ -51,5 +51,12 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion
             var Dashboard = new ReceiptsPages.PrintMonthlyReceiptsByRegionPage(receiptService , mainAreaService , subAreaService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
+
+        private void PrintMonthlyReceiptsByRepresentative_Click(object sender, RoutedEventArgs e)
+        {
+            var receiptService = App.AppHost.Services.GetRequiredService<IReceiptService>(); 
+            var Dashboard = new ReceiptsPages.Monthly_Receipts_AccordingToTheCollector(receiptService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+        }
     }
 }

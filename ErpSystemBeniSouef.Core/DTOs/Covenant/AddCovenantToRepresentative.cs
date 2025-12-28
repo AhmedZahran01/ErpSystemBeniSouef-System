@@ -13,6 +13,6 @@ namespace ErpSystemBeniSouef.Core.DTOs.Covenant
         public int RepresentativeId { get; set; }
         public string CovenantType { get; set; }
 
-    }
    
+    }
 }

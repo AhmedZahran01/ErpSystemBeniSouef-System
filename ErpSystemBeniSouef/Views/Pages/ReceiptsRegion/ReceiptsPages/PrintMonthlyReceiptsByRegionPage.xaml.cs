@@ -55,6 +55,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
         }
 
         #endregion
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var Dashboard = new HomeReceiptsPage();

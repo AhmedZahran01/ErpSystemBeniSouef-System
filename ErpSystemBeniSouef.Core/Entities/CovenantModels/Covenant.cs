@@ -15,11 +15,11 @@ namespace ErpSystemBeniSouef.Core.Entities.CovenantModels
         public int RepresentativeId { get; set; }
         public Representative Representative { get; set; }
 
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; } = default!;
+        public int? CustomerId { get; set; }
+        public Customer? Customer { get; set; } = default!;
 
-        public string CovenantType { get; set; }
+        public string? CovenantType { get; set; }
 
-        public ICollection<CovenantProduct> CovenantProducts { get; set; }
+        public ICollection<CovenantProduct>? CovenantProducts { get; set; }
     }
 }

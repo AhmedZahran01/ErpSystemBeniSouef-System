@@ -70,7 +70,7 @@
                 <TextBlock Text=""   Style="{StaticResource HeaderTextBlock}"/>
                 <Button Content="العملاء"    Style="{StaticResource TestButtonStyle}" Click="CustomersPage_Click" />
                 <Button Content="الفواتير ونقدية الموردين"   Style="{StaticResource TestButtonStyle}" Click="InvoiceMainPage_Click_2" />
-                <Button Content="العهدة"    Style="{StaticResource TestButtonStyle}" Click="Button_Click"/>
+                <Button Content="العهدة"    Style="{StaticResource TestButtonStyle}" Click="CovenantPage_Click"/>
                 <Button Content="التحصيل"   Style="{StaticResource TestButtonStyle}"/>
                 <Button Content="النثريات"  Style="{StaticResource TestButtonStyle}"/> 
             </StackPanel>

@@ -9,11 +9,11 @@ namespace ErpSystemBeniSouef.Core.Contract.Covenant
 {
     public interface ICovenantService
     {
-        Task<bool> addCovenant(AddCovenantToRepresentative dto);
+        bool addCovenant(AddCovenantToRepresentative dto);
         Task<List<ReturnCovenant>> GetAllCovenants();
         Task<ReturnCovenant> GetCovenantById(int Id);
         Task<List<ReturnCovenantItem>> GetCovenantItemsByCovenantId(int covenantId);
-        Task<bool> addCovenantItems(AddCovenantItemsDto dto);
+        bool addCovenantItems(AddCovenantItemsDto dto);
         Task<bool> DeleteCovenant(int covenantId);
         Task<bool> DeleteCovenantItem(int covenantItemId);
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.Contract.Covenant;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.HelperFunctions;
@@ -9,6 +10,7 @@ using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.CovenantRegion;
 using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
 using ErpSystemBeniSouef.Views.Windows;
@@ -57,17 +59,12 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(productsPage);
 
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+ 
 
         private void RepresentativeCollector_Click(object sender, RoutedEventArgs e)
         {
             var representativeCollectorPage = new RepresentativeAndCollector.MainRepresentativeAndCollectorPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(representativeCollectorPage);
-
         }
 
         private void SignOutButton_Click_2(object sender, RoutedEventArgs e)
@@ -116,6 +113,15 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         { 
             var customersPage = new HomeReceiptsPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
+        }
+
+        private void CovenantPage_Click(object sender, RoutedEventArgs e)
+        {
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var covenantService = App.AppHost.Services.GetRequiredService<ICovenantService>();
+            var Dashboard = new CovenantPage(representativeService , covenantService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+
         }
     }
 }
