@@ -45,8 +45,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<CustomerInvoiceItems> customerInvoiceItems { get; set; }
         public DbSet<InstallmentPlan> installmentPlans { get; set; }
         public DbSet<Commission> Commissions{ get; set; }
-        public DbSet<MonthlyInstallment> MonthlyInstallments{ get; set; }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
