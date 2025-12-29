@@ -15,3 +15,4 @@ global using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 global using ErpSystemBeniSouef.Core.GenericResponseModel;
 global using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
 global using ErpSystemBeniSouef.Core.Contract.Reports;
+global using ErpSystemBeniSouef.Core.DTOs.CollectionDto;

@@ -49,7 +49,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
 
         private void SaleButton_Click(object sender, RoutedEventArgs e)
         {
-            var representativeService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            var representativeService = App.AppHost.Services.GetRequiredService<ICollectorsReports>();
             var cash_SalesPage = new Installment_SalesPage(representativeService, dateTime11 , dateTime22, repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
         }
@@ -62,7 +62,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
 
         private void Cash_SalesButton_Click(object sender, RoutedEventArgs e)
         {
-            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            var collectionService = App.AppHost.Services.GetRequiredService<ICollectorsReports>();
             var cash_SalesPage = new Cash_SalesPage(collectionService , dateTime11 , dateTime22 , repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
 
@@ -82,7 +82,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
 
         private void New_lamentation_RatiosBtn_Click(object sender, RoutedEventArgs e)
         { 
-            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            var collectionService = App.AppHost.Services.GetRequiredService<ICollectorsReports>();
             var cash_SalesPage = new New_lamentation_RatiosPage(collectionService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
         }

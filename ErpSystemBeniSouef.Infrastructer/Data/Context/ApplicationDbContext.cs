@@ -46,16 +46,15 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<InstallmentPlan> installmentPlans { get; set; }
         public DbSet<Commission> Commissions{ get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(
             //"Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
             //    );
-            optionsBuilder.UseSqlServer(
-           "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
-               );
-            //optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true");
+           // optionsBuilder.UseSqlServer(
+           //"Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
+           //    );
+            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {

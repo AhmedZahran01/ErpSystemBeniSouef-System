@@ -1,9 +1,6 @@
-﻿using ErpSystemBeniSouef.Core.DTOs.Reports;
-using ErpSystemBeniSouef.Core.DTOs.Reports.MonthlyCollectingDtos;
-
-namespace ErpSystemBeniSouef.Core.Contract.Reports
+﻿namespace ErpSystemBeniSouef.Core.Contract.Reports
 {
-    public interface ICollectionService
+    public interface ICollectorsReports
     {
         // 1️⃣ Monthly Installments
         Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(
@@ -17,20 +14,6 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
             DateTime toDate,
             int collectorId
         );
-
-        // 3️⃣ Representative Covenants
-        //Task<List<CovenantReportRowDto>> GetRepresentativeCovenantsAsync(
-        //    DateTime fromDate,
-        //    DateTime toDate,
-        //    int collectorId
-        //);
-
-        // 4️⃣ Representative Cash Invoices
-        //Task<List<CashInvoicesReportDto>> GetRepresentativeCashInvoicesAsync(
-        //    DateTime fromDate,
-        //    DateTime toDate,
-        //    int collectorId
-        //);
 
         // 5️⃣ Installment Sales Commission Report
         Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
@@ -46,7 +29,6 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
             int representativeId
         );
 
-
         Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
            DateTime fromDate, DateTime toDate, int collectorId);
 
@@ -55,7 +37,5 @@ namespace ErpSystemBeniSouef.Core.Contract.Reports
           DateTime toDate,
           int collectorId
         );
-
-
     }
 }

@@ -102,7 +102,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
-            var customersPage = new HomeReportsChooseTab(_dateTime1 , _dateTime2 , _repId);
+            var customersPage = new HomeReportsChooseTab(_dateTime1, _dateTime2, _repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
     }
