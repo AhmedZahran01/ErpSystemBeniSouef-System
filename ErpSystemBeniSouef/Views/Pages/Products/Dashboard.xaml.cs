@@ -2,6 +2,7 @@
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.Covenant;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
+using ErpSystemBeniSouef.Core.Contract.PettyCash;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.Service.CustomerInvoiceServices;
@@ -13,6 +14,7 @@ using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.CovenantRegion;
 using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
+using ErpSystemBeniSouef.Views.Pages.SundriesRegion;
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -39,27 +41,27 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
     {
         private readonly int _comanyNo = AppGlobalCompanyId.CompanyId;
 
-        public Dashboard( )
+        public Dashboard()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
-        { 
+        {
             var regionsPage = new ErpSystemBeniSouef.Views.Pages.Products.RegionsPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(regionsPage);
         }
-          
+
         private void Products_Click_1(object sender, RoutedEventArgs e)
         {
             var productService = App.AppHost.Services.GetRequiredService<IProductService>();
             var mapper = App.AppHost.Services.GetRequiredService<IMapper>();
 
-            var productsPage = new Views.Pages.Products.AllProductsPage( productService, mapper);
+            var productsPage = new Views.Pages.Products.AllProductsPage(productService, mapper);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(productsPage);
 
         }
- 
+
 
         private void RepresentativeCollector_Click(object sender, RoutedEventArgs e)
         {
@@ -82,7 +84,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(invoicePage);
 
         }
-         
+
 
         private void CustomersPage_Click(object sender, RoutedEventArgs e)
         {
@@ -92,8 +94,8 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var subAreaService = App.AppHost.Services.GetRequiredService<ISubAreaService>();
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
 
-            var customersPage = new  CustomersRegion.CustomersPage(customerInvoiceService, productService , mainAreaService,
-                                             subAreaService , representativeService);
+            var customersPage = new CustomersRegion.CustomersPage(customerInvoiceService, productService, mainAreaService,
+                                             subAreaService, representativeService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
 
@@ -110,7 +112,7 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         }
 
         private void Receipts_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             var customersPage = new HomeReceiptsPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
         }
@@ -119,10 +121,17 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
         {
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             var covenantService = App.AppHost.Services.GetRequiredService<ICovenantService>();
-            var Dashboard = new CovenantPage(representativeService , covenantService);
+            var Dashboard = new CovenantPage(representativeService, covenantService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
 
         }
+
+        private void SundriesPage_Click(object sender, RoutedEventArgs e)
+        {
+            //var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var pettyCashService = App.AppHost.Services.GetRequiredService<IPettyCashService>();
+            var Dashboard = new SundriesPage(pettyCashService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+        }
     }
 }
-     

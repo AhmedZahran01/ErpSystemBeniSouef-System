@@ -72,7 +72,7 @@
                 <Button Content="الفواتير ونقدية الموردين"   Style="{StaticResource TestButtonStyle}" Click="InvoiceMainPage_Click_2" />
                 <Button Content="العهدة"    Style="{StaticResource TestButtonStyle}" Click="CovenantPage_Click"/>
                 <Button Content="التحصيل"   Style="{StaticResource TestButtonStyle}"/>
-                <Button Content="النثريات"  Style="{StaticResource TestButtonStyle}"/> 
+                <Button Content="النثريات"  Style="{StaticResource TestButtonStyle}" Click="SundriesPage_Click"/> 
             </StackPanel>
 
             <!-- التقارير -->

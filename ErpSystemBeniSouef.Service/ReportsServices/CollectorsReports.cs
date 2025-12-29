@@ -2,8 +2,9 @@
 
 public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
+    #region Constructor Region
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(int collectorId, DateTime month)
     {
@@ -25,6 +26,9 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
             InstallmentAmount = x.Amount
         }).ToList();
     }
+    #endregion
+
+    #region Get Installment Sales Report  Region
 
     public async Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(
         DateTime fromDate,
@@ -56,6 +60,10 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
 
         return result;
     }
+
+    #endregion
+
+    #region Get Representative Covenants Region
 
     public async Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
         DateTime fromDate,
@@ -127,6 +135,10 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
         return (result, stream.ToArray(), totalCommision);
     }
 
+    #endregion
+
+    #region Get Representative Cash Invoices Region
+
     public async Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
         DateTime fromDate,
         DateTime toDate,
@@ -197,6 +209,10 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
         return (cashInvoicesToTable, stream.ToArray(), totalCash);
     }
 
+    #endregion
+
+    #region Get All Items Installment Sales Report Region
+
     public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
         DateTime fromDate,
         DateTime toDate,
@@ -222,6 +238,10 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
 
         return result;
     }
+
+    #endregion
+
+    #region Print Customers Account Region
 
     public async Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(
         DateTime fromDate,
@@ -284,6 +304,9 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
 
         return (stream.ToArray(), totalDeposits);
     }
+
+    #endregion
+
 
     // ------------------------------------
     // تسليم التحصيل الشهري

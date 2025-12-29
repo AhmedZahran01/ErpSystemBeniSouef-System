@@ -5,6 +5,8 @@ using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.Service.RepresentativeService;
+using ErpSystemBeniSouef.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -61,6 +63,10 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
 
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var covenantService = App.AppHost.Services.GetRequiredService<ICovenantService>();
+            var Dashboard = new CovenantPage(representativeService, covenantService);
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
 
         #region cb Product Type Selection Changed Region
