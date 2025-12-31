@@ -8,6 +8,7 @@ namespace ErpSystemBeniSouef.Core.DTOs.Covenant
 {
     public class ReturnCovenant
     {
+        public int DisplayUIId { get; set; }
         public int Id { get; set; }
         public string CovenantType { get; set; }
         public DateTime CovenantDate { get; set; }

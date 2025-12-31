@@ -48,7 +48,7 @@
             </Setter>
         </Style>
 
-        
+
         <Style x:Key="BlackTextComboBox" TargetType="ComboBox">
             <Setter Property="Height" Value="35"/>
             <Setter Property="Foreground" Value="Black"/>
@@ -134,9 +134,18 @@
 
 
                         <UniformGrid Columns="2" Margin=" 0 30 0 0">
-                            <Button Content="اضافة" Style="{StaticResource SidebarButtonStyle}"  Click="AddConventBtn"
+                            <!--<Button Content="اضافة" Style="{StaticResource SidebarButtonStyle}"  Click="AddConventBtn"
+                                    Margin="0,0,5,0"/>-->
+                            <Button x:Name="AddButton" Content="اضافة" Style="{StaticResource SidebarButtonStyle}" Click="AddConventBtn"
                                     Margin="0,0,5,0"/>
-                            <Button Content="حذف" Style="{StaticResource SidebarButtonStyle}" Background="#A93226" Margin="5,0,0,0"/>
+
+                            <!--<Button Content="حذف" Style="{StaticResource SidebarButtonStyle}" 
+                                    Background="#A93226" Margin="5,0,0,0"/>-->
+
+                            <Button Content="حذف"  x:Name="DeleteButton" Style="{StaticResource SidebarButtonStyle}"
+                               Background="#A93226"  Margin="5,0,0,0"   Click="DeleteCovenantBtn_Click"/>
+
+                            
                         </UniformGrid>
                     </StackPanel>
                 </Border>
@@ -152,8 +161,10 @@
                         RowHeight="35">
                         <DataGrid.Resources>
                             <Style TargetType="DataGridColumnHeader">
-                                --><!--<Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>-->
-                                <!--<Setter Property="Foreground" Value="White"/>--><!--
+                                -->
+                        <!--<Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>-->
+                        <!--<Setter Property="Foreground" Value="White"/>-->
+                        <!--
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                                 <Setter Property="BorderBrush" Value="White"/>
@@ -161,9 +172,9 @@
                             </Style>
                         </DataGrid.Resources>-->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="رقم مسلسل" Binding="{Binding Id}" Width="150"/>
+                            <DataGridTextColumn Header="رقم مسلسل" Binding="{Binding DisplayUIId}" Width="150"/>
                             <DataGridTextColumn Header="نوع العملية" Binding="{Binding CovenantType}" Width="*"/>
-                            <DataGridTextColumn Header="تاريخ العهدة" Binding="{Binding CovenantDate}" Width="*"/>
+                            <DataGridTextColumn Header="تاريخ العهدة" Binding="{Binding CovenantDate , StringFormat=yyyy-MM-dd}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>
@@ -201,6 +212,6 @@ Foreground="White"
 Style="{StaticResource triggerrr}" 
 Margin="21,10,50,14" Click="BackBtn_Click"  />
         </Grid>
-        
+
     </Grid >
 </Page>

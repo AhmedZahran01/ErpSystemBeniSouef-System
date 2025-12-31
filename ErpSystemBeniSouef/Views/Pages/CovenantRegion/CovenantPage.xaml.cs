@@ -5,115 +5,211 @@ using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.Products;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
 {
-    /// <summary>
-    /// Interaction logic for CovenantPage.xaml
-    /// </summary>
     public partial class CovenantPage : Page
     {
         private readonly IRepresentativeService _representativeService;
         private readonly ICovenantService _covenantService;
-        private IReadOnlyList<RepresentativeDto> representativeDtos;
-        public List<ReturnCovenant> returnCovenants = new List<ReturnCovenant>();
-        public CovenantPage(IRepresentativeService representativeService, ICovenantService covenantService)
+
+        private ObservableCollection<ReturnCovenant> CovenantList =
+            new ObservableCollection<ReturnCovenant>();
+
+        public CovenantPage(
+            IRepresentativeService representativeService,
+            ICovenantService covenantService)
         {
             InitializeComponent();
             _representativeService = representativeService;
             _covenantService = covenantService;
+
             Loaded += async (s, e) =>
             {
-                await loadData();
-                RepresenComoBox.ItemsSource = representativeDtos;
-                RepresenComoBox.SelectedIndex = 0;
-
-                ConvenantDataGrid.ItemsSource = returnCovenants;
-                RepresenComoBox.SelectedIndex = 0;
+                await LoadData();
+                ConvenantDataGrid.ItemsSource = CovenantList;
             };
         }
-        public async Task loadData()
+        private async Task LoadData()
         {
-            representativeDtos = await _representativeService.GetAllAsync();
-            returnCovenants = await _covenantService.GetAllCovenants();
+            RepresenComoBox.ItemsSource = await _representativeService.GetAllAsync();
+            RepresenComoBox.SelectedIndex = 0;
 
+            var covenants = await _covenantService.GetAllCovenants();
+
+            CovenantList.Clear();
+
+            int index = 1;
+            foreach (var item in covenants)
+            {
+                CovenantList.Add(new ReturnCovenant
+                {
+                    Id = item.Id,
+                    CovenantType = item.CovenantType,
+                    CovenantDate = item.CovenantDate,
+                    DisplayUIId = index++
+                });
+            }
         }
 
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
+
+        #region Add Covenant
+
+        private async void AddConventBtn(object sender, RoutedEventArgs e)
         {
-            var Dashboard = new Dashboard();
-            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
-        }
-
-        #region Add Button Region
-        private void AddConventBtn(object sender, RoutedEventArgs e)
-        {
-            DateTime? MonthDate = DateMonth.SelectedDate;
-            if (MonthDate == null)
-            {
-                MessageBox.Show("من فضلك اختر تاريخ صحيح");
+            if (!ValidateForm())
                 return;
-            }
-            DateTime? convenentDate = ConvenentDate.SelectedDate;
-            if (convenentDate == null)
+
+            AddButton.IsEnabled = false;
+
+            try
             {
-                MessageBox.Show("من فضلك اختر تاريخ صحيح");
-                return;
+                var input = new AddCovenantToRepresentative
+                {
+                    MonthDate = DateMonth.SelectedDate!.Value,
+                    CovenantDate = ConvenentDate.SelectedDate!.Value,
+                    CovenantType = TypeOfCovenant.SelectedValue!.ToString(),
+                    RepresentativeId =
+                        ((RepresentativeDto)RepresenComoBox.SelectedItem).Id
+                };
+
+                bool added = await _covenantService.addCovenant(input);
+
+                if (!added)
+                {
+                    MessageBox.Show("حدث خطأ أثناء الإضافة");
+                    return;
+                }
+
+                int nextId = CovenantList.Any()
+      ? CovenantList.Max(x => x.DisplayUIId) + 1
+      : 1;
+
+                CovenantList.Add(new ReturnCovenant
+                {
+                    DisplayUIId = nextId,
+                    CovenantDate = input.CovenantDate,
+                    CovenantType = input.CovenantType,
+                    Id = 0 // لو السيرفر بيرجعه بعدين
+                });
+
+                MessageBox.Show("تم إضافة العهدة بنجاح");
+                ClearForm();
             }
-
-            RepresentativeDto selectedRep = (RepresentativeDto)RepresenComoBox.SelectedItem;
-            if (selectedRep == null)
+            finally
             {
-                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
-                return;
+                AddButton.IsEnabled = true;
             }
-
-
-            //string selectedtype = (string)TypeOfCovenant.SelectedItem;
-            string selectedType = TypeOfCovenant.SelectedValue?.ToString() ?? string.Empty;
-
-            if (string.IsNullOrEmpty(selectedType))
-            {
-                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
-                return;
-            }
-
-            AddCovenantToRepresentative InputConvenent = new AddCovenantToRepresentative()
-            {
-                MonthDate = MonthDate ?? DateTime.UtcNow,
-                CovenantDate = convenentDate ?? DateTime.UtcNow,
-                CovenantType = selectedType,
-                RepresentativeId = selectedRep.Id,
-            };
-
-            var CreateInvoiceDtoRespons = _covenantService.addCovenant(InputConvenent);
-            if (!CreateInvoiceDtoRespons)
-            {
-                MessageBox.Show("من فضلك ادخل بيانات صحيحة");
-                return;
-            }
-
-            MessageBox.Show("تم إضافة العهده بنجاح");
-
-            //RepresenComoBox.SelectedIndex = 0;
-            //DateMonth.SelectedDate = null;
-            //countDisplayNo++;
-            //CreateInvoiceDtoRespons.DisplayId = countDisplayNo;
-            //observProductsLisLim.Add(CreateInvoiceDtoRespons);
-            //observProductsListFiltered.Add(CreateInvoiceDtoRespons);
         }
 
         #endregion
 
-        private void DataConvenantItemsOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
-            var covenantService = App.AppHost.Services.GetRequiredService<ICovenantService>();
-            var covenantItems = new CovenantItemsPage(productService, covenantService);
-            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(covenantItems);
+        #region Validation
 
+        private bool ValidateForm()
+        {
+            bool valid = true;
+
+            if (DateMonth.SelectedDate == null)
+                valid = false;
+
+            if (ConvenentDate.SelectedDate == null)
+                valid = false;
+
+            if (RepresenComoBox.SelectedItem == null)
+                valid = false;
+
+            if (TypeOfCovenant.SelectedValue == null)
+                valid = false;
+
+            if (!valid)
+                MessageBox.Show("من فضلك ادخل البيانات كاملة");
+
+            return valid;
         }
+
+        private void ClearForm()
+        {
+            ConvenentDate.SelectedDate = null;
+            TypeOfCovenant.SelectedIndex = 0;
+        }
+
+        #endregion
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindowViewModel.MainWindow.Frame
+                .NavigationService.Navigate(new Dashboard());
+        }
+
+        private void DataConvenantItemsOpen(object sender,
+            System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var productService =
+                App.AppHost.Services.GetRequiredService<IProductService>();
+            var covenantService =
+                App.AppHost.Services.GetRequiredService<ICovenantService>();
+
+            MainWindowViewModel.MainWindow.Frame
+                .NavigationService.Navigate(
+                    new CovenantItemsPage(productService, covenantService));
+        }
+
+        private async void DeleteCovenantBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = ConvenantDataGrid.SelectedItem as ReturnCovenant;
+
+            if (selectedItem == null)
+            {
+                MessageBox.Show("من فضلك اختر صف للحذف");
+                return;
+            }
+
+            var result = MessageBox.Show(
+                "هل أنت متأكد من حذف العهدة؟",
+                "تأكيد الحذف",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes)
+                return;
+
+            DeleteButton.IsEnabled = false;
+
+            try
+            {
+                bool deleted = await _covenantService.DeleteCovenant(selectedItem.Id);
+
+                if (deleted)
+                {
+                    CovenantList.Remove(selectedItem);
+                    ReIndexDisplayIds();
+                    MessageBox.Show("تم الحذف بنجاح");
+                }
+
+                else
+                {
+                    MessageBox.Show("حدث خطأ أثناء الحذف");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("حدث خطأ غير متوقع");
+            }
+            finally
+            {
+                DeleteButton.IsEnabled = true;
+            }
+        }
+
+        private void ReIndexDisplayIds()
+        {
+            for (int i = 0; i < CovenantList.Count; i++)
+                CovenantList[i].DisplayUIId = i + 1;
+        }
+
     }
 }

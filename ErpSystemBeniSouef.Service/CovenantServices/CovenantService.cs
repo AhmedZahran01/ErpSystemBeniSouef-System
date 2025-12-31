@@ -20,7 +20,7 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
             _unitOfWork = unitOfWork;
         }
 
-        public  bool addCovenant(AddCovenantToRepresentative dto)
+        public async Task<bool> addCovenant(AddCovenantToRepresentative dto)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
                 };
 
                 _unitOfWork.Repository<Covenant>().Add(covenant);
-                _unitOfWork.CompleteAsync();
+                await _unitOfWork.CompleteAsync();
                 return true;
             }
             catch (Exception)
@@ -42,12 +42,12 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
             }
         }
 
-        public  bool addCovenantItems(AddCovenantItemsDto dto)
+        public bool addCovenantItems(AddCovenantItemsDto dto)
         {
             try
             {
-                var covenant =  _unitOfWork.Repository<Covenant>().GetByIdAsync(dto.CovenantId);
-                if (covenant == null) 
+                var covenant = _unitOfWork.Repository<Covenant>().GetByIdAsync(dto.CovenantId);
+                if (covenant == null)
                     return false;
 
                 foreach (var item in dto.CovenantItems)
@@ -63,7 +63,7 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
                     _unitOfWork.Repository<CovenantProduct>().Add(covenantItem);
                 }
 
-               _unitOfWork.CompleteAsync();
+                _unitOfWork.CompleteAsync();
                 return true;
             }
             catch (Exception)
@@ -96,7 +96,7 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
             {
                 Id = item.Id,
                 ProductId = item.ProductId,
-                ProductName = item.Product?.ProductName,  
+                ProductName = item.Product?.ProductName,
                 CategoryId = item.CategoryId,
                 Amount = item.Amount
             }).ToList();
