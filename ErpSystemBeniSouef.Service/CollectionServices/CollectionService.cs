@@ -1,14 +1,8 @@
-﻿
-namespace ErpSystemBeniSouef.Service.CollectionServices;
+﻿namespace ErpSystemBeniSouef.Service.CollectionServices;
 
 public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
-
-    public Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
-    {
-        throw new NotImplementedException();
-    }
 
     public async Task<CollectorInstallmentsResultDto> GetCollectorInstallmentsAsync(int collectorId, DateTime date)
     {
@@ -50,31 +44,6 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
         };
 
         return response;
-    }
-
-    public Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(int collectorId, DateTime month)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<(List<CashInvoicesReportDto>, byte[] FileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(DateTime fromDate, DateTime toDate, int collectorId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<(List<CovenantReportRowDto>, byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(DateTime fromDate, DateTime toDate, int collectorId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<(byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(DateTime fromDate, DateTime toDate, int representativeId)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<bool> SaveCollectionInstallmentsAsync(List<InstallmentCollectionDto> installments)

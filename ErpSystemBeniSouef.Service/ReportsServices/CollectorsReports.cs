@@ -1,6 +1,6 @@
-﻿namespace ErpSystemBeniSouef.Service.CollectorServices;
+﻿namespace ErpSystemBeniSouef.Service.ReportsServices;
 
-public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
+public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
 {
 
     #region Constructor Region
