@@ -27,7 +27,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     /// </summary>
     public partial class Cash_SalesPage : Page
     {
-        private readonly ICollectionService _collectionService;
+        private readonly ICollectorsReports _collectorsReports;
         private DateTime _dateTime1;
         private DateTime _dateTime2;
         private int _repId;
@@ -35,10 +35,10 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
         decimal totalCash = 0;
 
         //public Cash_SalesPage( )
-        public Cash_SalesPage(ICollectionService collectionService, DateTime dateTime1, DateTime dateTime2, int repId)
+        public Cash_SalesPage(ICollectorsReports collectorsReports, DateTime dateTime1, DateTime dateTime2, int repId)
         {
             InitializeComponent();
-            _collectionService = collectionService;
+            _collectorsReports = collectorsReports;
             Loaded += async (s, e) =>
             {
                 LoadingBar.Visibility = Visibility.Visible;
@@ -91,7 +91,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
 
         private async Task LoadData()
         {
-            var s = await _collectionService.GetRepresentativeCashInvoicesAsync(_dateTime1, _dateTime2, _repId);
+            var s = await _collectorsReports.GetRepresentativeCashInvoicesAsync(_dateTime1, _dateTime2, _repId);
             totalCash = s.totalCash;
             cashInvoicesReport = s.Item1;
             CashReportsDataGrid.ItemsSource = cashInvoicesReport;

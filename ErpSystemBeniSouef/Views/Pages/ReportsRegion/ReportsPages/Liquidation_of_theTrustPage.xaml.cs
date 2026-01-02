@@ -26,7 +26,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
     /// </summary>
     public partial class Liquidation_of_theTrustPage : Page
     {
-        private readonly ICollectionService _collectionService;
+        private readonly ICollectorsReports _collectorsReports;
         private DateTime _dateTime1;
         private DateTime _dateTime2;
         private int _repId;
