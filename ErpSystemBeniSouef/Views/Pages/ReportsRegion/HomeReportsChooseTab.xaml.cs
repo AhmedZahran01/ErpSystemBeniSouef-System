@@ -62,8 +62,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
 
         private void Cash_SalesButton_Click(object sender, RoutedEventArgs e)
         {
-            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
-            var cash_SalesPage = new Cash_SalesPage(collectionService , dateTime11 , dateTime22 , repId);
+            var collectorsReports = App.AppHost.Services.GetRequiredService<ICollectorsReports>();
+            var cash_SalesPage = new Cash_SalesPage(collectorsReports, dateTime11 , dateTime22 , repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
 
         }

@@ -25,6 +25,8 @@ using ErpSystemBeniSouef.Service.MainAreaServices;
 using ErpSystemBeniSouef.Service.PettyCashServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.ReceiptServices;
+using ErpSystemBeniSouef.Service.ReportsServices;
+
 //using ErpSystemBeniSouef.Service.ReportsServices;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.StoreKeeperService;
@@ -89,7 +91,7 @@ namespace ErpSystemBeniSouef
             services.AddScoped(typeof(ICashCustomerInvoiceService), typeof(CashCustomerInvoiceService));
             //services.AddScoped(typeof(ICollectionService), typeof(CollectorsReports));
             services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
-            services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
+            services.AddScoped(typeof(ICollectorsReports), typeof(CollectorsReports));
             services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
             services.AddScoped(typeof(ICovenantService), typeof(CovenantService));
             services.AddScoped(typeof(IPettyCashService), typeof(PettyCashService));
@@ -158,7 +160,7 @@ namespace ErpSystemBeniSouef
             //var supplierAccountService = App.AppHost.Services.GetRequiredService<ISupplierAccountService>();
             //var customerInvoiceService = App.AppHost.Services.GetRequiredService<ICustomerInvoiceService>();
             //var mainRegionPage = new MainRegionPage(repo);
-            var collectionService = App.AppHost.Services.GetRequiredService<ICollectionService>();
+            var collectionService = App.AppHost.Services.GetRequiredService<ICollectorsReports>();
             var receiptService = App.AppHost.Services.GetRequiredService<IReceiptService>();
 
 
