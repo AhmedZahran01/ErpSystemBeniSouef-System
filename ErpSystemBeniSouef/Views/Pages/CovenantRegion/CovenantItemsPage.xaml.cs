@@ -2,26 +2,12 @@
 using ErpSystemBeniSouef.Core.Contract.Covenant;
 using ErpSystemBeniSouef.Core.DTOs.Covenant;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
-using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
-using ErpSystemBeniSouef.Core.Entities;
-using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
 {
@@ -32,21 +18,25 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
     {
         private readonly IProductService _productService;
         private readonly ICovenantService _covenantService;
+        private readonly int _covenantId;
         ObservableCollection<ProductDto> observProductsListFiltered = new ObservableCollection<ProductDto>();
         ObservableCollection<ProductDto> observProductsLisLim = new ObservableCollection<ProductDto>();
         public IReadOnlyList<CategoryDto> categoryDtos = new List<CategoryDto>();
-        List<CovenantItemsDto> covenantItems = new List<CovenantItemsDto>();
+        ObservableCollection<CovenantItemsDto> CovenantItemsGridList = new ObservableCollection<CovenantItemsDto>();
+        ObservableCollection<ReturnCovenantItem> ReturnCovenantItemsGridList = new ObservableCollection<ReturnCovenantItem>();
 
-        public CovenantItemsPage(IProductService productService, ICovenantService covenantService)
+        public CovenantItemsPage(int covenantId, IProductService productService, ICovenantService covenantService)
         {
             InitializeComponent();
             _productService = productService;
             _covenantService = covenantService;
+            _covenantId = covenantId;
             Loaded += async (s, e) =>
             {
                 await loadData();
                 productTypeComo.ItemsSource = categoryDtos;
                 productTypeComo.SelectedIndex = 0;
+                CovenantItemsDataGrid.ItemsSource = CovenantItemsGridList;
 
                 //ConvenantDataGrid.ItemsSource = returnCovenants;
                 //RepresenComoBox.SelectedIndex = 0;
@@ -57,7 +47,103 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
         public async Task loadData()
         {
             categoryDtos = await _productService.GetAllCategoriesAsync();
+            List<ReturnCovenantItem> s = await _covenantService.GetCovenantItemsByCovenantId(_covenantId);
+            ReturnCovenantItemsGridList = new ObservableCollection<ReturnCovenantItem>(s);
+            //CovenantItemsGridList = new ObservableCollection<CovenantItemsDto>(ReturnCovenantItemsGridList);
 
+            int index = 1;
+            foreach (var item in ReturnCovenantItemsGridList)
+            {
+                CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                });
+
+                CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                });
+                CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                });
+                CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                });
+                CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                });
+                CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                }); CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                }); CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                }); CovenantItemsGridList.Add(new CovenantItemsDto()
+                {
+                    CategoryId = item.CategoryId,
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    Quantity = item.Quantity,
+                    DisplayUIId = index++
+
+                });
+
+            }
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -101,31 +187,71 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
 
         private void AddConvnenantItem(object sender, RoutedEventArgs e)
         {
-            int ProId = 0;
+            int productId = 0;
+            if (!int.TryParse(Quantity.Text, out int qty) || qty <= 0)
+            {
+                MessageBox.Show("من فضلك ادخل كمية صحيحة");
+                return;
+            }
+
             if (ProductCombo.SelectedItem is ProductDto productDto)
             {
-                ProId = productDto.Id;
+                productId = productDto.Id;
+                var existingItem = CovenantItemsGridList
+                       .FirstOrDefault(x => x.ProductId == productDto.Id);
 
-                covenantItems.Add(new CovenantItemsDto()
+                if (existingItem != null)
                 {
-                    Amount = 2,
-                    CategoryId = productDto.CategoryId,
-                    ProductId = ProId
-                });
+                    existingItem.Quantity += qty;
+                }
+                else
+                {
+                    CovenantItemsGridList.Add(new CovenantItemsDto
+                    {
+                        ProductId = productDto.Id,
+                        ProductName = productDto.ProductName,
+                        Quantity = qty,
+                        CategoryId = productDto.CategoryId
+                    });
+                }
+
+                //CovenantItemsGridList.Add(new CovenantItemsDto()
+                //{
+                //    Quantity = qty,
+                //    ProductName = productDto.ProductName ?? "",
+                //    CategoryId = productDto.CategoryId,
+                //    ProductId = productId
+                //});
             }
 
         }
 
-        private void AddConvnenant(object sender, RoutedEventArgs e)
+        private async void AddConvnenant(object sender, RoutedEventArgs e)
         {
+            if (!CovenantItemsGridList.Any())
+            {
+                MessageBox.Show("لا يوجد عناصر مضافة جديده");
+                return;
+            }
+
             AddCovenantItemsDto covenantItemsDto = new AddCovenantItemsDto()
             {
-                CovenantId = 2,
-                CovenantItems = covenantItems
+                CovenantId = _covenantId,
+                CovenantItems = CovenantItemsGridList
             };
-            var s =  _covenantService.addCovenantItems(covenantItemsDto);
+            var s = await _covenantService.addCovenantItems(covenantItemsDto);
+            observProductsLisLim.Clear();
+            observProductsListFiltered.Clear();
 
 
+        }
+
+        private void DeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (CovenantItemsDataGrid.SelectedItem is CovenantItemsDto item)
+            {
+                CovenantItemsGridList.Remove(item);
+            }
         }
     }
 }

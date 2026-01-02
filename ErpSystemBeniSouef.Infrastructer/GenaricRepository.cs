@@ -149,7 +149,7 @@ namespace ErpSystemBeniSouef.Infrastructer
         }
 
         #endregion
-       
+
         #region GetByIdWithIncludesAsync Region
 
         public async Task<T?> GetByIdWithIncludesAsync(
@@ -161,8 +161,25 @@ namespace ErpSystemBeniSouef.Infrastructer
             {
                 query = query.Include(include);
             }
-
             return await query.FirstOrDefaultAsync();
+
+            //try
+            //{
+            //    return await query.FirstOrDefaultAsync();
+            //}
+            //catch
+            //{
+            //    return  null;
+
+            //}
+        }
+
+        public async Task<T?> GetByIdWithIncludeAsync(int id, Func<IQueryable<T>, IQueryable<T>> include)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = include(query);
+
+            return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
 
         #endregion

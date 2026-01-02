@@ -42,14 +42,14 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
             }
         }
 
-        public bool addCovenantItems(AddCovenantItemsDto dto)
+        public Task<bool> addCovenantItems(AddCovenantItemsDto dto)
         {
             try
             {
                 var covenant = _unitOfWork.Repository<Covenant>().GetByIdAsync(dto.CovenantId);
                 if (covenant == null)
-                    return false;
 
+                    return Task.FromResult(false);
                 foreach (var item in dto.CovenantItems)
                 {
                     var covenantItem = new CovenantProduct
@@ -57,18 +57,18 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
                         CovenantId = dto.CovenantId,
                         ProductId = item.ProductId,
                         CategoryId = item.CategoryId,
-                        Amount = item.Amount
+                        Amount = item.Quantity
                     };
 
                     _unitOfWork.Repository<CovenantProduct>().Add(covenantItem);
                 }
 
                 _unitOfWork.CompleteAsync();
-                return true;
+                return Task.FromResult(true);
             }
             catch (Exception)
             {
-                return false;
+                return Task.FromResult(false);
             }
         }
 
@@ -87,8 +87,15 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
         }
         public async Task<List<ReturnCovenantItem>> GetCovenantItemsByCovenantId(int covenantId)
         {
+            //var covenant = await _unitOfWork.Repository<Covenant>()
+            //    .GetByIdWithIncludesAsync(covenantId, c => c.CovenantProducts, c => c.CovenantProducts.Select(p => p.Product));
             var covenant = await _unitOfWork.Repository<Covenant>()
-                .GetByIdWithIncludesAsync(covenantId, c => c.CovenantProducts, c => c.CovenantProducts.Select(p => p.Product));
+    .GetByIdWithIncludeAsync(
+        covenantId,
+        q => q
+            .Include(c => c.CovenantProducts)
+            .ThenInclude(cp => cp.Product)
+    );
 
             if (covenant == null) return new List<ReturnCovenantItem>();
 
@@ -98,7 +105,7 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
                 ProductId = item.ProductId,
                 ProductName = item.Product?.ProductName,
                 CategoryId = item.CategoryId,
-                Amount = item.Amount
+                Quantity = item.Amount
             }).ToList();
 
             return result;

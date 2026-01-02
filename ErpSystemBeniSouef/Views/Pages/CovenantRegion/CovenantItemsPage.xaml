@@ -16,18 +16,81 @@
     <Page.Resources>
         <SolidColorBrush x:Key="CardBrush" Color="#2B3A4A"/>
         <SolidColorBrush x:Key="PrimaryButtonBrush" Color="#0E6C8E"/>
+        <!--<SolidColorBrush x:Key="CardBrush" Color="#2B3A4A"/>-->
+        <!--<SolidColorBrush x:Key="PrimaryButtonBrush" Color="#0E6C8E"/>-->
+        <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="GridHeaderBrush" Color="#304151"/>
+        <SolidColorBrush x:Key="GridLineBrush" Color="#FFFFFF"/>
+
+        <Style TargetType="DataGrid" x:Key="FullWidthDataGridStyle">
+            <Setter Property="Background" Value="#1E3040"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="RowBackground" Value="#253748"/>
+            <Setter Property="AlternatingRowBackground" Value="#2B3A4A"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RowHeight" Value="35"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Padding" Value="2"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        <!--<Setter Property="BorderBrush" Value="{StaticResource GridLineBrush}"/>-->
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
 
         <Style x:Key="BlackTextComboBox" TargetType="ComboBox">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#F0F0F0"/>
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="White" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.WindowTextBrushKey}" Color="Black" />
+            </Style.Resources>
+        </Style>
+
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryButtonBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="0,10,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!--<Style x:Key="BlackTextComboBox" TargetType="ComboBox">
             <Setter Property="Height" Value="32"/>
             <Setter Property="Width" Value="135"/>
             <Setter Property="Margin" Value="0,0,0,12"/>
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="Background" Value="#F0F0F0"/>
-        </Style>
+        </Style>-->
 
         <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Height" Value="32"/>
-            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="37"/>
+            <Setter Property="Width" Value="170"/>
             <Setter Property="Background" Value="#1E3040"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#304151"/>
@@ -36,8 +99,9 @@
         </Style>
 
         <Style x:Key="ActionButtonStyle" TargetType="Button">
-            <Setter Property="Height" Value="40"/>
+            <Setter Property="Height" Value="45"/>
             <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="Background" Value="{StaticResource PrimaryButtonBrush}"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -62,47 +126,69 @@
         <Grid Margin="10" Grid.Row="1">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5" Margin="0,0,10,0">
-            <DataGrid Background="#1E3040" Foreground="White" AutoGenerateColumns="False" GridLinesVisibility="All" VerticalGridLinesBrush="White" HorizontalGridLinesBrush="White">
+                <DataGrid Style="{StaticResource FullWidthDataGridStyle}"  FlowDirection="RightToLeft"  Background="#1E3040"  
+                          AutoGenerateColumns="False" GridLinesVisibility="All" 
+                VerticalGridLinesBrush="White" HorizontalGridLinesBrush="White"
+                        Name="CovenantItemsDataGrid" FontSize="17" >
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#304151"/>
-                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="FontSize" Value="23"/>
+                        <Setter Property="Foreground" Value="Black"/>
                         <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
                         <Setter Property="BorderBrush" Value="White"/>
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,2"/>
+                        </Style>
+                    
+                    <Style TargetType="DataGridRow">
+                        <!--<Setter Property="Background" Value="#304151"/>
+                        <Setter Property="FontSize" Value="21"/>-->
+                        <Setter Property="Foreground" Value="White"/>
+                        <!--<Setter Property="HorizontalContentAlignment" Value="Center"/>-->
+                        <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
+                        <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
+                        <!--<Setter Property="BorderBrush" Value="White"/>-->
                         <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        <Setter Property="Margin" Value="0,10,0,0"/>
                     </Style>
+                    
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding Serial}" Width="*"/>
-                    <DataGridTextColumn Header="اسم المنتج" Binding="{Binding ProductName}" Width="*"/>
-                    <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
+                        <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayUIId}" Width="*"/>
+                    <DataGridTextColumn     Header="اسم المنتج" Binding="{Binding ProductName}" Width="*"/>
+                    <DataGridTextColumn     Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
 
         <Border Grid.Column="1" FlowDirection="RightToLeft" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15">
             <StackPanel>
-                <TextBlock Text="نوع المنتج" Foreground="White" Margin="0,0,0,5"/>
-                <ComboBox Name="productTypeComo" Style="{StaticResource BlackTextComboBox}" SelectionChanged="SelectProductType"/>
+                    <TextBlock FontSize="21"  Text="نوع المنتج" Foreground="White" Margin="0,0,0,5"/>
+                <ComboBox Name="productTypeComo" FontSize="17" Width="150" Style="{StaticResource BlackTextComboBox}" SelectionChanged="SelectProductType"/>
 
-                <TextBlock Text="اسم المنتج" Foreground="White" Margin="0,0,0,5"/>
+                    <TextBlock FontSize="21"  Text="اسم المنتج" Foreground="White" Margin="0,0,0,5"/>
                     <ComboBox  Name="ProductCombo"  Style="{StaticResource BlackTextComboBox}"     
-                               HorizontalAlignment="Center"
-                               DisplayMemberPath="ProductName"  
+                               HorizontalAlignment="Center" FontSize="16"
+                               DisplayMemberPath="ProductName"  Width="150"
                                SelectedValuePath="Id"/>
 
-                <TextBlock Text="عدد القطع" Foreground="White" Margin="0,0,0,5"/>
+                    <TextBlock FontSize="21"  Text="عدد القطع" Foreground="White" Margin="0,0,0,5"/>
                 <TextBox   Name="Quantity" Style="{StaticResource ModernTextBoxStyle}"/>
 
-                <UniformGrid Columns="2" Margin="0,10,0,0">
-                    <Button Content=" اضافة عنصر " Style="{StaticResource ActionButtonStyle}" Margin="0,0,5,0" Click="AddConvnenantItem"/>
-                    <Button Content="حذف" Style="{StaticResource ActionButtonStyle}" Background="#A93226" Margin="5,0,0,0"/>
+                <UniformGrid FlowDirection="LeftToRight" Columns="2" Margin="10,20,0,0">
+                        <Button Cursor="Hand"  Content=" حذف منتج"         Click="DeleteItem_Click"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Background="#A93226" Margin="0,0,10,0"/>
+                        <Button Cursor="Hand"  Content=" إضافة منتج➕" Style="{StaticResource ActionButtonStyle}" Margin="0,0,5,0" Click="AddConvnenantItem"/>
                 </UniformGrid>
-                    <Button Content=" اضافة المعلومات كلها " Style="{StaticResource ActionButtonStyle}" Margin="0,220,5,0" Click="AddConvnenant"/>
+                    <Button  Cursor="Hand" Content=" ✔️ حفظ العهدة " Style="{StaticResource ActionButtonStyle}" Margin="0,220,5,0" Click="AddConvnenant"/>
 
                 </StackPanel>
         </Border>

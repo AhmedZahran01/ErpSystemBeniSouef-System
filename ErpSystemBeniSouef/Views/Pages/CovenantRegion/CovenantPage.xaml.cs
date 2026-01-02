@@ -14,8 +14,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
     public partial class CovenantPage : Page
     {
         private readonly IRepresentativeService _representativeService;
-        private readonly ICovenantService _covenantService;
-
+        private readonly ICovenantService _covenantService; 
         private ObservableCollection<ReturnCovenant> CovenantList =
             new ObservableCollection<ReturnCovenant>();
 
@@ -145,19 +144,23 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
                 .NavigationService.Navigate(new Dashboard());
         }
 
-        private void DataConvenantItemsOpen(object sender,
-            System.Windows.Input.MouseButtonEventArgs e)
-        {
-            var productService =
-                App.AppHost.Services.GetRequiredService<IProductService>();
-            var covenantService =
-                App.AppHost.Services.GetRequiredService<ICovenantService>();
+        private void DataConvenantItemsOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        { 
+            var selectedItem = ConvenantDataGrid.SelectedItem as ReturnCovenant;
+            if (selectedItem == null)
+                return;
 
-            MainWindowViewModel.MainWindow.Frame
-                .NavigationService.Navigate(
-                    new CovenantItemsPage(productService, covenantService));
+            int covenantId = selectedItem.Id;
+            if( covenantId == 0)
+            {
+                MessageBox.Show("يرجي اخيار صف ");
+                return;
+            }
+            var productService = App.AppHost.Services.GetRequiredService<IProductService>();
+            var covenantService = App.AppHost.Services.GetRequiredService<ICovenantService>();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(new CovenantItemsPage(covenantId, productService, covenantService));
         }
-
+             
         private async void DeleteCovenantBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = ConvenantDataGrid.SelectedItem as ReturnCovenant;

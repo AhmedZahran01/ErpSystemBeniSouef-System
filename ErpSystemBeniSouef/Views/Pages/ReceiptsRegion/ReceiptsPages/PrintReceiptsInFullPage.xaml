@@ -132,7 +132,7 @@
                         <DataGridTextColumn Header="الموبايل" Binding="{Binding MobileNumber}" Width="0.5*"/>
                         <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding InvoiceDate}" Width="0.5*"/>
                         <DataGridTextColumn Header="مكان الإقامة" Binding="{Binding Address}" Width="*"/>
-                        <DataGridTextColumn Header="المنطقة الأساسية" Binding="{Binding MainArea}" Width=".7*"/>
+                        <DataGridTextColumn Header="المنطقة الأساسية" Binding="{Binding AreaName}" Width=".7*"/>
                         <DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="0.5*"/>
                         <DataGridTextColumn Header="المندوب" Binding="{Binding RepresentativeName}" Width=".8*"/>
                         <!--<DataGridTextColumn Header="المحصل" Binding="{Binding Collector}" Width="*"/>-->

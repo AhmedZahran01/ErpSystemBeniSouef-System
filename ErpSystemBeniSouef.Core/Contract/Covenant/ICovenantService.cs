@@ -13,7 +13,7 @@ namespace ErpSystemBeniSouef.Core.Contract.Covenant
         Task<List<ReturnCovenant>> GetAllCovenants();
         Task<ReturnCovenant> GetCovenantById(int Id);
         Task<List<ReturnCovenantItem>> GetCovenantItemsByCovenantId(int covenantId);
-        bool addCovenantItems(AddCovenantItemsDto dto);
+        Task<bool> addCovenantItems(AddCovenantItemsDto dto);
         Task<bool> DeleteCovenant(int covenantId);
         Task<bool> DeleteCovenantItem(int covenantItemId);
 
