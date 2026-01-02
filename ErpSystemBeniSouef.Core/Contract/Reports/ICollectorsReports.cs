@@ -3,24 +3,12 @@
     public interface ICollectorsReports
     {
         // 1️⃣ Monthly Installments
-        Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(
-            int collectorId,
-            DateTime month
-        );
-
+        Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(int collectorId, DateTime month);
         // 2️⃣ Installment Sales Report
-        Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId
-        );
+        Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId);
 
         // 5️⃣ Installment Sales Commission Report
-        Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId
-        );
+        Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(DateTime fromDate, DateTime toDate, int collectorId);
 
         // 6️⃣ Print Customers Account
         Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(

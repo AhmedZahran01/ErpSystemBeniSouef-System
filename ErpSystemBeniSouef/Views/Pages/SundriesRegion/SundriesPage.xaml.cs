@@ -60,7 +60,7 @@ namespace ErpSystemBeniSouef.Views.Pages.SundriesRegion
                     Date = item.Date,
                     Reason = item.Reason,
                     Amount = item.Amount,
-                    DipslayUIId = index + 1
+                    DisplayUIId = index + 1
                 })
             );
 
@@ -102,11 +102,11 @@ namespace ErpSystemBeniSouef.Views.Pages.SundriesRegion
                 bool added = await _pettyCashService.AddPettyCash(addPettyCashDto);
                 if (added)
                 {
-                    int nextId = PettyCashList.Any() ? PettyCashList.Max(x => x.DipslayUIId) + 1 : 1;
+                    int nextId = PettyCashList.Any() ? PettyCashList.Max(x => x.DisplayUIId) + 1 : 1;
 
                     PettyCashList.Add(new ReturnPettyCashDto
                     {
-                        DipslayUIId = nextId,
+                        DisplayUIId = nextId,
                         Date = addPettyCashDto.Date,
                         Reason = addPettyCashDto.Reason,
                         Amount = addPettyCashDto.Amount
@@ -224,7 +224,7 @@ namespace ErpSystemBeniSouef.Views.Pages.SundriesRegion
         private void ReIndexDisplayIds()
         {
             for (int i = 0; i < PettyCashList.Count; i++)
-                PettyCashList[i].DipslayUIId = i + 1;
+                PettyCashList[i].DisplayUIId = i + 1;
         }
 
 

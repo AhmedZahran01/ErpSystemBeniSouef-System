@@ -62,14 +62,14 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         private async Task LoadReceipts(int mainId = 4, int fr = 1, int to = 100000)
         {
-            //(var receiptsData, var fileData) = await _receiptService.GetAllReceiptsAsync( 1,1, 1000000000);
-            //(var receiptsData2, var fileData2) = await _receiptService.GetAllReceiptsAsync( 2,1, 1000000000);
-            //(var receiptsData3, var fileData3) = await _receiptService.GetAllReceiptsAsync( 3,1, 1000000000);
             (var receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
-            //(var receiptsData5, var fileData5) = await _receiptService.GetAllReceiptsAsync( 5,1, 1000000000);
-            //(var receiptsData6, var fileData6) = await _receiptService.GetAllReceiptsAsync( 6,1, 1000000000);
-            ReceiptsDataGrid.ItemsSource = receiptsData4;
+            int index = 1;
+            foreach (var item in receiptsData4)
+            {
+                item.DisplayUIId = index++; 
+            }
 
+            ReceiptsDataGrid.ItemsSource = receiptsData4;
             var f = await _mainAreaService.GetAllAsync();
             MainAreaCombo.ItemsSource = f;
 

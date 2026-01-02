@@ -32,8 +32,8 @@ using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierAccountServices;
 using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
-using ErpSystemBeniSouef.ViewModel; 
-using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion; 
+using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -65,42 +65,42 @@ namespace ErpSystemBeniSouef
             AppHost = Host.CreateDefaultBuilder()
     .ConfigureServices((context, services) =>
     {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
-                     ));
-            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
-            services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
-            services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
-            services.AddScoped(typeof(IProductService), typeof(ProductService));
-            services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
-            services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
-            services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
-            services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
-            services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
-            services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
-            services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
-            services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
-            services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
-            services.AddScoped(typeof(IReturnSupplierInvoiceItemService), typeof(ReturnSupplierInvoiceItemService));
-            services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
-            services.AddScoped(typeof(ISupplierAccountService), typeof(supplierAccountService));
-            services.AddScoped(typeof(ICustomerInvoiceService), typeof(CustomerInvoiceService));
-            services.AddScoped(typeof(ICashCustomerInvoiceService), typeof(CashCustomerInvoiceService));
-            //services.AddScoped(typeof(ICollectionService), typeof(CollectorsReports));
-            services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
-            services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
-            services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
-            services.AddScoped(typeof(ICovenantService), typeof(CovenantService));
-            services.AddScoped(typeof(IPettyCashService), typeof(PettyCashService));
-       
-        
-            //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
-            //services.AddScoped<IReturnSupplierInvoiceItemService, ReturnSupplierInvoiceItemService>();
-            //services.AddScoped(typeof(IDamageInvoiceService), typeof(DamageInvoiceService));
-       
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-                 })    .Build();
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(
+            "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
+                 ));
+        services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfwork));
+        services.AddScoped(typeof(IMainAreaService), typeof(MainAreaService));
+        services.AddScoped(typeof(ISubAreaService), typeof(SubAreaService));
+        services.AddScoped(typeof(IProductService), typeof(ProductService));
+        services.AddScoped(typeof(ISupplierService), typeof(SupplierService));
+        services.AddScoped(typeof(ICollectorService), typeof(CollectorServices));
+        services.AddScoped(typeof(IRepresentativeService), typeof(RepresentativeService));
+        services.AddScoped(typeof(IStoreKeeperService), typeof(StoreKeeperService));
+        services.AddScoped(typeof(ICashInvoiceService), typeof(CashInvoiceService));
+        services.AddScoped(typeof(ICashInvoiceItemsService), typeof(CashInvoiceItemsService));
+        services.AddScoped(typeof(IDueInvoiceService), typeof(DueInvoiceService));
+        services.AddScoped(typeof(IDueInvoiceItemService), typeof(DueInvoiceItemsService));
+        services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
+        services.AddScoped(typeof(IReturnSupplierInvoiceItemService), typeof(ReturnSupplierInvoiceItemService));
+        services.AddScoped(typeof(ISupplierCashService), typeof(SupplierCashService));
+        services.AddScoped(typeof(ISupplierAccountService), typeof(supplierAccountService));
+        services.AddScoped(typeof(ICustomerInvoiceService), typeof(CustomerInvoiceService));
+        services.AddScoped(typeof(ICashCustomerInvoiceService), typeof(CashCustomerInvoiceService));
+        //services.AddScoped(typeof(ICollectionService), typeof(CollectorsReports));
+        services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
+        services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
+        services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
+        services.AddScoped(typeof(ICovenantService), typeof(CovenantService));
+        services.AddScoped(typeof(IPettyCashService), typeof(PettyCashService));
+
+
+        //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
+        //services.AddScoped<IReturnSupplierInvoiceItemService, ReturnSupplierInvoiceItemService>();
+        //services.AddScoped(typeof(IDamageInvoiceService), typeof(DamageInvoiceService));
+
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    }).Build();
 
             await AppHost.StartAsync();
 

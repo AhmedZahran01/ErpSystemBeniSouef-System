@@ -75,7 +75,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion
 
         private void ReturnRateButton_Click(object sender, RoutedEventArgs e)
         {
-            var cash_SalesPage = new Return_RatesPage();
+            var cash_SalesPage = new Return_RatesPage(  dateTime11, dateTime22, repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(cash_SalesPage);
 
         }
