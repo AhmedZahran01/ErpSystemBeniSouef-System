@@ -2,6 +2,7 @@
 
 public class InstallmentReportDto
 {
+    public int DisplayUiId { get; set; } = 0;
     public string CustomerName { get; set; } = string.Empty;
     public int CustomerNumber { get; set; } = 0;
     public DateTime InvoiceDate { get; set; }

@@ -23,7 +23,8 @@
         <SolidColorBrush x:Key="GridLineBrush" Color="#AABBCC"/>
         <Style x:Key="MainButtonStyle" TargetType="Button">
             <Setter Property="Height" Value="36"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="52"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
             <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
             <Setter Property="Background" Value="{StaticResource PrimaryButtonBrush}"/>
@@ -117,7 +118,7 @@
         <Grid Margin="30 30 30 2" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="431"/>
+                <ColumnDefinition Width="301"/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" 
@@ -126,9 +127,10 @@
               Padding="10" 
               Margin="0,0,15,0">
 
-                <DataGrid Style="{StaticResource InstallmentDataGridStyle}" x:Name="GridDataForInstallmwnt">
+                <DataGrid Style="{StaticResource InstallmentDataGridStyle}"  
+                          x:Name="GridDataForInstallmwnt" IsReadOnly="True">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header=" المسلسل" Binding="{Binding SerialNumber}" Width=".8*"/>
+                        <DataGridTextColumn Header=" المسلسل" Binding="{Binding DisplayUiId}" Width=".8*"/>
                         <DataGridTextColumn Header="رقم العميل" Binding="{Binding CustomerNumber}" Width=".8*"/>
                         <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width=".8*"/>
                         <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding InvoiceDate, StringFormat='dd/MM/yyyy'}" Width="*"/>
@@ -151,10 +153,10 @@
                              Foreground="{StaticResource TextBrush}" 
                              VerticalAlignment="Center" 
                              Margin="0,0,10,0" 
-                             Width="165"
+                             Width="92"
                              FontSize="16"/>
 
-                        <Grid Width="200" HorizontalAlignment="Right">
+                        <Grid Width="140" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="70"/>
@@ -179,10 +181,10 @@
                              Foreground="{StaticResource TextBrush}" 
                              VerticalAlignment="Center" 
                              Margin="0,0,10,0" 
-                             Width="165"
+                             Width="90"
                              FontSize="16"/>
 
-                        <Grid Width="200" HorizontalAlignment="Right">
+                        <Grid Width="140" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="70"/>
@@ -207,10 +209,10 @@
                              Foreground="{StaticResource TextBrush}" 
                              VerticalAlignment="Center" 
                              Margin="0,0,10,0" 
-                             Width="165"
+                             Width="127"
                              FontSize="16"/>
 
-                        <Grid Width="200" HorizontalAlignment="Right">
+                        <Grid Width="113" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="70"/>
@@ -235,10 +237,10 @@
                              Foreground="{StaticResource TextBrush}" 
                              VerticalAlignment="Center" 
                              Margin="0,0,10,0" 
-                             Width="165"
+                             Width="135"
                              FontSize="16"/>
                         <TextBox Style="{StaticResource SummaryTextBoxStyle}" 
-                           Width="200" 
+                           Width="100" 
                            Text=""
                            Margin="0,0,0,0"/>
                     </StackPanel>
@@ -248,10 +250,10 @@
                              Foreground="{StaticResource TextBrush}" 
                              VerticalAlignment="Center" 
                              Margin="0,0,10,0" 
-                             Width="165"
+                             Width="125"
                              FontSize="16"/>
                         <TextBox Style="{StaticResource SummaryTextBoxStyle}" 
-                           Width="200" 
+                           Width="100" 
                            FontWeight="ExtraBold" 
                            Background="#304151" 
                            IsEnabled="False"
@@ -262,8 +264,8 @@
                     <Button Content="صفحه المبيعات تقسيط" 
  Grid.Column="1" 
  Style="{StaticResource MainButtonStyle}"
- Height="36" Width="320" 
- FontSize="12" Background="Red" 
+ Height="36" Width="180" 
+ FontSize="14" Background="Red" 
  Margin="5,220,0,0" Click="Button_Click"/>
 
                 </StackPanel>

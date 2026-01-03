@@ -2,8 +2,8 @@
 
 public interface IReceiptService
 {
-    Task<(List<GetAllReceiptsDto>, Byte[])> GetAllReceiptsAsync(int? mainAraeId, int? fromCustomerNumber, int? toCustomerNumber);
-    Task<(List<GetAllReceiptsDto>, Byte[])> GetMonthlyReceiptsAsync(DateTime month, int? mainAraeId, int? subAreaId);
+    Task<(List<GetAllReceiptsDto>, Byte[])> GetAllReceiptsAsync(int? mainAraeId = null, int? fromCustomerNumber = null, int? toCustomerNumber = null);
+    Task<(List<GetAllReceiptsDto>, Byte[])> GetMonthlyReceiptsAsync(DateTime? month =null , int? mainAraeId = null, int? subAreaId = null);
     Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int collectorId);
     Task<(List<GetAllReceiptsDto>, Byte[])> GetCustomerReceiptsAsync(int collectorNumber);
 }

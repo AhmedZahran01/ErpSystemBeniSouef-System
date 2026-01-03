@@ -151,7 +151,7 @@ namespace ErpSystemBeniSouef.Service.SubAreaServices
 
         public IReadOnlyList<SubAreaDto> GetSubAreaDtoByMainAreaId(int mainAreaId)
         {
-            var subAreas = _unitOfWork.Repository<SubArea>().GetAll(P => P.MainAreaId == mainAreaId);
+            var subAreas = _unitOfWork.Repository<SubArea>().GetAll().Where(ma => ma.MainAreaId == mainAreaId).ToList();
 
             var subAreasDto = subAreas.Select(sa => _mapper.Map<SubAreaDto>(sa)).ToList();
             return subAreasDto;
