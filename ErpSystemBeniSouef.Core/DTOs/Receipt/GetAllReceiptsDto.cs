@@ -2,6 +2,7 @@
 
 public class GetAllReceiptsDto
 {
+    public int DisplayUIId { get; set; }
     public int MonthlyInstallmentId { get; set; }
     public int CustomerNumber { get; set; }
     public string CustomerName { get; set; } = string.Empty;    

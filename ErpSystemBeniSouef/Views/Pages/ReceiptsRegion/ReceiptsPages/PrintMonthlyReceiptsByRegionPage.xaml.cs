@@ -1,4 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
+using ErpSystemBeniSouef.Core.DTOs.Receipt;
+using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,7 +34,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             InitializeComponent();
             Loaded += async (s, e) =>
             {
-                await LoadReceipts();
+                await LoadReceipts(null, null, null);
             };
             _receiptService = receiptService;
             _mainAreaService = mainAreaService;
@@ -40,17 +43,27 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         #region load products to Grid Region
 
-        private async Task LoadReceipts(int mainId = 4, int fr = 1, int to = 100000)
+        private async Task LoadReceipts(DateTime? dateOfRecceipt, int? mainId, int? subId)
         {
-            DateTime monthDate = DateTime.UtcNow;
-            (var receiptsData4, var fileData4) = await _receiptService.GetMonthlyReceiptsAsync(monthDate, fr, to);
+            DateTime monthDate = new DateTime(1025, 1, 1, 10, 30, 0);
+            List<GetAllReceiptsDto> receiptsData4 = new List<GetAllReceiptsDto>();
+
+            byte[] fileData4 = Array.Empty<byte>();
+            if (!dateOfRecceipt.HasValue && !mainId.HasValue && !subId.HasValue)
+            {
+                (receiptsData4, fileData4) = await _receiptService.GetMonthlyReceiptsAsync();
+
+            }
+            else
+            {
+                (receiptsData4, fileData4) = await _receiptService.GetMonthlyReceiptsAsync(dateOfRecceipt, mainId, subId);
+
+            }
+            //(receiptsData4, fileData4) = await _receiptService.GetMonthlyReceiptsAsync();
+            //receiptsData5 = receiptsData4;
             DataGridRegion.ItemsSource = receiptsData4;
 
-            var MainAreaDtos = await _mainAreaService.GetAllAsync();
-            MainAreaCombo.ItemsSource = MainAreaDtos;
 
-            var subAreaDtos = await _subAreaService.GetAllAsync();
-            SubAreaCombo.ItemsSource = subAreaDtos;
 
         }
 
@@ -61,6 +74,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             var Dashboard = new HomeReceiptsPage();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
+
 
         #region Radio Btn comment Region
 
@@ -112,6 +126,66 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         #endregion
 
+        private async void SearchByRegion_Click(object sender, RoutedEventArgs e)
+        {
+            MainAreaDto mainAreaDto = (MainAreaDto)MainAreaCombo.SelectedItem;
+            int MainIdForSearch = 0;
+            int SubIdForSearch = 0;
+            if (mainAreaDto != null)
+            {
+                MainIdForSearch = mainAreaDto.Id;
+            }
+            SubAreaDto subAreaDto = (SubAreaDto)SubAreaCombo.SelectedItem;
+            if (subAreaDto != null)
+            {
+                SubIdForSearch = subAreaDto.Id;
+            }
+            DateTime SelectedDate = DateOfReceipt.SelectedDate ?? DateTime.UtcNow;
 
+            var SearableData =  LoadReceipts(SelectedDate , MainIdForSearch  , SubIdForSearch);
+
+        }
+
+        private async void Radio_Checked(object sender, RoutedEventArgs e)
+        {
+            var selected = sender as RadioButton;
+            if (selected?.Name.ToString() == "rbMainAll")
+            {
+                // الكل main
+            }
+            else if (selected?.Name.ToString() == "rbMainSelect")
+            {
+                MainAreaCombo.IsEnabled = true;
+                var MainAreaDtos = await _mainAreaService.GetAllAsync();
+                MainAreaCombo.ItemsSource = MainAreaDtos;
+                MainAreaCombo.SelectedIndex = 0;
+                // select main
+            }
+            else if (selected?.Name.ToString() == "rbSubAll")
+            {
+                // الكل
+            }
+            else if (selected?.Name.ToString() == "rbSubSelect")
+            {
+                MainAreaDto mainAreaDto = (MainAreaDto)MainAreaCombo.SelectedItem;
+                SubAreaCombo.IsEnabled = true;
+                if (mainAreaDto != null)
+                {
+                    int subIdSelectedMainArea = mainAreaDto.Id;
+                    var subAreaDtos =  _subAreaService.GetSubAreaDtoByMainAreaId(subIdSelectedMainArea);
+                    SubAreaCombo.ItemsSource = subAreaDtos;
+                    SubAreaCombo.SelectedIndex = 0;
+                }
+                else
+                {
+                    var subAreaDtos = await _subAreaService.GetAllAsync();
+                    SubAreaCombo.ItemsSource = subAreaDtos;
+                    SubAreaCombo.SelectedIndex = 0;
+                }
+                // الكل
+            }
+
+        }
+         
     }
 }

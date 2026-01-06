@@ -107,3 +107,126 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
         }
     }
 }
+
+
+
+#region Comment Page Xaml Region
+
+
+
+ //< StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" Margin = "0,0,0,10" >
+ //                       < TextBlock Text = "المقدمات"
+ //                   Foreground = "{StaticResource TextBrush}"
+ //                   VerticalAlignment = "Center"
+ //                   Margin = "0,0,10,0"
+ //                   Width = "165"
+ //                   FontSize = "16" />
+
+ //                       < Grid Width = "200" HorizontalAlignment = "Right" >
+ //                           < Grid.ColumnDefinitions >
+ //                               < ColumnDefinition Width = "*" />
+ //                               < ColumnDefinition Width = "70" />
+ //                           </ Grid.ColumnDefinitions >
+
+ //                           < TextBox Grid.Column = "0"
+ //                     Style = "{StaticResource SummaryTextBoxStyle}"
+ //                     Width = "Auto" Text = "0"
+ //                     Margin = "0,0,5,0"
+ //                      />
+ //                           < Button Content = "طباعة"
+ //                    Grid.Column = "1"
+ //                    Style = "{StaticResource MainButtonStyle}"
+ //                    Height = "36"
+ //                    FontSize = "12"
+ //                    Margin = "5,0,0,0" />
+ //                       </ Grid >
+ //                   </ StackPanel >
+
+ //                   < StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" Margin = "0,0,0,10" >
+ //                       < TextBlock Text = "إجمالي الكاش"
+ //                   Foreground = "{StaticResource TextBrush}"
+ //                   VerticalAlignment = "Center"
+ //                   Margin = "0,0,10,0"
+ //                   Width = "165"
+ //                   FontSize = "16" />
+
+ //                       < Grid Width = "200" HorizontalAlignment = "Right" >
+ //                           < Grid.ColumnDefinitions >
+ //                               < ColumnDefinition Width = "*" />
+ //                               < ColumnDefinition Width = "70" />
+ //                           </ Grid.ColumnDefinitions >
+
+ //                           < TextBox Grid.Column = "0"
+ //                     Style = "{StaticResource SummaryTextBoxStyle}"
+ //                     Width = "Auto" Name = "TotalCashReport"
+ //                     Margin = "0,0,5,0"
+ //                     Text = "" />
+ //                           < Button Content = "طباعة"
+ //                    Grid.Column = "1"
+ //                    Style = "{StaticResource MainButtonStyle}"
+ //                    Height = "36"
+ //                    FontSize = "12"
+ //                    Margin = "5,0,0,0" />
+ //                       </ Grid >
+ //                   </ StackPanel >
+
+ //                   < StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" Margin = "0,0,0,10" >
+ //                       < TextBlock Text = "نسبة المندبة الأولية"
+ //                   Foreground = "{StaticResource TextBrush}"
+ //                   VerticalAlignment = "Center"
+ //                   Margin = "0,0,10,0"
+ //                   Width = "165"
+ //                   FontSize = "16" />
+
+ //                       < Grid Width = "200" HorizontalAlignment = "Right" >
+ //                           < Grid.ColumnDefinitions >
+ //                               < ColumnDefinition Width = "*" />
+ //                               < ColumnDefinition Width = "70" />
+ //                           </ Grid.ColumnDefinitions >
+
+ //                           < TextBox Grid.Column = "0"
+ //                     Style = "{StaticResource SummaryTextBoxStyle}"
+ //                     Width = "Auto"
+ //                     Margin = "0,0,5,0"
+ //                     Text = "" />
+ //                           < Button Content = "طباعة"
+ //                    Grid.Column = "1"
+ //                    Style = "{StaticResource MainButtonStyle}"
+ //                    Height = "36"
+ //                    FontSize = "12"
+ //                    Margin = "5,0,0,0" />
+ //                       </ Grid >
+ //                   </ StackPanel >
+
+ //                   < StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" Margin = "0,0,0,10" >
+ //                       < TextBlock Text = "نسبة المرتجعات"
+ //                   Foreground = "{StaticResource TextBrush}"
+ //                   VerticalAlignment = "Center"
+ //                   Margin = "0,0,10,0"
+ //                   Width = "165"
+ //                   FontSize = "16" />
+ //                       < TextBox Style = "{StaticResource SummaryTextBoxStyle}"
+ //                 Width = "200"
+ //                 Text = ""
+ //                 Margin = "0,0,0,0" />
+ //                   </ StackPanel >
+
+ //                   < StackPanel Orientation = "Horizontal" HorizontalAlignment = "Right" >
+ //                       < TextBlock Text = "صافي النسبة"
+ //                   Foreground = "{StaticResource TextBrush}"
+ //                   VerticalAlignment = "Center"
+ //                   Margin = "0,0,10,0"
+ //                   Width = "165"
+ //                   FontSize = "16" />
+ //                       < TextBox Style = "{StaticResource SummaryTextBoxStyle}"
+ //                 Width = "200"
+ //                 FontWeight = "ExtraBold"
+ //                 Background = "#304151"
+ //                 IsEnabled = "False"
+ //                 Text = ""
+ //                 Margin = "0,0,0,0" />
+ //                   </ StackPanel >
+
+
+
+#endregion

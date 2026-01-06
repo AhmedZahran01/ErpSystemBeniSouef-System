@@ -4,7 +4,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetAllReceiptsAsync(int? mainAraeId, int? fromCustomerNumber, int? toCustomerNumber)
+    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetAllReceiptsAsync(int? mainAraeId = null, int? fromCustomerNumber = null, int? toCustomerNumber = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -58,26 +58,38 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         return (receipts, file);
     }
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetMonthlyReceiptsAsync(DateTime month, int? mainAraeId, int? subAreaId)
+    public async Task<(List<GetAllReceiptsDto>, byte[])> GetMonthlyReceiptsAsync(DateTime? month = null, int? mainAreaId = null, int? subAreaId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
             .Include(x => x.Customer)
-            .ThenInclude(c => c.SubArea)
-            .ThenInclude(sa => sa!.mainRegions)
+                .ThenInclude(c => c.SubArea)
+                    .ThenInclude(sa => sa!.mainRegions)
             .Include(x => x.Invoice)
-            .ThenInclude(i => i.Items)!
-            .AsNoTracking()
-            .AsQueryable();
+                .ThenInclude(i => i.Items)!
+            .AsNoTracking();
+            //.AsQueryable();
 
-        query = query.Where(x => x.MonthDate.Year == month.Year && x.MonthDate.Month == month.Month);
-
-        if (mainAraeId.HasValue)
+        // 🔹 فلترة الشهر
+        if (month.HasValue)
         {
-            query = query.Where(x => x.Customer.SubArea!.MainAreaId == mainAraeId);
+            query = query.Where(x =>
+                x.MonthDate.Year == month.Value.Year &&
+                x.MonthDate.Month == month.Value.Month);
+        }
 
-            if (subAreaId.HasValue)
-                query = query.Where(x => x.Customer.SubAreaId == subAreaId);
+        // 🔹 فلترة المنطقة الرئيسية
+        if (mainAreaId.HasValue)
+        {
+            query = query.Where(x =>
+                x.Customer.SubArea!.MainAreaId == mainAreaId.Value);
+        }
+
+        // 🔹 فلترة المنطقة الفرعية
+        if (subAreaId.HasValue)
+        {
+            query = query.Where(x =>
+                x.Customer.SubAreaId == subAreaId.Value);
         }
 
         var receipts = await query.Select(receipt => new GetAllReceiptsDto
@@ -86,7 +98,8 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             CustomerName = receipt.Customer.Name,
             Address = receipt.Customer.Address,
             AreaName = receipt.Customer.SubArea!.Name,
-            TotalPrice = receipt.Invoice.Items!.Sum(item => item.Quantity * item.Price)
+            TotalPrice = receipt.Invoice.Items!
+                .Sum(item => item.Quantity * item.Price)
         })
         .ToListAsync();
 
@@ -94,6 +107,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 
         return (receipts, file);
     }
+
 
     public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int collectorId)
     {

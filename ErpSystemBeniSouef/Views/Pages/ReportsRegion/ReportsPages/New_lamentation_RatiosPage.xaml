@@ -142,7 +142,7 @@
              Padding="10" 
              Margin="0,0,15,0">
 
-                <DataGrid Style="{StaticResource CashDataGridStyle}" Name="dataGridOfNewReprese">
+                <DataGrid Style="{StaticResource CashDataGridStyle}" IsReadOnly="True" Name="dataGridOfNewReprese">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="اسم السلعة" Binding="{Binding ProductName}" Width="*"/>
                         <DataGridTextColumn Header="نسبه السلعة" Binding="{Binding CommissionAmount}" Width="*"/>

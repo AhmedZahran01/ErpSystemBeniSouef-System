@@ -133,7 +133,7 @@
 
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DiplayUIId}" Width="*"/>
+                    <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayUIId}" Width="*"/>
                     <DataGridTextColumn Header="تاريخ النثرية"  Binding="{Binding Date, StringFormat=yyyy-MM-dd}" Width="*"/>
                     <DataGridTextColumn Header="سبب النثرية" Binding="{Binding Reason}" Width="*"/>
                     <DataGridTextColumn Header="المبلغ" Binding="{Binding Amount, StringFormat=N2}" Width="*"/>
