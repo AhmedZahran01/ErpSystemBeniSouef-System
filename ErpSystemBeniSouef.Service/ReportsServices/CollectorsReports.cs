@@ -198,6 +198,34 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
 
     #endregion
 
+    #region Common
+
+    public async Task<RepresentativeReportSummaryDto> GetRepresentativeSummaryAsync(
+            DateTime fromDate, DateTime toDate, int collectorId)
+    {
+        var (_, totalDeposits, _) =
+            await GetInstallmentSalesReportAsync(fromDate, toDate, collectorId);
+
+        var (_, _, totalCash) =
+            await GetRepresentativeCashInvoicesAsync(fromDate, toDate, collectorId);
+
+        var (_, totalCommissionPercentage, _) =
+            await GetAllItemsInstallmentSalesReportAsync(fromDate, toDate, collectorId);
+
+        var netCommission = totalCommissionPercentage + totalCash + totalDeposits;
+
+        return new RepresentativeReportSummaryDto
+        {
+            TotalDeposits = totalDeposits,
+            TotalCash = totalCash,
+            TotalRepresentativeCommission = totalCommissionPercentage,
+            NetCommission = netCommission
+        };
+    }
+
+    #endregion
+
+
     #region Print Region
 
     private async Task<Byte[]> PrintDeposits(List<InstallmentReportDto> installments)

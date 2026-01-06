@@ -12,13 +12,13 @@
 
         // المبيعات كاش
         Task<(List<CashInvoicesReportDto>, Byte[] fileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
-           DateTime fromDate, DateTime toDate, int collectorId);
+            DateTime fromDate, DateTime toDate, int collectorId);
 
         // نسبة المرتجعات
         Task<(List<CovenantReportRowDto>, Byte[] fileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
-          DateTime fromDate,
-          DateTime toDate,
-          int collectorId
-        );
+            DateTime fromDate, DateTime toDate, int collectorId);
+
+        Task<RepresentativeReportSummaryDto> GetRepresentativeSummaryAsync(
+            DateTime fromDate, DateTime toDate, int representativeId);
     }
 }
