@@ -1,6 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+using ErpSystemBeniSouef.Core.DTOs.Receipt;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.ViewModel;
@@ -62,16 +63,27 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         private async Task LoadReceipts(int mainId = 4, int fr = 1, int to = 100000)
         {
-            //(var receiptsData, var fileData) = await _receiptService.GetAllReceiptsAsync( 1,1, 1000000000);
-            //(var receiptsData2, var fileData2) = await _receiptService.GetAllReceiptsAsync( 2,1, 1000000000);
-            //(var receiptsData3, var fileData3) = await _receiptService.GetAllReceiptsAsync( 3,1, 1000000000);
-            (var receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
-            //(var receiptsData5, var fileData5) = await _receiptService.GetAllReceiptsAsync( 5,1, 1000000000);
-            //(var receiptsData6, var fileData6) = await _receiptService.GetAllReceiptsAsync( 6,1, 1000000000);
+            List<GetAllReceiptsDto> receiptsData4 = new List<GetAllReceiptsDto>();
+            if (mainId != 4)
+            {
+                (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
+            }
+            else
+            {
+                (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync();
+                var f = await _mainAreaService.GetAllAsync();
+                MainAreaCombo.ItemsSource = f;
+                MainAreaCombo.SelectedIndex = 0;
+
+            }
+            int index = 1;
+            foreach (var item in receiptsData4)
+            {
+                item.DisplayUIId = index++;
+            }
+
             ReceiptsDataGrid.ItemsSource = receiptsData4;
 
-            var f = await _mainAreaService.GetAllAsync();
-            MainAreaCombo.ItemsSource = f;
 
         }
 
@@ -86,8 +98,9 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         private async void GetReceiptDataBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (!int.TryParse(FromClient.Text, out int fromclient) ||
-                !int.TryParse(ToClient.Text, out int toclient) ||
+            var fromClientVariable = int.TryParse(FromClient.Text, out int fromclient);
+            var ToClientVariable = int.TryParse(ToClient.Text, out int toclient);
+            if (!fromClientVariable || !ToClientVariable ||
                 fromclient <= 0 || toclient <= 0 || fromclient > toclient)
             {
                 MessageBox.Show("من فضلك ادخل بيانات صحيحة");

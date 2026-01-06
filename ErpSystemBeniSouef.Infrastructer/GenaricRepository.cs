@@ -182,6 +182,8 @@ namespace ErpSystemBeniSouef.Infrastructer
             return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
 
+
+
         #endregion
 
     }

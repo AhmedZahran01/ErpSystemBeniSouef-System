@@ -135,7 +135,7 @@
         <Grid Margin="30 30 30 2" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="430"/>
+                <ColumnDefinition Width="301"/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" 
@@ -144,14 +144,14 @@
              Padding="10" 
              Margin="0,0,15,0">
 
-                <DataGrid x:Name="CashReportsDataGrid" FlowDirection="LeftToRight"
-                          HorizontalAlignment="Center"  FontSize="24" Style="{StaticResource CashDataGridStyle}">
+                <DataGrid x:Name="CashReportsDataGrid" FlowDirection="LeftToRight" IsReadOnly="True"
+                          HorizontalAlignment="Center"  FontSize="20" Style="{StaticResource CashDataGridStyle}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn FontSize = "18"   Header="المبلغ الإجمالي" Binding="{Binding TotalPrice}" Width=".9*"/>
-                        <DataGridTextColumn FontSize = "18"   Header="المبلغ" Binding="{Binding UnitPrice}" Width=".5*"/>
-                        <DataGridTextColumn FontSize = "18"   Header="الكمية" Binding="{Binding Quentity}" Width=".5*"/>
-                        <DataGridTextColumn FontSize = "18"   Header="المبيعات" Binding="{Binding ProductName}" Width="*"/>
-                        <DataGridTextColumn FontSize = "18"   Header="نوع السلعة" Binding="{Binding ProductType}" Width="1.2*"/>
+                        <DataGridTextColumn FontSize = "15"   Header="المبلغ الإجمالي" Binding="{Binding TotalPrice}" Width=".9*"/>
+                        <DataGridTextColumn FontSize = "15"   Header="المبلغ" Binding="{Binding UnitPrice}" Width=".5*"/>
+                        <DataGridTextColumn FontSize = "15"   Header="الكمية" Binding="{Binding Quentity}" Width=".5*"/>
+                        <DataGridTextColumn FontSize = "15"   Header="المبيعات" Binding="{Binding ProductName}" Width="*"/>
+                        <DataGridTextColumn FontSize = "15"   Header="نوع السلعة" Binding="{Binding ProductType}" Width="1.2*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -165,115 +165,115 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
                         <TextBlock Text="المقدمات" 
-                    Foreground="{StaticResource TextBrush}" 
-                    VerticalAlignment="Center" 
-                    Margin="0,0,10,0" 
-                    Width="165"
-                    FontSize="16"/>
+          Foreground="{StaticResource TextBrush}" 
+          VerticalAlignment="Center" 
+          Margin="0,0,10,0" 
+          Width="92"
+          FontSize="16"/>
 
-                        <Grid Width="200" HorizontalAlignment="Right">
+                        <Grid Width="140" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBox Grid.Column="0" 
-                      Style="{StaticResource SummaryTextBoxStyle}" 
-                      Width="Auto" Text="0"
-                      Margin="0,0,5,0" 
-                       />
+            Style="{StaticResource SummaryTextBoxStyle}" 
+            Width="Auto" 
+            Margin="0,0,5,0" 
+            Text=""/>
                             <Button Content="طباعة" 
-                     Grid.Column="1" 
-                     Style="{StaticResource MainButtonStyle}" 
-                     Height="36" 
-                     FontSize="12"
-                     Margin="5,0,0,0"/>
+           Grid.Column="1" 
+           Style="{StaticResource MainButtonStyle}" 
+           Height="36" 
+           FontSize="12"
+           Margin="5,0,0,0"/>
                         </Grid>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
                         <TextBlock Text="إجمالي الكاش" 
-                    Foreground="{StaticResource TextBrush}" 
-                    VerticalAlignment="Center" 
-                    Margin="0,0,10,0"  
-                    Width="165"
-                    FontSize="16"/>
+          Foreground="{StaticResource TextBrush}" 
+          VerticalAlignment="Center" 
+          Margin="0,0,10,0" 
+          Width="90"
+          FontSize="16"/>
 
-                        <Grid Width="200" HorizontalAlignment="Right">
+                        <Grid Width="140" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBox Grid.Column="0" 
-                      Style="{StaticResource SummaryTextBoxStyle}" 
-                      Width="Auto" Name="TotalCashReport"
-                      Margin="0,0,5,0" 
-                      Text=""/>
+                            <TextBox Grid.Column="0"  Name = "TotalCashReport"
+            Style="{StaticResource SummaryTextBoxStyle}" 
+            Width="Auto" 
+            Margin="0,0,5,0" 
+            Text=""/>
                             <Button Content="طباعة" 
-                     Grid.Column="1" 
-                     Style="{StaticResource MainButtonStyle}" 
-                     Height="36" 
-                     FontSize="12"
-                     Margin="5,0,0,0"/>
+           Grid.Column="1" 
+           Style="{StaticResource MainButtonStyle}" 
+           Height="36" 
+           FontSize="12"
+           Margin="5,0,0,0"/>
                         </Grid>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
                         <TextBlock Text="نسبة المندبة الأولية" 
-                    Foreground="{StaticResource TextBrush}" 
-                    VerticalAlignment="Center" 
-                    Margin="0,0,10,0" 
-                    Width="165"
-                    FontSize="16"/>
+          Foreground="{StaticResource TextBrush}" 
+          VerticalAlignment="Center" 
+          Margin="0,0,10,0" 
+          Width="127"
+          FontSize="16"/>
 
-                        <Grid Width="200" HorizontalAlignment="Right">
+                        <Grid Width="113" HorizontalAlignment="Right">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="70"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBox Grid.Column="0" 
-                      Style="{StaticResource SummaryTextBoxStyle}" 
-                      Width="Auto" 
-                      Margin="0,0,5,0" 
-                      Text=""/>
+            Style="{StaticResource SummaryTextBoxStyle}" 
+            Width="Auto" 
+            Margin="0,0,5,0" 
+            Text=""/>
                             <Button Content="طباعة" 
-                     Grid.Column="1" 
-                     Style="{StaticResource MainButtonStyle}" 
-                     Height="36" 
-                     FontSize="12"
-                     Margin="5,0,0,0"/>
+           Grid.Column="1" 
+           Style="{StaticResource MainButtonStyle}" 
+           Height="36" 
+           FontSize="12"
+           Margin="5,0,0,0"/>
                         </Grid>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
                         <TextBlock Text="نسبة المرتجعات" 
-                    Foreground="{StaticResource TextBrush}" 
-                    VerticalAlignment="Center" 
-                    Margin="0,0,10,0" 
-                    Width="165"
-                    FontSize="16"/>
+          Foreground="{StaticResource TextBrush}" 
+          VerticalAlignment="Center" 
+          Margin="0,0,10,0" 
+          Width="135"
+          FontSize="16"/>
                         <TextBox Style="{StaticResource SummaryTextBoxStyle}" 
-                  Width="200" 
-                  Text=""
-                  Margin="0,0,0,0"/>
+        Width="100" 
+        Text=""
+        Margin="0,0,0,0"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock Text="صافي النسبة" 
-                    Foreground="{StaticResource TextBrush}" 
-                    VerticalAlignment="Center" 
-                    Margin="0,0,10,0" 
-                    Width="165"
-                    FontSize="16"/>
+          Foreground="{StaticResource TextBrush}" 
+          VerticalAlignment="Center" 
+          Margin="0,0,10,0" 
+          Width="125"
+          FontSize="16"/>
                         <TextBox Style="{StaticResource SummaryTextBoxStyle}" 
-                  Width="200" 
-                  FontWeight="ExtraBold" 
-                  Background="#304151" 
-                  IsEnabled="False"
-                  Text=""
-                  Margin="0,0,0,0"/>
+        Width="100" 
+        FontWeight="ExtraBold" 
+        Background="#304151" 
+        IsEnabled="False"
+        Text=""
+        Margin="0,0,0,0"/>
                     </StackPanel>
 
 
@@ -299,7 +299,7 @@
                     <Button Content="صفحه المبيعات كاش" 
 Grid.Column="1"  Background="Red" 
 Style="{StaticResource MainButtonStyle}" 
-Height="40" Width="270"
+Height="40" Width="190"
 FontSize="17"
 Margin="5,20,0,0" />
 

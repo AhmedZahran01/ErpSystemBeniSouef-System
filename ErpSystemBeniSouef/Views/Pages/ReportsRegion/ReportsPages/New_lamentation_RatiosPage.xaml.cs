@@ -53,16 +53,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
             _dateTime2 = new DateTime(3025, 1, 1, 10, 30, 0);
             _repId = 3;
             var commissionReportDtos1 = await _collectorsReports.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 2);
-            
-            //var commissionReportDtos = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 1);
-            //var commissionReportDtos2 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 3);
-            //var commissionReportDtos3 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 4);
-            //var commissionReportDtos4 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
-            //var commissionReportDtos5 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 6);
-            //var commissionReportDtos6 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 7);
-            //var commissionReportDtos7 = await _collectionService.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 8);
-
-
+              
             dataGridOfNewReprese.ItemsSource = commissionReportDtos1;
         }
 
@@ -74,8 +65,9 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
             var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
-            var customersPage = new ChooseRepresentative(representativeService);
+            var customersPage = new HomeReportsChooseTab(_dateTime1, _dateTime2, _repId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(customersPage);
+
         }
     }
 }
