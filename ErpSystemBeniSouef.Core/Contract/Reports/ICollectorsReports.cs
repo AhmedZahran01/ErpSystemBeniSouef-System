@@ -2,37 +2,20 @@
 {
     public interface ICollectorsReports
     {
-        // 1️⃣ Monthly Installments
-        Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(
-            int collectorId,
-            DateTime month
-        );
+        // المبيعات تقسيط 
+        Task<(List<InstallmentReportDto>, decimal totalDeposits, Byte[] fileContent)> GetInstallmentSalesReportAsync(
+            DateTime fromDate, DateTime toDate, int collectorId);
 
-        // 2️⃣ Installment Sales Report
-        Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId
-        );
+        // نسبة المندبة الجديدة 
+        Task<(List<RepresentativeCommissionReportDto>, decimal totalCommissionPercentage, Byte[] fileContent)> GetAllItemsInstallmentSalesReportAsync(
+            DateTime fromDate, DateTime toDate, int collectorId);
 
-        // 5️⃣ Installment Sales Commission Report
-        Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int collectorId
-        );
-
-        // 6️⃣ Print Customers Account
-        Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(
-            DateTime fromDate,
-            DateTime toDate,
-            int representativeId
-        );
-
-        Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
+        // المبيعات كاش
+        Task<(List<CashInvoicesReportDto>, Byte[] fileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
            DateTime fromDate, DateTime toDate, int collectorId);
 
-        Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
+        // نسبة المرتجعات
+        Task<(List<CovenantReportRowDto>, Byte[] fileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
           DateTime fromDate,
           DateTime toDate,
           int collectorId

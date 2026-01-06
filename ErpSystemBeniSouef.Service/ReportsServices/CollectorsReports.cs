@@ -6,66 +6,52 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
     #region Constructor Region
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<List<MonthlyCollectionItemDto>> GetMonthlyInstallmentsAsync(int collectorId, DateTime month)
-    {
-        var installments = _unitOfWork.Repository<MonthlyInstallment>()
-            .GetAllQueryable(
-           x => x.Customer
-        ).Where(x => x.CollectorId == collectorId &&
-                 x.MonthDate == month &&
-                 x.IsPaid == false).ToList();
-
-        return installments.Select(x => new MonthlyCollectionItemDto
-        {
-            InstallmentId = x.Id,
-            CustomerId = x.CustomerId,
-            CustomerName = x.Customer.Name,
-            CustomerPhone = x.Customer.MobileNumber,
-            Area = x.Customer.SubArea.Name,
-            WorkPlace = x.Customer.Address,
-            InstallmentAmount = x.Amount
-        }).ToList();
-    }
-    #endregion
-
     #region Get Installment Sales Report  Region
 
-    public async Task<List<InstallmentReportDto>> GetInstallmentSalesReportAsync(
+    // المبيعات تقسيط 
+    public async Task<(List<InstallmentReportDto>, decimal totalDeposits, Byte[] fileContent)> GetInstallmentSalesReportAsync(
         DateTime fromDate,
         DateTime toDate,
-        int representativeId)
+        int collectorId)
     {
-        var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
+        var monthlyInstallments = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable(x => x.Customer)
             .Include(x => x.Invoice!)
             .ThenInclude(i => i.Items!)
             .ThenInclude(i => i.Product)
             .Include(x => x.Invoice!)
             .ThenInclude(i => i.Installments!)
-            .Where(x => x.CollectorId == representativeId &&
+            .Where(x => x.CollectorId == collectorId &&
                     x.MonthDate.Date >= fromDate.Date &&
                     x.MonthDate.Date <= toDate.Date)
+            .AsQueryable();
+
+        var result = await monthlyInstallments
+            .GroupBy(x => x.InvoiceId)
+            .Select(invoice => new InstallmentReportDto
+            {
+                InvoiceDate = invoice.First().CreatedDate,
+                CustomerName = invoice.First().Customer.Name,
+                CustomerNumber = invoice.First().Customer.CustomerNumber,
+                Deposit = invoice.First().Customer.Deposit,
+                Plans = string.Join("+", invoice.First().Invoice.Installments!.Select(x => $"{x.Amount} * {x.NumberOfMonths}")),
+                Items = string.Join("+", invoice.First().Invoice.Items!.Select(x => $"{x.Quantity} {x.Product.ProductName} ({x.Total})")),
+            })
             .ToListAsync();
 
-        var result = monthlyInstallments.Select(invoice => new InstallmentReportDto
-        {
-            InvoiceDate = invoice.MonthDate,
-            CustomerName = invoice.Customer.Name,
-            CustomerNumber = invoice.Customer.CustomerNumber,
-            TotalAmount = invoice.Invoice.TotalAmount,
-            Deposit = invoice.Customer.Deposit,
-            Plans = string.Join("+", invoice.Invoice.Installments!.Select(x => $"{x.Amount} * {x.NumberOfMonths}")),
-            Items = string.Join("+", invoice.Invoice.Items!.Select(x => $"{x.Quantity} {x.Product.ProductName} ({x.Total})")),
-        }).ToList();
+        var totalDeposits = result.Sum(x => x.Deposit);
 
-        return result;
+        var file = await PrintDeposits(result);
+
+        return (result, totalDeposits, file);
     }
 
     #endregion
 
     #region Get Representative Covenants Region
 
-    public async Task<(List<CovenantReportRowDto>, Byte[] FileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
+    // نسبة المرتجعات
+    public async Task<(List<CovenantReportRowDto>, Byte[] fileContent, decimal totalCommision)> GetRepresentativeCovenantsAsync(
         DateTime fromDate,
         DateTime toDate,
         int representativeId)
@@ -139,7 +125,8 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
 
     #region Get Representative Cash Invoices Region
 
-    public async Task<(List<CashInvoicesReportDto>, Byte[] FileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
+    // المبيعات كاش
+    public async Task<(List<CashInvoicesReportDto>, Byte[] fileContent, decimal totalCash)> GetRepresentativeCashInvoicesAsync(
         DateTime fromDate,
         DateTime toDate,
         int representativeId)
@@ -171,10 +158,130 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
 
         var totalCash = cashInvoicesToPrint.Sum(c => c.TotalAmount);
 
-        using var workbook = new XLWorkbook();
-        var sheet = workbook.AddWorksheet("Total Cash");
+        var file = await PrintcashInvoices(cashInvoicesToPrint);
 
-        var headers = new string[] { "Representative", "Mainarea", "Subarea", "Invoice date", "Total amount" };
+        return (cashInvoicesToTable, file, totalCash);
+    }
+
+    #endregion
+
+    #region Get All Items Installment Sales Report Region
+
+    // نسبة المندبة الجديدة 
+    public async Task<(List<RepresentativeCommissionReportDto>, decimal totalCommissionPercentage, Byte[] fileContent)> GetAllItemsInstallmentSalesReportAsync(
+        DateTime fromDate,
+        DateTime toDate,
+        int representativeId)
+    {
+        var result = await _unitOfWork.Repository<Commission>()
+            .GetAllQueryable()
+            .Where(x =>
+                x.RepresentativeId == representativeId
+                && x.MonthDate.Date >= fromDate.Date
+                && x.MonthDate.Date <= toDate.Date
+            )
+            .Select(c => new RepresentativeCommissionReportDto
+            {
+                ProductName = c.Product.ProductName,
+                CommissionAmount = c.CommissionAmount,
+                QuantitySold = c.InvoiceItem.Quantity,
+                TotalPercentage = c.CommissionAmount * c.InvoiceItem.Quantity
+            })
+            .ToListAsync();
+
+        var totalCommissionPercentage = result.Sum(x => x.TotalPercentage);
+
+        var file = await PrintCommissions(result);
+
+        return (result, totalCommissionPercentage, file);
+    }
+
+    #endregion
+
+    #region Print Region
+
+    private async Task<Byte[]> PrintDeposits(List<InstallmentReportDto> installments)
+    {
+        using var workbook = new XLWorkbook();
+        var sheet = workbook.AddWorksheet("المقدمات");
+
+        var headers = new string[] { "اسم العميل", "المقدم"};
+
+        for (int i = 0; i < headers.Length; i++)
+            sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+        var headerRange = sheet.Range(1, 1, 1, headers.Length);
+        headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+        headerRange.Style.Font.SetBold();
+        headerRange.Style.Font.SetFontSize(14);
+        headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        for (int rowIndex = 0; rowIndex < installments.Count; rowIndex++)
+        {
+            var s = installments[rowIndex];
+            int excelRow = rowIndex + 2;
+
+            sheet.Cell(excelRow, 1).SetValue(s.CustomerName);
+            sheet.Cell(excelRow, 2).SetValue(s.Deposit);
+        }
+
+        sheet.Columns().AdjustToContents();
+        sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+        sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+        sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+        await using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+
+        return (stream.ToArray());
+    }
+
+    private async Task<Byte[]> PrintCommissions(List<RepresentativeCommissionReportDto> representativeCommissions)
+    {
+        using var workbook = new XLWorkbook();
+        var sheet = workbook.AddWorksheet("نسبة المندبة");
+
+        var headers = new string[] { "اسم السلعة ", "نسبة السلعة", "العدد المباع", "النسبة الكلية لكل سلعة" };
+
+        for (int i = 0; i < headers.Length; i++)
+            sheet.Cell(1, i + 1).SetValue(headers[i]);
+
+        var headerRange = sheet.Range(1, 1, 1, headers.Length);
+        headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+        headerRange.Style.Font.SetBold();
+        headerRange.Style.Font.SetFontSize(14);
+        headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+        for (int rowIndex = 0; rowIndex < representativeCommissions.Count; rowIndex++)
+        {
+            var s = representativeCommissions[rowIndex];
+            int excelRow = rowIndex + 2;
+
+            sheet.Cell(excelRow, 1).SetValue(s.ProductName);
+            sheet.Cell(excelRow, 2).SetValue(s.CommissionAmount);
+            sheet.Cell(excelRow, 3).SetValue(s.QuantitySold);
+            sheet.Cell(excelRow, 4).SetValue(s.TotalPercentage);
+        }
+
+        sheet.Columns().AdjustToContents();
+        sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+        sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+        sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
+        sheet.CellsUsed().Style.Font.SetFontSize(12);
+
+        await using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+
+        return (stream.ToArray());
+    }
+
+    private async Task<Byte[]> PrintcashInvoices(List<PrintCashInvoicesDto> cashInvoicesToPrint)
+    {
+        using var workbook = new XLWorkbook();
+        var sheet = workbook.AddWorksheet("إجمالي المقدمات");
+
+        var headers = new string[] { "المندوب", "المنطقة الرئيسية", "المنطقة الفرعية", "تاريخ الفاتورة", "المبلغ الإجمالي" };
 
         for (int i = 0; i < headers.Length; i++)
             sheet.Cell(1, i + 1).SetValue(headers[i]);
@@ -206,103 +313,7 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
         await using var stream = new MemoryStream();
         workbook.SaveAs(stream);
 
-        return (cashInvoicesToTable, stream.ToArray(), totalCash);
-    }
-
-    #endregion
-
-    #region Get All Items Installment Sales Report Region
-
-    public async Task<List<RepresentativeCommissionReportDto>> GetAllItemsInstallmentSalesReportAsync(
-        DateTime fromDate,
-        DateTime toDate,
-        int representativeId)
-    {
-        var result = await _unitOfWork.Repository<Commission>()
-            .GetAllQueryable()
-            .Include(x => x.Representative)
-            .Include(x => x.Product)
-            .Include(x => x.InvoiceItem)
-            .Where(x =>
-                x.RepresentativeId == representativeId
-                && x.MonthDate.Date >= fromDate.Date
-                && x.MonthDate.Date <= toDate.Date)
-                .Select(c => new RepresentativeCommissionReportDto
-                {
-                    ProductName = c.Product.ProductName,
-                    CommissionAmount = c.CommissionAmount,
-                    QuantitySold = c.InvoiceItem.Quantity,
-                    TotalPercentage = c.CommissionAmount * c.InvoiceItem.Quantity
-                })
-                .ToListAsync();
-
-        return result;
-    }
-
-    #endregion
-
-    #region Print Customers Account Region
-
-    public async Task<(Byte[] FileContent, decimal totalDeposits)> PrintCustomersAccountAsync(
-        DateTime fromDate,
-        DateTime toDate,
-        int representativeId)
-    {
-        var customers = await _unitOfWork.Repository<Customer>()
-            .GetAllQueryable(x => x.Representative!, x => x.Collector!, x => x.SubArea!, x => x.Invoices!)
-            .Where(x =>
-                x.RepresentativeId == representativeId
-                && x.FirstInvoiceDate.Date >= fromDate.Date
-                && x.FirstInvoiceDate.Date <= toDate.Date)
-            .Select(c => new CustomerAccountDto
-            {
-                CustomerName = c.Name,
-                Deposit = c.Deposit,
-                TotalInvoices = c.Invoices!
-                    .Where(i => i.InvoiceDate >= fromDate && i.InvoiceDate <= toDate)
-                    .Sum(i => (decimal?)i.TotalAmount) ?? 0
-            })
-            .ToListAsync();
-
-        customers.ForEach(c => c.NetAmount = c.TotalInvoices - c.Deposit);
-
-        var totalDeposits = customers.Sum(c => c.Deposit);
-
-        using var workbook = new XLWorkbook();
-        var sheet = workbook.AddWorksheet("customers");
-
-        var headers = new string[] { "Customer Name", "Deposit", "TotalInvoices", "NetAmount " };
-
-        for (int i = 0; i < headers.Length; i++)
-            sheet.Cell(1, i + 1).SetValue(headers[i]);
-
-        var headerRange = sheet.Range(1, 1, 1, headers.Length);
-        headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
-        headerRange.Style.Font.SetBold();
-        headerRange.Style.Font.SetFontSize(14);
-        headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-
-        for (int rowIndex = 0; rowIndex < customers.Count; rowIndex++)
-        {
-            var s = customers[rowIndex];
-            int excelRow = rowIndex + 2;
-
-            sheet.Cell(excelRow, 1).SetValue(s.CustomerName);
-            sheet.Cell(excelRow, 2).SetValue(s.Deposit);
-            sheet.Cell(excelRow, 3).SetValue(s.TotalInvoices);
-            sheet.Cell(excelRow, 4).SetValue(s.NetAmount);
-        }
-
-        sheet.Columns().AdjustToContents();
-        sheet.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-        sheet.CellsUsed().Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
-        sheet.CellsUsed().Style.Border.OutsideBorderColor = XLColor.Black;
-        sheet.CellsUsed().Style.Font.SetFontSize(12);
-
-        await using var stream = new MemoryStream();
-        workbook.SaveAs(stream);
-
-        return (stream.ToArray(), totalDeposits);
+        return (stream.ToArray());
     }
 
     #endregion
