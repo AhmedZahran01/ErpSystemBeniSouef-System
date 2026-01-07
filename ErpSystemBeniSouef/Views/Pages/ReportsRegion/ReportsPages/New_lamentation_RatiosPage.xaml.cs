@@ -54,7 +54,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
             _repId = 3;
             var commissionReportDtos1 = await _collectorsReports.GetAllItemsInstallmentSalesReportAsync(_dateTime1, _dateTime2, 2);
               
-            dataGridOfNewReprese.ItemsSource = commissionReportDtos1;
+                var d =  commissionReportDtos1;
+            dataGridOfNewReprese.ItemsSource = d.Item1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

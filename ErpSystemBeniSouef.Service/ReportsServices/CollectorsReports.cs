@@ -4,7 +4,9 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
 {
 
     #region Constructor Region
+
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    #endregion
 
     #region Get Installment Sales Report  Region
 
@@ -233,7 +235,7 @@ public class CollectorsReports(IUnitOfWork unitOfWork) : ICollectorsReports
         using var workbook = new XLWorkbook();
         var sheet = workbook.AddWorksheet("المقدمات");
 
-        var headers = new string[] { "اسم العميل", "المقدم"};
+        var headers = new string[] { "اسم العميل", "المقدم" };
 
         for (int i = 0; i < headers.Length; i++)
             sheet.Cell(1, i + 1).SetValue(headers[i]);

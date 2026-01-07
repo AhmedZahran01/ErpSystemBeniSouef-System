@@ -53,13 +53,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="43"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="68"/>
+            <RowDefinition Height="71"/>
         </Grid.RowDefinitions>
         <userControls:TitleBar FlowDirection="LeftToRight"/>
 
         <Grid Margin="15" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="270"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -91,28 +91,34 @@
 
             <Border Grid.Column="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5">
                 <DataGrid Background="#1E3040" 
-                    Foreground="White"   Name="RepresentativeDataGridReceipts"
+                    Foreground="Black"   Name="RepresentativeDataGridReceipts"
                     AutoGenerateColumns="False" 
-                    GridLinesVisibility="All"
+                    GridLinesVisibility="All" FontSize="17"
                     VerticalGridLinesBrush="White"
                     HorizontalGridLinesBrush="White"
                     RowHeight="35">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="FontSize" Value="19"/>
                             <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                             <Setter Property="BorderBrush" Value="White"/>
                             <Setter Property="BorderThickness" Value="0,0,1,1"/>
                         </Style>
+
+                        <Style TargetType="DataGridRowHeader">
+                            <!--<Setter Property="FontSize" Value="32"/>-->
+
+                        </Style>
                     </DataGrid.Resources >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="المنطقة" Binding="{Binding Area}" Width="*"/>
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="*"/>
                         <DataGridTextColumn Header="مكان العمل أو الإقامة" Binding="{Binding Address}" Width="1.5*"/>
-                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding Name}" Width="1.2*"/>
-                        <DataGridTextColumn Header="رقم العميل حسب المنطقة" Binding="{Binding RegionalID}" Width="*"/>
-                        <DataGridTextColumn Header="المبلغ المراد تحصيله" Binding="{Binding AmountToCollect}" Width="*"/>
+                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1.2*"/>
+                        <DataGridTextColumn Header="رقم العميل حسب المنطقة" Binding="{Binding CustomerNumber }" Width="*"/>
+                        <DataGridTextColumn Header="المبلغ المراد تحصيله" Binding="{Binding TotalPrice}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
@@ -126,10 +132,10 @@ HorizontalAlignment="Right"
 Content="↩"
 FontSize="35"
 Width="90"
-Height="58"
+Height="52"
 Foreground="White"
 Style="{StaticResource triggerrr}" 
-Margin="21,10,40,1" Click="BackBtn_Click"  />
+Margin="1,0,50,11" Click="BackBtn_Click"  />
         </Grid>
 
     </Grid>

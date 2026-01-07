@@ -42,8 +42,14 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
         private async Task LoadReceipts(int mainId = 4, int fr = 1, int to = 100000)
         {
             DateTime monthDate = DateTime.UtcNow;
-            (var receiptsData4, var fileData4) = await _receiptService.GetCollectorReceiptsAsync(monthDate, 2);
-            RepresentativeDataGridReceipts.ItemsSource = receiptsData4;
+            //(var receiptsData4, var fileData4) = await _receiptService.GetCollectorReceiptsAsync(monthDate, 2);
+            //(var receiptsData42, var fileData24) = await _receiptService.GetCollectorReceiptsAsync(monthDate, 3);
+            (var receiptsData14, var fileData41) = await _receiptService.GetCollectorReceiptsAsync(monthDate, 4);
+            (var receiptsData422, var fileData434) = await _receiptService.GetCollectorReceiptsAsync(monthDate,5);
+            //(var receiptsData4221, var fileData44) = await _receiptService.GetCollectorReceiptsAsync(monthDate, 6);
+            //(var receiptsData4222, var fileData45) = await _receiptService.GetCollectorReceiptsAsync(monthDate, 7);
+            
+            RepresentativeDataGridReceipts.ItemsSource = receiptsData14;
              
 
         }

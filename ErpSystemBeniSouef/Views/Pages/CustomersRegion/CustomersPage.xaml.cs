@@ -7,9 +7,9 @@ using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
-using ErpSystemBeniSouef.Dtos.MainAreaDto; 
+using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage; 
+using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -106,12 +106,15 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             var CustomerInvoiceList = await _customerInvoiceService.GetAllCustomerInvoicesAsync();
             observCustomerInvoiceList.Clear();
             observCustomerInvoiceFilteredList.Clear();
-            foreach (var product in CustomerInvoiceList.Data)
+            if (CustomerInvoiceList.Data != null)
             {
-                product.DisplayId = countDisplayNo + 1;
-                observCustomerInvoiceList.Add(product);
-                observCustomerInvoiceFilteredList.Add(product);
-                countDisplayNo++;
+                foreach (var product in CustomerInvoiceList.Data)
+                {
+                    product.DisplayId = countDisplayNo + 1;
+                    observCustomerInvoiceList.Add(product);
+                    observCustomerInvoiceFilteredList.Add(product);
+                    countDisplayNo++;
+                }
             }
 
 
@@ -342,7 +345,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
                 MessageBox.Show("من فضلك اختر عميل أولاً من الجدول.", "تنبيه", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-              
+
             // رسالة تأكيد
             var result = MessageBox.Show(
                 "هل أنت متأكد أنك تريد حذف هذا العميل والفواتير الخاصة به؟",
@@ -720,9 +723,9 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
             var detailsPage = new CashCustomerInvoicePage(productService, mainAreaService, subAreaService,
                                         representativeService, cashCustomerInvoiceService);
-           
+
             NavigationService?.Navigate(detailsPage);
         }
-   
+
     }
 }

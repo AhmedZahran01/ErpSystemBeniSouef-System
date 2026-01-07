@@ -21,13 +21,16 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 {
-    public class CustomerInvoiceService
+    public class CustomerInvoiceService: ICustomerInvoiceService
     {
         #region Properies Region
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
+        public CustomerInvoiceService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         #endregion
 
         #region Create Customer Invoice
@@ -157,7 +160,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 c => c.SubArea,
                 c => c.Collector,
                 c => c.Representative,
-                c => c.Invoices
+                c => c.Invoices 
                                 );
 
 
@@ -165,7 +168,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 if (customers == null || customers.Count == 0)
                     return ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>.Failure("No customer invoices found.");
 
-                int serial = 1;
+                int serial = 1; 
 
                 var response = customers.Select(c => new ReturnCustomerInvoiceListDTO
                 {
