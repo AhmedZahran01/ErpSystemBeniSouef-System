@@ -95,11 +95,11 @@
             <Border Grid.Row="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" Margin="0,0,0,15">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="الشهر" FontSize="18" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <DatePicker Width="150" Height="35" Margin="0,0,20,0" Name="DateMonth"/>
+                    <DatePicker Width="150" Height="35" Margin="20,0,80,0" Name="DateMonth"/>
 
                     <TextBlock Text="اسم المندوب" FontSize="18" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <ComboBox Name="RepresenComoBox" Style="{StaticResource BlackTextComboBox}" Width="120" Height="24"
-                              
+                              SelectionChanged="RepresenComoBox_SelectionChanged"
                               HorizontalAlignment="Center"
                           DisplayMemberPath="Name"  
                            SelectedValuePath="Id" />
@@ -129,7 +129,7 @@
                              Height="29"
                              SelectedValuePath="Content">
                             <ComboBoxItem Content="استلام" IsSelected="True"/>
-                            <ComboBoxItem Content="صرف"/>
+                            <ComboBoxItem Content="ارجاع"/>
                         </ComboBox>
 
 

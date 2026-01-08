@@ -55,7 +55,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion
         private void PrintMonthlyReceiptsByRepresentative_Click(object sender, RoutedEventArgs e)
         {
             var receiptService = App.AppHost.Services.GetRequiredService<IReceiptService>(); 
-            var Dashboard = new ReceiptsPages.Monthly_Receipts_AccordingToTheCollector(receiptService);
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>(); 
+            var Dashboard = new ReceiptsPages.Monthly_Receipts_AccordingToTheCollector(receiptService , representativeService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
     }

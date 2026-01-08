@@ -109,7 +109,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
     }
 
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int collectorId)
+    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int? collectorId=null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -121,7 +121,8 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             .AsNoTracking()
             .AsQueryable();
 
-        query = query.Where(x => x.Collector.Id == collectorId);
+        if (collectorId.HasValue)
+            query = query.Where(x => x.Collector.Id == collectorId);
 
         if (month.HasValue)
             query = query.Where(x => x.MonthDate.Year == month.Value.Year && x.MonthDate.Month == month.Value.Month);

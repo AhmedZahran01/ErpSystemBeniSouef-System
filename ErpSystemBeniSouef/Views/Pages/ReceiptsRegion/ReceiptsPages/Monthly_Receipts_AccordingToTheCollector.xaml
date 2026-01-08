@@ -19,6 +19,32 @@
         <SolidColorBrush x:Key="GridHeaderBrush" Color="#304151"/>
         <SolidColorBrush x:Key="GridLineBrush" Color="#FFFFFF"/>
 
+
+        <Style TargetType="DataGrid" x:Key="CollectionDataGridStyle">
+            <Setter Property="Background" Value="#1E3040"/>
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+            <Setter Property="RowBackground" Value="#253748"/>
+            <Setter Property="AlternatingRowBackground" Value="#2B3A4A"/>
+            <Setter Property="GridLinesVisibility" Value="All"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource GridLineBrush}"/>
+            <Setter Property="RowHeight" Value="35"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>
+                        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource GridLineBrush}"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style x:Key="BlackTextComboBox" TargetType="ComboBox">
             <Setter Property="Height" Value="35"/>
             <Setter Property="Margin" Value="0,0,0,15"/>
@@ -59,72 +85,193 @@
 
         <Grid Margin="15" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="270"/>
+                <ColumnDefinition Width="250"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" Margin="0,0,15,0">
-                <StackPanel>
+                <StackPanel Width="150">
                     <TextBlock Text="الشهر" Foreground="White" FontSize="14" Margin="0,0,0,5"/>
-                    <DatePicker Height="35" Margin="0,0,0,15"/>
+                    <DatePicker Height="35" Margin="0,0,0,15" Name="SearchMonthDate"/>
 
                     <TextBlock Text="اسم المحصل" Foreground="White" FontSize="14" Margin="0,0,0,5"/>
-                    <ComboBox Style="{StaticResource BlackTextComboBox}">
-                        <ComboBoxItem Content="" IsSelected="True"/>
+                    <ComboBox Name="repComboBox"  DisplayMemberPath="Name" SelectedValuePath="Id"
+                              Style="{StaticResource BlackTextComboBox}">
                     </ComboBox>
 
-                    <UniformGrid Columns="2" Margin="0,10,0,10">
-                        <Button Content="طباعة" Style="{StaticResource SidebarButtonStyle}" Margin="0,0,5,0"/>
-                        <Button Content="طباعة الملاحظات" Style="{StaticResource SidebarButtonStyle}" Margin="5,0,0,0"/>
-                    </UniformGrid>
+                    <Button Content="تقرير تحصيل الشهر" Style="{StaticResource SidebarButtonStyle}" Margin="0 10 0 20 " Click="SearchBtn_Click" />
 
-                    <Button Content="تقرير تحصيل الشهر" Style="{StaticResource SidebarButtonStyle}"/>
+                    <Button Content="طباعة" Style="{StaticResource SidebarButtonStyle}" Margin="0,10,5,20"/>
+
+                    <Button Content="طباعة الملاحظات" Style="{StaticResource SidebarButtonStyle}" Margin="5,10,0,20"/>
+
 
                     <Button Content="تسليم التحصيل لشاشة التحصيل" 
                       Style="{StaticResource SidebarButtonStyle}" 
-                      Height="80" 
-                      Background="#253748"
+                      Height="50" FontSize="8"
                       BorderBrush="#0E6C8E"
                       BorderThickness="1"/>
                 </StackPanel>
+                <!--Background="#253748"-->
             </Border>
 
-            <Border Grid.Column="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5">
-                <DataGrid Background="#1E3040" 
-                    Foreground="Black"   Name="RepresentativeDataGridReceipts"
-                    AutoGenerateColumns="False" 
+            <Border Grid.Column="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15">
+
+                <!--<DataGrid Background="#1E3040"    Name="RepresentativeDataGridReceipts"
+                    AutoGenerateColumns="False"  Foreground="Black"
                     GridLinesVisibility="All" FontSize="17"
                     VerticalGridLinesBrush="White"
                     HorizontalGridLinesBrush="White"
-                    RowHeight="35">
-                    <DataGrid.Resources>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="Background" Value="{StaticResource GridHeaderBrush}"/>
-                            <Setter Property="Foreground" Value="Black"/>
-                            <Setter Property="FontSize" Value="19"/>
-                            <Setter Property="FontWeight" Value="Bold"/>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                            <Setter Property="BorderBrush" Value="White"/>
-                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                        </Style>
+                    RowHeight="35"
+                          >-->
+                <DataGrid Foreground="Black" FontSize="14" x:Name="RepresentativeDataGridReceipts" Style="{StaticResource CollectionDataGridStyle}" >
 
-                        <Style TargetType="DataGridRowHeader">
-                            <!--<Setter Property="FontSize" Value="32"/>-->
-
-                        </Style>
-                    </DataGrid.Resources >
                     <DataGrid.Columns >
-                        <DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="*"/>
-                        <DataGridTextColumn Header="مكان العمل أو الإقامة" Binding="{Binding Address}" Width="1.5*"/>
-                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1.2*"/>
-                        <DataGridTextColumn Header="رقم العميل حسب المنطقة" Binding="{Binding CustomerNumber }" Width="*"/>
-                        <DataGridTextColumn Header="المبلغ المراد تحصيله" Binding="{Binding TotalPrice}" Width="*"/>
+                        <!--<DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding AreaName}" Header="المنطقة" Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+             <Setter Property="Background" Value="#1F2E3A"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="مكان العمل أو الإقامة" Binding="{Binding Address}" Width="1.5*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding Address}" Header="مكان العمل أو الإقامة"
+                     Width="1.5*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+             <Setter Property="Background" Value="#1F2E3A"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1.2*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding CustomerName}" Header="اسم العميل"
+                    Width="1.5*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="#1F2E3A"/>-->
+
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>    
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="رقم العميل  " Binding="{Binding CustomerNumber }" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding CustomerNumber}" Header="رقم العميل  "
+                     Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+             <Setter Property="Background" Value="#1F2E3A"/>-->
+
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+
+                        <!--<DataGridTextColumn Header="المبلغ المراد تحصيله" Binding="{Binding TotalPrice}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding TotalPrice}" Header=" السعر "
+Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Background" Value="#1F2E3A"/>
+               <Setter Property="Foreground" Value="Black"/>-->
+
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>                                    
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
         </Grid>
 
         <Grid Grid.Row="2">
+
+
+            <StackPanel  HorizontalAlignment="Center" Margin="5,20,0,0">
+
+                <ProgressBar
+x:Name="LoadingBar"
+Width="270"
+Height="6"
+IsIndeterminate="True"
+Visibility="Collapsed"/>
+
+                <TextBlock
+x:Name="LoadingText"
+Foreground="White" 
+FontSize="15"
+Margin="0,10,0,0"
+TextAlignment="Center"
+Visibility="Collapsed"/>
+            </StackPanel>
+
+
             <!-- زر الرجوع -->
             <Button Grid.Row="1"
 VerticalAlignment="Bottom"
