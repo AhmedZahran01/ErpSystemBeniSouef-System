@@ -80,11 +80,28 @@ namespace ErpSystemBeniSouef.Service.CovenantServices
             {
                 Id = c.Id,
                 CovenantType = c.CovenantType,
-                CovenantDate = c.CovenantDate
+                CovenantDate = c.CovenantDate,
+                representativeId = c.RepresentativeId,
             }).ToList();
 
             return result;
         }
+
+        public async Task<List<ReturnCovenant>> GetAllCovenantsBySpecificRepresentative(int RepId)
+        {
+            var covenants =  _unitOfWork.Repository<Covenant>().GetByCondionAndInclide( r => r.RepresentativeId == RepId);
+
+            var result = covenants.Select(c => new ReturnCovenant
+            {
+                Id = c.Id,
+                CovenantType = c.CovenantType,
+                CovenantDate = c.CovenantDate,
+                representativeId = c.RepresentativeId,
+            }).ToList();
+
+            return result;
+        }
+
         public async Task<List<ReturnCovenantItem>> GetCovenantItemsByCovenantId(int covenantId)
         {
             //var covenant = await _unitOfWork.Repository<Covenant>()

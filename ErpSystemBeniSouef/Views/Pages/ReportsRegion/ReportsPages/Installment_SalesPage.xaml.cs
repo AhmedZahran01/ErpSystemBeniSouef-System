@@ -67,7 +67,9 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
             _repId = 3;
 
             //var s2 = await _collectionService.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 4);
-            List<InstallmentReportDto> installmentReportDtos = await _collectorsReports.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
+                var x = await _collectorsReports.GetInstallmentSalesReportAsync(_dateTime1, _dateTime2, 5);
+            List<InstallmentReportDto> installmentReportDtos = x.Item1 as List<InstallmentReportDto>;
+            decimal totalDeposits = x.totalDeposits;
             int index = 0;
             foreach (var item in installmentReportDtos)
             {
@@ -76,8 +78,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReportsRegion.ReportsPages
                     CustomerName = item.CustomerName,
                     CustomerNumber = item.CustomerNumber,
                     Deposit = item.Deposit,
-                    InvoiceDate = item.InvoiceDate,
-                    TotalAmount = item.TotalAmount,
+                    InvoiceDate = item.InvoiceDate, 
                     Items = item.Items,
                     Plans = item.Plans,
                     DisplayUiId = ++index

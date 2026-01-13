@@ -28,7 +28,7 @@ namespace ErpSystemBeniSouef.Core.Entities.CustomerInvoices
         public Representative? Representative { get; set; }
 
 
-        public ICollection<CustomerInvoice>? Invoices { get; set; }
+        public ICollection<CustomerInvoice>? Invoices { get; set; } 
         
     }
 }

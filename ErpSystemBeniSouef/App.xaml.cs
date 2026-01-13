@@ -35,6 +35,7 @@ using ErpSystemBeniSouef.Service.SupplierAccountServices;
 using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.Products;
 using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -202,7 +203,8 @@ namespace ErpSystemBeniSouef
 
 
             //var login = new Cash_SalesPage(collectionService );
-            var login = new HomeReceiptsPage();
+            //var login = new HomeReceiptsPage();
+            var login = new Dashboard();
             //var login = new StartPageBeforeLogin();
 
 

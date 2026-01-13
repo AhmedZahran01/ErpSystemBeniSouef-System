@@ -100,7 +100,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" Margin="0,0,10,0">
+            <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" Margin="0,0,11,0">
                 <StackPanel>
                     <TextBlock Text="اسم المنطقة" Foreground="{StaticResource TextBrush}" FontSize="14" Margin="0,0,0,5"/>
                     <ComboBox Name="MainAreaCombo" Style="{StaticResource BlackTextComboBox}" 
@@ -114,10 +114,24 @@
 
                     <TextBlock Text="إلى رقم عميل" Foreground="{StaticResource TextBrush}" FontSize="14" Margin="0,0,0,5"/>
                     <TextBox Height="35"  Name="ToClient" Margin="0,0,0,20" Background="#1E3040" Foreground="White" BorderBrush="#304151" VerticalContentAlignment="Center" Padding="5,0"/>
+                    <!--<Button Content="طباعة الإيصالات بالكامل" Style="{StaticResource MainButtonStyle}" FontSize="14" Click="GetReceiptDataBtn_Click"/>-->
+                    <Button Margin="0 10 0 20" Style="{StaticResource MainButtonStyle}"
+                            FontSize="14"   Click="GetReceiptDataBtn_Click">
+                        <TextBlock 
+                               Text="طباعة الإيصالات &#x0a;بالكامل   "
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"/>
+                    </Button>
 
-                    <Button Content="طباعة الإيصالات بالكامل" Style="{StaticResource MainButtonStyle}" Click="GetReceiptDataBtn_Click"/>
-                    <Button Content="طباعة دفتر العملاء" Style="{StaticResource MainButtonStyle}"/>
-                    <Button Content="طباعة دفتر العملاء النموذج رقم 2" Style="{StaticResource MainButtonStyle}" FontSize="9"/>
+                    <Button Margin="0 10 0 20"  Content="طباعة دفتر العملاء" Style="{StaticResource MainButtonStyle}" FontSize="14"/>
+                    <!--<Button Content="طباعة دفتر العملاء النموذج رقم 2" Style="{StaticResource MainButtonStyle}" FontSize="9"/>-->
+                    <Button Margin="0 10 0 20" Style="{StaticResource MainButtonStyle}" FontSize="14">
+                        <TextBlock 
+                             Text="طباعة دفتر العملاء&#x0a;النموذج رقم 2"
+                             TextAlignment="Center"
+                             TextWrapping="Wrap"/>
+                    </Button>
+
                 </StackPanel>
             </Border>
 

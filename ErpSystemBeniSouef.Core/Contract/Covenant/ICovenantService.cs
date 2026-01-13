@@ -11,6 +11,7 @@ namespace ErpSystemBeniSouef.Core.Contract.Covenant
     {
         Task<bool> addCovenant(AddCovenantToRepresentative dto);
         Task<List<ReturnCovenant>> GetAllCovenants();
+        Task<List<ReturnCovenant>> GetAllCovenantsBySpecificRepresentative(int RepId);
         Task<ReturnCovenant> GetCovenantById(int Id);
         Task<List<ReturnCovenantItem>> GetCovenantItemsByCovenantId(int covenantId);
         Task<bool> addCovenantItems(AddCovenantItemsDto dto);
