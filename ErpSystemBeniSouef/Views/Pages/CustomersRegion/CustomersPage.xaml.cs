@@ -502,6 +502,12 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
         private void AddInvoiceItemCustomer_Click(object sender, RoutedEventArgs e)
         {
+            int quantityTxt = int.TryParse(QuantityTxt.Text, out int amount) ? amount : 0;
+            if (quantityTxt == 0)
+            {
+                MessageBox.Show("ادخل قيمه للكميه ");
+                return;
+            }
             ProductDto selectedProduct = (ProductDto)ProductCombo.SelectedItem;
             CategoryDto selectedProductType = (CategoryDto)ProductTypeCombo.SelectedItem;
             Customerinvoicedtos customerinvoicedtoss = new Customerinvoicedtos()
