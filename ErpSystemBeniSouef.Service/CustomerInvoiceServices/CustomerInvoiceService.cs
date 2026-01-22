@@ -334,8 +334,13 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     //  Deduct Representative Commission
                     await DeductCommissionForInvoice(invoice, representative.Id);
                     //  Remove monthly installments and plans related to this invoice
+                   
                     var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
                         .GetAllAsync(m => m.InvoiceId == invoice.Id);
+
+
+                    //var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
+                    //    .GetByCondionAndInclideAsync(m => m.InvoiceId == invoice.Id);
 
                     if (monthlyInstallments != null && monthlyInstallments.Any())
                     {
@@ -345,6 +350,11 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 
                     var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
                         .GetAllAsync(p => p.InvoiceId == invoice.Id);
+
+
+                    //var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
+                    //    .GetByCondionAndInclideAsync(p => p.InvoiceId == invoice.Id);
+
 
                     if (installmentPlans != null && installmentPlans.Any())
                     {
@@ -553,6 +563,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         {
             var commissionRepo = _unitOfWork.Repository<Commission>();
             var commissions = await commissionRepo.GetAllAsync(c => c.Representative);
+            //var commissions = await commissionRepo.GetAllAsync();
 
             var commission = commissions
                 .FirstOrDefault(c => c.InvoiceId == invoice.Id && c.RepresentativeId == representativeId);

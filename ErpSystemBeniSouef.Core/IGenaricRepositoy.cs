@@ -29,6 +29,10 @@ namespace ErpSystemBeniSouef.Core
 
         Task<T?> GetByIdWithIncludeAsync(int id, Func<IQueryable<T>, IQueryable<T>> include);
 
+        Task<List<T>> GetByCondionAndInclideAsync(
+        Expression<Func<T, bool>> query,
+        params Expression<Func<T, object>>[] includes);
+
         #endregion
 
         #region Get By Id Region

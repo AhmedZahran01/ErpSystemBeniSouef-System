@@ -186,5 +186,24 @@ namespace ErpSystemBeniSouef.Infrastructer
 
         #endregion
 
+        #region Get By Condion And Inclide Region
+
+        public async Task<List<T>> GetByCondionAndInclideAsync(
+         Expression<Func<T, bool>> query,
+         params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> dbQuery = _context.Set<T>().AsNoTracking();
+
+            // Apply includes if provided
+            foreach (var include in includes)
+            {
+                dbQuery = dbQuery.Include(include);
+            }
+
+            return await dbQuery.Where(query).ToListAsync();
+        }
+
+        #endregion
+
     }
 }
