@@ -1,6 +1,7 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.Receipt;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
+using ErpSystemBeniSouef.ReceiptPdfDocumentFolder;
 using ErpSystemBeniSouef.ViewModel;
 using System.Data;
 using System.Windows;
@@ -125,66 +126,63 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         private void PrintDataReceiptBtn_Click(object sender, RoutedEventArgs e)
         {
-            int selectedGridItems = ReceiptsDataGrid.SelectedItems.Count;
+            //var pdfService = new ReceiptPdfService();
+            var pdfService = new ReceiptPdfService();
 
-            if (selectedGridItems == 0)
+            // لو مفيش تحديد => اطبع الكل
+            if (ReceiptsDataGrid.SelectedItems.Count == 0)
             {
-                // رسالة تأكيد
                 var result = MessageBox.Show(
-                "هل أنت متأكد أنك تريد طباعه الكل ؟",
-                "تأكيد الطباعه",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning
-            );
-
-                if (result == MessageBoxResult.Yes)
-                {
-                    List<int> allReceiptsIds = getAllReceiptsDtos.Select(e => e.DisplayUIId).ToList();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show(" تم الالغاء ");
-                    return;
-
-                }
-            }
-
-            else
-            {
-                // رسالة تأكيد
-                var result = MessageBox.Show(
-                "هل أنت متأكد أنك تريد طباعه الايصالات المحدده ؟",
-                "تأكيد الطباعه",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning
+                    "هل أنت متأكد أنك تريد طباعة كل الإيصالات ؟",
+                    "تأكيد الطباعة",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
                 );
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    //if (ReceiptsDataGrid.SelectedItems is List<GetAllReceiptsDto> selected)
-
-                    if (ReceiptsDataGrid.SelectedItems.Count > 0)
-                    {
-                        List<GetAllReceiptsDto> selectedItemsDto = ReceiptsDataGrid.SelectedItems.Cast<GetAllReceiptsDto>().ToList();
-
-                        List<int> allReceiptsIds = selectedItemsDto.Select(e => e.DisplayUIId).ToList();
-                        return;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(" تم الالغاء ");
+                if (result != MessageBoxResult.Yes)
                     return;
-                }
+
+
+                var allReceipts = getAllReceiptsDtos.ToList();
+
+                var filePath = pdfService.GenerateAllReceiptsInOnePdf(allReceipts);
+
+                MessageBox.Show("تم إنشاء ملف PDF واحد يحتوي على كل الإيصالات");
+
+                pdfService.OpenFolder();
+
+                //var allReceipts = getAllReceiptsDtos.ToList();
+
+                //var files = pdfService.GenerateReceipts(allReceipts);
+
+                //MessageBox.Show($"تم إنشاء {files.Count} إيصال PDF بنجاح");
+
+                //pdfService.OpenFolder();
             }
+            else
+            {
+                var result = MessageBox.Show(
+                    "هل أنت متأكد أنك تريد طباعة الإيصالات المحددة ؟",
+                    "تأكيد الطباعة",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
+                );
 
+                if (result != MessageBoxResult.Yes)
+                    return;
 
+                var selectedItemsDto = ReceiptsDataGrid.SelectedItems
+                    .Cast<GetAllReceiptsDto>()
+                    .ToList();
 
+                var files = pdfService.GenerateReceipts(selectedItemsDto);
 
-            
+                MessageBox.Show($"تم إنشاء {files.Count} إيصال PDF بنجاح");
 
+                pdfService.OpenFolder();
+            }
         }
-   
+
+         
     }
 }

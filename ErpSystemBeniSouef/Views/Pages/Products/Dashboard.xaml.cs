@@ -130,15 +130,15 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
 
         private void SundriesPage_Click(object sender, RoutedEventArgs e)
         {
-            //var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
             var pettyCashService = App.AppHost.Services.GetRequiredService<IPettyCashService>();
             var Dashboard = new SundriesPage(pettyCashService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
         }
 
         private void RepresenWithdrawalPage_Click(object sender, RoutedEventArgs e)
-        {
-            var withdrawalPage = new RepresenWithdrawalPage();
+        { 
+            var representativeService = App.AppHost.Services.GetRequiredService<IRepresentativeService>();
+            var withdrawalPage = new RepresenWithdrawalPage(representativeService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(withdrawalPage);
         }
     }
