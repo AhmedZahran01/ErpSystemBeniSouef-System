@@ -66,13 +66,14 @@
             </StackPanel>
 
             <!-- التسجيل -->
-            <StackPanel  Grid.Row="1" Grid.Column="1" Background="#1B7F" Margin="10"  >
+            <StackPanel  Grid.Row="1" Grid.Column="1" Background="#1B7F" Margin=" 10 0 10 20"  >
                 <TextBlock Text=""   Style="{StaticResource HeaderTextBlock}"/>
                 <Button Content="العملاء"    Style="{StaticResource TestButtonStyle}" Click="CustomersPage_Click" />
                 <Button Content="الفواتير ونقدية الموردين"  FontSize="22" Style="{StaticResource TestButtonStyle}" Click="InvoiceMainPage_Click_2" />
                 <Button Content="العهدة"    Style="{StaticResource TestButtonStyle}" Click="CovenantPage_Click"/>
                 <Button Content="التحصيل"   Style="{StaticResource TestButtonStyle}"/>
-                <Button Content="النثريات"  Style="{StaticResource TestButtonStyle}" Click="SundriesPage_Click"/> 
+                <Button Content="النثريات"  Style="{StaticResource TestButtonStyle}" Click="SundriesPage_Click"/>
+                <Button Content="سحب المندوب "  Style="{StaticResource TestButtonStyle}" Click="RepresenWithdrawalPage_Click"/> 
             </StackPanel>
 
             <!-- التقارير -->

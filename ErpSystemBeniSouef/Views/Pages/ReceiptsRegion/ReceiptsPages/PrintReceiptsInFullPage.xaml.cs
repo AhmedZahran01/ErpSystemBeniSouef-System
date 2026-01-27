@@ -1,25 +1,10 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.Receipt;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 {
@@ -31,6 +16,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
         private readonly IReceiptService _receiptService;
         private readonly IMainAreaService _mainAreaService;
         bool loadPage = true;
+        List<GetAllReceiptsDto> getAllReceiptsDtos = new List<GetAllReceiptsDto>();
 
         public PrintReceiptsInFullPage(IReceiptService receiptService, IMainAreaService mainAreaService)
         {
@@ -72,8 +58,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             else
             {
                 (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync();
-                var f = await _mainAreaService.GetAllAsync();
-                MainAreaCombo.ItemsSource = f;
+                var mainAreas = await _mainAreaService.GetAllAsync();
+                MainAreaCombo.ItemsSource = mainAreas;
                 MainAreaCombo.SelectedIndex = 0;
 
             }
@@ -82,8 +68,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             {
                 item.DisplayUIId = index++;
             }
-
-            ReceiptsDataGrid.ItemsSource = receiptsData4;
+            getAllReceiptsDtos = receiptsData4;
+            ReceiptsDataGrid.ItemsSource = getAllReceiptsDtos;
 
 
         }
@@ -137,5 +123,68 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             #endregion
         }
 
+        private void PrintDataReceiptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int selectedGridItems = ReceiptsDataGrid.SelectedItems.Count;
+
+            if (selectedGridItems == 0)
+            {
+                // رسالة تأكيد
+                var result = MessageBox.Show(
+                "هل أنت متأكد أنك تريد طباعه الكل ؟",
+                "تأكيد الطباعه",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+            );
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    List<int> allReceiptsIds = getAllReceiptsDtos.Select(e => e.DisplayUIId).ToList();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show(" تم الالغاء ");
+                    return;
+
+                }
+            }
+
+            else
+            {
+                // رسالة تأكيد
+                var result = MessageBox.Show(
+                "هل أنت متأكد أنك تريد طباعه الايصالات المحدده ؟",
+                "تأكيد الطباعه",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning
+                );
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    //if (ReceiptsDataGrid.SelectedItems is List<GetAllReceiptsDto> selected)
+
+                    if (ReceiptsDataGrid.SelectedItems.Count > 0)
+                    {
+                        List<GetAllReceiptsDto> selectedItemsDto = ReceiptsDataGrid.SelectedItems.Cast<GetAllReceiptsDto>().ToList();
+
+                        List<int> allReceiptsIds = selectedItemsDto.Select(e => e.DisplayUIId).ToList();
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(" تم الالغاء ");
+                    return;
+                }
+            }
+
+
+
+
+            
+
+        }
+   
     }
 }

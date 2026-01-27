@@ -7,6 +7,7 @@ using ErpSystemBeniSouef.Core.Entities;
 using ErpSystemBeniSouef.HelperFunctions;
 using ErpSystemBeniSouef.Service.CustomerInvoiceServices;
 using ErpSystemBeniSouef.Service.MainAreaServices;
+using ErpSystemBeniSouef.Service.PettyCashServices;
 using ErpSystemBeniSouef.Service.ProductService;
 using ErpSystemBeniSouef.Service.RepresentativeService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
@@ -14,6 +15,7 @@ using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.CovenantRegion;
 using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using ErpSystemBeniSouef.Views.Pages.ReportsRegion;
+using ErpSystemBeniSouef.Views.Pages.RepresenWithdrawalRegion;
 using ErpSystemBeniSouef.Views.Pages.SundriesRegion;
 using ErpSystemBeniSouef.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -132,6 +134,12 @@ namespace ErpSystemBeniSouef.Views.Pages.Products
             var pettyCashService = App.AppHost.Services.GetRequiredService<IPettyCashService>();
             var Dashboard = new SundriesPage(pettyCashService);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(Dashboard);
+        }
+
+        private void RepresenWithdrawalPage_Click(object sender, RoutedEventArgs e)
+        {
+            var withdrawalPage = new RepresenWithdrawalPage();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(withdrawalPage);
         }
     }
 }

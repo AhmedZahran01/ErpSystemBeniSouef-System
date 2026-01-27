@@ -226,8 +226,7 @@ namespace ErpSystemBeniSouef.Views.Pages.SundriesRegion
             for (int i = 0; i < PettyCashList.Count; i++)
                 PettyCashList[i].DisplayUIId = i + 1;
         }
-
-
+         
         private void DecimalOnly_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !decimal.TryParse(
