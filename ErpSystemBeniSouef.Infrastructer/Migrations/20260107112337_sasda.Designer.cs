@@ -4,6 +4,7 @@ using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErpSystemBeniSouef.Infrastructer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260107112337_sasda")]
+    partial class sasda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -362,10 +365,10 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("RepresentativeId")
+                    b.Property<int?>("RepresentativeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubAreaId")
+                    b.Property<int?>("SubAreaId")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("TotalAmount")
@@ -519,7 +522,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CollectorId")
+                    b.Property<int?>("CollectorId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -552,13 +555,13 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RepresentativeId")
+                    b.Property<int?>("RepresentativeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("SubAreaId")
+                    b.Property<int?>("SubAreaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedDate")
@@ -710,62 +713,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                     b.HasIndex("InvoiceId");
 
                     b.ToTable("MonthlyInstallment");
-                });
-
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Discount", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("CollectorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeletionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsReversed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("MonthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("ReversedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CollectorId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.ToTable("Discount");
                 });
 
             modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.InstallmentPlan", b =>
@@ -1406,15 +1353,11 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 {
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Representative", "Representative")
                         .WithMany()
-                        .HasForeignKey("RepresentativeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("RepresentativeId");
 
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.SubArea", "SubArea")
                         .WithMany()
-                        .HasForeignKey("SubAreaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("SubAreaId");
 
                     b.Navigation("Representative");
 
@@ -1470,21 +1413,15 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
                 {
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Collector", "Collector")
                         .WithMany()
-                        .HasForeignKey("CollectorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CollectorId");
 
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Representative", "Representative")
                         .WithMany()
-                        .HasForeignKey("RepresentativeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("RepresentativeId");
 
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.SubArea", "SubArea")
                         .WithMany()
-                        .HasForeignKey("SubAreaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("SubAreaId");
 
                     b.Navigation("Collector");
 
@@ -1531,33 +1468,6 @@ namespace ErpSystemBeniSouef.Infrastructer.Migrations
 
                     b.HasOne("ErpSystemBeniSouef.Core.Entities.Collector", "Collector")
                         .WithMany("MonthlyInstallments")
-                        .HasForeignKey("CollectorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.CustomerInvoices.CustomerInvoice", "Invoice")
-                        .WithMany()
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Collector");
-
-                    b.Navigation("Customer");
-
-                    b.Navigation("Invoice");
-                });
-
-            modelBuilder.Entity("ErpSystemBeniSouef.Core.Entities.Discount", b =>
-                {
-                    b.HasOne("ErpSystemBeniSouef.Core.Entities.Collector", "Collector")
-                        .WithMany()
                         .HasForeignKey("CollectorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

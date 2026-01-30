@@ -79,7 +79,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <!--<Style x:Key="BlackTextComboBox" TargetType="ComboBox">
             <Setter Property="Height" Value="32"/>
             <Setter Property="Width" Value="135"/>
@@ -124,54 +124,116 @@
         <userControls:TitleBar FlowDirection="LeftToRight"/>
 
         <Grid Margin="10" Grid.Row="1">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="250"/>
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5" Margin="0,0,10,0">
+            <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5" Margin="0,0,10,0">
                 <DataGrid Style="{StaticResource FullWidthDataGridStyle}"  FlowDirection="RightToLeft"  Background="#1E3040"  
-                          AutoGenerateColumns="False" GridLinesVisibility="All" 
+                        Foreground="Black"  AutoGenerateColumns="False" GridLinesVisibility="All" 
                 VerticalGridLinesBrush="White" HorizontalGridLinesBrush="White"
                         Name="CovenantItemsDataGrid" FontSize="17" >
-                <DataGrid.Resources>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="#304151"/>
-                        <Setter Property="FontSize" Value="23"/>
-                        <Setter Property="Foreground" Value="Black"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        <Setter Property="VerticalContentAlignment" Value="Top"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="BorderBrush" Value="White"/>
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#304151"/>
+                            <Setter Property="FontSize" Value="23"/>
+                            <Setter Property="Foreground" Value="Black"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="VerticalContentAlignment" Value="Top"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="BorderBrush" Value="White"/>
                             <Setter Property="Margin" Value="0,10,0,0"/>
                             <Setter Property="BorderThickness" Value="0,0,1,2"/>
                         </Style>
-                    
-                    <Style TargetType="DataGridRow">
-                        <!--<Setter Property="Background" Value="#304151"/>
-                        <Setter Property="FontSize" Value="21"/>-->
-                        <Setter Property="Foreground" Value="White"/>
-                        <!--<Setter Property="HorizontalContentAlignment" Value="Center"/>-->
-                        <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
-                        <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
-                        <!--<Setter Property="BorderBrush" Value="White"/>-->
-                        <Setter Property="BorderThickness" Value="0,0,1,1"/>
-                        <Setter Property="Margin" Value="0,10,0,0"/>
-                    </Style>
-                    
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                        <DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayUIId}" Width="*"/>
-                    <DataGridTextColumn     Header="اسم المنتج" Binding="{Binding ProductName}" Width="*"/>
-                    <DataGridTextColumn     Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
 
-        <Border Grid.Column="1" FlowDirection="RightToLeft" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15">
-            <StackPanel>
+                        <Style TargetType="DataGridCellsPresenter">
+                            <!--<Setter Property="Background" Value="#304151"/>
+                        <Setter Property="FontSize" Value="21"/>-->
+                            <Setter Property="Foreground" Value="Black"/>
+                            <!--<Setter Property="HorizontalContentAlignment" Value="Center"/>-->
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
+                            <!--<Setter Property="BorderBrush" Value="White"/>-->
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                            <Setter Property="Margin" Value="0,10,0,0"/>
+                        </Style>
+
+                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <!--<DataGridTextColumn Header="الرقم المسلسل" Binding="{Binding DisplayUIId}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding DisplayUIId}" Header=" الرقم المسلسل "  Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Background" Value="#1F2E3A"/>
+               <Setter Property="Foreground" Value="Black"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn     Header="اسم المنتج" Binding="{Binding ProductName}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding ProductName}" Header=" اسم المنتج " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Background" Value="#1F2E3A"/>
+               <Setter Property="Foreground" Value="Black"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn     Header="الكمية" Binding="{Binding Quantity}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding Quantity}" Header=" الكمية " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Background" Value="#1F2E3A"/>
+               <Setter Property="Foreground" Value="Black"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+
+            <Border Grid.Column="1" FlowDirection="RightToLeft" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15">
+                <StackPanel>
                     <TextBlock FontSize="21"  Text="نوع المنتج" Foreground="White" Margin="0,0,0,5"/>
-                <ComboBox Name="productTypeComo" FontSize="17" Width="150" Style="{StaticResource BlackTextComboBox}" SelectionChanged="SelectProductType"/>
+                    <ComboBox Name="productTypeComo" FontSize="17" Width="150" Style="{StaticResource BlackTextComboBox}" SelectionChanged="SelectProductType"/>
 
                     <TextBlock FontSize="21"  Text="اسم المنتج" Foreground="White" Margin="0,0,0,5"/>
                     <ComboBox  Name="ProductCombo"  Style="{StaticResource BlackTextComboBox}"     
@@ -180,41 +242,41 @@
                                SelectedValuePath="Id"/>
 
                     <TextBlock FontSize="21"  Text="عدد القطع" Foreground="White" Margin="0,0,0,5"/>
-                <TextBox   Name="Quantity" Style="{StaticResource ModernTextBoxStyle}"/>
+                    <TextBox  FontSize="18"  Name="Quantity" Style="{StaticResource ModernTextBoxStyle}"/>
 
-                <UniformGrid FlowDirection="LeftToRight" Columns="2" Margin="10,20,0,0">
+                    <UniformGrid FlowDirection="LeftToRight" Columns="2" Margin="10,20,0,0">
                         <Button Cursor="Hand"  Content=" حذف منتج"         Click="DeleteItem_Click"
                                 Style="{StaticResource ActionButtonStyle}"
                                 Background="#A93226" Margin="0,0,10,0"/>
                         <Button Cursor="Hand"  Content=" إضافة منتج➕" Style="{StaticResource ActionButtonStyle}" Margin="0,0,5,0" Click="AddConvnenantItem"/>
-                </UniformGrid>
+                    </UniformGrid>
                     <Button  Cursor="Hand" Content=" ✔️ حفظ العهدة " Style="{StaticResource ActionButtonStyle}" Margin="0,220,5,0" Click="AddConvnenant"/>
 
                 </StackPanel>
-        </Border>
-    </Grid>
+            </Border>
+        </Grid>
 
-    <Grid Grid.Row="2">
-        <StackPanel  HorizontalAlignment="Center" Margin="5,20,0,0">
+        <Grid Grid.Row="2">
+            <StackPanel  HorizontalAlignment="Center" Margin="5,20,0,0">
 
-            <ProgressBar
+                <ProgressBar
 x:Name="LoadingBar"
 Width="270"
 Height="6"
 IsIndeterminate="True"
 Visibility="Collapsed"/>
 
-            <TextBlock
+                <TextBlock
 x:Name="LoadingText"
 Foreground="White" 
 FontSize="15"
 Margin="0,10,0,0"
 TextAlignment="Center"
 Visibility="Collapsed"/>
-        </StackPanel>
+            </StackPanel>
 
-        <!-- زر الرجوع -->
-        <Button Grid.Row="1"
+            <!-- زر الرجوع -->
+            <Button Grid.Row="1"
 VerticalAlignment="Bottom"
 HorizontalAlignment="Left"
 Content="↩"
@@ -224,7 +286,7 @@ Height="54"
 Foreground="White"
 Style="{StaticResource triggerrr}" 
 Margin="21,10,50,14" Click="BackBtn_Click"  />
-    </Grid>
+        </Grid>
 
     </Grid >
 </Page>

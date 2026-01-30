@@ -21,13 +21,16 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 {
-    public class CustomerInvoiceService
+    public class CustomerInvoiceService: ICustomerInvoiceService
     {
         #region Properies Region
 
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
+        public CustomerInvoiceService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
         #endregion
 
         #region Create Customer Invoice
@@ -157,7 +160,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 c => c.SubArea,
                 c => c.Collector,
                 c => c.Representative,
-                c => c.Invoices
+                c => c.Invoices 
                                 );
 
 
@@ -165,7 +168,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 if (customers == null || customers.Count == 0)
                     return ServiceResponse<IReadOnlyList<ReturnCustomerInvoiceListDTO>>.Failure("No customer invoices found.");
 
-                int serial = 1;
+                int serial = 1; 
 
                 var response = customers.Select(c => new ReturnCustomerInvoiceListDTO
                 {
@@ -331,8 +334,13 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     //  Deduct Representative Commission
                     await DeductCommissionForInvoice(invoice, representative.Id);
                     //  Remove monthly installments and plans related to this invoice
+                   
                     var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
                         .GetAllAsync(m => m.InvoiceId == invoice.Id);
+
+
+                    //var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
+                    //    .GetByCondionAndInclideAsync(m => m.InvoiceId == invoice.Id);
 
                     if (monthlyInstallments != null && monthlyInstallments.Any())
                     {
@@ -342,6 +350,11 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
 
                     var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
                         .GetAllAsync(p => p.InvoiceId == invoice.Id);
+
+
+                    //var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
+                    //    .GetByCondionAndInclideAsync(p => p.InvoiceId == invoice.Id);
+
 
                     if (installmentPlans != null && installmentPlans.Any())
                     {
@@ -550,6 +563,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         {
             var commissionRepo = _unitOfWork.Repository<Commission>();
             var commissions = await commissionRepo.GetAllAsync(c => c.Representative);
+            //var commissions = await commissionRepo.GetAllAsync();
 
             var commission = commissions
                 .FirstOrDefault(c => c.InvoiceId == invoice.Id && c.RepresentativeId == representativeId);

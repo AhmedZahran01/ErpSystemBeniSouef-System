@@ -83,25 +83,25 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="43"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="68"/>
+            <RowDefinition Height="70"/>
         </Grid.RowDefinitions>
         <userControls:TitleBar FlowDirection="LeftToRight"/>
 
         <Grid Margin="15" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="259"/>
+                <ColumnDefinition Width="219"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15" Margin="0,0,15,0">
                 <StackPanel>
                     <TextBlock Text="الشهر" Foreground="White" Margin="0,0,0,5"/>
-                    <DatePicker Name="DateOfReceipt" Height="35" Margin="0,0,0,15"/>
+                    <DatePicker Name="DateOfReceipt" Height="35" Width="140" Margin="0,0,0,15"/>
 
                     <TextBlock Text="المنطقة الرئيسية"  Foreground="White" Margin="0,0,0,5"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                        <RadioButton  Checked="Radio_Checked" x:Name="rbMainAll" Content="الكل" Foreground="White" IsChecked="True" Margin="0,0,15,0"/>
-                        <RadioButton  Checked="Radio_Checked" x:Name="rbMainSelect" Content="تحديد" Foreground="White"/>
+                        <RadioButton  Checked="Radio_Checked" x:Name="rbMainAll"    Content="الكل"   Foreground="White"  Margin="0,0,15,0"/>
+                        <RadioButton  Checked="Radio_Checked" x:Name="rbMainSelect" Content="تحديد"  Foreground="White"/>
                     </StackPanel>
                     <!--<StackPanel Orientation="Horizontal">
                         <RadioButton Content="الكل"
@@ -114,14 +114,14 @@
                  Checked="MainRadio_Checked"/>
                     </StackPanel>-->
 
-                    <ComboBox Name="MainAreaCombo" IsEnabled="False"    HorizontalAlignment="Center"
+                    <ComboBox Name="MainAreaCombo" IsEnabled="True"    HorizontalAlignment="Center"
                               DisplayMemberPath="Name" Width="130" Height="26"
                               SelectedValuePath="Id" Margin="0,5,0,10"
-                              Style="{StaticResource BlackTextComboBox}" />
+                              Style="{StaticResource BlackTextComboBox}" SelectionChanged="MainAreaCombo_SelectionChanged" />
 
                     <TextBlock Text="المنطقة الفرعية"  Foreground="White" Margin="0,10,0,5"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                        <RadioButton  Content="الكل" Foreground="White"  Checked="Radio_Checked" x:Name="rbSubAll" IsChecked="True" Margin="0,0,15,0"/>
+                        <RadioButton  Content="الكل" Foreground="White"  Checked="Radio_Checked" x:Name="rbSubAll" Margin="0,0,15,0"/>
                         <RadioButton Content="تحديد" Foreground="White"  Checked="Radio_Checked" x:Name="rbSubSelect"  />
                     </StackPanel>
                     <!--<StackPanel Orientation="Horizontal">
@@ -141,31 +141,162 @@
                         Name="SubAreaCombo" Style="{StaticResource BlackTextComboBox}"/>
 
                     <Separator Background="#3D4D5D" Margin="0,15"/>
-                    <Button Content=" عرض الايصالات" Style="{StaticResource ActionButtonStyle}" Width="140" Margin="5,10" Click="SearchByRegion_Click"/>
+                    <Button Content=" عرض الايصالات" Style="{StaticResource ActionButtonStyle}" 
+                            Width="140" Margin="5,10" Click="SearchByRegion_Click"/>
 
-                    <UniformGrid Columns="2">
-                        <Button Content="طباعة" Style="{StaticResource ActionButtonStyle}"/>
-                        <Button Content="تقرير تحصيل" Style="{StaticResource ActionButtonStyle}" Background="#0D5A78"/>
+                    <UniformGrid Columns="1">
+                        <Button Content="طباعة"  Width="140" Margin="5,10" Style="{StaticResource ActionButtonStyle}"/>
                     </UniformGrid>
-                    <Button Content="طباعة باقي الإيصالات على pdf" Style="{StaticResource ActionButtonStyle}" Margin="5,10"/>
-                    <Button Content="تقرير اجمالي التحصيل" Style="{StaticResource ActionButtonStyle}" Margin="5,0"/>
+                    <Button Content="تقرير تحصيل"  Width="140" Margin="5,10" Style="{StaticResource ActionButtonStyle}" Background="#0D5A78"/>
+                    <Button Content="تقرير اجمالي التحصيل"  Width="140" Margin="5,10" Style="{StaticResource ActionButtonStyle}"  />
+                    <!--<Button Content="طباعة باقي الإيصالات على pdf" Style="{StaticResource ActionButtonStyle}" Margin="5,10"/>-->
+                    <Button Margin="0 20 0 0"  Width="150" 
+                            Style="{StaticResource ActionButtonStyle}" FontSize="14">
+                        <TextBlock Text="طباعة الإيصالات &#x0a; على pdf   "
+                           TextAlignment="Center" TextWrapping="Wrap"/>
+                    </Button>
                 </StackPanel>
             </Border>
 
-            <Border Grid.Column="1"  Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5">
-                <DataGrid  x:Name="DataGridRegion" Style="{StaticResource CollectionDataGridStyle}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="*"/>
-                        <DataGridTextColumn Header="مكان العمل أو الإقامة" Binding="{Binding Address}" Width="1.5*"/>
-                        <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1.5*"/>
-                        <DataGridTextColumn Header="رقم العميل حسب المنطقة" Binding="{Binding CustomerNumber}" Width="*"/>
-                        <DataGridTextColumn Header="السعر" Binding="{Binding TotalPrice}" Width="*"/>
+            <Border Grid.Column="1"  Background="{StaticResource CardBrush}" CornerRadius="10" Padding="15">
+                <DataGrid Foreground="Black" FontSize="14" x:Name="DataGridRegion" Style="{StaticResource CollectionDataGridStyle}" >
+                    <DataGrid.Columns >
+                        <!--<DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding AreaName}" Header="المنطقة" Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Background" Value="#1F2E3A"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="مكان العمل أو الإقامة" Binding="{Binding Address}" Width="1.5*"/>-->
+
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding Address}" Header="مكان العمل أو الإقامة"
+                                            Width="1.5*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Background" Value="#1F2E3A"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1.5*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding CustomerName}" Header="اسم العميل"
+                                            Width="1.5*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Background" Value="#1F2E3A"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="رقم العميل حسب المنطقة" Binding="{Binding CustomerNumber}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding CustomerNumber}" Header="رقم العميل  "
+                                            Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="Background" Value="#1F2E3A"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
+                        <!--<DataGridTextColumn Header="السعر" Binding="{Binding TotalPrice}" Width="*"/>-->
+                        <!-- الرقم المسلسل -->
+                        <DataGridTextColumn Binding="{Binding TotalPrice}" Header=" السعر "
+                     Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <!--<Setter Property="Background" Value="#1F2E3A"/>
+                                    <Setter Property="Foreground" Value="Black"/>-->
+                                    <Setter Property="FontSize" Value="18"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+                        </DataGridTextColumn>
+
+
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
         </Grid>
 
         <Grid Grid.Row="2">
+
+            <StackPanel  HorizontalAlignment="Center" Margin="5,20,0,0">
+
+                <ProgressBar
+x:Name="LoadingBar"
+Width="270"
+Height="6"
+IsIndeterminate="True"
+Visibility="Collapsed"/>
+
+                <TextBlock
+x:Name="LoadingText"
+Foreground="White" 
+FontSize="15"
+Margin="0,10,0,0"
+TextAlignment="Center"
+Visibility="Collapsed"/>
+            </StackPanel>
+
+
             <!-- زر الرجوع -->
             <Button Grid.Row="1"
 VerticalAlignment="Bottom"
@@ -176,7 +307,8 @@ Width="90"
 Height="58"
 Foreground="White"
 Style="{StaticResource triggerrr}" 
-Margin="21,10,40,1" Click="BackBtn_Click"  />
+Margin="1,1,50,11" Click="BackBtn_Click"  />
+
         </Grid>
     </Grid>
 </Page>

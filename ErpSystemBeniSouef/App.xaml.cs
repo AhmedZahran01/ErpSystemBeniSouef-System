@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ErpSystemBeniSouef.Core;
+﻿using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 using ErpSystemBeniSouef.Core.Contract.Covenant;
@@ -35,11 +34,12 @@ using ErpSystemBeniSouef.Service.SupplierAccountServices;
 using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
-using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
+using ErpSystemBeniSouef.Views.Pages.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using QuestPDF.Infrastructure;
 using System.Windows;
 
 namespace ErpSystemBeniSouef
@@ -52,8 +52,9 @@ namespace ErpSystemBeniSouef
         public static IHost? AppHost { get; private set; }
         protected override async void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
 
+            QuestPDF.Settings.License = LicenseType.Community;
+            base.OnStartup(e);
             //AppHost = Host.CreateDefaultBuilder()
             //        .ConfigureServices((context, services) =>
             //        {
@@ -202,7 +203,8 @@ namespace ErpSystemBeniSouef
 
 
             //var login = new Cash_SalesPage(collectionService );
-            var login = new HomeReceiptsPage();
+            //var login = new HomeReceiptsPage();
+            var login = new Dashboard();
             //var login = new StartPageBeforeLogin();
 
 

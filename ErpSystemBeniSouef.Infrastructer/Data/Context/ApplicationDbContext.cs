@@ -45,8 +45,9 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<CustomerInvoice> customerInvoices { get; set; }
         public DbSet<CustomerInvoiceItems> customerInvoiceItems { get; set; }
         public DbSet<InstallmentPlan> installmentPlans { get; set; }
-        public DbSet<Commission> Commissions{ get; set; }
-        public DbSet<PettyCash> pettyCashes{ get; set; }
+        public DbSet<Commission> Commissions { get; set; }
+        public DbSet<PettyCash> pettyCashes { get; set; }
+        public DbSet<Discount> Discount { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -58,14 +59,20 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             //);
 
 
-            optionsBuilder.UseSqlServer(connectionString, sqlOptions =>
-            {
-                sqlOptions.EnableRetryOnFailure(
-                    maxRetryCount: 5,
-                    maxRetryDelay: TimeSpan.FromSeconds(10),
-                    errorNumbersToAdd: null
-                );
-            });
+            //optionsBuilder.UseSqlServer(connectionString, sqlOptions =>
+            //{
+            //    sqlOptions.EnableRetryOnFailure(
+            //        maxRetryCount: 5,
+            //        maxRetryDelay: TimeSpan.FromSeconds(10),
+            //        errorNumbersToAdd: null
+            //    );
+            //});
+
+                         optionsBuilder.UseSqlServer(
+                 connectionString,
+                 x => x.EnableRetryOnFailure(0)
+             );
+
 
             //optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true");
         }

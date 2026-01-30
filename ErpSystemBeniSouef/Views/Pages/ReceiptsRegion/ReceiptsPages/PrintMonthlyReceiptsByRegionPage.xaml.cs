@@ -6,6 +6,7 @@ using ErpSystemBeniSouef.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,19 +32,42 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
         public PrintMonthlyReceiptsByRegionPage(IReceiptService receiptService, IMainAreaService mainAreaService, ISubAreaService subAreaService)
         {
-            InitializeComponent();
-            Loaded += async (s, e) =>
-            {
-                await LoadReceipts(null, null, null);
-            };
             _receiptService = receiptService;
             _mainAreaService = mainAreaService;
             _subAreaService = subAreaService;
+            InitializeComponent();
+
+
+            Loaded += async (s, e) =>
+            {
+                try
+                {
+                    LoadingBar.Visibility = Visibility.Visible;
+                    LoadingText.Visibility = Visibility.Visible;
+                    LoadingText.Text = "جاري تحميل البيانات...";
+                    await Task.Delay(2000);
+
+                    await LoadReceipts();
+
+                    LoadingBar.Visibility = Visibility.Collapsed;
+                    LoadingText.Text = "تم تحميل البيانات بنجاح";
+                    await Task.Delay(3000);
+                    LoadingText.Visibility = Visibility.Collapsed;
+
+                    rbMainSelect.IsChecked = true;
+
+                }
+                catch
+                {
+                    LoadingText.Text = "حدث خطأ أثناء تحميل البيانات";
+                }
+            };
+             
         }
 
         #region load products to Grid Region
 
-        private async Task LoadReceipts(DateTime? dateOfRecceipt, int? mainId, int? subId)
+        private async Task LoadReceipts(DateTime? dateOfRecceipt = null , int? mainId = null , int? subId = null)
         {
             DateTime monthDate = new DateTime(1025, 1, 1, 10, 30, 0);
             List<GetAllReceiptsDto> receiptsData4 = new List<GetAllReceiptsDto>();
@@ -142,7 +166,23 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             }
             DateTime SelectedDate = DateOfReceipt.SelectedDate ?? DateTime.UtcNow;
 
-            var SearableData =  LoadReceipts(SelectedDate , MainIdForSearch  , SubIdForSearch);
+
+            #region MyRegion
+
+
+            LoadingBar.Visibility = Visibility.Visible;
+            LoadingText.Visibility = Visibility.Visible;
+            LoadingText.Text = "جاري تحميل البيانات...";
+            await Task.Delay(3000);
+
+            var SearableData = LoadReceipts(SelectedDate, MainIdForSearch, SubIdForSearch);
+
+            LoadingBar.Visibility = Visibility.Collapsed;
+            LoadingText.Text = "تم تحميل البيانات بنجاح";
+            await Task.Delay(4000);
+            LoadingText.Visibility = Visibility.Collapsed;
+
+            #endregion
 
         }
 
@@ -152,18 +192,21 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             if (selected?.Name.ToString() == "rbMainAll")
             {
                 // الكل main
+                //MainAreaCombo.IsEnabled = false;
+                //SubAreaCombo.IsEnabled = false;
             }
             else if (selected?.Name.ToString() == "rbMainSelect")
             {
-                MainAreaCombo.IsEnabled = true;
+                // select main
+                //MainAreaCombo.IsEnabled = true;
                 var MainAreaDtos = await _mainAreaService.GetAllAsync();
                 MainAreaCombo.ItemsSource = MainAreaDtos;
                 MainAreaCombo.SelectedIndex = 0;
-                // select main
             }
             else if (selected?.Name.ToString() == "rbSubAll")
             {
-                // الكل
+                // الكل sub
+
             }
             else if (selected?.Name.ToString() == "rbSubSelect")
             {
@@ -186,6 +229,24 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             }
 
         }
-         
+
+        private async void MainAreaCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainAreaDto mainAreaDto = (MainAreaDto)MainAreaCombo.SelectedItem;
+            SubAreaCombo.IsEnabled = true;
+            if (mainAreaDto != null)
+            {
+                int subIdSelectedMainArea = mainAreaDto.Id;
+                var subAreaDtos = _subAreaService.GetSubAreaDtoByMainAreaId(subIdSelectedMainArea);
+                SubAreaCombo.ItemsSource = subAreaDtos;
+                SubAreaCombo.SelectedIndex = 0;
+            }
+            else
+            {
+                var subAreaDtos = await _subAreaService.GetAllAsync();
+                SubAreaCombo.ItemsSource = subAreaDtos;
+                SubAreaCombo.SelectedIndex = 0;
+            }
+        }
     }
 }

@@ -1,15 +1,14 @@
-﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.SundriesRegion.SundriesPage"
+﻿<Page x:Class="ErpSystemBeniSouef.Views.Pages.RepresenWithdrawalRegion.RepresenWithdrawalPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.SundriesRegion"
-      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      xmlns:local="clr-namespace:ErpSystemBeniSouef.Views.Pages.RepresenWithdrawalRegion"
       mc:Ignorable="d" 
-      d:DesignHeight="750" d:DesignWidth="1200"
-      Title="SundriesPage" 
-      FlowDirection="RightToLeft"
-      Background="#1F2E3A" >
+      xmlns:userControls="clr-namespace:ErpSystemBeniSouef.Views.UserControls"
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RepresenWithdrawalPage">
+
 
     <Page.Resources>
         <SolidColorBrush x:Key="CardBrush" Color="#2B3A4A"/>
@@ -88,40 +87,45 @@
                 <StackPanel  Grid.Column="0">
                     <DatePicker Height="32" Width="160" Margin="0,0,0,10" Name="SundriesDate" HorizontalAlignment="Right"/>
                     <TextBox Style="{StaticResource InputTextBoxStyle}" Width="206" Name="SundriesReason" FlowDirection="RightToLeft" />
+                    
                     <!--<TextBox Style="{StaticResource InputTextBoxStyle}"  Name="SundriesTotal" />-->
                     <!--<TextBox x:Name="SundriesTotal" FlowDirection="RightToLeft" Style="{StaticResource ValidatedTextBox}" />-->
                     <TextBox x:Name="SundriesTotal"  Width="166" Style="{StaticResource InputTextBoxStyle}"
-                              PreviewTextInput="DecimalOnly_PreviewTextInput"/>
+                            PreviewTextInput="DecimalOnly_PreviewTextInput"/>
+                    <ComboBox x:Name="RepresentativeCombo" Margin="0,0,0,0"
+         DisplayMemberPath="Name" Width="120"  Height="24" 
+                         SelectedValuePath="Id"/>
 
                     <TextBlock 
-                       x:Name="SundriesTotalError"
-                       Foreground="Red"  FontSize="12" FlowDirection="RightToLeft"
-                       Visibility="Collapsed"  Text="من فضلك ادخل مبلغ صحيح"/>
+                     x:Name="SundriesTotalError"
+                     Foreground="Red"  FontSize="12" FlowDirection="RightToLeft"
+                     Visibility="Collapsed"  Text="من فضلك ادخل مبلغ صحيح"/>
 
                     <UniformGrid FlowDirection="RightToLeft" VerticalAlignment="Center" HorizontalAlignment="Center" Columns="2" Margin="0,10,0,0">
-                        <Button Content="اضافة" Name="AddButton" Style="{StaticResource ActionButtonStyle}" Margin="0,0,5,0" Click="AddSundriesBtn_Click"/>
-                        <Button Content="حذف" Style="{StaticResource ActionButtonStyle}" Background="#A93226" Margin="5,0,0,0" Click="DeleteSundriesBtn_Click" />
+                        <Button Content="اضافة" Name="AddButton" Style="{StaticResource ActionButtonStyle}" Margin="0,0,5,0" Click="AddRepresenWithdrawalBtn_Click"/>
+                        <Button Content="حذف" Style="{StaticResource ActionButtonStyle}" Background="#A93226" Margin="5,0,0,0" Click="DeleteWithdrawalBtn_Click" />
                     </UniformGrid>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Margin="10,0,0,0">
                     <TextBlock Text=" : تاريخ النثرية "  Foreground="White" FontSize="18"
-                               Height="32" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                             Height="32" VerticalAlignment="Center" Margin="0,0,0,10"/>
                     <TextBlock Text=" : سبب النثرية" FontSize="16" Foreground="White" Height="32" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock Text=" : المبلغ" FontSize="16" Foreground="White" Height="32" VerticalAlignment="Center" Margin="0,0,0,10"/>
                     <TextBlock Text=" : المبلغ" FontSize="16" Foreground="White" Height="32" VerticalAlignment="Center" Margin="0,0,0,10"/>
                 </StackPanel>
             </Grid>
         </Border>
 
         <Border Grid.Row="2" Background="{StaticResource CardBrush}"
-                CornerRadius="10" Padding="5">
+              CornerRadius="10" Padding="5">
             <DataGrid Background="#1E3040" 
-                      SelectionMode="Single"
-                      SelectionUnit="FullRow"
-                   Foreground="Black" Margin=" 10 10 10 10"
-                   AutoGenerateColumns="False" Name="pettyCashGrid"
-                   GridLinesVisibility="All" FontSize="20"
-                   RowHeight="32">
+                    SelectionMode="Single"
+                    SelectionUnit="FullRow"
+                 Foreground="Black" Margin=" 10 10 10 10"
+                 AutoGenerateColumns="False" Name="pettyCashGrid"
+                 GridLinesVisibility="All" FontSize="20"
+                 RowHeight="32">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#304151"/>
@@ -143,9 +147,9 @@
 
         <StackPanel  Grid.Row="3" FlowDirection="LeftToRight" Background="#1B7F" Margin="10"  >
             <Button Content="رجوع"   FontSize="31"   FontWeight="Heavy"
-                   HorizontalAlignment="Left" Margin="20,2,0,0"
-                   Foreground ="Black" Background="Red" Width="150"
-                   Style="{StaticResource TestButtonStyle}" Click="DahbordBackButton_Click"/>
+                 HorizontalAlignment="Left" Margin="20,2,0,0"
+                 Foreground ="Black" Background="Red" Width="150"
+                 Style="{StaticResource TestButtonStyle}" Click="DahbordBackButton_Click"/>
         </StackPanel>
 
     </Grid>

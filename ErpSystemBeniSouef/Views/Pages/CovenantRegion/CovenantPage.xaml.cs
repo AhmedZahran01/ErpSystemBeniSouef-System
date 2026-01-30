@@ -2,6 +2,8 @@
 using ErpSystemBeniSouef.Core.Contract.Covenant;
 using ErpSystemBeniSouef.Core.DTOs.Covenant;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
+using ErpSystemBeniSouef.Dtos.MainAreaDto;
+using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.Products;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +16,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
     public partial class CovenantPage : Page
     {
         private readonly IRepresentativeService _representativeService;
-        private readonly ICovenantService _covenantService; 
+        private readonly ICovenantService _covenantService;
         private ObservableCollection<ReturnCovenant> CovenantList =
             new ObservableCollection<ReturnCovenant>();
 
@@ -34,9 +36,6 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
         }
         private async Task LoadData()
         {
-            RepresenComoBox.ItemsSource = await _representativeService.GetAllAsync();
-            RepresenComoBox.SelectedIndex = 0;
-
             var covenants = await _covenantService.GetAllCovenants();
 
             CovenantList.Clear();
@@ -52,6 +51,11 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
                     DisplayUIId = index++
                 });
             }
+
+
+            RepresenComoBox.ItemsSource = await _representativeService.GetAllAsync();
+            RepresenComoBox.SelectedIndex = 0;
+
         }
 
 
@@ -145,13 +149,13 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
         }
 
         private void DataConvenantItemsOpen(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        { 
+        {
             var selectedItem = ConvenantDataGrid.SelectedItem as ReturnCovenant;
             if (selectedItem == null)
                 return;
 
             int covenantId = selectedItem.Id;
-            if( covenantId == 0)
+            if (covenantId == 0)
             {
                 MessageBox.Show("يرجي اخيار صف ");
                 return;
@@ -160,7 +164,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
             var covenantService = App.AppHost.Services.GetRequiredService<ICovenantService>();
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(new CovenantItemsPage(covenantId, productService, covenantService));
         }
-             
+
         private async void DeleteCovenantBtn_Click(object sender, RoutedEventArgs e)
         {
             var selectedItem = ConvenantDataGrid.SelectedItem as ReturnCovenant;
@@ -212,6 +216,34 @@ namespace ErpSystemBeniSouef.Views.Pages.CovenantRegion
         {
             for (int i = 0; i < CovenantList.Count; i++)
                 CovenantList[i].DisplayUIId = i + 1;
+        }
+
+        private async void RepresenComoBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            RepresentativeDto representativeDto = (RepresentativeDto)RepresenComoBox.SelectedItem;
+            if (representativeDto != null)
+            {
+                int coventId = representativeDto.Id;
+
+                var covenants = await _covenantService.GetAllCovenantsBySpecificRepresentative(coventId);
+
+                CovenantList.Clear();
+
+                int index = 1;
+                foreach (var item in covenants)
+                {
+                    CovenantList.Add(new ReturnCovenant
+                    {
+                        Id = item.Id,
+                        CovenantType = item.CovenantType,
+                        CovenantDate = item.CovenantDate,
+                        DisplayUIId = index++
+                    });
+                } 
+
+                ConvenantDataGrid.ItemsSource = CovenantList;
+
+            }
         }
 
     }
