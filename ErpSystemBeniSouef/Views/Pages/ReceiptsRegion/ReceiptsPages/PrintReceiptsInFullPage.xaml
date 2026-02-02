@@ -162,6 +162,7 @@
                         <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationlNumber}" Width=".8*"/>
                         <DataGridTextColumn Header="المقدم" Binding="{Binding Deposite}" Width=".7*"/>
                         <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="1.5*"/>
+                        <DataGridTextColumn Header="مبلغ الايصال " Binding="{Binding InstallmentAmount}" Width="1.5*"/>
                         <DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotalPrice}" Width=".7*"/>
                         <DataGridTextColumn Header="المبيعات" Binding="{Binding Items}" Width="1.67*"/>
                     </DataGrid.Columns>

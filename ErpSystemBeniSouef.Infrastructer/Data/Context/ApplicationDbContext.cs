@@ -48,6 +48,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
         public DbSet<Commission> Commissions { get; set; }
         public DbSet<PettyCash> pettyCashes { get; set; }
         public DbSet<Discount> Discount { get; set; }
+        public DbSet<RepresentativeWithdrawal> representativeWithdrawals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

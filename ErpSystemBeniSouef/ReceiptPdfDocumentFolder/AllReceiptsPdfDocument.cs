@@ -92,7 +92,7 @@ namespace ErpSystemBeniSouef.ReceiptPdfDocumentFolder
                         Cell("الإجمالي", true);
 
                         // الصف 4
-                        Cell(d.Deposite.ToString("N2"));
+                        Cell(d.Deposit.ToString("N2"));
                         Cell("المقدم", true);
                         Cell(d.Plans);
                         Cell("نظام القسط", true);

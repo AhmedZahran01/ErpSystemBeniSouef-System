@@ -54,11 +54,11 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             List<GetAllReceiptsDto> receiptsData4 = new List<GetAllReceiptsDto>();
             if (!loadPage)
             {
-                (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
+                receiptsData4 = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
             }
             else
             {
-                (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync();
+                receiptsData4 = await _receiptService.GetAllReceiptsAsync();
                 var mainAreas = await _mainAreaService.GetAllAsync();
                 MainAreaCombo.ItemsSource = mainAreas;
                 MainAreaCombo.SelectedIndex = 0;

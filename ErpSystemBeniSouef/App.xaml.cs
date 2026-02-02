@@ -9,10 +9,13 @@ using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Core.Contract.PettyCash;
 using ErpSystemBeniSouef.Core.Contract.Reports;
+using ErpSystemBeniSouef.Core.Contract.RepresentativeWithdrawal;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.CashCustomerInvoices;
+using ErpSystemBeniSouef.Service.CollectionServices;
+
 //using ErpSystemBeniSouef.Service.CollectionServices;
 using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.CovenantServices;
@@ -28,6 +31,7 @@ using ErpSystemBeniSouef.Service.ReportsServices;
 
 //using ErpSystemBeniSouef.Service.ReportsServices;
 using ErpSystemBeniSouef.Service.RepresentativeService;
+using ErpSystemBeniSouef.Service.RepresentativeWithdrawalServices;
 using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierAccountServices;
@@ -96,6 +100,8 @@ namespace ErpSystemBeniSouef
             services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
             services.AddScoped(typeof(ICovenantService), typeof(CovenantService));
             services.AddScoped(typeof(IPettyCashService), typeof(PettyCashService));
+            services.AddScoped(typeof(IRepresentativeWithdrawalService), typeof(RepresentativeWithdrawalService));
+            services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
        
         
             //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
@@ -113,7 +119,7 @@ namespace ErpSystemBeniSouef
                 var services = scope.ServiceProvider;
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate(); // sync افضل هنا
-                await StoreDokContextSeed.SeedAsync(dbContext);
+                await StoreSeedingContextSeed.SeedAsync(dbContext);
             }
             catch (Exception ex)
             {

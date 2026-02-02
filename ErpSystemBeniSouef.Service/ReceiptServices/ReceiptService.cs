@@ -4,7 +4,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetAllReceiptsAsync(int? mainAraeId = null, int? fromCustomerNumber = null, int? toCustomerNumber = null)
+    public async Task<List<GetAllReceiptsDto>> GetAllReceiptsAsync(int? mainAraeId = null, int? fromCustomerNumber = null, int? toCustomerNumber = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -32,32 +32,31 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             query = query.Where(x => x.Customer.CustomerNumber <= toCustomerNumber);
 
         var receipts = await query
-            .GroupBy(x => x.InvoiceId)
             .Select(receipt => new GetAllReceiptsDto
             {
-                MonthlyInstallmentId = receipt.First().Id,
-                CustomerNumber = receipt.First().Customer.CustomerNumber,
-                CustomerName = receipt.First().Customer.Name,
-                MobileNumber = receipt.First().Customer.MobileNumber,
-                Address = receipt.First().Customer.Address,
-                NationlNumber = receipt.First().Customer.NationalNumber,
-                Deposite = receipt.First().Customer.Deposit,
-                //CollectorName = receipt.First().Collector.Name,
-                RepresentativeName = receipt.First().Customer.Representative!.Name,
-                AreaName = receipt.First().Customer.SubArea!.Name,
-                FirstInvoiceDate = receipt.First().Customer.FirstInvoiceDate,
-                InvoiceDate = receipt.First().Invoice.InvoiceDate,
-                TotalPrice = receipt.First().Invoice.Items!.Sum(item => item.Quantity * item.Price),
-                Items = string.Join("+", receipt.First().Invoice.Items!.Select(x => $"{x.Quantity} {x.Product.ProductName} ({x.Total})")),
-                Plans = string.Join("+", receipt.First().Invoice.Installments!.Select(x => $"{x.NumberOfMonths} * {x.Amount}"))
+                MonthlyInstallmentId = receipt.Id,
+                CustomerNumber = receipt.Customer.CustomerNumber,
+                CustomerName = receipt.Customer.Name,
+                MobileNumber = receipt.Customer.MobileNumber,
+                Address = receipt.Customer.Address,
+                NationlNumber = receipt.Customer.NationalNumber,
+                Deposit = receipt.Customer.Deposit,
+                CollectorName = receipt.Collector.Name,
+                RepresentativeName = receipt.Customer.Representative!.Name,
+                AreaName = receipt.Customer.SubArea!.Name,
+                FirstInvoiceDate = receipt.Customer.FirstInvoiceDate,
+                InvoiceDate = receipt.Invoice.InvoiceDate,
+                InstallmentAmount = receipt.Amount,
+                InstallmentDueDate = receipt.MonthDate,
+                IsPaid = receipt.IsPaid,
+                TotalPrice = receipt.Invoice.Items!.Sum(item => item.Quantity * item.Price),
+                Items = string.Join("+", receipt.Invoice.Items!.Select(x => $"{x.Quantity} {x.Product.ProductName} ({x.Total})")),
+                Plans = string.Join("+", receipt.Invoice.Installments!.Select(x => $"{x.NumberOfMonths} * {x.Amount}"))
             })
             .ToListAsync();
 
-        var file = await PrintAllReceipts(receipts);
-
-        return (receipts, file);
+        return receipts;
     }
-
     public async Task<(List<GetAllReceiptsDto>, byte[])> GetMonthlyReceiptsAsync(DateTime? month = null, int? mainAreaId = null, int? subAreaId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
@@ -68,7 +67,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             .Include(x => x.Invoice)
                 .ThenInclude(i => i.Items)!
             .AsNoTracking();
-            //.AsQueryable();
+        //.AsQueryable();
 
         // 🔹 فلترة الشهر
         if (month.HasValue)
@@ -109,7 +108,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
     }
 
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int? collectorId=null)
+    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int? collectorId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -205,7 +204,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             sheet.Cell(excelRow, 4).SetValue(r.MobileNumber);
             sheet.Cell(excelRow, 5).SetValue(r.Address);
             sheet.Cell(excelRow, 6).SetValue(r.NationlNumber);
-            sheet.Cell(excelRow, 7).SetValue(r.Deposite);
+            sheet.Cell(excelRow, 7).SetValue(r.Deposit);
             //sheet.Cell(excelRow, 8).SetValue(r.CollectorName);
             sheet.Cell(excelRow, 9).SetValue(r.RepresentativeName);
             sheet.Cell(excelRow, 10).SetValue(r.AreaName);
@@ -232,7 +231,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         using var workbook = new XLWorkbook();
         var sheet = workbook.AddWorksheet("Monthly Receipts");
 
-        var headers = new string[] {"Customer number", "Customer name", "Address", "Area", "Total price"};
+        var headers = new string[] { "Customer number", "Customer name", "Address", "Area", "Total price" };
 
         for (int i = 0; i < headers.Length; i++)
             sheet.Cell(1, i + 1).SetValue(headers[i]);

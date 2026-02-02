@@ -45,7 +45,7 @@ namespace ErpSystemBeniSouef.ReceiptPdfDocumentFolder
                     col.Item().LineHorizontal(1);
 
                     col.Item().Text($"الإجمالي: {_data.TotalPrice:N2}");
-                    col.Item().Text($"المقدم: {_data.Deposite:N2}");
+                    col.Item().Text($"المقدم: {_data.Deposit:N2}");
                     col.Item().Text($"نظام القسط: {_data.Plans}");
 
                     col.Item().LineHorizontal(1);
@@ -58,7 +58,6 @@ namespace ErpSystemBeniSouef.ReceiptPdfDocumentFolder
                 });
             });
         }
+         
     }
-
-
 }
