@@ -55,7 +55,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <DatePicker Grid.Column="0" Style="{StaticResource InputStyle}"/>
+                        <DatePicker Name="ColleectionDate" Grid.Column="0" Style="{StaticResource InputStyle}"/>
                         <TextBlock Grid.Column="1" Text="شهر التحصيل" Style="{StaticResource LabelStyle}" Width="120"/>
                     </Grid>
 

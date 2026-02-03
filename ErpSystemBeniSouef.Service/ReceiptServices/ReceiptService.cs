@@ -57,6 +57,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 
         return receipts;
     }
+   
     public async Task<(List<GetAllReceiptsDto>, byte[])> GetMonthlyReceiptsAsync(DateTime? month = null, int? mainAreaId = null, int? subAreaId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()

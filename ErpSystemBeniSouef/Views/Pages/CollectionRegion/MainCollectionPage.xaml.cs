@@ -1,6 +1,9 @@
 ﻿using ErpSystemBeniSouef.Core.Contract;
+using ErpSystemBeniSouef.Core.DTOs.PettyCash;
+using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
 using ErpSystemBeniSouef.Service.PettyCashServices;
 using ErpSystemBeniSouef.ViewModel;
+using ErpSystemBeniSouef.Views.Pages.Products;
 using ErpSystemBeniSouef.Views.Pages.SundriesRegion;
 using System;
 using System.Collections.Generic;
@@ -40,13 +43,35 @@ namespace ErpSystemBeniSouef.Views.Pages.CollectionRegion
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var selectCollectionTab = new SelectCollectionTabPage();
+            DateTime? CollectioneDate = ColleectionDate.SelectedDate;
+            if (CollectioneDate == null)
+            {
+                MessageBox.Show("من فضلك اختر تاريخ صحيح");
+                return;
+            }
+
+            RepresentativeDto selectedSupplier = (RepresentativeDto)RepresentativeCombo.SelectedItem;
+            if (selectedSupplier == null)
+            {
+                MessageBox.Show("  من فضلك ادخل بيانات صحيحة واختر مندوب صحيح");
+                return;
+            }
+             int representativeId = selectedSupplier.Id;
+
+            var selectCollectionTab = new SelectCollectionTabPage(CollectioneDate, representativeId);
             MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(selectCollectionTab);
         }
 
+
+        #region Dahbord Back Button Click Region
+
         private void BackBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            var DashbordRegion = new Dashboard();
+            MainWindowViewModel.MainWindow.Frame.NavigationService.Navigate(DashbordRegion);
         }
+
+        #endregion
+         
     }
 }

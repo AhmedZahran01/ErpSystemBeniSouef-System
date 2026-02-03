@@ -22,7 +22,7 @@
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Page.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="51"/>
@@ -36,62 +36,66 @@
         <userControls:TitleBar FlowDirection="LeftToRight" Grid.Row="0" Margin="0,0,0,8"/>
 
 
-    <Grid Grid.Row="1" Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
 
-        <Border Grid.Row="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="10">
-            <DataGrid Background="#1E3040" Foreground="White" AutoGenerateColumns="False" 
+            <Border Grid.Row="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="10">
+                <DataGrid Background="#1E3040" Foreground="White" AutoGenerateColumns="False" 
                   GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#304151"
-                  RowHeight="45" FontSize="15" BorderThickness="0">
-                <DataGrid.Resources>
-                    <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="Background" Value="#304151"/>
-                        <Setter Property="Foreground" Value="White"/>
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Height" Value="40"/>
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.Resources>
+                  RowHeight="45" FontSize="15" BorderThickness="0" Name="collectionServiceGrids">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="#304151"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.Resources>
 
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="60">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsSelected}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGrid.Columns>
+                        
+                        <DataGridTextColumn  Foreground="Black" Header="المسلسل " Binding="{Binding InstallmentId}" Width="*"/>
+                        <DataGridTextColumn  Foreground="Black" Header="اسم العميل" Binding="{Binding CustomerName}" Width="*"/>
+                        <DataGridTextColumn  Foreground="Black" Header="تاريخ التحصيل" Binding="{Binding CollectionDate}" Width="*"/>
+                        <DataGridTextColumn  Foreground="Black" Header=" المبلغ المحصل" Binding="{Binding CollectedAmount}" Width="*"/>
+                        <DataGridTextColumn  Foreground="Black" Header="تم التحصيل" Binding="{Binding IsPaid}" Width="*"/>
+                        <DataGridTextColumn  Foreground="Black" Header="  المبلغ المتبقي " Binding="{Binding RemainingAmount}" Width="*"/>
 
-                    <DataGridTextColumn Header="المسلسل " Binding="{Binding CustomerName}" Width="*"/>
-                    <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="*"/>
-                    <DataGridTextColumn Header="تاريخ التحصيل" Binding="{Binding CollectionDate}" Width="*"/>
-                    <DataGridTextColumn Header=" المبلغ المحصل" Binding="{Binding ReceiptValue}" Width="*"/>
-                    <DataGridTextColumn Header="تم التحصيل" Binding="{Binding IsCollectedStatus}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
+                        <DataGridTemplateColumn Width="60">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
 
-        <Border Grid.Row="2" Background="{StaticResource CardBrush}" CornerRadius="10" Margin="0,15,0,0" Padding="15">
-            <DockPanel>
-                <Button Content="حفظ" Width="178" Height="45" 
+            <Border Grid.Row="2" Background="{StaticResource CardBrush}" CornerRadius="10" Margin="0,15,0,0" Padding="15">
+                <DockPanel>
+                    <Button Content="حفظ" Width="178" Height="45" 
                     Background="{StaticResource PrimaryButtonBrush}" 
                     Foreground="White" FontWeight="Bold" FontSize="18" 
                     DockPanel.Dock="Right" Click="Button_Click"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBox Width="294" Height="35" Background="White" Foreground="Black" 
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBox Width="294" Height="35" Background="White" Foreground="Black" 
                          FontWeight="Bold" FontSize="16" VerticalContentAlignment="Center" 
                          Margin="15,0" Padding="5,0"/>
-                    <TextBlock Text="القيمة المراد تحصيلها" Style="{StaticResource LabelStyle}"/>
-                </StackPanel>
-            </DockPanel>
-        </Border>
-    </Grid>
+                        <TextBlock Text="القيمة المراد تحصيلها" Style="{StaticResource LabelStyle}"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+        </Grid>
 
 
         <Grid  Grid.Row="2" Margin=" 0 0 60 10" FlowDirection="LeftToRight">
