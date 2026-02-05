@@ -1,25 +1,11 @@
-﻿using DocumentFormat.OpenXml.Bibliography;
-using ErpSystemBeniSouef.Core.Contract;
-using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
+﻿using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.DTOs.Receipt;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
-using ErpSystemBeniSouef.Service.ProductService;
+using ErpSystemBeniSouef.ReceiptPdfDocumentFolder;
 using ErpSystemBeniSouef.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 {
@@ -31,6 +17,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
         private readonly IReceiptService _receiptService;
         private readonly IMainAreaService _mainAreaService;
         bool loadPage = true;
+        List<GetAllReceiptsDto> getAllReceiptsDtos = new List<GetAllReceiptsDto>();
 
         public PrintReceiptsInFullPage(IReceiptService receiptService, IMainAreaService mainAreaService)
         {
@@ -67,13 +54,13 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             List<GetAllReceiptsDto> receiptsData4 = new List<GetAllReceiptsDto>();
             if (!loadPage)
             {
-                (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
+                receiptsData4 = await _receiptService.GetAllReceiptsAsync(mainId, fr, to);
             }
             else
             {
-                (receiptsData4, var fileData4) = await _receiptService.GetAllReceiptsAsync();
-                var f = await _mainAreaService.GetAllAsync();
-                MainAreaCombo.ItemsSource = f;
+                receiptsData4 = await _receiptService.GetAllReceiptsAsync();
+                var mainAreas = await _mainAreaService.GetAllAsync();
+                MainAreaCombo.ItemsSource = mainAreas;
                 MainAreaCombo.SelectedIndex = 0;
 
             }
@@ -82,8 +69,8 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             {
                 item.DisplayUIId = index++;
             }
-
-            ReceiptsDataGrid.ItemsSource = receiptsData4;
+            getAllReceiptsDtos = receiptsData4;
+            ReceiptsDataGrid.ItemsSource = getAllReceiptsDtos;
 
 
         }
@@ -137,5 +124,65 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             #endregion
         }
 
+        private void PrintDataReceiptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //var pdfService = new ReceiptPdfService();
+            var pdfService = new ReceiptPdfService();
+
+            // لو مفيش تحديد => اطبع الكل
+            if (ReceiptsDataGrid.SelectedItems.Count == 0)
+            {
+                var result = MessageBox.Show(
+                    "هل أنت متأكد أنك تريد طباعة كل الإيصالات ؟",
+                    "تأكيد الطباعة",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
+                );
+
+                if (result != MessageBoxResult.Yes)
+                    return;
+
+
+                var allReceipts = getAllReceiptsDtos.ToList();
+
+                var filePath = pdfService.GenerateAllReceiptsInOnePdf(allReceipts);
+
+                MessageBox.Show("تم إنشاء ملف PDF واحد يحتوي على كل الإيصالات");
+
+                pdfService.OpenFolder();
+
+                //var allReceipts = getAllReceiptsDtos.ToList();
+
+                //var files = pdfService.GenerateReceipts(allReceipts);
+
+                //MessageBox.Show($"تم إنشاء {files.Count} إيصال PDF بنجاح");
+
+                //pdfService.OpenFolder();
+            }
+            else
+            {
+                var result = MessageBox.Show(
+                    "هل أنت متأكد أنك تريد طباعة الإيصالات المحددة ؟",
+                    "تأكيد الطباعة",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning
+                );
+
+                if (result != MessageBoxResult.Yes)
+                    return;
+
+                var selectedItemsDto = ReceiptsDataGrid.SelectedItems
+                    .Cast<GetAllReceiptsDto>()
+                    .ToList();
+
+                var files = pdfService.GenerateReceipts(selectedItemsDto);
+
+                MessageBox.Show($"تم إنشاء {files.Count} إيصال PDF بنجاح");
+
+                pdfService.OpenFolder();
+            }
+        }
+
+         
     }
 }

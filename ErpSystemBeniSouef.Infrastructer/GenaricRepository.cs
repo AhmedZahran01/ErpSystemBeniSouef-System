@@ -31,8 +31,7 @@ namespace ErpSystemBeniSouef.Infrastructer
             foreach (var include in includes)
             {
                 query = query.Include(include);
-            }
-
+            } 
             return query.ToList();
         }
 

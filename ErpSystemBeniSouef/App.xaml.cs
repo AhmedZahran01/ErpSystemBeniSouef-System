@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using ErpSystemBeniSouef.Core;
+﻿using ErpSystemBeniSouef.Core;
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 using ErpSystemBeniSouef.Core.Contract.Covenant;
@@ -10,10 +9,13 @@ using ErpSystemBeniSouef.Core.Contract.Invoice.DueInvoice;
 using ErpSystemBeniSouef.Core.Contract.Invoice.ReturnToSupplieInvoice;
 using ErpSystemBeniSouef.Core.Contract.PettyCash;
 using ErpSystemBeniSouef.Core.Contract.Reports;
+using ErpSystemBeniSouef.Core.Contract.RepresentativeWithdrawal;
 using ErpSystemBeniSouef.Infrastructer;
 using ErpSystemBeniSouef.Infrastructer.Data;
 using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using ErpSystemBeniSouef.Service.CashCustomerInvoices;
+using ErpSystemBeniSouef.Service.CollectionServices;
+
 //using ErpSystemBeniSouef.Service.CollectionServices;
 using ErpSystemBeniSouef.Service.CollectorServices;
 using ErpSystemBeniSouef.Service.CovenantServices;
@@ -29,6 +31,7 @@ using ErpSystemBeniSouef.Service.ReportsServices;
 
 //using ErpSystemBeniSouef.Service.ReportsServices;
 using ErpSystemBeniSouef.Service.RepresentativeService;
+using ErpSystemBeniSouef.Service.RepresentativeWithdrawalServices;
 using ErpSystemBeniSouef.Service.StoreKeeperService;
 using ErpSystemBeniSouef.Service.SubAreaServices;
 using ErpSystemBeniSouef.Service.SupplierAccountServices;
@@ -36,11 +39,11 @@ using ErpSystemBeniSouef.Service.supplierCashService;
 using ErpSystemBeniSouef.Service.SupplierService;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.Products;
-using ErpSystemBeniSouef.Views.Pages.ReceiptsRegion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using QuestPDF.Infrastructure;
 using System.Windows;
 
 namespace ErpSystemBeniSouef
@@ -53,8 +56,9 @@ namespace ErpSystemBeniSouef
         public static IHost? AppHost { get; private set; }
         protected override async void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
 
+            QuestPDF.Settings.License = LicenseType.Community;
+            base.OnStartup(e);
             //AppHost = Host.CreateDefaultBuilder()
             //        .ConfigureServices((context, services) =>
             //        {
@@ -96,6 +100,8 @@ namespace ErpSystemBeniSouef
             services.AddScoped(typeof(IReceiptService), typeof(ReceiptService));
             services.AddScoped(typeof(ICovenantService), typeof(CovenantService));
             services.AddScoped(typeof(IPettyCashService), typeof(PettyCashService));
+            services.AddScoped(typeof(IRepresentativeWithdrawalService), typeof(RepresentativeWithdrawalService));
+            services.AddScoped(typeof(ICollectionService), typeof(CollectionService));
        
         
             //services.AddScoped(typeof(IReturnSupplierInvoiceService), typeof(ReturnSupplierInvoiceService));
@@ -113,7 +119,7 @@ namespace ErpSystemBeniSouef
                 var services = scope.ServiceProvider;
                 var dbContext = services.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate(); // sync افضل هنا
-                await StoreDokContextSeed.SeedAsync(dbContext);
+                await StoreSeedingContextSeed.SeedAsync(dbContext);
             }
             catch (Exception ex)
             {
