@@ -22,4 +22,14 @@ public class GetAllReceiptsDto
     public decimal InstallmentAmount { get; set; }
     public DateTime InstallmentDueDate { get; set; }
     public string InstallmentAmountText { get; set; } = string.Empty;
+    public List<ReceiptDetailDto> Receipts { get; set; } = [];
+}
+
+public class ReceiptDetailDto
+{
+    public int MonthlyInstallmentId { get; set; }
+    public decimal InstallmentAmount { get; set; }
+    public DateTime InstallmentDueDate { get; set; }
+    public bool IsPaid { get; set; }
+    public string CollectorName { get; set; } = string.Empty;
 }

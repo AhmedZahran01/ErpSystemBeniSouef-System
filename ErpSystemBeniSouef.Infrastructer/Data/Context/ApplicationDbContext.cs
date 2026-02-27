@@ -57,6 +57,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             //    );
             // optionsBuilder.UseSqlServer(
             var connectionString = "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
+           // var connectionString = "Server=DESKTOP-V116C4B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
             //);
 
 
