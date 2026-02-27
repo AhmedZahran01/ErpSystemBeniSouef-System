@@ -4,7 +4,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetAllReceiptsAsync(int? mainAraeId = null, int? fromCustomerNumber = null, int? toCustomerNumber = null)
+    public async Task<List<GetAllReceiptsDto>> GetAllReceiptsAsync(int? mainAraeId = null, int? fromCustomerNumber = null, int? toCustomerNumber = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -32,33 +32,42 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             query = query.Where(x => x.Customer.CustomerNumber <= toCustomerNumber);
 
         var receipts = await query
-            .GroupBy(x => x.InvoiceId)
-            .Select(receipt => new GetAllReceiptsDto
+            .GroupBy(x => x.CustomerId)
+            .Select(group => new GetAllReceiptsDto
             {
-                MonthlyInstallmentId = receipt.First().Id,
-                CustomerNumber = receipt.First().Customer.CustomerNumber,
-                CustomerName = receipt.First().Customer.Name,
-                MobileNumber = receipt.First().Customer.MobileNumber,
-                Address = receipt.First().Customer.Address,
-                NationlNumber = receipt.First().Customer.NationalNumber,
-                Deposite = receipt.First().Customer.Deposit,
-                //CollectorName = receipt.First().Collector.Name,
-                RepresentativeName = receipt.First().Customer.Representative!.Name,
-                AreaName = receipt.First().Customer.SubArea!.Name,
-                FirstInvoiceDate = receipt.First().Customer.FirstInvoiceDate,
-                InvoiceDate = receipt.First().Invoice.InvoiceDate,
-                TotalPrice = receipt.First().Invoice.Items!.Sum(item => item.Quantity * item.Price),
-                Items = string.Join("+", receipt.First().Invoice.Items!.Select(x => $"{x.Quantity} {x.Product.ProductName} ({x.Total})")),
-                Plans = string.Join("+", receipt.First().Invoice.Installments!.Select(x => $"{x.NumberOfMonths} * {x.Amount}"))
+                MonthlyInstallmentId = group.First().Id,
+                CustomerNumber = group.First().Customer.CustomerNumber,
+                CustomerName = group.First().Customer.Name,
+                MobileNumber = group.First().Customer.MobileNumber,
+                Address = group.First().Customer.Address,
+                NationlNumber = group.First().Customer.NationalNumber,
+                Deposit = group.First().Customer.Deposit,
+                CollectorName = group.First().Collector.Name,
+                RepresentativeName = group.First().Customer.Representative!.Name,
+                AreaName = group.First().Customer.SubArea!.Name,
+                FirstInvoiceDate = group.First().Customer.FirstInvoiceDate,
+                InvoiceDate = group.First().Invoice.InvoiceDate,
+                InstallmentAmount = group.First().Amount,
+                InstallmentDueDate = group.First().MonthDate,
+                IsPaid = group.First().IsPaid,
+                TotalPrice = group.First().Invoice.Items!.Sum(item => item.Quantity * item.Price),
+                Items = string.Join("+", group.First().Invoice.Items!.Select(x => $"{x.Quantity} {x.Product.ProductName} ({x.Total})")),
+                Plans = string.Join("+", group.First().Invoice.Installments!.Select(x => $"{x.NumberOfMonths} * {x.Amount}")),
+                Receipts = group.Select(r => new ReceiptDetailDto
+                {
+                    MonthlyInstallmentId = r.Id,
+                    InstallmentAmount = r.Amount,
+                    InstallmentDueDate = r.MonthDate,
+                    IsPaid = r.IsPaid,
+                    CollectorName = r.Collector.Name
+                }).ToList()
             })
             .ToListAsync();
 
-        var file = await PrintAllReceipts(receipts);
-
-        return (receipts, file);
+        return receipts;
     }
-
-    public async Task<(List<GetAllReceiptsDto>, byte[])> GetMonthlyReceiptsAsync(DateTime? month = null, int? mainAreaId = null, int? subAreaId = null)
+   
+    public async Task<List<GetAllReceiptsDto>> GetMonthlyReceiptsAsync(DateTime? month = null, int? mainAreaId = null, int? subAreaId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -103,13 +112,11 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         })
         .ToListAsync();
 
-        var file = await PrintMonthlyReceipts(receipts);
-
-        return (receipts, file);
+        return receipts;
     }
 
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int? collectorId=null)
+    public async Task<List<GetAllReceiptsDto>> GetCollectorReceiptsAsync(DateTime? month, int? collectorId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
@@ -137,12 +144,10 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         })
         .ToListAsync();
 
-        var file = await PrintMonthlyReceipts(receipts);
-
-        return (receipts, file);
+        return receipts;
     }
 
-    public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCustomerReceiptsAsync(int customerNumber)
+    public async Task<List<GetAllReceiptsDto>> GetCustomerReceiptsAsync(int customerNumber)
     {
         var customerExists = _unitOfWork.Repository<Customer>()
             .GetByCondionAndInclide(x => x.CustomerNumber == customerNumber) ?? throw new Exception("رقم العميل غير صحيح أو غير موجود");
@@ -171,9 +176,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             })
             .ToListAsync();
 
-        var file = await PrintMonthlyReceipts(receipts);
-
-        return (receipts, file);
+        return receipts;
     }
 
     private async Task<Byte[]> PrintAllReceipts(List<GetAllReceiptsDto> receipts)
