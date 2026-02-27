@@ -620,8 +620,8 @@
                             <DataGridTextColumn Header="اسم العميل" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="رقم الموبايل" Binding="{Binding MobileNumber}" Width="*"/>
                             <DataGridTextColumn Header="العنوان" Binding="{Binding Address}" Width="1.3*"/>
-                            <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding SaleDate}" Width="1.4*"/>
-                            <DataGridTextColumn Header="تاريخ أول فاتورة" Binding="{Binding FirstInvoiceDate}" Width="1.5*"/>
+                            <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding SaleDate  , StringFormat=yyyy-MM-dd}" Width="1.4*"/>
+                            <DataGridTextColumn Header="تاريخ أول فاتورة" Binding="{Binding FirstInvoiceDate , StringFormat=yyyy-MM-dd}" Width="1.5*"/>
                             <DataGridTextColumn Header="المنطقة" Binding="{Binding SubAreaName}" Width="1*"/>
                             <DataGridTextColumn Header="اسم المندوب" Binding="{Binding RepresentativeName}" Width="*"/>
                             <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationalNumber}" Width="1.2*"/>

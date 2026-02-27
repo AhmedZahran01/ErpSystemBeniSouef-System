@@ -18,7 +18,8 @@ public class CollectionService(IUnitOfWork unitOfWork) : ICollectionService
                 Amount = x.Amount,
                 CollectedAmount = x.CollectedAmount,
                 IsPaid = x.IsPaid,
-                IsDelayed = x.IsDelayed
+                IsDelayed = x.IsDelayed,
+                CollectionDate = x.MonthDate,
             })
             .ToListAsync();
 

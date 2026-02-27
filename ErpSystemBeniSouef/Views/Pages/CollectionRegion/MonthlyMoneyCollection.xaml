@@ -44,14 +44,14 @@
             </Grid.RowDefinitions>
 
 
-            <Border Grid.Row="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="10">
+            <Border Grid.Row="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="11">
                 <DataGrid Background="#1E3040" Foreground="White" AutoGenerateColumns="False" 
-                  GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#304151"
-                  RowHeight="45" FontSize="15" BorderThickness="0" Name="collectionServiceGrids">
+                  GridLinesVisibility="All" HorizontalGridLinesBrush="#304151"
+                  RowHeight="45" FontSize="16" BorderThickness="1" Name="collectionServiceGrids">
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Background" Value="#304151"/>
-                            <Setter Property="Foreground" Value="White"/>
+                            <!--<Setter Property="Foreground" Value="White"/>-->
                             <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="Height" Value="40"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -60,16 +60,139 @@
 
                     <DataGrid.Columns>
                         
-                        <DataGridTextColumn  Foreground="Black" Header="المسلسل " Binding="{Binding InstallmentId}" Width="*"/>
-                        <DataGridTextColumn  Foreground="Black" Header="اسم العميل" Binding="{Binding CustomerName}" Width="*"/>
-                        <DataGridTextColumn  Foreground="Black" Header="تاريخ التحصيل" Binding="{Binding CollectionDate}" Width="*"/>
-                        <DataGridTextColumn  Foreground="Black" Header=" المبلغ المحصل" Binding="{Binding CollectedAmount}" Width="*"/>
-                        <DataGridTextColumn  Foreground="Black" Header="تم التحصيل" Binding="{Binding IsPaid}" Width="*"/>
-                        <DataGridTextColumn  Foreground="Black" Header="  المبلغ المتبقي " Binding="{Binding RemainingAmount}" Width="*"/>
+                        <!--<DataGridTextColumn  Foreground="Black" Header="المسلسل " Binding="{Binding InstallmentId}" Width="*"/>-->
 
-                        <DataGridTemplateColumn Width="60">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
+                        <DataGridTextColumn Binding="{Binding InstallmentId}" Header="المسلسل " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                    <Setter Property="Background" Value="#304151"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+
+                        </DataGridTextColumn>
+                        
+
+                        <!--<DataGridTextColumn  Foreground="Black" Header="اسم العميل" Binding="{Binding CustomerName}" Width="*"/>-->
+
+                        <DataGridTextColumn Binding="{Binding CustomerName}" Header="اسم العميل " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                    <Setter Property="Background" Value="#304151"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+
+                        </DataGridTextColumn>
+ 
+                        <!--<DataGridTextColumn  Foreground="Black" Header="تاريخ التحصيل" Binding="{Binding CollectionDate , StringFormat=yyyy-MM-dd }" Width="*"/>-->
+
+                        <DataGridTextColumn Binding="{Binding CollectionDate , StringFormat=yyyy-MM-dd}" Header="تاريخ التحصيل " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                    <Setter Property="Background" Value="#304151"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+
+                        </DataGridTextColumn>
+
+ 
+                        <!--<DataGridTextColumn  Foreground="Black" Header=" المبلغ المحصل" Binding="{Binding CollectedAmount}" Width="*"/>-->
+
+                        <DataGridTextColumn Binding="{Binding CollectedAmount}" Header="المبلغ المحصل " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                    <Setter Property="Background" Value="#304151"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+
+                        </DataGridTextColumn>
+
+                        
+                        <!--<DataGridTextColumn  Foreground="Black" Header="تم التحصيل" Binding="{Binding IsPaid}" Width="*"/>-->
+
+                        <DataGridTextColumn Binding="{Binding IsPaid}" Header="تم التحصيل " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                    <Setter Property="Background" Value="#304151"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+
+                        </DataGridTextColumn>
+
+
+
+
+                        <!--<DataGridTextColumn  Foreground="Black" Header="  المبلغ المتبقي " Binding="{Binding RemainingAmount}" Width="*"/>-->
+
+                        <DataGridTextColumn Binding="{Binding RemainingAmount}" Header="المبلغ المتبقي " Width="*" >
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Setter Property="TextAlignment" Value="Center"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                            <DataGridTextColumn.HeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontSize" Value="23"/>
+                                    <Setter Property="Background" Value="#304151"/>
+                                </Style>
+                            </DataGridTextColumn.HeaderStyle>
+
+                        </DataGridTextColumn>
+
+
+
+
+                        
+                        <DataGridTemplateColumn Width=".7*" Header="تم التحصيل ؟">
+                            <DataGridTemplateColumn.CellTemplate >
+                                <DataTemplate >
                                     <CheckBox IsChecked="{Binding IsSelected}"
                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </DataTemplate>

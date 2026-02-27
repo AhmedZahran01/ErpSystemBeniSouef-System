@@ -7,6 +7,7 @@ public class InstallmentCollectionDto
     public decimal Amount { get; set; }
     public decimal CollectedAmount { get; set; }
     public bool IsPaid { get; set; }
+    public DateTime? CollectionDate { get; set; }
     public bool IsDelayed { get; set; }
     public decimal RemainingAmount => Amount - CollectedAmount;
 }

@@ -107,8 +107,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 
         return (receipts, file);
     }
-
-
+      
     public async Task<(List<GetAllReceiptsDto>, Byte[])> GetCollectorReceiptsAsync(DateTime? month, int? collectorId = null)
     {
         var query = _unitOfWork.Repository<MonthlyInstallment>()
@@ -227,6 +226,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 
         return stream.ToArray();
     }
+
     private async Task<Byte[]> PrintMonthlyReceipts(List<GetAllReceiptsDto> receipts)
     {
         using var workbook = new XLWorkbook();
@@ -266,4 +266,5 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
 
         return stream.ToArray();
     }
+
 }
