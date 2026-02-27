@@ -72,18 +72,16 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
             DateTime monthDate = new DateTime(1025, 1, 1, 10, 30, 0);
             List<GetAllReceiptsDto> receiptsData4 = new List<GetAllReceiptsDto>();
 
-            byte[] fileData4 = Array.Empty<byte>();
             if (!dateOfRecceipt.HasValue && !mainId.HasValue && !subId.HasValue)
             {
-                (receiptsData4, fileData4) = await _receiptService.GetMonthlyReceiptsAsync();
+                receiptsData4 = await _receiptService.GetMonthlyReceiptsAsync();
 
             }
             else
             {
-                (receiptsData4, fileData4) = await _receiptService.GetMonthlyReceiptsAsync(dateOfRecceipt, mainId, subId);
+                receiptsData4 = await _receiptService.GetMonthlyReceiptsAsync(dateOfRecceipt, mainId, subId);
 
             }
-            //(receiptsData4, fileData4) = await _receiptService.GetMonthlyReceiptsAsync();
             //receiptsData5 = receiptsData4;
             DataGridRegion.ItemsSource = receiptsData4;
 

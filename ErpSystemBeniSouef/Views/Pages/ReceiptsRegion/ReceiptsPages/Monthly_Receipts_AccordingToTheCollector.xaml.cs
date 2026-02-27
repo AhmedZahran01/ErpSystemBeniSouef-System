@@ -64,7 +64,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
         private async Task LoadReceipts(int mainId = 4, int fr = 1, int to = 100000)
         {
             DateTime monthDate = DateTime.UtcNow;
-            (var receiptsData14, var fileData41) = await _receiptService.GetCollectorReceiptsAsync(monthDate);
+            var receiptsData14 = await _receiptService.GetCollectorReceiptsAsync(monthDate);
             var rep = await _representativeService.GetAllAsync(); 
             RepresentativeDataGridReceipts.ItemsSource = receiptsData14;
             repComboBox.ItemsSource = rep;
@@ -95,7 +95,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
                     LoadingText.Text = "جاري تحميل البيانات...";
                     await Task.Delay(2000);
 
-                    (var SearchreceiptsData, var SearchfileData) = await _receiptService.GetCollectorReceiptsAsync(SearchDate, repId);
+                    var SearchreceiptsData = await _receiptService.GetCollectorReceiptsAsync(SearchDate, repId);
                     RepresentativeDataGridReceipts.ItemsSource = SearchreceiptsData;
 
                     LoadingBar.Visibility = Visibility.Collapsed;
