@@ -116,7 +116,14 @@
                     <TextBox Height="35"  Name="ToClient" Margin="0,0,0,20" Background="#1E3040" Foreground="White" BorderBrush="#304151" VerticalContentAlignment="Center" Padding="5,0"/>
                     <!--<Button Content="طباعة الإيصالات بالكامل" Style="{StaticResource MainButtonStyle}" FontSize="14" Click="GetReceiptDataBtn_Click"/>-->
                     <Button Margin="0 10 0 20" Style="{StaticResource MainButtonStyle}"
-                            FontSize="14"   Click="GetReceiptDataBtn_Click">
+                            FontSize="17"   Click="GetReceiptDataBtn_Click">
+                        <TextBlock 
+                               Text="بحث "
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"/>
+                    </Button>
+                    <Button Margin="0 10 0 20" Style="{StaticResource MainButtonStyle}"
+                            FontSize="14"   Click="PrintDataReceiptBtn_Click">
                         <TextBlock 
                                Text="طباعة الإيصالات &#x0a;بالكامل   "
                                TextAlignment="Center"
@@ -155,6 +162,7 @@
                         <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationlNumber}" Width=".8*"/>
                         <DataGridTextColumn Header="المقدم" Binding="{Binding Deposite}" Width=".7*"/>
                         <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="1.5*"/>
+                        <DataGridTextColumn Header="مبلغ الايصال " Binding="{Binding InstallmentAmount}" Width="1.5*"/>
                         <DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotalPrice}" Width=".7*"/>
                         <DataGridTextColumn Header="المبيعات" Binding="{Binding Items}" Width="1.67*"/>
                     </DataGrid.Columns>

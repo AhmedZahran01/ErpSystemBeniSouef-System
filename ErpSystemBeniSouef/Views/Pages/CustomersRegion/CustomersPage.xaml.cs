@@ -2,11 +2,13 @@
 using ErpSystemBeniSouef.Core.Contract;
 using ErpSystemBeniSouef.Core.Contract.CashCustomerInvoiceServices;
 using ErpSystemBeniSouef.Core.Contract.CustomerInvoice;
+using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.GetAllDetailsForCustomerInvoiceDtos;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.Input;
 using ErpSystemBeniSouef.Core.DTOs.CustomerInvoiceDtos.output;
 using ErpSystemBeniSouef.Core.DTOs.MainAreaDtos;
 using ErpSystemBeniSouef.Core.DTOs.ProductsDto;
 using ErpSystemBeniSouef.Core.DTOs.SubAreaDtos;
+using ErpSystemBeniSouef.Core.GenericResponseModel;
 using ErpSystemBeniSouef.Dtos.MainAreaDto;
 using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage;
@@ -684,7 +686,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             }
 
             // تحميل العناصر (Items)
-            //LoadInvoiceItems(customer.Id);
+            LoadInvoiceItems(customer.Id);
         }
 
         private async void LoadInvoiceItems(int invoiceId)
@@ -692,29 +694,71 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             displayItemsGrid.Clear();
             customerinvoicedtosList.Clear();
 
-            var details = await _customerInvoiceService.GetCustomerInvoiceByIdAsync(invoiceId);
-
-            foreach (var item in details.Data.CustomerInvoiceItems)
+            ServiceResponse<ReturnCustomerInvoiceDetailsDTO> details = await _customerInvoiceService.GetCustomerInvoiceByIdAsync(invoiceId);
+            if (details.Data is not null)
             {
-                customerinvoicedtosList.Add(new Customerinvoicedtos
-                {
-                    ProductId = item.ProductIdDto,
-                    Quantity = item.Quantity,
-                    Price = item.Price
-                });
 
-                displayItemsGrid.Add(new DisplayForUiCustomerinvoicedtos
+                if (details.Data.CustomerInvoiceItems is not null)
                 {
-                    DisplayId = countItemGridDisplayNo++,
-                    ProductId = item.ProductIdDto,
-                    ProductName = item.ProductName,
-                    ProductCategoryName = item.CategoryName,
-                    Quantity = item.Quantity,
-                    Price = item.Price
-                });
+
+                    foreach (var item in details.Data.CustomerInvoiceItems)
+                    {
+                        customerinvoicedtosList.Add(new Customerinvoicedtos
+                        {
+                            ProductId = item.ProductIdDto,
+                            Quantity = item.Quantity,
+                            Price = item.Price
+                        });
+
+                        displayItemsGrid.Add(new DisplayForUiCustomerinvoicedtos
+                        {
+                            DisplayId = countItemGridDisplayNo++,
+                            ProductId = item.ProductIdDto,
+                            ProductName = item.ProductName,
+                            ProductCategoryName = item.CategoryName,
+                            Quantity = item.Quantity,
+                            Price = item.Price
+                        });
+                    }
+
+                    int insCount = details.Data.Installments.Count;
+                    int countOfIterate = 0;
+                    foreach (var item in details.Data.Installments)
+                    {
+                        if (insCount > 2)
+                        {
+                            if (countOfIterate == 0)
+                            {
+                                setValueOfPriceTxt.Text = item.Amount.ToString();
+                                setNoOfMonthsTxt.Text = item.NumberOfMonths.ToString();
+                            }
+                            else if (countOfIterate == 1)
+                            {
+                                setValueOfPriceTxt2.Text = item.Amount.ToString();
+                                setNoOfMonthsTxt2.Text = item.NumberOfMonths.ToString();
+                            }
+                            countOfIterate++;
+                        }
+                        else
+                        {
+                            if (countOfIterate == 0)
+                            {
+                                setValueOfPriceTxt.Text = item.Amount.ToString();
+                                setNoOfMonthsTxt.Text = item.NumberOfMonths.ToString();
+                            }
+                            else if (countOfIterate == 1)
+                            {
+                                setValueOfPriceTxt2.Text = item.Amount.ToString();
+                                setNoOfMonthsTxt2.Text = item.NumberOfMonths.ToString();
+                            }
+                            countOfIterate++;
+                        }
+
+                    }
+                    dgInvoiceItems.ItemsSource = displayItemsGrid;
+                }
             }
 
-            dgInvoiceItems.ItemsSource = displayItemsGrid;
         }
 
         private void DeleteButton_Click2(object sender, RoutedEventArgs e)

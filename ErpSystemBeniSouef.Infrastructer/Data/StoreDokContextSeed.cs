@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ErpSystemBeniSouef.Infrastructer.Data
 {
-    public static class StoreDokContextSeed
+    public static class StoreSeedingContextSeed
     {
         #region Seeding Function Region
 

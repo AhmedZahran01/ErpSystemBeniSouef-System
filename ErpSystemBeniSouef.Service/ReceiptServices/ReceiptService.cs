@@ -77,7 +77,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             .Include(x => x.Invoice)
                 .ThenInclude(i => i.Items)!
             .AsNoTracking();
-            //.AsQueryable();
+        //.AsQueryable();
 
         // 🔹 فلترة الشهر
         if (month.HasValue)
@@ -208,7 +208,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
             sheet.Cell(excelRow, 4).SetValue(r.MobileNumber);
             sheet.Cell(excelRow, 5).SetValue(r.Address);
             sheet.Cell(excelRow, 6).SetValue(r.NationlNumber);
-            sheet.Cell(excelRow, 7).SetValue(r.Deposite);
+            sheet.Cell(excelRow, 7).SetValue(r.Deposit);
             //sheet.Cell(excelRow, 8).SetValue(r.CollectorName);
             sheet.Cell(excelRow, 9).SetValue(r.RepresentativeName);
             sheet.Cell(excelRow, 10).SetValue(r.AreaName);
@@ -235,7 +235,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         using var workbook = new XLWorkbook();
         var sheet = workbook.AddWorksheet("Monthly Receipts");
 
-        var headers = new string[] {"Customer number", "Customer name", "Address", "Area", "Total price"};
+        var headers = new string[] { "Customer number", "Customer name", "Address", "Area", "Total price" };
 
         for (int i = 0; i < headers.Length; i++)
             sheet.Cell(1, i + 1).SetValue(headers[i]);
