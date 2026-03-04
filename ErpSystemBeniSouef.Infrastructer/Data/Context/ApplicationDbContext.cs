@@ -99,19 +99,54 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
 
             #region Edit Data Region
 
+            // Enable Cascade Delete for Customer -> CustomerInvoice
+            builder.Entity<CustomerInvoice>()
+                .HasOne(i => i.Customer)
+                .WithMany(c => c.Invoices)
+                .HasForeignKey(i => i.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //     builder.Entity<Product>()
-            //     .HasOne(p => p.Company)
-            //     .WithMany(c => c.Products)
-            //     .HasForeignKey(p => p.CompanyId)
-            //     .OnDelete(DeleteBehavior.SetNull); // 👈 بدل Cascade
+            // Enable Cascade Delete for CustomerInvoice -> CustomerInvoiceItems
+            builder.Entity<CustomerInvoiceItems>()
+                .HasOne(i => i.Invoice)
+                .WithMany(inv => inv.Items)
+                .HasForeignKey(i => i.InvoiceId)
+                .OnDelete(DeleteBehavior.Cascade);
 
+            // Enable Cascade Delete for CustomerInvoice -> InstallmentPlan
+            builder.Entity<InstallmentPlan>()
+                .HasOne(p => p.Invoice)
+                .WithMany(inv => inv.Installments)
+                .HasForeignKey(p => p.InvoiceId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            //     builder.Entity<Category>()
-            //.HasOne(c => c.Company)
-            //.WithMany()
-            //.HasForeignKey(c => c.CompanyId)
-            //.OnDelete(DeleteBehavior.Cascade); // تسيبها زي ما هي
+            // Enable Cascade Delete for CustomerInvoice -> MonthlyInstallment
+            builder.Entity<MonthlyInstallment>()
+                .HasOne(m => m.Invoice)
+                .WithMany()
+                .HasForeignKey(m => m.InvoiceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Enable Cascade Delete for CustomerInvoiceItems -> Commission
+            builder.Entity<Commission>()
+                .HasOne(c => c.InvoiceItem)
+                .WithMany()
+                .HasForeignKey(c => c.InvoiceItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // another database Cascade here to prevent SQL Server Multiple Cascade Path errors.
+            builder.Entity<Commission>()
+                .HasOne(c => c.Invoice)
+                .WithMany()
+                .HasForeignKey(c => c.InvoiceId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            // Enable Cascade Delete for CustomerInvoice -> Discount
+            builder.Entity<Discount>()
+                .HasOne(d => d.Invoice)
+                .WithMany()
+                .HasForeignKey(d => d.InvoiceId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             #endregion
 

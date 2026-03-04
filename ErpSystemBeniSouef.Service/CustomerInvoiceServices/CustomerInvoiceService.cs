@@ -110,6 +110,8 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     await CreateCommissionRecordAsync(representative.Id, invoice.Id, product, item.Quantity, invoice.InvoiceDate, invoiceItem.Id);
                 }
 
+                var startDate = dto.FirstInvoiceDate;
+
                 //  Create installment plans
                 foreach (var inst in dto.installmentsdtos)
                 {
@@ -128,8 +130,8 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                         .OrderByDescending(m => m.MonthDate)
                         .FirstOrDefault();
 
-                    var startDate = lastInstallment is null
-                        ? invoice.InvoiceDate.AddMonths(1)
+                    startDate = lastInstallment is null
+                        ? dto.FirstInvoiceDate
                         : lastInstallment.MonthDate.AddMonths(1);
 
                     await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, startDate);
@@ -281,11 +283,10 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
             try
             {
                 var customer = await _unitOfWork.Repository<Customer>()
-                    .GetAllQueryable()
-                    .Include(c => c.Invoices)
-                        .ThenInclude(i => i.Items)
-                            .ThenInclude(it => it.Product)
-                    .FirstOrDefaultAsync(c => c.Id == customerId);
+                    .GetByIdWithIncludeAsync(customerId, q => q
+                        .Include(c => c.Invoices)
+                            .ThenInclude(i => i.Items)
+                                .ThenInclude(it => it.Product));
 
                 if (customer == null)
                     return ServiceResponse<bool>.Failure("Customer not found.");
@@ -348,11 +349,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     //  Remove monthly installments and plans related to this invoice
                    
                     var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
-                        .GetAllAsync(m => m.InvoiceId == invoice.Id);
-
-
-                    //var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
-                    //    .GetByCondionAndInclideAsync(m => m.InvoiceId == invoice.Id);
+                        .GetByCondionAndInclideAsync(m => m.InvoiceId == invoice.Id);
 
                     if (monthlyInstallments != null && monthlyInstallments.Any())
                     {
@@ -361,11 +358,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     }
 
                     var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
-                        .GetAllAsync(p => p.InvoiceId == invoice.Id);
-
-
-                    //var installmentPlans = await _unitOfWork.Repository<InstallmentPlan>()
-                    //    .GetByCondionAndInclideAsync(p => p.InvoiceId == invoice.Id);
+                        .GetByCondionAndInclideAsync(p => p.InvoiceId == invoice.Id);
 
 
                     if (installmentPlans != null && installmentPlans.Any())
@@ -542,7 +535,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                     InvoiceId = invoice.Id,
                     CustomerId = invoice.CustomerId,
                     CollectorId = invoice.Customer.CollectorId,
-                    MonthDate = DateTime.Now.AddMonths(i),
+                    MonthDate = startDate.AddMonths(i),
                     Amount = planAmount,
                     CollectedAmount = 0m,
                     IsDelayed = false
@@ -574,11 +567,8 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         private async Task DeductCommissionForInvoice(CustomerInvoice invoice, int representativeId)
         {
             var commissionRepo = _unitOfWork.Repository<Commission>();
-            var commissions = await commissionRepo.GetAllAsync(c => c.Representative);
-            //var commissions = await commissionRepo.GetAllAsync();
 
-            var commission = commissions
-                .FirstOrDefault(c => c.InvoiceId == invoice.Id && c.RepresentativeId == representativeId);
+            var commission = await commissionRepo.Find(c => c.InvoiceId == invoice.Id && c.RepresentativeId == representativeId);
 
             if (commission != null && !commission.IsDeducted)
             {
@@ -600,14 +590,12 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
             {
                 // 1. Get existing invoice with all related data
                 var existingInvoice = await _unitOfWork.Repository<CustomerInvoice>()
-                    .GetAllQueryable(
+                    .FindWithIncludesAsync(
+                        i => i.CustomerId == invoiceId && !i.IsDeleted,
                         i => i.Customer,
                         i => i.Items,
                         i => i.Installments
-                    //,
-                    //i => i.Items.Select(ii => ii.Product)
-                    )
-                    .FirstOrDefaultAsync(i => i.CustomerId == invoiceId && !i.IsDeleted);
+                    );
 
                 if (existingInvoice == null)
                     return ServiceResponse<bool>.Failure("Invoice not found.");
@@ -774,7 +762,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
             {
                 // Remove related monthly installments
                 var monthlyInstallments = await _unitOfWork.Repository<MonthlyInstallment>()
-                    .GetAllAsync(m => m.InvoiceId == invoice.Id);
+                    .GetByCondionAndInclideAsync(m => m.InvoiceId == invoice.Id);
 
                 foreach (var monthly in monthlyInstallments)
                 {
@@ -795,7 +783,18 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                 };
 
                 _unitOfWork.Repository<InstallmentPlan>().Add(newPlan);
-                await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, invoice.InvoiceDate);
+
+                var lastInstallment = _unitOfWork.Repository<MonthlyInstallment>()
+                    .GetAllQueryable()
+                    .Where(m => m.InvoiceId == invoice.Id)
+                    .OrderByDescending(m => m.MonthDate)
+                    .FirstOrDefault();
+
+                var startDate = lastInstallment is null
+                    ? invoice.Customer.FirstInvoiceDate
+                    : lastInstallment.MonthDate.AddMonths(1);
+
+                await GenerateMonthlyInstallmentsAsync(invoice, inst.NumberOfMonths, inst.Amount, startDate);
             }
         }
 
@@ -803,7 +802,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         private async Task RecalculateInvoiceTotalAsync(CustomerInvoice invoice)
         {
             var items = await _unitOfWork.Repository<CustomerInvoiceItems>()
-                .GetAllAsync(i => i.InvoiceId == invoice.Id);
+                .GetByCondionAndInclideAsync(i => i.InvoiceId == invoice.Id);
 
             decimal itemsTotal = items.Sum(i => i.Quantity * i.Price);
             decimal deposit = invoice.Customer?.Deposit ?? 0;
