@@ -177,9 +177,9 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
                     .Cast<GetAllReceiptsDto>()
                     .ToList();
 
-                var files = pdfService.GenerateReceipts(selectedItemsDto);
+                var files = pdfService.GenerateAllReceiptsInOnePdf(selectedItemsDto);
 
-                MessageBox.Show($"تم إنشاء {files.Count} إيصال PDF بنجاح");
+                MessageBox.Show($"تم إنشاء  إيصال PDF بنجاح");
 
                 pdfService.OpenFolder();
             }

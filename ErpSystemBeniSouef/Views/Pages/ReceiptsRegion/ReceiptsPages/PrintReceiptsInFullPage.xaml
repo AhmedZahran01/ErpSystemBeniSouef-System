@@ -160,7 +160,7 @@
                         <DataGridTextColumn Header="المندوب" Binding="{Binding RepresentativeName}" Width="*"/>
                         <!--<DataGridTextColumn Header="المحصل" Binding="{Binding Collector}" Width="*"/>-->
                         <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationlNumber}" Width=".8*"/>
-                        <DataGridTextColumn Header="المقدم" Binding="{Binding Deposite}" Width=".7*"/>
+                        <DataGridTextColumn Header="المقدم" Binding="{Binding Deposit}" Width=".7*"/>
                         <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="1.5*"/>
                         <DataGridTextColumn Header="مبلغ الايصال " Binding="{Binding InstallmentAmount}" Width="1.5*"/>
                         <DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotalPrice}" Width=".7*"/>

@@ -14,6 +14,7 @@ using ErpSystemBeniSouef.ViewModel;
 using ErpSystemBeniSouef.Views.Pages.CustomersRegion.CashPage;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -156,6 +157,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
         #region  Add Customer Region
 
+        //private async Task AddCustomer_Click(object sender, RoutedEventArgs e)
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInputs())
@@ -226,7 +228,15 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
                 installmentsdtos = installmentsdtosList,
 
             };
+
             _customerInvoiceService.CreateCustomerInvoiceAsync(ddssa);
+
+            //var res =await _customerInvoiceService.CreateCustomerInvoiceAsync(ddssa);
+            //if (res.Success)
+            //{
+            //    MessageBox.Show("Custimer Invoice Add Successfully");
+            //    //return;
+            //}
         }
 
         #endregion

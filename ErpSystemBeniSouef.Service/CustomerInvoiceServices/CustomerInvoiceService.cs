@@ -12,6 +12,7 @@ using ErpSystemBeniSouef.Core.Entities.CovenantModels;
 using ErpSystemBeniSouef.Core.Entities.CustomerInvoices;
 using ErpSystemBeniSouef.Core.GenericResponseModel;
 using ErpSystemBeniSouef.Infrastructer;
+using ErpSystemBeniSouef.Infrastructer.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         {
             using var transaction = await _unitOfWork.BeginTransactionAsync();
             try
-            {
+            { 
                 // Validate Collector, Representative, and SubArea
                 var collector = await _unitOfWork.Repository<Collector>().GetByIdAsync(dto.CollectorId);
                 if (collector == null)
@@ -207,14 +208,24 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
         {
             try
             {
-                var invoice = await _unitOfWork.Repository<CustomerInvoice>()
-                    .GetAllQueryable(
-                        i => i.Customer,
-                        i => i.Items,
-                        //i => i.Items.Select(ii => ii.Product),
-                        i => i.Installments
-                    )
-                    .FirstOrDefaultAsync(i => i.CustomerId == invoiceId && !i.IsDeleted);
+                //var invoice = await _unitOfWork.Repository<CustomerInvoice>()
+                //    .GetAllQueryable(
+                //        i => i.Customer,
+                //        i => i.Items,
+                //        i => i.Items.Select(ii => ii.Product),
+                //        i => i.Installments
+                //    )
+                //    .FirstOrDefaultAsync(i => i.CustomerId == invoiceId && !i.IsDeleted);
+                ApplicationDbContext _context = new ApplicationDbContext();
+                
+                var invoice = await _context.customerInvoices
+    .AsNoTracking()
+    .Include(i => i.Customer)
+    .Include(i => i.Items)
+        .ThenInclude(ii => ii.Product)
+            .ThenInclude(p => p.Category)
+    .Include(i => i.Installments)
+    .FirstOrDefaultAsync(i => i.CustomerId == invoiceId && !i.IsDeleted);
 
                 if (invoice == null)
                     return ServiceResponse<ReturnCustomerInvoiceDetailsDTO>.Failure("Invoice not found.");
@@ -247,6 +258,7 @@ namespace ErpSystemBeniSouef.Service.CustomerInvoiceServices
                         ProductName = item.Product?.ProductName ?? "N/A",
                         Quantity = item.Quantity,
                         Price = item.Price,
+                        ProductId = item.ProductId,
                     }).ToList() ?? new List<CustomerInvoiceItemsDTO>()
                 };
 
