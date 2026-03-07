@@ -144,32 +144,41 @@
 
             <Border Grid.Column="1" Background="{StaticResource CardBrush}" CornerRadius="10" Padding="5">
                 <DataGrid Style="{StaticResource FullWidthDataGridStyle}" 
-                   EnableColumnVirtualization="True"  
+                   EnableColumnVirtualization="True"  FlowDirection="RightToLeft"
                    ColumnWidth="SizeToHeader" x:Name="ReceiptsDataGrid">
-                    <DataGrid.Columns >
+                    <DataGrid.Columns  >
                         <DataGridTextColumn Header="المسلسل" Binding="{Binding DisplayUIId}" Width="Auto"/>
-                        <DataGridTextColumn Header="رقم العميل" Binding="{Binding CustomerNumber}" Width="0.6*"/>
+                        <DataGridTextColumn Header="رقم العميل" Binding="{Binding CustomerNumber}" Width="0.7*"/>
                         <DataGridTextColumn Header="اسم العميل" Binding="{Binding CustomerName}" Width="1*"/>
-                        <DataGridTextColumn Header="الموبايل" Binding="{Binding MobileNumber}" Width="0.5*"/>
+                        <DataGridTextColumn Header="الموبايل" Binding="{Binding MobileNumber}" Width="0.8*"/>
                         <DataGridTextColumn Header="تاريخ البيع" Binding="{Binding InvoiceDate, StringFormat=yyyy-MM-dd}" Width="0.72*"/>
                         <DataGridTextColumn Header="تاريخ اول فاتوره"  Binding="{Binding InvoiceDate, StringFormat=yyyy-MM-dd}" Width="0.79*">
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="مكان الإقامة" Binding="{Binding Address}" Width=".8*"/>
+                        <DataGridTextColumn Header="مكان الإقامة" Binding="{Binding Address}" Width="1.3*"/>
                         <!--<DataGridTextColumn Header="المنطقة الأساسية" Binding="{Binding AreaName}" Width=".7*"/>-->
                         <DataGridTextColumn Header="المنطقة" Binding="{Binding AreaName}" Width="0.7*"/>
                         <DataGridTextColumn Header="المندوب" Binding="{Binding RepresentativeName}" Width="*"/>
                         <!--<DataGridTextColumn Header="المحصل" Binding="{Binding Collector}" Width="*"/>-->
-                        <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationlNumber}" Width=".8*"/>
+                        <DataGridTextColumn Header="رقم البطاقة" Binding="{Binding NationlNumber}" Width="1.3*"/>
                         <DataGridTextColumn Header="المقدم" Binding="{Binding Deposit}" Width=".7*"/>
-                        <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="1.5*"/>
-                        <DataGridTextColumn Header="مبلغ الايصال " Binding="{Binding InstallmentAmount}" Width="1.5*"/>
-                        <DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotalPrice}" Width=".7*"/>
-                        <DataGridTextColumn Header="المبيعات" Binding="{Binding Items}" Width="1.67*"/>
+                        <!--<DataGridTextColumn  Header="نظام التقسيط"  Binding="{Binding Plans}"  Width="2*"/>-->
+                        <DataGridTextColumn Header="نظام التقسيط" Binding="{Binding Plans}" Width="2.1*">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="FlowDirection" Value="LeftToRight"/>
+                                    <Setter Property="TextAlignment" Value="Left"/>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <!--<DataGridTextColumn Header="مبلغ الايصال " Binding="{Binding InstallmentAmount}" Width="1.5*"/>-->
+                        <!--<DataGridTextColumn Header="المبلغ الكلي" Binding="{Binding TotalPrice}" Width=".7*"/>-->
+                        <DataGridTextColumn Header="المبيعات" Binding="{Binding Items}" Width="1.9*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
-        </Grid>
 
+        </Grid>
 
         <Grid Grid.Row="2">
             <StackPanel  HorizontalAlignment="Center" Margin="5,20,0,0">

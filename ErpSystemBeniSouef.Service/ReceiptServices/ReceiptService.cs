@@ -60,11 +60,14 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
                     InstallmentDueDate = r.MonthDate,
                     IsPaid = r.IsPaid,
                     CollectorName = r.Collector.Name
-                }).ToList()
+                }).ToList(),
+
+                RepresentativeNumber = group.First().Customer.Representative!.UserNumber,
+                  
             })
             .ToListAsync();
 
-        return receipts;
+            return receipts;
     }
    
     public async Task<List<GetAllReceiptsDto>> GetMonthlyReceiptsAsync(DateTime? month = null, int? mainAreaId = null, int? subAreaId = null)

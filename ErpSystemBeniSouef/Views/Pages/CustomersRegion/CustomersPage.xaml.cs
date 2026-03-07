@@ -158,7 +158,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
         #region  Add Customer Region
 
         //private async Task AddCustomer_Click(object sender, RoutedEventArgs e)
-        private void AddCustomer_Click(object sender, RoutedEventArgs e)
+        private async void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInputs())
             {
@@ -229,14 +229,21 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
             };
 
-            _customerInvoiceService.CreateCustomerInvoiceAsync(ddssa);
+            //await _customerInvoiceService.CreateCustomerInvoiceAsync(ddssa);
 
-            //var res =await _customerInvoiceService.CreateCustomerInvoiceAsync(ddssa);
-            //if (res.Success)
-            //{
-            //    MessageBox.Show("Custimer Invoice Add Successfully");
-            //    //return;
-            //}
+            var res = await _customerInvoiceService.CreateCustomerInvoiceAsync(ddssa);
+
+            if (res.Success)
+            {
+                MessageBox.Show("تم اضافه الفاتوره");
+                return;
+            }
+
+            else
+            {
+                MessageBox.Show("يوجد مشكله ما ");
+                return;
+            }
         }
 
         #endregion

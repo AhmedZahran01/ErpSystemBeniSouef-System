@@ -23,6 +23,8 @@ public class GetAllReceiptsDto
     public DateTime InstallmentDueDate { get; set; }
     public string InstallmentAmountText { get; set; } = string.Empty;
 
+    public int RepresentativeNumber { get; set; }
+
 
     // تحوّل Items إلى قائمة أصناف مفصّلة بدل string
     public List<ReceiptItemDto> ItemsList { get; set; } = new List<ReceiptItemDto>();
@@ -31,6 +33,8 @@ public class GetAllReceiptsDto
 
 public class ReceiptDetailDto
 {      
+    public int ReceiptNumber { get; set; }
+    public decimal RemainingAfterThisReciept { get; set; }
     public int MonthlyInstallmentId { get; set; }
     public decimal InstallmentAmount { get; set; }
     public DateTime InstallmentDueDate { get; set; }
