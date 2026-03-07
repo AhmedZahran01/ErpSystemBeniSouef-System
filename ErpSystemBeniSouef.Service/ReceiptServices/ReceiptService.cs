@@ -72,12 +72,12 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
         var query = _unitOfWork.Repository<MonthlyInstallment>()
             .GetAllQueryable()
             .Include(x => x.Customer)
-                .ThenInclude(c => c.SubArea)
-                    .ThenInclude(sa => sa!.mainRegions)
+            .ThenInclude(c => c.SubArea)
+            .ThenInclude(sa => sa!.mainRegions)
             .Include(x => x.Invoice)
-                .ThenInclude(i => i.Items)!
-            .AsNoTracking();
-        //.AsQueryable();
+            .ThenInclude(i => i.Items)!
+            .AsNoTracking()
+            .AsQueryable();
 
         // 🔹 فلترة الشهر
         if (month.HasValue)
@@ -101,16 +101,26 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
                 x.Customer.SubAreaId == subAreaId.Value);
         }
 
-        var receipts = await query.Select(receipt => new GetAllReceiptsDto
-        {
-            CustomerNumber = receipt.Customer.CustomerNumber,
-            CustomerName = receipt.Customer.Name,
-            Address = receipt.Customer.Address,
-            AreaName = receipt.Customer.SubArea!.Name,
-            TotalPrice = receipt.Invoice.Items!
-                .Sum(item => item.Quantity * item.Price)
-        })
-        .ToListAsync();
+        var receipts = await query
+            .GroupBy(x => x.CustomerId)
+            .Select(group => new GetAllReceiptsDto
+            {
+                CustomerNumber = group.First().Customer.CustomerNumber,
+                CustomerName = group.First().Customer.Name,
+                Address = group.First().Customer.Address,
+                AreaName = group.First().Customer.SubArea!.Name,
+                TotalPrice = group.First().Invoice.Items!.Sum(item => item.Quantity * item.Price),
+                Receipts = group.Select(r => new ReceiptDetailDto
+                {
+                    MonthlyInstallmentId = r.Id,
+                    InstallmentAmount = r.Amount,
+                    InstallmentDueDate = r.MonthDate,
+                    IsPaid = r.IsPaid,
+                    CollectorName = r.Collector.Name
+                })
+                .ToList()
+            })
+            .ToListAsync();
 
         return receipts;
     }
