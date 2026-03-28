@@ -63,6 +63,7 @@ public class ReceiptService(IUnitOfWork unitOfWork) : IReceiptService
                 }).ToList(),
 
                 RepresentativeNumber = group.First().Customer.Representative!.UserNumber,
+                RepresentativePhoneNumber = group.First().Customer.Representative!.PhoneNumber,
                   
             })
             .ToListAsync();

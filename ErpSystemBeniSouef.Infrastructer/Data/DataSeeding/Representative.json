@@ -2,26 +2,31 @@
   {
     "Name": "أحمد عبد الرحمن",
     "UserNumber": 1001,
+    "PhoneNumber": "01117156562",
     "Password": "123456"
   },
   {
     "Name": "محمود السيد",
     "UserNumber": 1002,
+    "PhoneNumber": "01117156561",
     "Password": "123456"
   },
   {
     "Name": "محمد حسن",
     "UserNumber": 1003,
+    "PhoneNumber": "01117156562",
     "Password": "123456"
   },
   {
     "Name": "خالد إبراهيم",
     "UserNumber": 1004,
+    "PhoneNumber": "01117156563",
     "Password": "123456"
   },
   {
     "Name": "طارق علي",
     "UserNumber": 1005,
+    "PhoneNumber": "01117156564",
     "Password": "123456"
   }
 ]

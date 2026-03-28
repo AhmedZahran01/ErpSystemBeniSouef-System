@@ -24,6 +24,7 @@ public class GetAllReceiptsDto
     public string InstallmentAmountText { get; set; } = string.Empty;
 
     public int RepresentativeNumber { get; set; }
+    public string RepresentativePhoneNumber { get; set; }
 
 
     // تحوّل Items إلى قائمة أصناف مفصّلة بدل string

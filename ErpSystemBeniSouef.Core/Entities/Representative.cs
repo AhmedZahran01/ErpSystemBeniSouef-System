@@ -11,6 +11,7 @@ namespace ErpSystemBeniSouef.Core.Entities
     {
         public string Name { get; set; }              
         public int UserNumber { get; set; }          
+        public string PhoneNumber { get; set; }          
         public string Password { get; set; }
         public ICollection<Covenant> Covenants { get; set; }
     }

@@ -151,7 +151,7 @@ namespace ErpSystemBeniSouef.Views.Pages.ReceiptsRegion.ReceiptsPages
 
                 MessageBox.Show("تم إنشاء ملف PDF واحد يحتوي على كل الإيصالات");
 
-                pdfService.OpenFolder();
+                //pdfService.OpenFolder();
 
                 //var allReceipts = getAllReceiptsDtos.ToList();
 

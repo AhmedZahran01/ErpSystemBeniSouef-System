@@ -102,7 +102,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
 
         #endregion
 
-        #region LoadInvoices Dta Region
+        #region Load Invoices Data Region
 
         private async Task LoadInvoices()
         {
@@ -560,7 +560,7 @@ namespace ErpSystemBeniSouef.Views.Pages.CustomersRegion
             ProductDto selectedProduct = (ProductDto)ProductCombo.SelectedItem;
             if (selectedProduct is not null)
             {
-                PriceTxt.Text = selectedProduct.PurchasePrice.ToString() ?? "";
+                PriceTxt.Text = selectedProduct.SalePrice.ToString() ?? "";
             }
         }
 

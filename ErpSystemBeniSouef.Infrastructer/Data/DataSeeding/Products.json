@@ -1,158 +1,5014 @@
 [
   {
-    "ProductName": "Product 1",
-    "CommissionRate": 0.19,
-    "PurchasePrice": 491,
-    "SalePrice": 3434,
+    "ProductCode": "1243",
+    "ProductName": "عجان نيكل 5 لتر 1200 SC-205",
+    "SalePrice": 3199.00,
     "CategoryId": 1,
-    "CompanyId": 1,
-    "CreatedDate": "2025-09-14T07:20:29.992918",
-    "UpdatedDate": "2025-09-14T07:20:29.992922",
-    "DeletionDate": "2025-09-14T07:20:29.992923",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 2",
-    "CommissionRate": 0.13,
-    "PurchasePrice": 177,
-    "SalePrice": 3863,
+    "ProductCode": "1244",
+    "ProductName": "عجان نيكل 5 لتر 1300 SC-217",
+    "SalePrice": 3699.00,
     "CategoryId": 1,
-    "CompanyId": 1,
-    "CreatedDate": "2025-09-14T07:20:29.992929",
-    "UpdatedDate": "2025-09-14T07:20:29.992930",
-    "DeletionDate": "2025-09-14T07:20:29.992931",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 3",
-    "CommissionRate": 0.06,
-    "PurchasePrice": 1003,
-    "SalePrice": 2588,
+    "ProductCode": "1245",
+    "ProductName": "عجان نيكل 6.5 لتر SC-312",
+    "SalePrice": 3999.00,
     "CategoryId": 1,
-    "CompanyId": 1,
-    "CreatedDate": "2025-09-14T07:20:29.992939",
-    "UpdatedDate": "2025-09-14T07:20:29.992940",
-    "DeletionDate": "2025-09-14T07:20:29.992941",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 4",
-    "CommissionRate": 0.12,
-    "PurchasePrice": 1058,
-    "SalePrice": 2133,
+    "ProductCode": "1246",
+    "ProductName": "عجان نيكل 10 لتر SC-623",
+    "SalePrice": 5199.00,
     "CategoryId": 1,
-    "CompanyId": 2,
-    "CreatedDate": "2025-09-14T07:20:29.992945",
-    "UpdatedDate": "2025-09-14T07:20:29.992946",
-    "DeletionDate": "2025-09-14T07:20:29.992947",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 5",
-    "CommissionRate": 0.18,
-    "PurchasePrice": 1346,
-    "SalePrice": 3276,
+    "ProductCode": "1247",
+    "ProductName": "هاند بلندر بلك 1×7 HC-936",
+    "SalePrice": 849.00,
     "CategoryId": 1,
-    "CompanyId": 2,
-    "CreatedDate": "2025-09-14T07:20:29.992950",
-    "UpdatedDate": "2025-09-14T07:20:29.992951",
-    "DeletionDate": "2025-09-14T07:20:29.992952",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 6",
-    "CommissionRate": 0.16,
-    "PurchasePrice": 1204,
-    "SalePrice": 2165,
+    "ProductCode": "1248",
+    "ProductName": "هاند بلندر موديل HS-1007",
+    "SalePrice": 1299.00,
     "CategoryId": 1,
-    "CompanyId": 3,
-    "CreatedDate": "2025-09-14T07:20:29.992956",
-    "UpdatedDate": "2025-09-14T07:20:29.992957",
-    "DeletionDate": "2025-09-14T07:20:29.992958",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 7",
-    "CommissionRate": 0.23,
-    "PurchasePrice": 246,
-    "SalePrice": 2376,
+    "ProductCode": "1249",
+    "ProductName": "هاند بلندر كاتشن كاملة B-1712",
+    "SalePrice": 1279.00,
     "CategoryId": 1,
-    "CompanyId": 3,
-    "CreatedDate": "2025-09-14T07:20:29.992961",
-    "UpdatedDate": "2025-09-14T07:20:29.992962",
-    "DeletionDate": "2025-09-14T07:20:29.992963",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 8",
-    "CommissionRate": 0.19,
-    "PurchasePrice": 661,
-    "SalePrice": 2873,
+    "ProductCode": "1250",
+    "ProductName": "مفرمة لحمه بلك اند وايت H-1200",
+    "SalePrice": 1499.00,
     "CategoryId": 1,
-    "CompanyId": 4,
-    "CreatedDate": "2025-09-14T07:20:29.992969",
-    "UpdatedDate": "2025-09-14T07:20:29.992970",
-    "DeletionDate": "2025-09-14T07:20:29.992972",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 9",
-    "CommissionRate": 0.1,
-    "PurchasePrice": 505,
-    "SalePrice": 3761,
+    "ProductCode": "1424",
+    "ProductName": "كاتل بيركس بيكر 1.8 لتر",
+    "SalePrice": 285.00,
     "CategoryId": 1,
-    "CompanyId": 4,
-    "CreatedDate": "2025-09-14T07:20:29.992975",
-    "UpdatedDate": "2025-09-14T07:20:29.992976",
-    "DeletionDate": "2025-09-14T07:20:29.992977",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 10",
-    "CommissionRate": 0.21,
-    "PurchasePrice": 131,
-    "SalePrice": 3966,
+    "ProductCode": "1425",
+    "ProductName": "كشاف بيكر ك 6",
+    "SalePrice": 335.00,
     "CategoryId": 1,
-    "CompanyId": 4,
-    "CreatedDate": "2025-09-14T07:20:29.992981",
-    "UpdatedDate": "2025-09-14T07:20:29.992982",
-    "DeletionDate": "2025-09-14T07:20:29.992983",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 11",
-    "CommissionRate": 0.21,
-    "PurchasePrice": 131,
-    "SalePrice": 3966,
+    "ProductCode": "1426",
+    "ProductName": "ستاند شاشة بيكر ك 10",
+    "SalePrice": 80.00,
     "CategoryId": 1,
-    "CompanyId": 4,
-    "CreatedDate": "2025-09-14T07:20:29.992981",
-    "UpdatedDate": "2025-09-14T07:20:29.992982",
-    "DeletionDate": "2025-09-14T07:20:29.992983",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 12",
-    "CommissionRate": 0.21,
-    "PurchasePrice": 131,
-    "SalePrice": 3966,
+    "ProductCode": "1440",
+    "ProductName": "كاتل تورنيدو استالس 1.7 لتر",
+    "SalePrice": 375.00,
     "CategoryId": 1,
-    "CompanyId": 4,
-    "CreatedDate": "2025-09-14T07:20:29.992981",
-    "UpdatedDate": "2025-09-14T07:20:29.992982",
-    "DeletionDate": "2025-09-14T07:20:29.992983",
-    "IsDeleted": false
+    "CompanyId": 1
   },
   {
-    "ProductName": "Product 13",
-    "CommissionRate": 0.21,
-    "PurchasePrice": 131,
-    "SalePrice": 3966,
+    "ProductCode": "1441",
+    "ProductName": "كاتل هرفي استالس",
+    "SalePrice": 280.00,
     "CategoryId": 1,
-    "CompanyId": 4,
-    "CreatedDate": "2025-09-14T07:20:29.992981",
-    "UpdatedDate": "2025-09-14T07:20:29.992982",
-    "DeletionDate": "2025-09-14T07:20:29.992983",
-    "IsDeleted": false
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1442",
+    "ProductName": "هاند بلندر بلك 1×3",
+    "SalePrice": 400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1443",
+    "ProductName": "كبه تورنيدو 400 وات",
+    "SalePrice": 850.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1444",
+    "ProductName": "عجانه روفو 4 لتر",
+    "SalePrice": 800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1445",
+    "ProductName": "محضر تورنيدو 450 وات",
+    "SalePrice": 1900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1446",
+    "ProductName": "مفرمه تورنيدو 1200 وات",
+    "SalePrice": 3100.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1447",
+    "ProductName": "ماكينة قهوه تورنيدو 1450 وات",
+    "SalePrice": 2200.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1448",
+    "ProductName": "محضر تورنيدو SG1000",
+    "SalePrice": 2450.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1449",
+    "ProductName": "هاند بلندر هرفي مجموعه",
+    "SalePrice": 900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1450",
+    "ProductName": "خلط هرفي 3",
+    "SalePrice": 675.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1451",
+    "ProductName": "كبه بيكي",
+    "SalePrice": 600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1452",
+    "ProductName": "خلط جاك",
+    "SalePrice": 500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1453",
+    "ProductName": "خلط تورنيدو 500 وات",
+    "SalePrice": 850.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1454",
+    "ProductName": "هاند بلندر هيرفي",
+    "SalePrice": 400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1455",
+    "ProductName": "هاند ريفا 1×4",
+    "SalePrice": 550.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1456",
+    "ProductName": "عجان بلك بور 4 لتر",
+    "SalePrice": 800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1457",
+    "ProductName": "مكواه فرش عادي",
+    "SalePrice": 500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1458",
+    "ProductName": "مكواه فرش بخار",
+    "SalePrice": 700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1459",
+    "ProductName": "مكواه تلي مصر",
+    "SalePrice": 625.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1460",
+    "ProductName": "مكواه جاك",
+    "SalePrice": 800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1461",
+    "ProductName": "كتل فريش بلستيك",
+    "SalePrice": 610.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1462",
+    "ProductName": "مكواه تورنيدو 1800 وات",
+    "SalePrice": 850.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1463",
+    "ProductName": "مكواه تورنيدو C2000 وات",
+    "SalePrice": 690.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1464",
+    "ProductName": "مكواه كينج",
+    "SalePrice": 500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1465",
+    "ProductName": "خلط هيرو",
+    "SalePrice": 1200.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1466",
+    "ProductName": "مكواه تورنيدو 2200 وات",
+    "SalePrice": 885.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1467",
+    "ProductName": "مكواه تورنيدو 2400 وات",
+    "SalePrice": 2800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1468",
+    "ProductName": "مكواه تورنيدو 2800 وات",
+    "SalePrice": 1650.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1469",
+    "ProductName": "مكواه هرفي",
+    "SalePrice": 650.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1470",
+    "ProductName": "مكواه تاتش عادي",
+    "SalePrice": 400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1471",
+    "ProductName": "سخان تورنيدو 10 لتر غاز",
+    "SalePrice": 3500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1472",
+    "ProductName": "سخان جاك 6 لتر غاز",
+    "SalePrice": 1900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1473",
+    "ProductName": "سخان اوليمبيك 6 لتر غاز",
+    "SalePrice": 2700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1474",
+    "ProductName": "سخان يونيون 6 لتر غاز",
+    "SalePrice": 2050.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1475",
+    "ProductName": "شفاط تورنيدو 25 بشبكه",
+    "SalePrice": 680.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1476",
+    "ProductName": "شفاط تورنيدو 30",
+    "SalePrice": 680.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1477",
+    "ProductName": "شفاط تورنيدو 30 بشبكة",
+    "SalePrice": 700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1478",
+    "ProductName": "فرن ليفون 48 لتر",
+    "SalePrice": 1650.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1479",
+    "ProductName": "فرن تورنيدو 55 لتر",
+    "SalePrice": 2600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1480",
+    "ProductName": "فرن شارب 70 لتر",
+    "SalePrice": 5400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1481",
+    "ProductName": "شاشه تورنيدو سمارت 32",
+    "SalePrice": 4800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1482",
+    "ProductName": "مكنسه جاك",
+    "SalePrice": 1600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1483",
+    "ProductName": "مكنسه بلك برميل",
+    "SalePrice": 2900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1484",
+    "ProductName": "كبه جروهي",
+    "SalePrice": 550.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1485",
+    "ProductName": "جريل رويال 36",
+    "SalePrice": 550.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1487",
+    "ProductName": "دفايه اي هوم 4 شمعه",
+    "SalePrice": 500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1488",
+    "ProductName": "كبه فريش 400 وات 1.5 لتر",
+    "SalePrice": 900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1489",
+    "ProductName": "خلط براون 3",
+    "SalePrice": 500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1490",
+    "ProductName": "عجان تاتش",
+    "SalePrice": 1050.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1491",
+    "ProductName": "كشاف نكست",
+    "SalePrice": 325.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1492",
+    "ProductName": "كبة بيور",
+    "SalePrice": 710.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1493",
+    "ProductName": "كبة تلى ايجبت",
+    "SalePrice": 700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1494",
+    "ProductName": "مكنسه فريش 1500 وات",
+    "SalePrice": 1900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1495",
+    "ProductName": "فلتر 7 مرحله",
+    "SalePrice": 1800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1496",
+    "ProductName": "فلتر 5 مرحله",
+    "SalePrice": 390.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1497",
+    "ProductName": "عجان هيرفي 4 لتر",
+    "SalePrice": 900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1498",
+    "ProductName": "محضر فريش",
+    "SalePrice": 1800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1499",
+    "ProductName": "شفاط توشيبا 20",
+    "SalePrice": 735.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1500",
+    "ProductName": "شفاط توشيبا 20 بشبكه",
+    "SalePrice": 735.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1501",
+    "ProductName": "خلط بريفكس ابيض",
+    "SalePrice": 620.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1502",
+    "ProductName": "خلط برفيكس احمر",
+    "SalePrice": 650.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1503",
+    "ProductName": "مكنسه برفيكس دبابه 2200 وات",
+    "SalePrice": 2050.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1504",
+    "ProductName": "مكنسه بلك 2000 وات",
+    "SalePrice": 1850.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1505",
+    "ProductName": "مروحه عامود تورنيدو 16",
+    "SalePrice": 1250.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1506",
+    "ProductName": "كبه بلك سكينه بقشاره 3",
+    "SalePrice": 775.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1507",
+    "ProductName": "مروحه مكتب برفيكس",
+    "SalePrice": 700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1508",
+    "ProductName": "مروحه حائط بلور",
+    "SalePrice": 700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1509",
+    "ProductName": "مروحه عامود جامبو برفكس 21",
+    "SalePrice": 1235.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1510",
+    "ProductName": "مروحه عامود كوول برفكس",
+    "SalePrice": 999.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1511",
+    "ProductName": "مروحه حائط سينا برفكس",
+    "SalePrice": 949.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1512",
+    "ProductName": "مروحه حائط هاواي برفكس",
+    "SalePrice": 949.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1513",
+    "ProductName": "مروحه سقف برفكس",
+    "SalePrice": 2310.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1514",
+    "ProductName": "مروحه سقف روفو بلك",
+    "SalePrice": 1800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1515",
+    "ProductName": "مروحه عامود هامر بلك",
+    "SalePrice": 1050.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1516",
+    "ProductName": "مروحه حائط هامر بلك",
+    "SalePrice": 925.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1517",
+    "ProductName": "مروحه حائط ابل بلك",
+    "SalePrice": 800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1518",
+    "ProductName": "مروحه حائط جامبو برفكس",
+    "SalePrice": 1150.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1519",
+    "ProductName": "مروحه عامود باور برفكس",
+    "SalePrice": 1150.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1520",
+    "ProductName": "مبرد فريش",
+    "SalePrice": 3600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1521",
+    "ProductName": "مبرد برفكس",
+    "SalePrice": 3150.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1522",
+    "ProductName": "طقم جرانيت 13 ق بيضاوي",
+    "SalePrice": 2950.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1523",
+    "ProductName": "طقم جرانيت 13 ق مضلع",
+    "SalePrice": 4250.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1524",
+    "ProductName": "طقم جرانيت 14 ق غطاء",
+    "SalePrice": 3300.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1525",
+    "ProductName": "طقم جرانيت 9 ق بيد مدهب بيضاوي",
+    "SalePrice": 4300.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1526",
+    "ProductName": "طقم جرانيت 11 ق",
+    "SalePrice": 4700.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1527",
+    "ProductName": "شاشه توشيبا 32 ريسيفر داخلي عادي",
+    "SalePrice": 4600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1528",
+    "ProductName": "شاشه تورنيدو 32 عادي",
+    "SalePrice": 4400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1529",
+    "ProductName": "شاشه تورنيدو 32 ضد الكسر",
+    "SalePrice": 4800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1530",
+    "ProductName": "شاشه فريش 32 سمارت",
+    "SalePrice": 3950.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1531",
+    "ProductName": "شاشه LG 50 عادي",
+    "SalePrice": 11800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1568",
+    "ProductName": "مضرب بيض توستى بلس",
+    "SalePrice": 450.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1569",
+    "ProductName": "مقلية+ هاند بلندر نوفال",
+    "SalePrice": 580.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1570",
+    "ProductName": "طقم حلل 8 ق تشيكى التركى",
+    "SalePrice": 2300.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1571",
+    "ProductName": "طقم توابل 16 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1607",
+    "ProductName": "بوتوجاز فريش جامبو 90×60",
+    "SalePrice": 7000.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1608",
+    "ProductName": "بوتوجاز فريش نيو جامبو 90×60",
+    "SalePrice": 6800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1609",
+    "ProductName": "بوتوجاز فريش هاي كاست 90×60",
+    "SalePrice": 8050.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1610",
+    "ProductName": "بوتوجاز فريش فيرون امان 90×60",
+    "SalePrice": 9500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1611",
+    "ProductName": "بوتوجاز فريش سمايل امان 90×60",
+    "SalePrice": 9700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1612",
+    "ProductName": "بوتوجاز فريش بروفيشنال 90×60",
+    "SalePrice": 11500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1613",
+    "ProductName": "بوتوجاز فريش نورنو 80",
+    "SalePrice": 6500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1614",
+    "ProductName": "بوتوجاز فريش 4 شعله",
+    "SalePrice": 4400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1615",
+    "ProductName": "بوتوجاز رويال 4 شعله",
+    "SalePrice": 4500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1616",
+    "ProductName": "بوتوجاز رويال هيرو كاست 90×60",
+    "SalePrice": 8350.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1617",
+    "ProductName": "بوتوجاز رويال ليت فان 90×60",
+    "SalePrice": 7400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1618",
+    "ProductName": "بوتوجاز رويال يونيون اير هيرو 90",
+    "SalePrice": 6950.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1619",
+    "ProductName": "بوتوجاز تكنو شيف 90×60",
+    "SalePrice": 4750.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1620",
+    "ProductName": "بوتوجاز امبريال بمروحة 80×60",
+    "SalePrice": 4800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1621",
+    "ProductName": "فريزر توشيبا 7 درج",
+    "SalePrice": 17800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1622",
+    "ProductName": "فريزر فريش 7 درج",
+    "SalePrice": 15500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1623",
+    "ProductName": "فريزر فريش 5 درج",
+    "SalePrice": 11800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1624",
+    "ProductName": "فريزر الكتروستار 5 درج",
+    "SalePrice": 7800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1625",
+    "ProductName": "فريزر الكتروستار 6 درج",
+    "SalePrice": 8500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1626",
+    "ProductName": "فريزر فريش 190 لتر",
+    "SalePrice": 6000.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1627",
+    "ProductName": "فريزر فريش 220 لتر",
+    "SalePrice": 6350.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1628",
+    "ProductName": "فريزر فريش 270 لتر",
+    "SalePrice": 6800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1629",
+    "ProductName": "فريزر فريش 330 لتر",
+    "SalePrice": 7700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1630",
+    "ProductName": "فريزر كريازى 336 لتر",
+    "SalePrice": 12700.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1631",
+    "ProductName": "فريزر اكوراج 340 لتر",
+    "SalePrice": 8400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1632",
+    "ProductName": "فريزر براند بلس 300 لتر",
+    "SalePrice": 6500.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1633",
+    "ProductName": "فريزر السكا 140 لتر",
+    "SalePrice": 5400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1634",
+    "ProductName": "فريزر السكا 200 لتر",
+    "SalePrice": 6800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1635",
+    "ProductName": "فريزر السكا 270 لتر",
+    "SalePrice": 7800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1636",
+    "ProductName": "غسالة توشيبا 8 ك اتوماتيك امامى",
+    "SalePrice": 14400.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1637",
+    "ProductName": "غسالة توشيبا 7 ك اتوماتيك امامى",
+    "SalePrice": 1295.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1638",
+    "ProductName": "غسالة توشيبا 10 ك فوق اتوماتيك سلفر",
+    "SalePrice": 10550.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1639",
+    "ProductName": "غسالة فريش 10 ك فوق اتوماتيك",
+    "SalePrice": 7800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1640",
+    "ProductName": "غسالة فريش 12 ك فوق اتوماتيك",
+    "SalePrice": 11000.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1641",
+    "ProductName": "فرن فريش 45 لتر",
+    "SalePrice": 1600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1642",
+    "ProductName": "شفاط فريش 25 بشبكة",
+    "SalePrice": 540.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1643",
+    "ProductName": "شفاط فريش 30 بشبكة",
+    "SalePrice": 580.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1644",
+    "ProductName": "خلط فريش الشبح 1×3",
+    "SalePrice": 600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1645",
+    "ProductName": "مكواه كاسيل 2400 وات",
+    "SalePrice": 730.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1646",
+    "ProductName": "مروحة كاسيل سقف",
+    "SalePrice": 1980.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1647",
+    "ProductName": "مروحة فريش سقف",
+    "SalePrice": 2350.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1648",
+    "ProductName": "مروحة جاك سقف الصاروخ",
+    "SalePrice": 2200.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1649",
+    "ProductName": "مروحة فريش حائط 18",
+    "SalePrice": 1095.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1650",
+    "ProductName": "مروحة فريش عمود 18 الشبح",
+    "SalePrice": 1290.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1651",
+    "ProductName": "مروحة فريش عمود برلنت 16",
+    "SalePrice": 1070.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1652",
+    "ProductName": "مروحة فريش حائط برلنت 16",
+    "SalePrice": 970.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1653",
+    "ProductName": "غسالة فريش اطفال 4 ك",
+    "SalePrice": 1200.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1654",
+    "ProductName": "غسالة فريش اطفال جامبو حوض واحد",
+    "SalePrice": 2260.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1655",
+    "ProductName": "شاشه كاسيل 32 بوصه",
+    "SalePrice": 2950.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1656",
+    "ProductName": "شاشه كاسيل 43 اسمارت",
+    "SalePrice": 5800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1657",
+    "ProductName": "شاشه فريش 55 اسمارت",
+    "SalePrice": 10900.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1658",
+    "ProductName": "شاشه HO اتش دى اسمارت 50",
+    "SalePrice": 8600.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1659",
+    "ProductName": "شاشه جال 43 اسمارت",
+    "SalePrice": 5800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1660",
+    "ProductName": "مروجه جينرال سقف",
+    "SalePrice": 1800.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1663",
+    "ProductName": "كوفرتة ميرامار-اسبهان",
+    "SalePrice": 849.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1664",
+    "ProductName": "كوفرتة الماسة K109",
+    "SalePrice": 850.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1665",
+    "ProductName": "كوفرتة الماسة K107",
+    "SalePrice": 1099.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1666",
+    "ProductName": "مفرش الماسة موديل 0145",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1667",
+    "ProductName": "مفرش الماسة موديل 0166",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1668",
+    "ProductName": "مفرش الماسة موديل K066",
+    "SalePrice": 999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1669",
+    "ProductName": "برنس زارا العرايس",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1670",
+    "ProductName": "برنس بابار قطيفة مطرز هاند ميد",
+    "SalePrice": 849.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1671",
+    "ProductName": "برنس العرايس تمارا",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1672",
+    "ProductName": "برنس ديفا فرح",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1673",
+    "ProductName": "برنس ديفا ديفا",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1674",
+    "ProductName": "برنس العرايس فاكو",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1675",
+    "ProductName": "برنس العرايس بيلى",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1676",
+    "ProductName": "برنس بابار تاج",
+    "SalePrice": 799.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1677",
+    "ProductName": "بامبو تواليت فلورا 6 ق تركى",
+    "SalePrice": 125.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1678",
+    "ProductName": "بامبو مطبخ مستر شيف 4 ق",
+    "SalePrice": 139.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1679",
+    "ProductName": "تيوليب فوطة تواليت 6 ق",
+    "SalePrice": 125.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1680",
+    "ProductName": "روز فوطة تواليت شنطة 12 ق",
+    "SalePrice": 175.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1681",
+    "ProductName": "حكاية مطبخ كذا روزا 6 ق",
+    "SalePrice": 139.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1682",
+    "ProductName": "بامبو تواليت جوبير 6 ق تركى",
+    "SalePrice": 125.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1683",
+    "ProductName": "بامبو تواليب همس 6 ق",
+    "SalePrice": 125.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1684",
+    "ProductName": "ريلكس فوطة تواليت",
+    "SalePrice": 160.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1685",
+    "ProductName": "الهنا فوطة مطبخ مطرزة 6 ق",
+    "SalePrice": 145.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1686",
+    "ProductName": "تيوليب فوطة مطبخ مطرز 6 ق",
+    "SalePrice": 199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1687",
+    "ProductName": "الشهد فوطة تواليت سادة 6 ق",
+    "SalePrice": 145.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1688",
+    "ProductName": "حكاية تواليت 6 ق",
+    "SalePrice": 75.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1689",
+    "ProductName": "بامبو تواليت كاروه 4 ق",
+    "SalePrice": 125.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1690",
+    "ProductName": "بامبو تواليت كوكتيل 4 ق",
+    "SalePrice": 120.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1691",
+    "ProductName": "العالمية مفرش قطيفة جوبير 4 ق",
+    "SalePrice": 1699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1692",
+    "ProductName": "العالمية مفرش 4 لون",
+    "SalePrice": 1999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1693",
+    "ProductName": "المجد مفرش قطيفة دانتيل جوبير 4 ق كبير",
+    "SalePrice": 1799.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1694",
+    "ProductName": "العالمية مفرش 4 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1695",
+    "ProductName": "المجد مفرش قطيفة 4 لون",
+    "SalePrice": 1950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1696",
+    "ProductName": "العالمية مفرش قطيفة جوبير اطفال 3 ق",
+    "SalePrice": 2299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1697",
+    "ProductName": "العالمية مفرش قطيفة مطبوع اطفال 6 ق",
+    "SalePrice": 1599.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1698",
+    "ProductName": "المجد مفرش فستون 2 ق",
+    "SalePrice": 2399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1699",
+    "ProductName": "العالمية لحاف قطيفة فرو كبير 3 ق",
+    "SalePrice": 1299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1700",
+    "ProductName": "العالمية لحاف شيفون 3 ق",
+    "SalePrice": 1699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1701",
+    "ProductName": "المجد كوفرتة ديجيتال كورنيش طويل 5 ق",
+    "SalePrice": 1399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1702",
+    "ProductName": "المجد كوفرتة هاند ميد 6 ق",
+    "SalePrice": 1449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1703",
+    "ProductName": "المجد كوفرتة جلكسى اطفال 6 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1704",
+    "ProductName": "المجد كوفرتة اطفال قطيفة ديجيتال 8 ق",
+    "SalePrice": 1749.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1705",
+    "ProductName": "العالمية كوفرتة اطفال فيونكة 6 ق",
+    "SalePrice": 1399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1706",
+    "ProductName": "العالمية كوفرتة قطيفة سادة 8 ق",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1707",
+    "ProductName": "العالمية كوفرتة هاند ميد وردة 8 ق",
+    "SalePrice": 1149.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1708",
+    "ProductName": "العالمية كوفرتة دانتيل 8 ق",
+    "SalePrice": 1149.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1709",
+    "ProductName": "اسباهان تركى اطفال",
+    "SalePrice": 999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1710",
+    "ProductName": "اسباهان تركى كبير ملك روحى",
+    "SalePrice": 849.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1711",
+    "ProductName": "المجد طقم دفاية اطفال قطيفة 6 ق",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1712",
+    "ProductName": "المجد طقم دفاية كبير قطيفة 10 ق",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1713",
+    "ProductName": "العالمية مستورد لحاف جوبير 3 ق",
+    "SalePrice": 1699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1714",
+    "ProductName": "ثلاجة زانوسى 16 قدم",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1715",
+    "ProductName": "فرن الزهراء",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1716",
+    "ProductName": "غسالة برميل",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1717",
+    "ProductName": "ثلاجة فريش 20 قدم",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1718",
+    "ProductName": "سخان كهربائى يونيون اير 50 لتر",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1719",
+    "ProductName": "شاشة سامسونج 58 اسمارت",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1720",
+    "ProductName": "شاشة فريش 32 بريسيفر",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1721",
+    "ProductName": "غسالة 8 ك اكس بربس استالس",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1722",
+    "ProductName": "فرن الزهراء 1 م",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1723",
+    "ProductName": "شاشة LG اسمارت 43",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1724",
+    "ProductName": "ثلاجة فريش 16 قدم ديجيتال",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1725",
+    "ProductName": "اسطوانة بوتوجاز",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1726",
+    "ProductName": "مكواة + ترابيزة",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1727",
+    "ProductName": "عصارة",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1728",
+    "ProductName": "غسالة هوفر 12 ك",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1729",
+    "ProductName": "شاشة فريش 32 عادى",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1730",
+    "ProductName": "غسالة توشيبا 12 هاف اتوماتيك استانلس",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1731",
+    "ProductName": "شاشة LG 32",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1732",
+    "ProductName": "فريزر فريش 6 درج",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1733",
+    "ProductName": "ثلاجة توشيبا 18 انفنتر",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1734",
+    "ProductName": "دفاية ميجا وان 3 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1735",
+    "ProductName": "بونبنيرة لوتس كود 15011",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1736",
+    "ProductName": "طقم بهارات كود 7010",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1737",
+    "ProductName": "مج شاى كود 1024",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1738",
+    "ProductName": "طقم عشاء لوتس كود 9#8002",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1739",
+    "ProductName": "مج شوربة كود 1#2006",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1740",
+    "ProductName": "بولة ايس كريم كود 15001",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1741",
+    "ProductName": "مج شاى كود 1#1001",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1742",
+    "ProductName": "كبة تاتش بقشارة 2 لتر",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1743",
+    "ProductName": "خلط تورنيدو 5200",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1744",
+    "ProductName": "طقم شاى 24 ق كود 9008",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1745",
+    "ProductName": "طقم شاى 24 ق كود 9010",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1747",
+    "ProductName": "غسالة شارب 11 ك",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1748",
+    "ProductName": "بوتوجاز رويال 90×60 هاى ليت",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1749",
+    "ProductName": "مكنسة بلك بطة",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1750",
+    "ProductName": "غسالة هوفر 10 ك",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1751",
+    "ProductName": "ثلاجة يونيون اير 16 قدم",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1752",
+    "ProductName": "غسالة فريش هاف 10 ك جامبو",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1753",
+    "ProductName": "شاشة ال جى 32 اسمارت",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1754",
+    "ProductName": "طقم بهارات لوتس كود 1010",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1189",
+    "ProductName": "كاس سعودى 42 ق",
+    "SalePrice": 699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1190",
+    "ProductName": "نصف دستة كاس دريم",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1191",
+    "ProductName": "قطع شربات تاندرا",
+    "SalePrice": 149.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1192",
+    "ProductName": "قطع شربات لانس لينمارك",
+    "SalePrice": 349.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1193",
+    "ProductName": "قطع شوب لانس لينمارك",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1194",
+    "ProductName": "صينية تشيكى النجم الفضى",
+    "SalePrice": 649.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1195",
+    "ProductName": "خبازة عيش",
+    "SalePrice": 699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1196",
+    "ProductName": "صينية ملمين زيرو",
+    "SalePrice": 29.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1197",
+    "ProductName": "طقم جرانيت كورى 11 ق مربع",
+    "SalePrice": 2599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1198",
+    "ProductName": "طقم بان بان 11 ق",
+    "SalePrice": 2599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1199",
+    "ProductName": "صينية كورى",
+    "SalePrice": 599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1200",
+    "ProductName": "طقم توزيع زهران",
+    "SalePrice": 215.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1201",
+    "ProductName": "طقم ثلجة زهران 4 ق",
+    "SalePrice": 210.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1202",
+    "ProductName": "طقم ثلجة زهران 3 ق",
+    "SalePrice": 169.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1203",
+    "ProductName": "براد تركى سادة 1.5 لتر",
+    "SalePrice": 329.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1204",
+    "ProductName": "مقلية تروفال",
+    "SalePrice": 499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1205",
+    "ProductName": "بيتزا تروفال",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1206",
+    "ProductName": "طقم حلة تروفال 13 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1207",
+    "ProductName": "طقم استانلس 12 ق",
+    "SalePrice": 1999.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1208",
+    "ProductName": "طقم صينية تقديم خشب",
+    "SalePrice": 279.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1209",
+    "ProductName": "طقم كنك 1×6",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1210",
+    "ProductName": "طقم كوباية الومنيوم سيجال",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1211",
+    "ProductName": "طقم كوباية مياه الدهان",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1212",
+    "ProductName": "طقم كزرولة سيجال",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1213",
+    "ProductName": "لبانة اسامة",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1214",
+    "ProductName": "طقم كنك الدهان ك",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1215",
+    "ProductName": "طقم صوانى سيجال 5 ق الومنيوم",
+    "SalePrice": 599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1216",
+    "ProductName": "طقم بسبوسة سيجال 32",
+    "SalePrice": 499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1217",
+    "ProductName": "طقم صوانى فرن الدهان بلس 5 ق",
+    "SalePrice": 499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1218",
+    "ProductName": "طقم صوانى بسبوسة الدهان بلس 5 ق",
+    "SalePrice": 499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1219",
+    "ProductName": "طقم صوانى فرن اسامة",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1220",
+    "ProductName": "طقم صوانى بسبوسة اسامة",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1221",
+    "ProductName": "غلية قهوة",
+    "SalePrice": 139.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1222",
+    "ProductName": "طقم كنك قهوة جرانيت",
+    "SalePrice": 219.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1223",
+    "ProductName": "طقم حلة تشيكى سيجال",
+    "SalePrice": 1799.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1224",
+    "ProductName": "طقم حلة شاورما سيجال 3 مم",
+    "SalePrice": 2199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1225",
+    "ProductName": "طقم صينية مربع ملمين",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1226",
+    "ProductName": "طقم ثلجة مربع اماراتى",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1227",
+    "ProductName": "براد الدهان يد سلك",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1228",
+    "ProductName": "طقم براد الدهان بلس",
+    "SalePrice": 319.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1229",
+    "ProductName": "طقم صحن بيض 1×3",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1230",
+    "ProductName": "عجان 2 لتر",
+    "SalePrice": 359.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1231",
+    "ProductName": "طقم جرانيت كاسيو 1.8",
+    "SalePrice": 170.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1232",
+    "ProductName": "كشاف استار ليت",
+    "SalePrice": 379.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1233",
+    "ProductName": "طقم صوانى طاجن الدهان",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1234",
+    "ProductName": "طقم استانلس 64",
+    "SalePrice": 849.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1235",
+    "ProductName": "مطحنة بن استار ماكس",
+    "SalePrice": 379.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1236",
+    "ProductName": "دماسة",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1237",
+    "ProductName": "طقم تيفال 9 ق",
+    "SalePrice": 2399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1238",
+    "ProductName": "مقلية اسامة",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1239",
+    "ProductName": "طقم العروسة بلستيك صحى",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1240",
+    "ProductName": "كشاف عمود 1",
+    "SalePrice": 349.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1241",
+    "ProductName": "كشاف عمود 2",
+    "SalePrice": 379.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1242",
+    "ProductName": "ترمس بوت 1 لتر",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1251",
+    "ProductName": "حلة جامبو تركى 40 مقاس",
+    "SalePrice": 899.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1252",
+    "ProductName": "طقم استانلس قادوس 10 ق 18/1 خشب",
+    "SalePrice": 2499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1253",
+    "ProductName": "طقم حله استانلس تركى 12 ق يد جاكوش",
+    "SalePrice": 2499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1254",
+    "ProductName": "غالبة بيركس قادوس 2.2 لتر",
+    "SalePrice": 289.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1255",
+    "ProductName": "شنطة معالى قادوس 87 حشب مذهب",
+    "SalePrice": 1199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1256",
+    "ProductName": "طقم اكرول قادوس 52 اسبو 4 ابيض",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1257",
+    "ProductName": "مضرب بالعجمان قادوس استناس 4 لتر",
+    "SalePrice": 749.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1258",
+    "ProductName": "مقابلة غوطه حراتي تركي 28",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1259",
+    "ProductName": "مضرب بيض بدون عجمان قادوس 4 سلاح",
+    "SalePrice": 379.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1260",
+    "ProductName": "طقم حلة كرو 8 تركى",
+    "SalePrice": 2499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1261",
+    "ProductName": "طقم شاومة 10 تركى",
+    "SalePrice": 2699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1262",
+    "ProductName": "طقم شاومة 13 تركى",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1263",
+    "ProductName": "طقم معالى 24 شفاف فلمانجو",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1264",
+    "ProductName": "طقم مضر شوربة بالحلة ماكس 9 بورسل",
+    "SalePrice": 549.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1265",
+    "ProductName": "طقم صينى 78 مذهب ماكس ريم شيب",
+    "SalePrice": 3299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1266",
+    "ProductName": "ملامين الشريف قادوس 38 قفستون",
+    "SalePrice": 1599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1267",
+    "ProductName": "طقم مضر شاي نوفا 7 ق بورسلين",
+    "SalePrice": 229.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1268",
+    "ProductName": "مضر شوربة كالاسيك بحامل بورسلين البرك",
+    "SalePrice": 249.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1269",
+    "ProductName": "شياالة مربع قادوس 3 دور بست جولد",
+    "SalePrice": 499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1270",
+    "ProductName": "شوب فيروز مذهب 199",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1271",
+    "ProductName": "دور كوشيم بالطقعة 43",
+    "SalePrice": 179.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1272",
+    "ProductName": "وسط كرات 52",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1273",
+    "ProductName": "شاي اكوا تك مذهب 42",
+    "SalePrice": 398.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1274",
+    "ProductName": "كاس عصير في الين الوان 44",
+    "SalePrice": 849.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1275",
+    "ProductName": "شوب اسطنبول ماسورة مذهب 42",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1276",
+    "ProductName": "وسط اكوا تك مذهب 42",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1277",
+    "ProductName": "كوب عصير الجبرا الوان 41",
+    "SalePrice": 448.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1278",
+    "ProductName": "كاس بالبو مذهب 41",
+    "SalePrice": 419.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1279",
+    "ProductName": "شاي كاري مربع مذهب 41",
+    "SalePrice": 388.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1280",
+    "ProductName": "مخ كافر الوان 55",
+    "SalePrice": 398.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1281",
+    "ProductName": "مخ قهوة رحاج الوان 55",
+    "SalePrice": 398.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1282",
+    "ProductName": "كوب كاري الوان 41",
+    "SalePrice": 448.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1283",
+    "ProductName": "مخ قهوة بنجوين الوان 55",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1284",
+    "ProductName": "مخ هاي بلي الوان 55",
+    "SalePrice": 398.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1285",
+    "ProductName": "مخ شاي بنجوين الوان 55",
+    "SalePrice": 448.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1286",
+    "ProductName": "مخ كاري الوان 55",
+    "SalePrice": 418.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1287",
+    "ProductName": "مخ شاي ارز الوان 55",
+    "SalePrice": 398.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1288",
+    "ProductName": "شوب لينا الستار كامل 6 لون 929520014",
+    "SalePrice": 519.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1289",
+    "ProductName": "شوب لينا 692952001",
+    "SalePrice": 529.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1290",
+    "ProductName": "فرن 45 لتر شواية + لمبة + مرحة بلاك باو",
+    "SalePrice": 1499.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1291",
+    "ProductName": "صينة مستطيل سوبر 73 سم",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1292",
+    "ProductName": "صينة مستديرة سوبر 65 سم",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1293",
+    "ProductName": "صينة مستطيل سوبر 63 ل",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1294",
+    "ProductName": "طقم صينة ماجيك الشريف 3 ق",
+    "SalePrice": 279.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1295",
+    "ProductName": "طقم صاح ماري 10 ق ابيح نوك",
+    "SalePrice": 899.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1296",
+    "ProductName": "طقم صاح الجينت 10 ق بغطاء استناسل",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1297",
+    "ProductName": "طقم صوادي الشريف 3 ق اورجينال",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1298",
+    "ProductName": "طقم صوادي الشريف كمفورت الوان مختل",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1299",
+    "ProductName": "هاند بلندر فردي",
+    "SalePrice": 389.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1300",
+    "ProductName": "طقم شوربات فيروز 7 ق ديكاوا 907009",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1301",
+    "ProductName": "وسط لينكا الوان 420405",
+    "SalePrice": 395.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1302",
+    "ProductName": "طقم مخ شوربة بالحلة كارا بلاك 8 ق بورس",
+    "SalePrice": 599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1303",
+    "ProductName": "طقم شوربات ق اكوا تك سادة 907007",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1304",
+    "ProductName": "شوب جابا مذهب 420755",
+    "SalePrice": 498.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1305",
+    "ProductName": "شوب أز سادة 420275",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1306",
+    "ProductName": "معالق شفاف النور",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1307",
+    "ProductName": "كاتل زجاج",
+    "SalePrice": 279.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1308",
+    "ProductName": "كنك قهوة",
+    "SalePrice": 119.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1309",
+    "ProductName": "صينية بيتزا تروفال",
+    "SalePrice": 249.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1310",
+    "ProductName": "كاتل بلستك",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1311",
+    "ProductName": "صينية مراية قادوس",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1312",
+    "ProductName": "لبانة جرانيت",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1313",
+    "ProductName": "مصافى برجل الومنيوم",
+    "SalePrice": 219.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1314",
+    "ProductName": "صينية بسبوسة الدهان بيور 3 ق",
+    "SalePrice": 349.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1315",
+    "ProductName": "صينية فرن الدهان بيور 3 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1316",
+    "ProductName": "حلة بمصفاه جرانيت",
+    "SalePrice": 899.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1317",
+    "ProductName": "توابل بورسلين لوتس قادوس",
+    "SalePrice": 699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1318",
+    "ProductName": "سكينة جرانيت 18",
+    "SalePrice": 449.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1319",
+    "ProductName": "ملمين الشريف الصلى",
+    "SalePrice": 1899.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1320",
+    "ProductName": "ملمين العمارى 38 ق",
+    "SalePrice": 999.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1321",
+    "ProductName": "ملمين سلفادور",
+    "SalePrice": 949.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1322",
+    "ProductName": "سكينة 25",
+    "SalePrice": 699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1323",
+    "ProductName": "طقم العروسة قادوس",
+    "SalePrice": 899.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1324",
+    "ProductName": "مج سمايل",
+    "SalePrice": 239.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1325",
+    "ProductName": "مج اسبرسو",
+    "SalePrice": 269.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1326",
+    "ProductName": "شوربة كلسيك",
+    "SalePrice": 249.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1327",
+    "ProductName": "فرن فلمنجو",
+    "SalePrice": 1399.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1328",
+    "ProductName": "اركوبال",
+    "SalePrice": 949.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1329",
+    "ProductName": "اركوبايركس 52 ق قادوس",
+    "SalePrice": 899.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1330",
+    "ProductName": "صينى لفا 80 ق",
+    "SalePrice": 3499.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1331",
+    "ProductName": "صينى قندنا 78 ق",
+    "SalePrice": 3199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1332",
+    "ProductName": "استالس 32",
+    "SalePrice": 2699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1333",
+    "ProductName": "براد استانلس",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1334",
+    "ProductName": "طبق سمك 9 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1335",
+    "ProductName": "صاج ماربل",
+    "SalePrice": 749.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1336",
+    "ProductName": "معالق خشب",
+    "SalePrice": 1199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1337",
+    "ProductName": "استانلس شاكوش",
+    "SalePrice": 2799.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1338",
+    "ProductName": "مقلية غويطه قادوس",
+    "SalePrice": 249.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1339",
+    "ProductName": "عشاء قادوس 30 ق",
+    "SalePrice": 1399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1340",
+    "ProductName": "حلة جولد 36",
+    "SalePrice": 649.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1341",
+    "ProductName": "معالق مستورد",
+    "SalePrice": 2699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1342",
+    "ProductName": "حلة شاورمة السندباد 13",
+    "SalePrice": 1799.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1343",
+    "ProductName": "حلة شاورمة الدهان بيور 10",
+    "SalePrice": 1599.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1344",
+    "ProductName": "تشيكى الدهان بيور 8 ق",
+    "SalePrice": 1449.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1345",
+    "ProductName": "معالق النور",
+    "SalePrice": 1699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1346",
+    "ProductName": "معالق ارشا",
+    "SalePrice": 1699.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1347",
+    "ProductName": "دماسة الومنيوم",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1348",
+    "ProductName": "مج ريهام",
+    "SalePrice": 249.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1349",
+    "ProductName": "حافظة طعام",
+    "SalePrice": 349.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1350",
+    "ProductName": "معالق استانلس فلمنجو",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1351",
+    "ProductName": "عشا زجاج 24 ق",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1352",
+    "ProductName": "تشيكى صاج",
+    "SalePrice": 1849.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1353",
+    "ProductName": "طقم ملية كرانيش سوريا 5 ق",
+    "SalePrice": 349.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1354",
+    "ProductName": "بطانية موران 3",
+    "SalePrice": 949.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1355",
+    "ProductName": "بطانية موران 4",
+    "SalePrice": 649.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1356",
+    "ProductName": "كوفرتة المجد كرانيش 5 ق",
+    "SalePrice": 1399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1357",
+    "ProductName": "كوفرتة المجد هاند ميد 5 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1358",
+    "ProductName": "كوفرتة المجد مجسم اطفال 4 ق",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1359",
+    "ProductName": "كوفرتة المجد كرانيش 2 ق",
+    "SalePrice": 2499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1360",
+    "ProductName": "مفرش المجد جوبير 4 ق",
+    "SalePrice": 1899.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1361",
+    "ProductName": "مفرش المجد فسطون 4 ق",
+    "SalePrice": 1999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1362",
+    "ProductName": "مفرش شانيل جوبير 3 ق",
+    "SalePrice": 999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1363",
+    "ProductName": "مفرش جوبير سادة 2 قطع",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1364",
+    "ProductName": "طقم سرير المجد عادى 10 ق",
+    "SalePrice": 349.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1365",
+    "ProductName": "طقم سرير المجد كرانيش 10 ق",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1366",
+    "ProductName": "طقم سرير المجد كرانيش مضلع 1 ق",
+    "SalePrice": 599.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1367",
+    "ProductName": "طقم سرير المجد كرانيش كبير 10 ق",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1368",
+    "ProductName": "لحاف كوفا 3 ق",
+    "SalePrice": 1799.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1369",
+    "ProductName": "دفاية موريل 4 قطع",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1370",
+    "ProductName": "دفاية اسبانيول 10 قطع",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1371",
+    "ProductName": "مفرش فلفو 4 ق كبير",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1372",
+    "ProductName": "لحاف بيرل 3 ق كبير",
+    "SalePrice": 3699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1373",
+    "ProductName": "دفاية جيمزا 7 ق",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1374",
+    "ProductName": "كوفرتة اطفال كرانيش 6 ق",
+    "SalePrice": 1699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1375",
+    "ProductName": "بطانية اسبانى ميامورا 4",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1376",
+    "ProductName": "فوطة تواليت نوسة 30×30 5 ق",
+    "SalePrice": 119.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1377",
+    "ProductName": "ملية كوفا 4 قطع",
+    "SalePrice": 279.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1378",
+    "ProductName": "كوفرتة اطفال موفا 5 قطع",
+    "SalePrice": 1299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1379",
+    "ProductName": "برنص قوطن مطرز 6 ق",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1380",
+    "ProductName": "طقم توابل دريم 12 ق دورين",
+    "SalePrice": 199.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1381",
+    "ProductName": "طقم بهارات 4 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1382",
+    "ProductName": "كولمان دريم بارد ساخن 2 حنفية",
+    "SalePrice": 399.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1383",
+    "ProductName": "طقم بونبنيرة بورسلين 6",
+    "SalePrice": 299.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1384",
+    "ProductName": "سرفيس ديمل 30 سم 2 ق كود 17006",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1385",
+    "ProductName": "طقم صوانى استانلس بيد دريم 2 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1386",
+    "ProductName": "طقم صوانى استانلس ليزر 2 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1387",
+    "ProductName": "شنطة معالق ارشا كود 8002",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1388",
+    "ProductName": "طقم بهارات ديموند 4 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1389",
+    "ProductName": "حافظة طعام 3 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1390",
+    "ProductName": "طقم بولة ايس كريم استان+ق مستديرة 6",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1391",
+    "ProductName": "طقم شاى الف ليلة وليلة 1 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1392",
+    "ProductName": "طقم جرانيت كورى 11 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1393",
+    "ProductName": "طقم استانلس بونيرا 10 ق حلة 30",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1394",
+    "ProductName": "طقم استانلس 10 ق حلة 32",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1395",
+    "ProductName": "حلة استانلس بونيرا 40 مقاس",
+    "SalePrice": 1390.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1396",
+    "ProductName": "كوفرتة ايطاليانو دبل فيس 6 ق",
+    "SalePrice": 649.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1397",
+    "ProductName": "لحاف ارستا 4 ق",
+    "SalePrice": 1299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1398",
+    "ProductName": "لحاف كبير بلدونا 4 ق",
+    "SalePrice": 1399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1399",
+    "ProductName": "طقم ملية خليجى مجسم استار 6 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1400",
+    "ProductName": "طقم ملية خليجى همسة مج اطفال 6 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1401",
+    "ProductName": "طقم ملية لميرا وعد مطرز 6 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1402",
+    "ProductName": "طقم ملية لميرا ملك جوبير 5 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1403",
+    "ProductName": "طقم ملية حرير كود 115 6 ق",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1404",
+    "ProductName": "طقم ملية حرير كود 117 6 ق",
+    "SalePrice": 649.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1405",
+    "ProductName": "طقم ملية حرير كود 119 6 ق",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1406",
+    "ProductName": "طقم ملية حرير كود 49 4 ق",
+    "SalePrice": 569.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1407",
+    "ProductName": "طقم ملية حرير كود 55 4 ق",
+    "SalePrice": 569.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1408",
+    "ProductName": "طقم ملية حرير كود 80 4 ق",
+    "SalePrice": 589.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1409",
+    "ProductName": "طقم ملية حرير كود 82 4 ق",
+    "SalePrice": 569.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1410",
+    "ProductName": "كوفرتة جاسر الكسلنس بملية 6 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1411",
+    "ProductName": "برنص الفيروز كود 1012",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1412",
+    "ProductName": "برنص الفيروز كود 1011",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1413",
+    "ProductName": "برنص بيكو تول",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1414",
+    "ProductName": "برنص فيو تركى حريم السلطان",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1415",
+    "ProductName": "برنص فيفون طاووس",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1416",
+    "ProductName": "برنص فيفون همس",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1417",
+    "ProductName": "برنص جوليا علبة قطيفة",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1418",
+    "ProductName": "كبة تاتش بقشارة سرعتين 2 لتر",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1419",
+    "ProductName": "مكواة تاتش جراند بخار 6",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1420",
+    "ProductName": "نور عمدني 5 دور مربع",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1421",
+    "ProductName": "نور عمدني 5 دور مدور",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1422",
+    "ProductName": "نور عمدني 4 دور مدور",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1423",
+    "ProductName": "نور عمدني 4 دور مربع",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1427",
+    "ProductName": "دفاية ربحية",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1428",
+    "ProductName": "دفاية ريفا 6×6",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1429",
+    "ProductName": "دفاية برلت 12",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1430",
+    "ProductName": "مقرش جراند 12 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1431",
+    "ProductName": "دفاية ريدية",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1432",
+    "ProductName": "لحاف اطفال المتعددة 6 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1433",
+    "ProductName": "لحاف كبير المتعددة 3 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1434",
+    "ProductName": "جرل الماني K&I",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1435",
+    "ProductName": "حافظة ديجيتال جولد مون",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1436",
+    "ProductName": "حافظة دونس 3×2 جولد مون",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1437",
+    "ProductName": "مشاية جولد مون 2×70",
+    "SalePrice": 0.00,
+    "CategoryId": 1,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1438",
+    "ProductName": "طقم جرانيت قطر 9 ق",
+    "SalePrice": 2200.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1439",
+    "ProductName": "طقم جرانيت سنتر",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1486",
+    "ProductName": "طقم الدهان التركي 8 ق",
+    "SalePrice": 0.00,
+    "CategoryId": 2,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1532",
+    "ProductName": "خدديه سوفت عاديه",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1533",
+    "ProductName": "خدديه سوفت فاصل",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1534",
+    "ProductName": "مخده سوفت فاصل",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1535",
+    "ProductName": "مخده سوفت فاصل 110 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1536",
+    "ProductName": "مخده سوفت فاصل 120 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1537",
+    "ProductName": "مخده سوفت فاصل 130 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1538",
+    "ProductName": "مخده سوفت فاصل 140 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1539",
+    "ProductName": "مخده سوفت فاصل 150 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1540",
+    "ProductName": "مخده سوفت فاصل 160 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1541",
+    "ProductName": "مخده سوفت فاصل 170 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1542",
+    "ProductName": "مخده سوفت فاصل 180 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1543",
+    "ProductName": "مخده سوفت فاصل 190 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1544",
+    "ProductName": "مخده سوفت فاصل 200 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1545",
+    "ProductName": "ميلتون خفيف 100 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1546",
+    "ProductName": "ميلتون خفيف 110 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1547",
+    "ProductName": "ميلتون خفيف 120 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1548",
+    "ProductName": "ميلتون خفيف 130 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1549",
+    "ProductName": "ميلتون خفيف 140 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1550",
+    "ProductName": "ميلتون خفيف 150 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1551",
+    "ProductName": "ميلتون خفيف 160 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1552",
+    "ProductName": "ميلتون خفيف 170 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1553",
+    "ProductName": "ميلتون خفيف 180 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1554",
+    "ProductName": "ميلتون خفيف 190 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1555",
+    "ProductName": "ميلتون خفيف 200 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1556",
+    "ProductName": "مرتبة كيدز 90 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1557",
+    "ProductName": "مرتبة كيدز 100 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1558",
+    "ProductName": "مرتبة كيدز 110 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1559",
+    "ProductName": "مرتبة كيدز 120 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1560",
+    "ProductName": "مرتبة كيدز 130 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1561",
+    "ProductName": "مرتبة كيدز 140 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1562",
+    "ProductName": "مرتبة كيدز 150 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1563",
+    "ProductName": "مرتبة كيدز 160 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1564",
+    "ProductName": "مرتبة كيدز 170 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1565",
+    "ProductName": "مرتبة كيدز 180 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1566",
+    "ProductName": "مرتبة كيدز 190 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1567",
+    "ProductName": "مرتبة كيدز 200 سم",
+    "SalePrice": 0.00,
+    "CategoryId": 4,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1000",
+    "ProductName": "بطانية روكسانا 8 ك",
+    "SalePrice": 949.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1001",
+    "ProductName": "دفاية روتانا",
+    "SalePrice": 265.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1002",
+    "ProductName": "بطانية بونيتا 7 ك",
+    "SalePrice": 799.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1003",
+    "ProductName": "بطانية كمفورت راق واحد",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1004",
+    "ProductName": "دفاية ميراج",
+    "SalePrice": 395.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1005",
+    "ProductName": "بطانية بيبى طبقة",
+    "SalePrice": 0.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1006",
+    "ProductName": "بطانية بيبى طبقة 2",
+    "SalePrice": 195.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1007",
+    "ProductName": "ملية المجد اطفال عادى 6 ق",
+    "SalePrice": 340.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1008",
+    "ProductName": "فوطة السروجى بسكوتة 4-50",
+    "SalePrice": 495.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1009",
+    "ProductName": "فوطة ستارز ايبسون S2125",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1010",
+    "ProductName": "فوطة ستارز ايبسون T6090",
+    "SalePrice": 495.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1011",
+    "ProductName": "فوطة ستارز ايبسون T6088",
+    "SalePrice": 459.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1012",
+    "ProductName": "مفرش المجد قطيفة جوبير اطفال 6 ق",
+    "SalePrice": 2499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1013",
+    "ProductName": "فوطة السروجى حل 3-70",
+    "SalePrice": 419.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1014",
+    "ProductName": "فوطة اسطنبول اطفال كيتى 70×50",
+    "SalePrice": 229.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1015",
+    "ProductName": "فوطة ستارز ايبسون b317",
+    "SalePrice": 599.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1016",
+    "ProductName": "فوطة ستارز ايبسون b316",
+    "SalePrice": 459.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1017",
+    "ProductName": "مفرش المجد قطيفة جوبير كبير 4 ق",
+    "SalePrice": 1899.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1018",
+    "ProductName": "مفرش العالمية قطيفة اطفال مشجر 6 ق",
+    "SalePrice": 1699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1019",
+    "ProductName": "مفرش العالمية جوبير بدواسة 5 ق",
+    "SalePrice": 1999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1020",
+    "ProductName": "فوطة نيللى علبة سادة 3-70",
+    "SalePrice": 495.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1021",
+    "ProductName": "فوطة نيللى علبة سادة 3-60",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1022",
+    "ProductName": "كوفرتة العالمية موجة كبير",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1023",
+    "ProductName": "بشكير نيللى كبير",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1024",
+    "ProductName": "كوفرتة المجد اطفال فسطون 8 ق",
+    "SalePrice": 1699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1025",
+    "ProductName": "فوطة تروبيكا لولى كاتى",
+    "SalePrice": 289.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1026",
+    "ProductName": "مفرش العالمية فسطون كبير 4 ق",
+    "SalePrice": 1999.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1027",
+    "ProductName": "فوطة تروبيكا زيزينيا",
+    "SalePrice": 439.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1028",
+    "ProductName": "بشكير السروجى سرايا",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1029",
+    "ProductName": "كوفرتة العالمية كرانيش 6 ق",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1030",
+    "ProductName": "طقم ملية العميد دهب",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1031",
+    "ProductName": "كوفرتة العالمية كرانيش 8 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1032",
+    "ProductName": "طقم ملية توب تكس 0113",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1033",
+    "ProductName": "ملية الكسلنس تاليا",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1034",
+    "ProductName": "ملية الكسلنس نورسين",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1035",
+    "ProductName": "ملية الكسلنس كارمن",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1036",
+    "ProductName": "برنس الفيروز برنص لى لى",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1037",
+    "ProductName": "مفرش المجد قطيفة فسطون اطفال 6 ق",
+    "SalePrice": 2499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1038",
+    "ProductName": "فوطة السروجى وردة 4-50",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1039",
+    "ProductName": "فوطة المختار كنزو كبير 4 ق",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1040",
+    "ProductName": "فوطة المختار كنزو اطفال 6 ق",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1041",
+    "ProductName": "فوطة المختار كنزو اطفال 4 ق",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1042",
+    "ProductName": "كوفرتة لوندى كرانيش 8 ق",
+    "SalePrice": 1399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1043",
+    "ProductName": "كوفرتة المجد اطفال كرانيش 8 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1044",
+    "ProductName": "بشكير ستارز ايبسون H120",
+    "SalePrice": 349.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1045",
+    "ProductName": "فوطة قطونيل فاكيوم مطرزة استثمارى",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1046",
+    "ProductName": "بطانية بيبى 25 ك",
+    "SalePrice": 199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1047",
+    "ProductName": "برنس الفيروز موش",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1048",
+    "ProductName": "طقم المختار الفراشة",
+    "SalePrice": 469.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1049",
+    "ProductName": "كوفرتة العالمية فسطون بملية 5 ق",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1050",
+    "ProductName": "كوفرتة العالمية كرانيش 3 ق",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1051",
+    "ProductName": "فوطة ستارز ايبسون S2066",
+    "SalePrice": 599.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1052",
+    "ProductName": "فوطة تروبيكا ريناد",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1053",
+    "ProductName": "كوفرتة العالمية هاند ميد 3 ق",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1054",
+    "ProductName": "ملية مودرن كود 38 بلدى",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1055",
+    "ProductName": "فوطة العلياء فيرونا",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1056",
+    "ProductName": "كوفرتة طوكيو سفرى 8 ق",
+    "SalePrice": 749.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1057",
+    "ProductName": "ملية كود 116 بلدى",
+    "SalePrice": 650.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1058",
+    "ProductName": "فوطة السروجى لوجين 4-50",
+    "SalePrice": 569.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1059",
+    "ProductName": "برنس الفيروز كود 1002",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1060",
+    "ProductName": "برنس الفيروز كود 1003",
+    "SalePrice": 950.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1061",
+    "ProductName": "فوطة الفاروق اطفال",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1062",
+    "ProductName": "فوطة تروبيكا هايدى",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1063",
+    "ProductName": "فوطة السروجى ديم 3-70",
+    "SalePrice": 529.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1064",
+    "ProductName": "فوطة الفخرانى اطفال دبدوب",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1065",
+    "ProductName": "ملية نور الحياة ساندرا",
+    "SalePrice": 519.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1066",
+    "ProductName": "فوطة قطونيل بابلو وسط جاكار 4 ق",
+    "SalePrice": 349.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1067",
+    "ProductName": "فوطة الفاروق ارابيسك هاند ميد",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1068",
+    "ProductName": "فوطة الفاروق ارابيسك جوبير",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1069",
+    "ProductName": "فوطة السروجى جو 4-60",
+    "SalePrice": 649.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1070",
+    "ProductName": "طقم المختار ملية نورسين ك",
+    "SalePrice": 629.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1071",
+    "ProductName": "ملية الجمال كود 888",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1072",
+    "ProductName": "ملية الجمال كود 600",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1073",
+    "ProductName": "بشكير قطونيل بابلو",
+    "SalePrice": 229.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1074",
+    "ProductName": "فوطة العلياء اصالة",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1075",
+    "ProductName": "ملية العميد لوتس",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1076",
+    "ProductName": "ملية نور الحياة اطفال سيدار",
+    "SalePrice": 519.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1077",
+    "ProductName": "بشكير ريلكس مطرز",
+    "SalePrice": 199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1078",
+    "ProductName": "فوطة السروجى آية 3-70",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1079",
+    "ProductName": "فوطة كاندى تفتيح 60",
+    "SalePrice": 199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1080",
+    "ProductName": "ملية نور الحياة جاردينيا",
+    "SalePrice": 519.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1081",
+    "ProductName": "فوطة حور تكس النجوم 3 ق",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1082",
+    "ProductName": "فوطة حور تكس سادة منقط 3 ق",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1083",
+    "ProductName": "كسوة انترية مودرن جاكار 4 ق",
+    "SalePrice": 699.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1084",
+    "ProductName": "كسوة انترية مودرن جاكار 5 ق",
+    "SalePrice": 749.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1085",
+    "ProductName": "طقم عدى ملية كنزى كيدز",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1086",
+    "ProductName": "طقم عدى ملية كود 2020",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1087",
+    "ProductName": "طقم عدى ملية دبدوب مجسم",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1088",
+    "ProductName": "طقم عدى ملية سنفور",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1089",
+    "ProductName": "طقم عدى ملية الجوكر",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1090",
+    "ProductName": "طقم عدى ملية دولر",
+    "SalePrice": 449.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1091",
+    "ProductName": "كوفرتة وعد ليندا كبير",
+    "SalePrice": 1199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1092",
+    "ProductName": "كوفرتة وعد سولى كبير",
+    "SalePrice": 729.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1093",
+    "ProductName": "كوفرتة وعد فيرى اطفال",
+    "SalePrice": 899.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1094",
+    "ProductName": "كوفرتة وعد لوتس اطفال",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1095",
+    "ProductName": "فوطة الفاروق فلى",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1096",
+    "ProductName": "كوفرتة طوكيو 6 ق كبير",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1097",
+    "ProductName": "طقم المختار ملية اليزابيث",
+    "SalePrice": 599.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1098",
+    "ProductName": "ملية رودكس كود 56 بلدى",
+    "SalePrice": 650.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1099",
+    "ProductName": "ملية كود 54 بلدى",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1100",
+    "ProductName": "ملية الكسلنس سيلا",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1101",
+    "ProductName": "فوطة تروبيكا لوسيا",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1102",
+    "ProductName": "مفرش كونفا 4 في كبير",
+    "SalePrice": 1499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1103",
+    "ProductName": "فوطة السروجى اسماء 4-60",
+    "SalePrice": 649.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1104",
+    "ProductName": "ملية افريكانو والحرم - دابيت",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1105",
+    "ProductName": "طقم غادة - شارلي",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1106",
+    "ProductName": "طقم سيرار - 65",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1107",
+    "ProductName": "طقم العاب - الحرية كيدز",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1108",
+    "ProductName": "طقم العميد ديزني اطفال",
+    "SalePrice": 469.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1109",
+    "ProductName": "طقم البيت الحديث - كود 666",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1110",
+    "ProductName": "طقم دينار سندرية اطفال",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1111",
+    "ProductName": "طقم سلطان بستن ودياسطي",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1112",
+    "ProductName": "طقم الكسلنس لوكا كيدز",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1113",
+    "ProductName": "طقم العميد ارنوي",
+    "SalePrice": 469.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1114",
+    "ProductName": "طقم ماركو دابديو",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1115",
+    "ProductName": "طقم ستابل هوم كراش",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1116",
+    "ProductName": "ملية بلك Col-line 12",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1117",
+    "ProductName": "طقم الجوهرة مايا سادة كبير",
+    "SalePrice": 549.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1118",
+    "ProductName": "طقم العاب - انطاليا",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1119",
+    "ProductName": "طقم سيرار كود 182",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1120",
+    "ProductName": "طقم المارون فالور",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1121",
+    "ProductName": "طقم المارون الري",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1122",
+    "ProductName": "طقم ديماس Tree",
+    "SalePrice": 350.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1123",
+    "ProductName": "طقم ديماس روان",
+    "SalePrice": 350.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1124",
+    "ProductName": "طقم ديماس اركيدا",
+    "SalePrice": 350.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1125",
+    "ProductName": "طقم الدال باسمينا",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1126",
+    "ProductName": "طقم افريكانو والحرم حنين",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1127",
+    "ProductName": "طقم افريكانو والحرم كود 405",
+    "SalePrice": 799.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1128",
+    "ProductName": "طقم الكسلنس فرحة",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1129",
+    "ProductName": "طقم الكسلنس جوليت",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1130",
+    "ProductName": "طقم الكسلنس جولد",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1131",
+    "ProductName": "طقم عدى والحريف بينكي",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1132",
+    "ProductName": "طقم عدى والحريف نونا",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1133",
+    "ProductName": "طقم دينار هذة ليلتي",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1134",
+    "ProductName": "طقم دينار مكة",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1135",
+    "ProductName": "طقم دينار ليان",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1136",
+    "ProductName": "طقم السوسي كود 1012",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1137",
+    "ProductName": "طقم السوسي لوكا",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1138",
+    "ProductName": "طقم نو هورس مهراجا",
+    "SalePrice": 419.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1139",
+    "ProductName": "طقم نو هورس ابو عرام",
+    "SalePrice": 419.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1140",
+    "ProductName": "طقم نو هورس روميو",
+    "SalePrice": 419.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1141",
+    "ProductName": "طقم الكسلنس جودا",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1142",
+    "ProductName": "فوطة الغارق اطفال 4 في مجسم",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1143",
+    "ProductName": "فوطة السويدى منطاد 4 في اطفال",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1144",
+    "ProductName": "فوطة السويدى كيدز اطفال",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1145",
+    "ProductName": "فوطة كاندى مطرز ميرا 4 في",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1146",
+    "ProductName": "فوطة كاندى مطرز حنا 4 في",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1147",
+    "ProductName": "فوطة كاندى مطرز سما 4 في",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1148",
+    "ProductName": "طقم مفرشات G 5504",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1149",
+    "ProductName": "فوطة داود نونو جوبير وردة 4 في",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1150",
+    "ProductName": "فوطة حكاية بطوط 4 في",
+    "SalePrice": 199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1151",
+    "ProductName": "فوطة زقزوق فلور مطرز 4 ق",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1152",
+    "ProductName": "فوطة اجياد ايفا 4 ق",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1153",
+    "ProductName": "فوطة السروجى لميس 3-70",
+    "SalePrice": 569.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1154",
+    "ProductName": "فوطة السروجى وردة 3-60",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1155",
+    "ProductName": "فوطة السروجى مروة جوبير 4-60",
+    "SalePrice": 599.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1156",
+    "ProductName": "فوطة السروجى لفى 3-60",
+    "SalePrice": 499.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1157",
+    "ProductName": "فوطة السروجى صباح 4-60",
+    "SalePrice": 529.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1158",
+    "ProductName": "فوطة السروجى ساندى 4-60",
+    "SalePrice": 629.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1159",
+    "ProductName": "فوطة ديوريل كارل 4-50",
+    "SalePrice": 359.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1160",
+    "ProductName": "فوطة ديوريل ريتال 4-50",
+    "SalePrice": 359.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1161",
+    "ProductName": "فوطة ديوريل دليلة 4-50",
+    "SalePrice": 359.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1162",
+    "ProductName": "فوطة ديوريل ريماس 4-50",
+    "SalePrice": 359.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1163",
+    "ProductName": "فوطة انتيكا فراشة مطرز 4 ق",
+    "SalePrice": 359.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1164",
+    "ProductName": "فوطة السويدى دلع 4 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1165",
+    "ProductName": "فوطة السويدى بستان 4 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1166",
+    "ProductName": "فوطة السويدى خلود 4 ق",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1167",
+    "ProductName": "فوطة الشهد بامبو 4 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1168",
+    "ProductName": "فوطة السويدى لوجى 4 ق",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1169",
+    "ProductName": "فوطة السويدى لهفه 4 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1170",
+    "ProductName": "فوطة السويدى ندى 4 ق",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1171",
+    "ProductName": "فوطة السويدى شمس 4 ق",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1172",
+    "ProductName": "فوطة الجمل 60 قطن جوبير دانتيل 13000",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1173",
+    "ProductName": "فوطة الجمل 4-60 قطن تركى جوبير 600",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1174",
+    "ProductName": "فوطة الجمل 4 قطن 17000",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1175",
+    "ProductName": "فوطة العلياء مطرز 4-60",
+    "SalePrice": 429.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1176",
+    "ProductName": "فوطة اجياد اطفال دبدوب",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1177",
+    "ProductName": "فوطة حكاية براعم اطفال 4 ق",
+    "SalePrice": 199.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1178",
+    "ProductName": "فوطة حكاية براعم اطفال 6 ق",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1179",
+    "ProductName": "فوطة عبد المنصف 6 ق اطفال 4005",
+    "SalePrice": 399.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1180",
+    "ProductName": "فوطة عبد المنصف 6 ق اطفال 4010",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1181",
+    "ProductName": "فوطة الهنا اطفال شخصيات 6 ق",
+    "SalePrice": 349.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1182",
+    "ProductName": "فوطة ريلكس فواصل",
+    "SalePrice": 329.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1183",
+    "ProductName": "فوطة كاندى جوبير ياسمين 4 ق",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1184",
+    "ProductName": "فوطة كاندى مطرز فروع الورد 4 ق",
+    "SalePrice": 249.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1185",
+    "ProductName": "فوطة روز سيليا 120×60 4 ق",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1186",
+    "ProductName": "فوطة ريلكس قطيفة 4 ق",
+    "SalePrice": 329.00,
+    "CategoryId": 3,
+    "CompanyId": 1
+  },
+  {
+    "ProductCode": "1187",
+    "ProductName": "فوطة فيرى فيورى مطرز",
+    "SalePrice": 299.00,
+    "CategoryId": 3,
+    "CompanyId": 1
   }
 ]

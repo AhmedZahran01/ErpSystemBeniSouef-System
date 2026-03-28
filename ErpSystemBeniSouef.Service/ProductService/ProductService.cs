@@ -58,7 +58,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
         public async Task<IReadOnlyList<ProductDto>> GetAllProductsAsync(int comanyNo)
         {
             var products = await _unitOfWork.Repository<Product>().GetAllProductsAsync(comanyNo, m => m.Category);
-            products = products.Where(m=>m.CompanyId == comanyNo).ToList();
+            products = products.Where(m => m.CompanyId == comanyNo).ToList();
             var response = _mapper.Map<IReadOnlyList<ProductDto>>(products);
 
             foreach (var productDto in response)
@@ -150,7 +150,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
             var category = await _unitOfWork.Repository<Category>().GetByIdAsync(createDto.CategoryId);
             if (category == null)
                 return null;
-             
+
             var product = _mapper.Map<Product>(createDto);
             _unitOfWork.Repository<Product>().Add(product);
             await _unitOfWork.CompleteAsync();
@@ -255,24 +255,52 @@ namespace ErpSystemBeniSouef.Service.ProductService
             if (product == null)
                 return 0;
 
-            var profit = product.SalePrice - product.PurchasePrice;
-            var profitMargin = (profit / product.SalePrice) * 100;
-            return Math.Round(profitMargin, 2);
+            if (product.SalePrice > 0)
+            { 
+                if (!(product.PurchasePrice > 0))
+                {
+                    product.PurchasePrice = product.SalePrice;
+                }
+                if (!(product.SalePrice > 0))
+                {
+                    product.SalePrice = product.PurchasePrice;
+                }
+                var profit = product.SalePrice - product.PurchasePrice;
+                var profitMargin = (profit / product.SalePrice) * 100;
+                return Math.Round(profitMargin, 2);
+            }
+            return 0;
+
         }
+
 
         public async Task<decimal> CalculateProfitMarginAsync(int id)
         {
             var product = await _unitOfWork.Repository<Product>().GetByIdAsync(id);
             if (product == null)
-                return 0;
+                return 0; 
 
-            var profit = product.SalePrice - product.PurchasePrice;
-            var profitMargin = (profit / product.SalePrice) * 100;
-            return Math.Round(profitMargin, 2);
+            if (product.SalePrice > 0)
+            {
+                if (!(product.PurchasePrice > 0))
+                {
+                    product.PurchasePrice = product.SalePrice;
+                }
+                if (!(product.SalePrice > 0))
+                {
+                    product.SalePrice = product.PurchasePrice;
+                }
+                var profit = product.SalePrice - product.PurchasePrice;
+                var profitMargin = (profit / product.SalePrice) * 100;
+                return Math.Round(profitMargin, 2);
+            }
+            return 0;
+
+
         }
 
         #endregion
-         
+
         #region Get All Region 
 
         public IReadOnlyList<CategoryDto> GetAllCategories()
@@ -295,7 +323,7 @@ namespace ErpSystemBeniSouef.Service.ProductService
 
         #endregion
 
-         
+
         //=================== Comment ASYNC METHIDS  =========================
 
         #region Comment Async Region

@@ -56,8 +56,12 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             //"Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true"
             //    );
             // optionsBuilder.UseSqlServer(
-            var connectionString = "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
-           // var connectionString = "Server=DESKTOP-V116C4B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var connectionString = "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=New14_3VersionTwoErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+            //var connectionString = "Server=DESKTOP-NRGEJ6B\\SQLEXPRESS;Database=New28_3VersionErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+
+            // var connectionString = "Server=DESKTOP-V116C4B\\SQLEXPRESS;Database=ErpSystemBeniSouef-DB;Integrated Security=True;TrustServerCertificate=true;Trusted_Connection=True;MultipleActiveResultSets=true";
             //);
 
 
@@ -70,7 +74,7 @@ namespace ErpSystemBeniSouef.Infrastructer.Data.Context
             //    );
             //});
 
-                         optionsBuilder.UseSqlServer(
+            optionsBuilder.UseSqlServer(
                  connectionString,
                  x => x.EnableRetryOnFailure(0)
              );
